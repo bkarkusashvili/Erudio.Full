@@ -11,8 +11,9 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix.js('resources/js/app.jsx', 'public/js')
     .react()
+    .copyDirectory('resources/images', 'public/images')
     .sass('resources/scss/app.scss', 'public/css')
     .disableSuccessNotifications()
     .webpackConfig(require('./webpack.config'));

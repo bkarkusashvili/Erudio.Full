@@ -26,6 +26,10 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
+Route::get('/about', [FrontController::class, 'about'])->name('about');
+Route::get('/categories', [FrontController::class, 'categories'])->name('categories');
+Route::get('/courses', [FrontController::class, 'courses'])->name('courses');
+Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

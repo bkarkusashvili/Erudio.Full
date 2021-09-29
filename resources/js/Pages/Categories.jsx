@@ -1,13 +1,13 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 
-const Home = () => {
+const Categories = () => {
 
     return (
         <MainLayout>
-            sadsa
+            categories
         </MainLayout>
     );
 };
 
-export default Home;
+export default Categories;
