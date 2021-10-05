@@ -17,14 +17,39 @@ class FrontController extends Controller
         return Inertia::render('About', []);
     }
 
-    public function categories()
+    public function team()
     {
-        return Inertia::render('Categories', []);
+        return Inertia::render('About/Team', []);
     }
 
-    public function courses()
+    public function social()
     {
-        return Inertia::render('Courses', []);
+        return Inertia::render('About/Social', []);
+    }
+
+    public function media()
+    {
+        return Inertia::render('About/Media', []);
+    }
+
+    public function mediaSingle()
+    {
+        return Inertia::render('About/MediaSingle', []);
+    }
+
+    public function category()
+    {
+        return Inertia::render('Category', []);
+    }
+
+    public function categorySingle()
+    {
+        return Inertia::render('Category/CategorySingle', []);
+    }
+
+    public function course()
+    {
+        return Inertia::render('Course', []);
     }
 
     public function contact()

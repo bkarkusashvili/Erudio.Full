@@ -26,9 +26,17 @@ use Inertia\Inertia;
 // });
 
 Route::get('/', [FrontController::class, 'home'])->name('home');
+
 Route::get('/about', [FrontController::class, 'about'])->name('about');
-Route::get('/categories', [FrontController::class, 'categories'])->name('categories');
-Route::get('/courses', [FrontController::class, 'courses'])->name('courses');
+Route::get('/team', [FrontController::class, 'team'])->name('team');
+Route::get('/social', [FrontController::class, 'social'])->name('social');
+Route::get('/media', [FrontController::class, 'media'])->name('media');
+Route::get('/media-single', [FrontController::class, 'mediaSingle'])->name('media.single');
+
+Route::get('/category', [FrontController::class, 'category'])->name('category');
+Route::get('/category-single', [FrontController::class, 'categorySingle'])->name('category.single');
+
+Route::get('/course', [FrontController::class, 'course'])->name('course');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
 Route::get('/dashboard', function () {

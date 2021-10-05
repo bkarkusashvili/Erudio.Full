@@ -12,10 +12,10 @@ export const CourseList = ({ title, list, isReverce = false }) => {
         })}>
             <div className="container wrap">
                 <div className="info">
-                    <h3>{title}</h3>
+                    <h3 className="tp-header">{title}</h3>
                     <div className="content">
-                        <h4>{item.title}</h4>
-                        <p>{item.text}</p>
+                        <h4 className="tp-header mb-36 small">{item.title}</h4>
+                        <p className="tp-text">{item.text}</p>
                         <Link href="/">
                             ვრცლად
                         </Link>

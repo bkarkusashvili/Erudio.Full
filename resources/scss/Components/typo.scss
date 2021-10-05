@@ -1,0 +1,57 @@
+.tp-header {
+    color: #1a1a1a;
+    font-size: 36px;
+    font-weight: bold;
+    font-family: 'Caps';
+
+    &.small {
+        font-size: 28px;
+    }
+
+    &.headline {
+        position: relative;
+
+        &::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            display: block;
+            width: 302px;
+            height: 4px;
+            background-color: #e8b902;
+        }
+    }
+
+    &.mb-33 {
+        margin-bottom: 33px;
+    }
+
+    &.mb-36 {
+        margin-bottom: 36px;
+    }
+
+    &.mb-40 {
+        margin-bottom: 40px;
+    }
+}
+
+.tp-text {
+    color: #888893;
+    font-size: 22px;
+    line-height: 36px;
+
+    p {
+        margin-bottom: 30px;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.tp-more {
+    color: #1a1a1a;
+    text-decoration: none;
+    font-size: 22px;
+}

@@ -19,6 +19,19 @@ export const Header = () => {
                             className={isActivePage(item.name) ? 'active' : ''}
                         >
                             <span>{item.value}</span>
+                            {item.list && item.list.length && (
+                                <div className="nav-list">
+                                    {item.list.map((item, key) => (
+                                        <Link
+                                            key={key}
+                                            href={route(item.name)}
+                                            className={isActivePage(item.name) ? 'active' : ''}
+                                        >
+                                            {item.value}
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
                         </Link>
                     ))}
                 </nav>
