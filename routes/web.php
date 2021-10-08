@@ -37,6 +37,7 @@ Route::get('/category', [FrontController::class, 'category'])->name('category');
 Route::get('/category-single', [FrontController::class, 'categorySingle'])->name('category.single');
 
 Route::get('/course', [FrontController::class, 'course'])->name('course');
+Route::get('/course/1', [FrontController::class, 'CourseSingle'])->name('course.single');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
 Route::get('/dashboard', function () {

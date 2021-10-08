@@ -52,6 +52,11 @@ class FrontController extends Controller
         return Inertia::render('Course', []);
     }
 
+    public function courseSingle()
+    {
+        return Inertia::render('Course/CourseSingle', []);
+    }
+
     public function contact()
     {
         return Inertia::render('Contact', []);

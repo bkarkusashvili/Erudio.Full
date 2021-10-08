@@ -1,4 +1,6 @@
 import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 export const Slider = () => {
     return (
@@ -10,7 +12,10 @@ export const Slider = () => {
                     <div className="search-input">
                         <input type="text" name="search" autoComplete="off" placeholder="მოძებნე შენთვის სასურველი კურსი |" />
                     </div>
-                    <a href="" className="download">საპრეზენტაციო ფაილის გადმოწერა</a>
+                    <a href="" className="download">
+                        <FontAwesomeIcon icon={faArrowDown} />
+                        <span>საპრეზენტაციო ფაილის გადმოწერა</span>
+                    </a>
                 </div>
             </div>
         </div>

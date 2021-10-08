@@ -10,8 +10,8 @@ export const CourseCard = () => {
                 <div className="content">
                     <div className="tp-text address">ლოკაცია:თბილისი, შარტავას 36</div>
                     <div className="tp-text date">თარიღი: 20.12.21 - 25.12.21</div>
-                    <Link href="/" className="tp-more">ვრცლად</Link>
-                    <Link href="/" className="register">რეგისტრაცია</Link>
+                    <Link href={route('course.single')} className="tp-more">ვრცლად</Link>
+                    <Link href={route('course.single')} className="tp-register">რეგისტრაცია</Link>
                 </div>
             </div>
         </div>
