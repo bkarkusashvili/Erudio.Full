@@ -61,4 +61,14 @@ class FrontController extends Controller
     {
         return Inertia::render('Contact', []);
     }
+
+    public function profile()
+    {
+        return Inertia::render('Auth/Profile', []);
+    }
+
+    public function settings()
+    {
+        return Inertia::render('Auth/Settings', []);
+    }
 }

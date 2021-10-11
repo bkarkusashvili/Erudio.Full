@@ -24,4 +24,11 @@ export const MainMenu = [
     },
     { name: 'course', value: 'კურსები' },
     { name: 'contact', value: 'კონტაქტი' },
+    {
+        name: 'login', value: 'შესლვა', list: [
+            { name: 'profile', value: 'ჩემი გვერდი' },
+            { name: 'settings', value: 'პარამეტრები' },
+            { name: 'settings', value: 'სისტემიდან გასვლა' }
+        ]
+    },
 ];

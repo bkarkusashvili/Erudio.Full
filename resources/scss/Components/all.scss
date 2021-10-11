@@ -871,3 +871,99 @@
         }
     }
 }
+
+.profile {
+    display: flex;
+    justify-content: center;
+    padding: 74px 0;
+
+    .tp-header {
+        margin-bottom: 45px;
+    }
+
+    .list {
+        display: flex;
+        flex-direction: column;
+
+        .item {
+            display: grid;
+            grid-template-columns: 2fr 3fr 2fr 2fr;
+            grid-gap: 30px;
+            font-size: 22px;
+            color: #888893;
+            margin-bottom: 66px;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            .title {
+                font-weight: bold;
+            }
+
+            a {
+                color: #5851d1;
+            }
+        }
+    }
+}
+
+.settings {
+    display: flex;
+    justify-content: center;
+    padding: 74px 0;
+
+    .tp-header {
+        margin-bottom: 45px;
+    }
+
+    .wrap > .tp-text {
+        margin-bottom: 70px;
+    }
+
+    .form {
+        display: flex;
+        flex-direction: column;
+        padding-bottom: 83px;
+        border-bottom: 1px dashed #a6a6ae;
+        margin-bottom: 74px;
+
+        .item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+
+            &:last-of-type {
+                margin-bottom: 0;
+            }
+
+            span {
+                width: 320px;
+            }
+
+            input.form-field {
+                background-color: none;
+                border: none;
+                outline: none;
+                border-bottom: 1px solid #1a1a1a;
+                width: 500px;
+                font-size: 18px;
+            }
+
+            .form-submit {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 500px;
+                height: 60px;
+                background-color: transparent;
+                border: 1px solid #5952d3;
+                outline: none;
+                color: #5952d3;
+                font-size: 20px;
+                font-weight: bold;
+                border-radius: 40px;
+            }
+        }
+    }
+}

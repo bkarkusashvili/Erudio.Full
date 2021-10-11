@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -40,8 +41,15 @@ Route::get('/course', [FrontController::class, 'course'])->name('course');
 Route::get('/course/1', [FrontController::class, 'CourseSingle'])->name('course.single');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
+Route::get('/profile', [FrontController::class, 'profile'])->name('profile');
+Route::get('/settings', [FrontController::class, 'settings'])->name('settings');
+
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 require __DIR__ . '/auth.php';
+
+Route::prefix('admin')->group(function () {
+    Route::resource('course', CourseController::class);
+});
