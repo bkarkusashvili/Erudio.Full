@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 
@@ -19,7 +20,9 @@ class FrontController extends Controller
 
     public function team()
     {
-        return Inertia::render('About/Team', []);
+        return Inertia::render('About/Team', [
+            'list' => Team::all()
+        ]);
     }
 
     public function social()

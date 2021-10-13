@@ -1,8 +1,7 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 
-const Team = () => {
-
+const Team = ({ list }) => {
     return (
         <MainLayout>
             <section className="team-wrap">
@@ -10,78 +9,18 @@ const Team = () => {
                     <h1 className="tp-header">ჩვენი გუნდი</h1>
                 </div>
                 <div className="list">
-                    <div className="item container">
-                        <div className="media">
-                            <img src="/images/team.jpg" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header">სახელი გვარი</h3>
-                            <h4 className="tp-header small mb-36">პროფესია</h4>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის
-                                შესახებამ ადამიანის შესახებ
+                    {list.map(item => (
+                        <div className="item container">
+                            <div className="media">
+                                <img src="/images/team.jpg" alt="" />
+                            </div>
+                            <div className="content">
+                                <h3 className="tp-header">{item.name}</h3>
+                                <h4 className="tp-header small mb-36">{item.profession}</h4>
+                                <div className="tp-text">{item.bio}</div>
                             </div>
                         </div>
-                    </div>
-                    <div className="item container">
-                        <div className="media">
-                            <img src="/images/team.jpg" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header">სახელი გვარი</h3>
-                            <h4 className="tp-header small mb-36">პროფესია</h4>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის
-                                შესახებამ ადამიანის შესახებ
-                            </div>
-                        </div>
-                    </div>
-                    <div className="item container">
-                        <div className="media">
-                            <img src="/images/team.jpg" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header">სახელი გვარი</h3>
-                            <h4 className="tp-header small mb-36">პროფესია</h4>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის
-                                შესახებამ ადამიანის შესახებ
-                            </div>
-                        </div>
-                    </div>
-                    <div className="item container">
-                        <div className="media">
-                            <img src="/images/team.jpg" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header">სახელი გვარი</h3>
-                            <h4 className="tp-header small mb-36">პროფესია</h4>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებ
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის
-                                შესახებამ ადამიანის შესახებ
-                            </div>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
         </MainLayout>
