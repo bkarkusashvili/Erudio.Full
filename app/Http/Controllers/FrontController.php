@@ -2,12 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
+use App\Models\Media;
 use App\Models\Team;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Lang;
 use Inertia\Inertia;
 
 class FrontController extends Controller
 {
+
+    public function __construct()
+    {
+        Inertia::share('categories', Category::all());
+        Inertia::share('lang', Lang::locale());
+    }
+
     public function home()
     {
         return Inertia::render('Home', []);
@@ -32,22 +42,34 @@ class FrontController extends Controller
 
     public function media()
     {
-        return Inertia::render('About/Media', []);
+        return Inertia::render('About/Media', [
+            'list' => Media::all()
+        ]);
     }
 
-    public function mediaSingle()
+    public function mediaSingle(int $id)
     {
-        return Inertia::render('About/MediaSingle', []);
+        $item = Media::findOrFail($id);
+
+        return Inertia::render('About/MediaSingle', [
+            'item' => $item
+        ]);
     }
 
     public function category()
     {
-        return Inertia::render('Category', []);
+        return Inertia::render('Category', [
+            'list' => Category::all()
+        ]);
     }
 
-    public function categorySingle()
+    public function categorySingle(int $id)
     {
-        return Inertia::render('Category/CategorySingle', []);
+        $item = Category::findOrFail($id);
+
+        return Inertia::render('Category/CategorySingle', [
+            'item' => $item
+        ]);
     }
 
     public function course()

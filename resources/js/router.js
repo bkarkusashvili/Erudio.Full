@@ -8,20 +8,7 @@ export const MainMenu = [
             { name: 'media', value: 'მედია' },
         ]
     },
-    {
-        name: 'category', value: 'კატეგორიები', list: [
-            { name: 'category', value: 'კორპორატიული ტრეინინგები' },
-            { name: 'category', value: 'შესაბამისობა' },
-            { name: 'category', value: 'საბანკო-საფინანსო' },
-            { name: 'category', value: 'საგადასახადო' },
-            { name: 'category', value: 'იურიდიული' },
-            { name: 'category', value: 'გაყიდვები' },
-            { name: 'category', value: 'ეკონომიკა' },
-            { name: 'category', value: 'ტურიზმი' },
-            { name: 'category', value: 'ტექნოლოგიური' },
-            { name: 'category', value: 'ციფრული მარკეტინგი' },
-        ]
-    },
+    { name: 'category', value: 'კატეგორიები' },
     { name: 'course', value: 'კურსები' },
     { name: 'contact', value: 'კონტაქტი' },
     {

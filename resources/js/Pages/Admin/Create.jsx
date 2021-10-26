@@ -12,7 +12,9 @@ const Create = ({ model, fields }) => {
 
     const { post, errors, processing, setData } = useForm(initForm);
 
-    const submit = () => post(route(`${model}.store`));
+    const submit = () => post(
+        route(`${model}.store`)
+    );
 
     return (
         <AdminLayout>

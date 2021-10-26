@@ -5,14 +5,21 @@ import { useForm } from '@inertiajs/inertia-react';
 import { Field } from './Components';
 
 const Edit = ({ model, data, fields }) => {
-    const initForm = {};
+    const initForm = { _method: 'PUT' };
     fields.forEach(field => field.list
-        .forEach(item => initForm[item.name] = data[item.name])
+        .forEach(item => {
+            const key = item.name;
+            const value = item.type !== 'file' ? data[item.name] : null;
+
+            initForm[key] = value;
+        })
     );
 
     const { post, errors, processing, data: formData, setData } = useForm(initForm);
 
-    const submit = () => post(route(`${model}.store`));
+    const submit = () => post(
+        route(`${model}.update`, data.id)
+    );
 
     return (
         <AdminLayout>
@@ -25,7 +32,7 @@ const Edit = ({ model, data, fields }) => {
                     <Grid item key={key} xs={field.size}>
                         <Stack spacing={2}>
                             {field.list.map((item, key) => (
-                                <Field key={key} data={item} error={errors[item.name]} value={formData[item.name]} setChange={setData} />
+                                <Field key={key} data={item} error={errors[item.name]} value={data[item.name]} setChange={setData} />
                             ))}
                         </Stack>
                     </Grid>

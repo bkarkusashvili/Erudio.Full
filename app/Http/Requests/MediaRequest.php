@@ -24,8 +24,12 @@ class MediaRequest extends FormRequest
     public function rules()
     {
         return [
-            'key' => 'required|string',
-            'value' => 'required|string',
+            'title' => 'required|string',
+            'text' => 'required|string',
+            'image' => [
+                'image',
+                request()->isMethod('POST') ? 'required' : 'nullable'
+            ],
         ];
     }
 }

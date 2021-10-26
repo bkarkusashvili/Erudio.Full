@@ -15,11 +15,17 @@ class MediaController extends AdminController
     ];
     public $fields = [
         [
-            'size' => 12,
+            'size' => 8,
             'list' => [
                 ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
                 ['type' => 'textarea', 'name' => 'text', 'label' => 'ტექსტი'],
             ]
         ],
+        [
+            'size' => 4,
+            'list' => [
+                ['type' => 'file', 'name' => 'image', 'label' => 'სურათი'],
+            ]
+        ]
     ];
 }

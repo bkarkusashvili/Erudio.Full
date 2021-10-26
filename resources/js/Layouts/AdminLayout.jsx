@@ -13,12 +13,12 @@ import { Link } from '@inertiajs/inertia-react';
 const drawerWidth = 240;
 const menu = [
     // { text: 'მომხმარებლები', model: 'course' },
-    { text: 'სლაიდერი', model: 'slider' },
+    // { text: 'სლაიდერი', model: 'slider' },
     { text: 'კურსები', model: 'course' },
     { text: 'გუნდი', model: 'team' },
     { text: 'მედია', model: 'media' },
-    { text: 'გამოწერები', model: 'subscribe' },
-    // { text: 'კატეგორია', model: 'category' },
+    // { text: 'გამოწერები', model: 'subscribe' },
+    { text: 'კატეგორია', model: 'category' },
     { text: 'გვერდები', model: 'page' },
     { text: 'პარამეტრები', model: 'option' },
 ];

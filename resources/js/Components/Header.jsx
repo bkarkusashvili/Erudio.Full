@@ -1,9 +1,25 @@
 import React from 'react';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 import { isActivePage } from '@/Helper';
 import { MainMenu } from '@/router';
 
 export const Header = () => {
+    const { categories } = usePage().props;
+
+    const menu = MainMenu.map(item => {
+        if (item.name === 'category') {
+            item.list = [];
+            categories.forEach(category => {
+                item.list.push({
+                    name: 'category.single',
+                    value: category.title,
+                    id: category.id
+                });
+            });
+        }
+
+        return item;
+    });
 
     return (
         <header>
@@ -12,7 +28,7 @@ export const Header = () => {
                     <img src="/images/logo.png" alt="Erudio" />
                 </a>
                 <nav>
-                    {MainMenu.map((item, key) => (
+                    {menu.map((item, key) => (
                         <Link
                             key={key}
                             href={route(item.name)}
@@ -24,7 +40,10 @@ export const Header = () => {
                                     {item.list.map((item, key) => (
                                         <Link
                                             key={key}
-                                            href={route(item.name)}
+                                            href={item.id ?
+                                                route(item.name, item.id) :
+                                                route(item.name)
+                                            }
                                             className={isActivePage(item.name) ? 'active' : ''}
                                         >
                                             {item.value}

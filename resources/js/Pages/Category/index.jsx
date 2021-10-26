@@ -2,142 +2,24 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link } from '@inertiajs/inertia-react';
 
-const Category = () => {
+const Category = ({ list }) => {
 
     return (
         <MainLayout>
             <section className="category-wrap">
                 <div className="container list">
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
+                    {list.map(item => (
+                        <div key={item.id} className="item">
+                            <div className="media">
+                                <img src={`/storage/${item.image}`} alt="" />
                             </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
+                            <div className="content">
+                                <h3 className="tp-header small">{item.title}</h3>
+                                <div className="tp-text">{item.text}</div>
+                                <Link href={route('category.single', item.id)} className="tp-more">ვრცლად</Link>
                             </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
                         </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
-                    <div className="item">
-                        <div className="media">
-                            <img src="/images/media.png" alt="" />
-                        </div>
-                        <div className="content">
-                            <h3 className="tp-header small">საბანკო საფინანსო</h3>
-                            <div className="tp-text">
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                                ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                            </div>
-                            <Link href={route('category.single')} className="tp-more">ვრცლად</Link>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
         </MainLayout>

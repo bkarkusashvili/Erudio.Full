@@ -24,10 +24,16 @@ class TeamRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string',
-            'profession' => 'required|string',
-            'bio' => 'required|string',
-            'image' => 'string|nullable',
+            'name_ka' => 'required|string',
+            'name_en' => 'nullable|string',
+            'profession_ka' => 'required|string',
+            'profession_en' => 'nullable|string',
+            'bio_ka' => 'required|string',
+            'bio_en' => 'nullable|string',
+            'image' => [
+                'image',
+                request()->isMethod('POST') ? 'required' : 'nullable'
+            ],
         ];
     }
 }

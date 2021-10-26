@@ -29,10 +29,10 @@ Route::get('/about', [FrontController::class, 'about'])->name('about');
 Route::get('/team', [FrontController::class, 'team'])->name('team');
 Route::get('/social', [FrontController::class, 'social'])->name('social');
 Route::get('/media', [FrontController::class, 'media'])->name('media');
-Route::get('/media-single', [FrontController::class, 'mediaSingle'])->name('media.single');
+Route::get('/media/{id}', [FrontController::class, 'mediaSingle'])->name('media.single');
 
 Route::get('/category', [FrontController::class, 'category'])->name('category');
-Route::get('/category-single', [FrontController::class, 'categorySingle'])->name('category.single');
+Route::get('/category/{id}', [FrontController::class, 'categorySingle'])->name('category.single');
 
 Route::get('/course', [FrontController::class, 'course'])->name('course');
 Route::get('/course/1', [FrontController::class, 'CourseSingle'])->name('course.single');

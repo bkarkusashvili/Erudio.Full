@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Request;
+use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -37,10 +37,15 @@ class AdminController extends Controller
 
     public function index()
     {
-        $items = $this->model::all();
+        $result = $this->model::latest()->paginate(10);
+        $paginate = [
+            'page' => $result->currentPage(),
+            'count' => $result->lastPage(),
+        ];
 
         return Inertia::render('Admin/List', [
-            'rows' => $items,
+            'rows' => $result->items(),
+            'paginate' => $paginate,
             'columns' => $this->columns,
             'actions' => [
                 'edit' => $this->edit,
@@ -70,8 +75,15 @@ class AdminController extends Controller
     {
         $validator = $this->validator($request);
         $validator->validate();
+        $data = collect($validator->validated());
 
-        $model = $this->model::create($validator->validated());
+        $data->each(function ($item, $key) use ($data) {
+            if ($item instanceof UploadedFile) {
+                $data[$key] = $this->uploadImage($item);
+            }
+        });
+
+        $model = $this->model::create($data->toArray());
 
         return Redirect::route($this->route . '.edit', [$model->id]);
     }
@@ -114,8 +126,16 @@ class AdminController extends Controller
         $validator = $this->validator($request);
         $validator->validate();
 
-        $item = $this->model::findOrFail($id);
-        $item->update($validator->validated());
+        $model = $this->model::findOrFail($id);
+        $data = collect($validator->validated())->filter(fn ($item) => $item !== null);
+
+        $data->each(function ($item, $key) use ($data, $model) {
+            if ($item instanceof UploadedFile) {
+                $data[$key] = $this->uploadImage($item, $model[$key]);
+            }
+        });
+
+        $model->update($data->toArray());
 
         return Redirect::back();
     }
@@ -134,5 +154,12 @@ class AdminController extends Controller
     private function validator(Request $request)
     {
         return Validator::make($request->all(), $this->request::createFrom($request)->rules());
+    }
+
+    private function uploadImage(UploadedFile $image, string $oldImage = null)
+    {
+        Storage::disk('public')->delete($oldImage);
+
+        return Storage::disk('public')->putFile('images/' . $this->route, $image) ?: null;
     }
 }

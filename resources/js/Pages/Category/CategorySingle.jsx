@@ -2,26 +2,18 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
 
-const CategorySingle = () => {
+const CategorySingle = ({ item }) => {
 
     return (
         <MainLayout>
             <section className="category-single-wrap">
                 <div className="category-top">
-                    <img src="/images/media.png" alt="" />
+                    <img src={`/storage/${item.image}`} alt="" />
                 </div>
                 <div className="container wrap">
                     <div className="info">
-                        <h1 className="tp-header small mb-33">საბანკო საფინანსო</h1>
-                        <div className="tp-text">
-                            ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                            ბიოგრაფია ამ ადამიანის შესახებბიოგრა…ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრა.        ფია
-                            ბიოგრაფია ამ ადამიანის შესახებბიოგრა…ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                            ბიოგრაფია ამ ადამიანის შესახებბიოგრა…ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიო.      გრაფია
-                            ბიოგრაფია ამ ადამიანის შესახებბიოგრა…ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგრაფია
-                            ბიოგრაფია ამ ადამიანის შესახებბიოგრა…ბიოგრაფია ამ ადამიანის შესახებბიოგრაფია ამ ადამიანის შესახებბიოგ.    რაფია
-                            ბიოგრაფია ამ ადამიანის შესახებბიოგრა…
-                        </div>
+                        <h1 className="tp-header small mb-33">{item.title}</h1>
+                        <div className="tp-text">{item.text}</div>
                     </div>
                     <div className="courses">
                         <h3 className="tp-header">კურსები</h3>
