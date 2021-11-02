@@ -24,8 +24,10 @@ class CategoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string',
-            'text' => 'required|string',
+            'title_ka' => 'required|string',
+            'title_en' => 'nullable|string',
+            'text_ka' => 'required|string',
+            'text_en' => 'nullable|string',
             'image' => [
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'

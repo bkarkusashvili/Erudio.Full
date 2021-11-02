@@ -2,84 +2,36 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\InstructorRequest;
 use App\Models\Instructor;
-use Illuminate\Http\Request;
 
-class InstructorController extends Controller
+class InstructorController extends AdminController
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Instructor  $instructor
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Instructor $instructor)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Instructor  $instructor
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Instructor $instructor)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Instructor  $instructor
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Instructor $instructor)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Instructor  $instructor
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Instructor $instructor)
-    {
-        //
-    }
+    public $model = Instructor::class;
+    public $request = InstructorRequest::class;
+    public $columns = [
+        ['field' => 'id', 'headerName' => 'ID'],
+        ['field' => 'name_ka', 'headerName' => 'სახელი'],
+    ];
+    public $fields = [
+        [
+            'size' => 8,
+            'list' => [
+                ['type' => 'text', 'name' => 'name_ka', 'label' => 'სახელი (ქარ.)'],
+                ['type' => 'text', 'name' => 'name_en', 'label' => 'სახელი (ინგ.)'],
+                ['type' => 'text', 'name' => 'area_ka', 'label' => 'სფერო (ქარ.)'],
+                ['type' => 'text', 'name' => 'area_en', 'label' => 'სფერო (ინგ.)'],
+                ['type' => 'text', 'name' => 'profession_ka', 'label' => 'პროფესია (ქარ.)'],
+                ['type' => 'text', 'name' => 'profession_en', 'label' => 'პროფესია (ინგ.)'],
+                ['type' => 'textarea', 'name' => 'bio_ka', 'label' => 'ბიოგრაფია (ქარ.)'],
+                ['type' => 'textarea', 'name' => 'bio_en', 'label' => 'ბიოგრაფია (ინგ.)'],
+            ]
+        ],
+        [
+            'size' => 4,
+            'list' => [
+                ['type' => 'file', 'name' => 'image', 'label' => 'სურათი'],
+            ]
+        ]
+    ];
 }

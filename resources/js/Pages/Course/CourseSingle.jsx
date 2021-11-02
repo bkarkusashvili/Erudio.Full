@@ -2,10 +2,10 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link } from '@inertiajs/inertia-react';
 
-const CourseSingle = () => {
+const CourseSingle = ({ lang, auth }) => {
 
     return (
-        <MainLayout>
+        <MainLayout lang={lang} auth={auth}>
             <div className="course-single-wrap">
                 <div className="container video-box-wrap">
                     <div className="media">

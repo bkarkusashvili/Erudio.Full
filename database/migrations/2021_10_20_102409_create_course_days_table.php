@@ -16,7 +16,8 @@ class CreateCourseDaysTable extends Migration
         Schema::create('course_days', function (Blueprint $table) {
             $table->id();
             $table->dateTime('date');
-            $table->string('text');
+            $table->string('text_ka');
+            $table->string('text_en')->nullable();
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
 

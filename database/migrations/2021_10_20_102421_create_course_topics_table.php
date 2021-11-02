@@ -15,7 +15,8 @@ class CreateCourseTopicsTable extends Migration
     {
         Schema::create('course_topics', function (Blueprint $table) {
             $table->id();
-            $table->string('text');
+            $table->string('text_ka');
+            $table->string('text_en')->nullable();
             $table->unsignedBigInteger('course_id');
             $table->timestamps();
 

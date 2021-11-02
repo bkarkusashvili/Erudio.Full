@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { TextField } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import { Button } from '@mui/material';
 
 export const Field = ({ data, error, value, setChange }) => {
     const [image, setImage] = useState(value ? `/storage/${value}` : '');
     const isMultiline = data.type === 'textarea';
     const isImage = data.type === 'file';
+    const isSelect = data.type === 'select';
 
     const imageChange = (e) => {
         const file = e.target.files[0];
@@ -20,6 +21,13 @@ export const Field = ({ data, error, value, setChange }) => {
             <Button variant="contained" onClick={e => e.target.nextSibling.click()} children="არჩევა" />
             <input type={data.type} onChange={imageChange} hidden />
         </div>
+    ) : isSelect ? (
+        <FormControl fullWidth>
+            <InputLabel>{data.label}</InputLabel>
+            <Select value={value} label={data.label} onChange={value => setChange(data.name, value)}>
+                {/* <MenuItem value={10}>Ten</MenuItem> */}
+            </Select>
+        </FormControl>
     ) : (
         <TextField
             variant="outlined"

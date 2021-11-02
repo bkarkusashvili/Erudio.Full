@@ -4,10 +4,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMailBulk, faPhone, faSearchLocation } from '@fortawesome/free-solid-svg-icons';
 import { Subscribe } from './Home/Components';
 
-const Contact = () => {
+const Contact = ({ lang, auth }) => {
 
     return (
-        <MainLayout hasFooterMenu>
+        <MainLayout lang={lang} auth={auth} hasFooterMenu>
             <section className="contact-wrap">
                 <div className="container info">
                     <h3 className="tp-header headline small">დაგვეკონტაქტეთ</h3>

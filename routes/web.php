@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CityController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontController;
+use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\PageController;
@@ -38,8 +40,11 @@ Route::get('/course', [FrontController::class, 'course'])->name('course');
 Route::get('/course/1', [FrontController::class, 'CourseSingle'])->name('course.single');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
-Route::get('/profile', [FrontController::class, 'profile'])->name('profile');
-Route::get('/settings', [FrontController::class, 'settings'])->name('settings');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [FrontController::class, 'profile'])->name('profile');
+    Route::get('/settings', [FrontController::class, 'settings'])->name('settings');
+});
+
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -47,9 +52,11 @@ Route::get('/dashboard', function () {
 
 require __DIR__ . '/auth.php';
 
-Route::prefix('admin')->group(function () {
+Route::middleware('admin')->prefix('admin')->group(function () {
     Route::resources([
         'course' => CourseController::class,
+        'city' => CityController::class,
+        'instructor' => InstructorController::class,
         'slider' => SliderController::class,
         'team' => TeamController::class,
         'media' => MediaController::class,

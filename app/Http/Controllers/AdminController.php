@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Redirect;
@@ -26,6 +27,7 @@ class AdminController extends Controller
     public bool $edit = true;
     public bool $create = true;
     public bool $delete = true;
+    public $fileFilds = [];
 
     public function __construct()
     {
@@ -148,7 +150,18 @@ class AdminController extends Controller
      */
     public function destroy(int $id)
     {
-        //
+        $model = $this->model::findOrFail($id);
+
+        collect($this->fileFilds)->each(function ($field) use ($model) {
+            $this->removeFile($model->$field);
+        });
+        $this->beforeDestroy($model);
+
+        $model->delete();
+    }
+
+    protected function beforeDestroy(Model $model)
+    {
     }
 
     private function validator(Request $request)
@@ -158,8 +171,15 @@ class AdminController extends Controller
 
     private function uploadImage(UploadedFile $image, string $oldImage = null)
     {
-        Storage::disk('public')->delete($oldImage);
+        if ($oldImage) {
+            $this->removeFile($oldImage);
+        }
 
         return Storage::disk('public')->putFile('images/' . $this->route, $image) ?: null;
+    }
+
+    private function removeFile(string $url)
+    {
+        Storage::disk('public')->delete($url);
     }
 }

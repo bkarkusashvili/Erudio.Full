@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
-import { isActivePage } from '@/Helper';
+import { getClassName, isActivePage } from '@/Helper';
 import { MainMenu } from '@/router';
 
-export const Header = () => {
+export const Header = ({ lang, auth }) => {
     const { categories } = usePage().props;
 
     const menu = MainMenu.map(item => {
@@ -12,7 +12,7 @@ export const Header = () => {
             categories.forEach(category => {
                 item.list.push({
                     name: 'category.single',
-                    value: category.title,
+                    value: category['title_' + lang],
                     id: category.id
                 });
             });
@@ -32,7 +32,7 @@ export const Header = () => {
                         <Link
                             key={key}
                             href={route(item.name)}
-                            className={isActivePage(item.name) ? 'active' : ''}
+                            className={getClassName({ active: isActivePage(item.name) })}
                         >
                             <span>{item.value}</span>
                             {item.list && item.list.length && (
@@ -44,7 +44,7 @@ export const Header = () => {
                                                 route(item.name, item.id) :
                                                 route(item.name)
                                             }
-                                            className={isActivePage(item.name) ? 'active' : ''}
+                                            className={getClassName({ active: isActivePage(item.name), 'nav-item': true })}
                                         >
                                             {item.value}
                                         </Link>
@@ -53,6 +53,16 @@ export const Header = () => {
                             )}
                         </Link>
                     ))}
+                    <Link href={route('login')} className={isActivePage('login') ? 'active' : ''}>
+                        {auth.user?.firstname || 'შესვლა'}
+                        {auth.user && (
+                            <div className="nav-list">
+                                <Link href={route('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children="ჩემი გვერდი" />
+                                <Link href={route('settings')} className={getClassName({ active: isActivePage('settings'), 'nav-item': true })} children="პარამეტრები" />
+                                <Link href={route('logout')} className={getClassName({ 'nav-item': true })} method="post" as="button" children="სისტემიდან გასვლა" />
+                            </div>
+                        )}
+                    </Link>
                 </nav>
             </div>
         </header>

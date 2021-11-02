@@ -3,6 +3,10 @@
     justify-content: center;
     background-color: rgba(#e7e9f0, 0.5);
     padding: 123px 0 82px;
+
+    @include lg {
+        padding: 90px 0 70px;
+    }
 }
 
 .client-info-wrap {
@@ -14,6 +18,10 @@
     background-position: top 20px center;
     background-repeat: no-repeat;
     padding: 123px 0 97px;
+
+    @include lg {
+        padding: 80px 0 70px;
+    }
 }
 
 .subscribe-wrap {
@@ -322,6 +330,8 @@
 
                 img {
                     max-width: 268px;
+                    max-height: 100%;
+                    object-fit: cover;
                 }
             }
 
@@ -992,5 +1002,55 @@
         bottom: 50px;
         left: 50%;
         transform: translateX(-50%);
+    }
+}
+
+.login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 110px 0;
+
+    h1 {
+        font-size: 28px;
+        color: #ed9c03;
+        font-weight: bold;
+        margin-bottom: 100px;
+        font-family: 'Caps';
+    }
+
+    .fileds {
+        display: flex;
+        flex-direction: column;
+        width: 500px;
+
+        .input-wrap {
+            margin-bottom: 25px;
+        }
+
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 30px;
+            color: #ffffff;
+            font-size: 20px;
+            font-weight: bold;
+            border: none;
+            outline: none;
+            height: 60px;
+            font-family: 'Caps';
+            text-decoration: none;
+            margin-top: 36px;
+        }
+
+        .login-btn {
+            background-color: #5952d2;
+        }
+
+        .register-btn {
+            background-color: #ed9c03;
+        }
     }
 }

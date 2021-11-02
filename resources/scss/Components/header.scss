@@ -1,3 +1,5 @@
+@import '../var';
+
 header {
     position: relative;
     display: flex;
@@ -23,6 +25,10 @@ header {
         height: 152px;
         z-index: 2;
 
+        @include lg {
+            height: 90px;
+        }
+
         nav {
             display: flex;
             align-items: center;
@@ -36,6 +42,11 @@ header {
                 margin-right: 65px;
                 font-family: 'Caps';
                 padding: 20px 0;
+
+                @include lg {
+                    font-size: 18px;
+                    margin-right: 30px;
+                }
 
                 &:last-of-type {
                     margin-right: 0;
@@ -103,14 +114,16 @@ header {
                     padding: 42px 10px;
                     box-sizing: border-box;
 
-                    a {
+                    .nav-item {
                         color: #888893;
                         font-size: 22px;
                         font-weight: bold;
                         font-family: 'Caps';
                         margin-bottom: 24px;
-                        border-bottom: 2px solid transparent;
                         text-decoration: none;
+                        background-color: transparent;
+                        border: none;
+                        outline: none;
 
                         &:last-of-type {
                             margin-bottom: 0;
@@ -118,8 +131,12 @@ header {
 
                         &.active {
                             color: #1a1a1a;
-                            border-color: #edbd03;
+                            border-bottom: 2px solid #edbd03;
                         }
+                    }
+
+                    button.nav-item {
+                        margin-top: 24px;
                     }
                 }
             }

@@ -11,10 +11,10 @@ const list = [
     }
 ];
 
-const Home = () => {
+const Home = ({ lang, auth }) => {
 
     return (
-        <MainLayout hasFooterMenu>
+        <MainLayout lang={lang} auth={auth} hasFooterMenu>
             <Slider />
             <CourseList title="პოპულარული ტრენინგები" list={list} />
             <Clients />

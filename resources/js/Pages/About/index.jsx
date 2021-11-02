@@ -1,10 +1,10 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 
-const About = () => {
+const About = ({ lang, auth }) => {
 
     return (
-        <MainLayout>
+        <MainLayout lang={lang} auth={auth}>
             <section className="video-wrap">
                 <img src="/images/about.jpg" alt="" />
                 <div className="over"></div>

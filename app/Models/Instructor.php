@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Instructor extends Model
 {
     use HasFactory;
+
+    public $guarded = [];
+
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
 }

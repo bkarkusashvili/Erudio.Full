@@ -6,22 +6,45 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import { IconButton, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@mui/material';
-import { AddCircle } from '@mui/icons-material';
+import { Collapse, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@mui/material';
+import { AddCircle, StarBorder } from '@mui/icons-material';
 import { Link } from '@inertiajs/inertia-react';
 
 const drawerWidth = 240;
 const menu = [
     // { text: 'მომხმარებლები', model: 'course' },
     // { text: 'სლაიდერი', model: 'slider' },
-    { text: 'კურსები', model: 'course' },
+    { text: 'გვერდები', model: 'page' },
     { text: 'გუნდი', model: 'team' },
     { text: 'მედია', model: 'media' },
-    // { text: 'გამოწერები', model: 'subscribe' },
     { text: 'კატეგორია', model: 'category' },
-    { text: 'გვერდები', model: 'page' },
+    {
+        list: [
+            { text: 'ქალაქები', model: 'city' },
+            { text: 'ინსტრუქტორები', model: 'instructor' },
+            { text: 'კურსები', model: 'course' },
+        ]
+    },
+    // { text: 'გამოწერები', model: 'subscribe' },
     { text: 'პარამეტრები', model: 'option' },
 ];
+
+const LocalListItem = ({ item }) => {
+    return (
+        <ListItemButton
+            href={route(`${item.model}.index`)}
+            LinkComponent={'li'}
+            component={Link}
+        >
+            <ListItemText primary={item.text} />
+            <ListItemSecondaryAction>
+                <Link href={route(`${item.model}.create`)}>
+                    <IconButton color={'success'} edge={'end'} children={<AddCircle />} />
+                </Link>
+            </ListItemSecondaryAction>
+        </ListItemButton>
+    )
+}
 
 export const AdminLayout = ({ children }) => {
     return (
@@ -48,21 +71,19 @@ export const AdminLayout = ({ children }) => {
                 <Toolbar />
                 <Divider />
                 <List>
-                    {menu.map((item, key) => (
-                        <ListItemButton
-                            key={key}
-                            href={route(`${item.model}.index`)}
-                            LinkComponent={'li'}
-                            component={Link}
-                        >
-                            <ListItemText primary={item.text} />
-                            <ListItemSecondaryAction>
-                                <Link href={route(`${item.model}.create`)}>
-                                    <IconButton color={'success'} edge={'end'} children={<AddCircle />} />
-                                </Link>
-                            </ListItemSecondaryAction>
-                        </ListItemButton>
-                    ))}
+                    {menu.map((item, key) => {
+                        if (!item.list) {
+                            return <LocalListItem key={key} item={item} />
+                        }
+
+                        return (
+                            <>
+                                <Divider />
+                                {item.list.map((item, key) => <LocalListItem key={key} item={item} />)}
+                                <Divider />
+                            </>
+                        )
+                    })}
                 </List>
             </Drawer>
             <Box component="main" sx={{ flexGrow: 1, p: 3 }}>

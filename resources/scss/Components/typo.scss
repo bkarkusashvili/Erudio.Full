@@ -4,8 +4,16 @@
     font-weight: bold;
     font-family: 'Caps';
 
+    @include lg {
+        font-size: 28px;
+    }
+
     &.small {
         font-size: 28px;
+
+        @include lg {
+            font-size: 22px;
+        }
     }
 
     &.headline {
@@ -25,14 +33,26 @@
 
     &.mb-33 {
         margin-bottom: 33px;
+
+        @include lg {
+            margin-bottom: 28px;
+        }
     }
 
     &.mb-36 {
         margin-bottom: 36px;
+
+        @include lg {
+            margin-bottom: 32px;
+        }
     }
 
     &.mb-40 {
         margin-bottom: 40px;
+
+        @include lg {
+            margin-bottom: 34px;
+        }
     }
 }
 
@@ -41,8 +61,16 @@
     font-size: 22px;
     line-height: 36px;
 
+    @include lg {
+        font-size: 18px;
+    }
+
     p {
         margin-bottom: 30px;
+
+        @include lg {
+            margin-bottom: 22px;
+        }
 
         &:last-of-type {
             margin-bottom: 0;
@@ -54,6 +82,10 @@
     color: #1a1a1a;
     text-decoration: none;
     font-size: 22px;
+
+    @include lg {
+        font-size: 18px;
+    }
 }
 
 .tp-register {

@@ -33,4 +33,5 @@ class TeamController extends AdminController
             ]
         ]
     ];
+    public $fileFilds = ['image'];
 }

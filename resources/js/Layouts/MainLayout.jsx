@@ -1,10 +1,10 @@
 import React from "react";
 import { Footer, Header } from "@/Components";
 
-export const MainLayout = ({ children, hasFooterMenu = false }) => {
+export const MainLayout = ({ children, lang, auth, hasFooterMenu = false }) => {
     return (
         <div className="main-layout">
-            <Header />
+            <Header lang={lang} auth={auth} />
             <main>
                 {children}
             </main>

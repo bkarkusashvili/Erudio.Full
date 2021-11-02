@@ -11,14 +11,16 @@ class MediaController extends AdminController
     public $request = MediaRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
-        ['field' => 'title', 'headerName' => 'სათაური'],
+        ['field' => 'title_ka', 'headerName' => 'სათაური'],
     ];
     public $fields = [
         [
             'size' => 8,
             'list' => [
-                ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
-                ['type' => 'textarea', 'name' => 'text', 'label' => 'ტექსტი'],
+                ['type' => 'text', 'name' => 'title_ka', 'label' => 'სათაური (ქარ.)'],
+                ['type' => 'text', 'name' => 'title_en', 'label' => 'სათაური (ინგ.)'],
+                ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                ['type' => 'textarea', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
             ]
         ],
         [
@@ -28,4 +30,5 @@ class MediaController extends AdminController
             ]
         ]
     ];
+    public $fileFilds = ['image'];
 }

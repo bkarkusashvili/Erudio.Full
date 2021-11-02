@@ -1,5 +1,9 @@
+@import '../var';
+
 .main-slider {
     position: relative;
+    display: flex;
+    justify-content: center;
 
     img {
         width: 100%;
@@ -27,6 +31,12 @@
                 font-family: 'Caps';
                 margin-top: 203px;
                 margin-bottom: 105px;
+
+                @include lg {
+                    margin-top: 120px;
+                    margin-bottom: 60px;
+                    font-size: 36px;
+                }
             }
 
             .search-input {
@@ -38,6 +48,11 @@
                 border-radius: 60px;
                 box-shadow: 0 3px 99px #03002c;
 
+                @include lg {
+                    width: 650px;
+                    height: 60px;
+                }
+
                 input {
                     flex: 1;
                     background-color: transparent;
@@ -46,24 +61,37 @@
                     font-size: 18px;
                     color: #888893;
                     padding: 0 33px;
+
+                    @include lg {
+                        font-size: 16px;
+                    }
                 }
             }
+        }
+    }
 
-            .download {
-                flex: 1;
-                display: flex;
-                align-items: flex-end;
-                align-self: flex-start;
-                color: #ffffff;
-                text-decoration: none;
-                font-size: 18px;
-                font-weight: bold;
-                text-shadow: 0 1px 10px #03002c;
+    .slider-over {
+        position: absolute;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-self: flex-end;
+        bottom: 80px;
+    }
 
-                svg {
-                    margin-right: 10px;
-                }
-            }
+    .download {
+        flex: 1;
+        display: flex;
+        align-items: flex-end;
+        align-self: flex-start;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: bold;
+        text-shadow: 0 1px 10px #03002c;
+
+        svg {
+            margin-right: 10px;
         }
     }
 }

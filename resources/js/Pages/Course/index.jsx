@@ -2,10 +2,10 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
 
-const Courses = () => {
+const Courses = ({ lang, auth }) => {
 
     return (
-        <MainLayout>
+        <MainLayout lang={lang} auth={auth}>
             <div className="courses-wrap">
                 <div className="container header">
                     <h1 className="tp-header small">კურსების ძიება</h1>

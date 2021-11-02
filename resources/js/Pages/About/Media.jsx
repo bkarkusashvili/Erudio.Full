@@ -3,10 +3,10 @@ import { MainLayout } from '@/Layouts';
 import { Link } from '@inertiajs/inertia-react';
 import Moment from 'moment';
 
-const Media = ({ list }) => {
+const Media = ({ list, lang, auth }) => {
 
     return (
-        <MainLayout>
+        <MainLayout lang={lang} auth={auth}>
             <section className="media-wrap">
                 <div className="container header">
                     <h1 className="tp-header">მედია</h1>
@@ -20,8 +20,8 @@ const Media = ({ list }) => {
                                 </figure>
                             </div>
                             <div className="content">
-                                <h3 className="tp-header mb-33 small headline">{item.title}</h3>
-                                <div className="tp-text">{item.text}</div>
+                                <h3 className="tp-header mb-33 small headline">{item['title_' + lang]}</h3>
+                                <div className="tp-text">{item['text_' + lang]}</div>
                                 <span className="tp-text date">
                                     {Moment(item.created_at).format('DD.MM.YYYY')}
                                 </span>

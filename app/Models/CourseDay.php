@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class CourseDay extends Model
 {
     use HasFactory;
+
+    public $guarded = [];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class);
+    }
 }
