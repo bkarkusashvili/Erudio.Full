@@ -3,6 +3,7 @@ import { MainLayout } from '@/Layouts';
 import Moment from 'moment';
 
 const MediaSingle = ({ item, lang }) => {
+    const { base } = usePage().props;
 
     return (
         <MainLayout>
@@ -16,7 +17,7 @@ const MediaSingle = ({ item, lang }) => {
                             </span>
                         </div>
                         <div className="media">
-                            <img src={`/storage/${item.image}`} alt="" />
+                            <img src={`${base}/storage/${item.image}`} alt="" />
                         </div>
                     </div>
                 </div>

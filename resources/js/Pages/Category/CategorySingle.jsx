@@ -3,12 +3,13 @@ import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
 
 const CategorySingle = ({ item, courses, lang }) => {
+    const { base } = usePage().props;
 
     return (
         <MainLayout>
             <section className="category-single-wrap">
                 <div className="category-top">
-                    <img src={`/storage/${item.image}`} alt="" />
+                    <img src={`${base}/storage/${item.image}`} alt="" />
                 </div>
                 <div className="container wrap">
                     <div className="info">

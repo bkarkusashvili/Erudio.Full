@@ -3,14 +3,14 @@ import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
 
 const CourseSingle = ({ item, lang }) => {
-    const { auth } = usePage().props;
+    const { auth, base } = usePage().props;
 
     return (
         <MainLayout>
             <div className="course-single-wrap">
                 <div className="container video-box-wrap">
                     <div className="media">
-                        <img src={`/storage/${item.image}`} alt={item['name_' + lang]} />
+                        <img src={`${base}/storage/${item.image}`} alt={item['name_' + lang]} />
                         <div className="over">
                             <span className="donwoload">საპრეზენტაციო ფაილის გადმოწერა</span>
                             <span className="time">05:30</span>
@@ -73,7 +73,7 @@ const CourseSingle = ({ item, lang }) => {
                     <h3 className="tp-header small">ინსტრუქტორის შესახებ</h3>
                     <div className="video-box-wrap">
                         <div className="media">
-                            <img src={`/storage/${item.instructor.image}`} alt={item.instructor['name_' + lang]} />
+                            <img src={`${base}/storage/${item.instructor.image}`} alt={item.instructor['name_' + lang]} />
                             <div className="over">
                                 <span className="donwoload">საპრეზენტაციო ფაილის გადმოწერა</span>
                                 <span className="time">05:30</span>

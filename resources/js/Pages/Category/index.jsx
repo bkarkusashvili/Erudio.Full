@@ -3,6 +3,8 @@ import { MainLayout } from '@/Layouts';
 import { Link } from '@inertiajs/inertia-react';
 
 const Category = ({ list, lang }) => {
+    const { base } = usePage().props;
+
     return (
         <MainLayout>
             <section className="category-wrap">
@@ -10,7 +12,7 @@ const Category = ({ list, lang }) => {
                     {list.map(item => (
                         <div key={item.id} className="item">
                             <div className="media">
-                                <img src={`/storage/${item.image}`} alt={item['title_' + lang]} />
+                                <img src={`${base}/storage/${item.image}`} alt={item['title_' + lang]} />
                             </div>
                             <div className="content">
                                 <h3 className="tp-header small">{item['title_' + lang]}</h3>

@@ -4,6 +4,7 @@ import { Link } from '@inertiajs/inertia-react';
 import Moment from 'moment';
 
 const Media = ({ list, lang }) => {
+    const { base } = usePage().props;
 
     return (
         <MainLayout>
@@ -16,7 +17,7 @@ const Media = ({ list, lang }) => {
                         <div key={item.id} className="container item">
                             <div className="media">
                                 <figure>
-                                    <img src={`/storage/${item.image}`} alt="" />
+                                    <img src={`${base}/storage/${item.image}`} alt="" />
                                 </figure>
                             </div>
                             <div className="content">

@@ -2,6 +2,8 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 
 const Team = ({ list, lang }) => {
+    const { base } = usePage().props;
+
     return (
         <MainLayout>
             <section className="team-wrap">
@@ -12,7 +14,7 @@ const Team = ({ list, lang }) => {
                     {list.map(item => (
                         <div className="item container">
                             <div className="media">
-                                <img src={`/storage/${item.image}`} alt="" />
+                                <img src={`${base}/storage/${item.image}`} alt="" />
                             </div>
                             <div className="content">
                                 <h3 className="tp-header">{item['name_' + lang]}</h3>
