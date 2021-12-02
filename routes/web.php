@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\InstructorController;
@@ -68,6 +69,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         'option' => OptionController::class,
         'order' => OrderController::class,
         'user' => UserController::class,
+        'client' => ClientController::class,
     ]);
     Route::get('/', function () {
         return redirect()->route('course.index');

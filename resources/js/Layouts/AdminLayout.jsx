@@ -12,10 +12,10 @@ import { Link } from '@inertiajs/inertia-react';
 
 const drawerWidth = 240;
 const menu = [
-    // { text: 'მომხმარებლები', model: 'course' },
     // { text: 'სლაიდერი', model: 'slider' },
     { text: 'გვერდები', model: 'page', canAdd: false },
     { text: 'მომხმარებლები', model: 'user', canAdd: false },
+    { text: 'კლიენტები', model: 'client', canAdd: true },
     { text: 'გუნდი', model: 'team', canAdd: true },
     { text: 'მედია', model: 'media', canAdd: true },
     { text: 'კატეგორია', model: 'category', canAdd: true },
