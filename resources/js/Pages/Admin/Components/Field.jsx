@@ -3,9 +3,11 @@ import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } 
 import DateAdapter from '@mui/lab/AdapterMoment';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
+import { usePage } from '@inertiajs/inertia-react';
 
 export const Field = ({ data, error, value = null, setChange }) => {
-    const [image, setImage] = useState(value ? `/storage/${value}` : '');
+    const { base } = usePage().props;
+    const [image, setImage] = useState(value ? `${base}/storage/${value}` : '');
     const isMultiline = data.type === 'textarea';
     const isImage = data.type === 'file';
     const isSelect = data.type === 'select';

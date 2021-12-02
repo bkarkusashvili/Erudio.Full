@@ -42,9 +42,11 @@ export const DataGrid = ({ rows, columns, model }) => {
                                 {column.headerName}
                             </TableCell>
                         ))}
-                        <TableCell align={'right'} style={{ fontWeight: 'bold' }}>
-                            მოქმედება
-                        </TableCell>
+                        {actions.edit && actions.delete && (
+                            <TableCell align={'right'} style={{ fontWeight: 'bold' }}>
+                                მოქმედება
+                            </TableCell>
+                        )}
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -61,23 +63,25 @@ export const DataGrid = ({ rows, columns, model }) => {
                                     {row[column.field]}
                                 </TableCell>
                             ))}
-                            <TableCell align="right">
-                                {actions.edit && (
-                                    <Link href={route(`${model}.edit`, row.id)}>
-                                        <IconButton color={'success'} edge={'end'} children={<Edit />} />
-                                    </Link>
-                                )}
-                                {actions.delete && (
-                                    <Link href={route(`${model}.destroy`, row.id)} method={'delete'}>
-                                        <IconButton
-                                            // onClick={() => handleOpen(row.id)}
-                                            color={'error'}
-                                            edge={'end'}
-                                            children={<Delete />}
-                                        />
-                                    </Link>
-                                )}
-                            </TableCell>
+                            {actions.edit && actions.delete && (
+                                <TableCell align="right">
+                                    {actions.edit && (
+                                        <Link href={route(`${model}.edit`, row.id)}>
+                                            <IconButton color={'success'} edge={'end'} children={<Edit />} />
+                                        </Link>
+                                    )}
+                                    {actions.delete && (
+                                        <Link href={route(`${model}.destroy`, row.id)} method={'delete'}>
+                                            <IconButton
+                                                // onClick={() => handleOpen(row.id)}
+                                                color={'error'}
+                                                edge={'end'}
+                                                children={<Delete />}
+                                            />
+                                        </Link>
+                                    )}
+                                </TableCell>
+                            )}
                         </TableRow>
                     ))}
                 </TableBody>

@@ -35,6 +35,7 @@ class AdminController extends Controller
 
         Inertia::share('model', $this->route);
         Inertia::share('fields', $this->fields);
+        Inertia::share('base', request()->has('erudio') ? '/erudio' : '');
     }
 
     public function index()
