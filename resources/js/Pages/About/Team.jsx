@@ -1,5 +1,6 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
+import { usePage } from '@inertiajs/inertia-react';
 
 const Team = ({ list, lang }) => {
     const { base } = usePage().props;

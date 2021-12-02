@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import Moment from 'moment';
+import { usePage } from '@inertiajs/inertia-react';
 
 const MediaSingle = ({ item, lang }) => {
     const { base } = usePage().props;

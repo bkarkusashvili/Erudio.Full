@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
+import { usePage } from '@inertiajs/inertia-react';
 
 const CategorySingle = ({ item, courses, lang }) => {
     const { base } = usePage().props;

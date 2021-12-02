@@ -1,6 +1,6 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 import Moment from 'moment';
 
 const Media = ({ list, lang }) => {
