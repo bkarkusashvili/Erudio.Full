@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class UserController extends AdminController
 {
-    public bool $edit = false;
-    public bool $create = false;
-    public bool $delete = false;
+    public $edit = false;
+    public $create = false;
+    public $delete = false;
 
     public $model = User::class;
     public $columns = [

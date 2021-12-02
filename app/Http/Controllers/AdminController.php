@@ -24,9 +24,9 @@ class AdminController extends Controller
     public $request;
     public $columns = [];
     public $fields;
-    public bool $edit = true;
-    public bool $create = true;
-    public bool $delete = true;
+    public $edit = true;
+    public $create = true;
+    public $delete = true;
     public $fileFilds = [];
 
     public function __construct()

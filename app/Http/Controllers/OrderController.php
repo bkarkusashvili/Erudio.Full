@@ -8,9 +8,9 @@ use Illuminate\Http\Request;
 
 class OrderController extends AdminController
 {
-    public bool $edit = true;
-    public bool $create = false;
-    public bool $delete = true;
+    public $edit = true;
+    public $create = false;
+    public $delete = true;
 
     public $model = Order::class;
     public $request = MediaRequest::class;
