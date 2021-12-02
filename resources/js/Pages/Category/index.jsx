@@ -1,9 +1,10 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 
 const Category = ({ list, lang }) => {
     const { base } = usePage().props;
+    console.log(`${base}/storage/ss`);
 
     return (
         <MainLayout>
