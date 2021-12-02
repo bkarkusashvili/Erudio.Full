@@ -29,6 +29,14 @@ export const Slider = () => {
                     <span>საპრეზენტაციო ფაილის გადმოწერა</span>
                 </a>
             </div>
+            <div className="navigation">
+                <a href="" className="left">
+                    <i className="icon icon-slide-arrow"></i>
+                </a>
+                <a href="" className="right">
+                    <i className="icon icon-slide-arrow icon-rotate-180"></i>
+                </a>
+            </div>
         </Swiper>
     );
 };

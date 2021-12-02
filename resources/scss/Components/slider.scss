@@ -94,4 +94,18 @@
             margin-right: 10px;
         }
     }
+
+    .navigation {
+        position: absolute;
+        bottom: 64px;
+        z-index: 1;
+
+        a {
+            cursor: pointer;
+            color: #ffffff;
+            font-size: 36px;
+            text-decoration: none;
+            margin: 0 31px;
+        }
+    }
 }

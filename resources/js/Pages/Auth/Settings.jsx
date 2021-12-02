@@ -1,10 +1,10 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 
-const Settings = ({ lang, auth }) => {
+const Settings = () => {
 
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="settings">
                 <div className="container wrap">
                     <h1 className="tp-header small headline">პარამეტრები</h1>

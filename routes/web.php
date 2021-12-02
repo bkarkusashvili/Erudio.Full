@@ -7,10 +7,12 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OptionController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -37,7 +39,7 @@ Route::get('/category', [FrontController::class, 'category'])->name('category');
 Route::get('/category/{id}', [FrontController::class, 'categorySingle'])->name('category.single');
 
 Route::get('/course', [FrontController::class, 'course'])->name('course');
-Route::get('/course/1', [FrontController::class, 'CourseSingle'])->name('course.single');
+Route::get('/course/{id}', [FrontController::class, 'CourseSingle'])->name('course.single');
 Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
 Route::middleware('auth')->group(function () {
@@ -64,6 +66,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         'category' => CategoryController::class,
         'page' => PageController::class,
         'option' => OptionController::class,
+        'order' => OrderController::class,
+        'user' => UserController::class,
     ]);
     Route::get('/', function () {
         return redirect()->route('course.index');

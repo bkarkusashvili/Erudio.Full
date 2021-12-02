@@ -1,10 +1,10 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 
-const Social = ({ lang, auth }) => {
+const Social = () => {
 
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="social-wrap">
                 <div className="container header">
                     <h1 className="tp-header">სოციალური პასუხისმგებლობა</h1>

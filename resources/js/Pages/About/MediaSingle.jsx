@@ -2,10 +2,10 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import Moment from 'moment';
 
-const MediaSingle = ({ item, lang, auth }) => {
+const MediaSingle = ({ item, lang }) => {
 
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="media-single-wrap">
                 <div className="media-wrap-sl">
                     <div className="container wrap">

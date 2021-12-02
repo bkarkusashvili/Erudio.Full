@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CourseRequest;
 use App\Models\Category;
+use App\Models\City;
 use App\Models\Course;
+use App\Models\Instructor;
 
 class CourseController extends AdminController
 {
@@ -28,6 +30,20 @@ class CourseController extends AdminController
 
                 ['type' => 'textarea', 'name' => 'goal_ka', 'label' => 'მიზანი (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'goal_en', 'label' => 'მიზანი (ინგ.)'],
+
+                // [
+                //     'type' => 'group',
+                //     'title' => 'დღეები',
+                //     'name' => 'days',
+                //     'addMore' => true,
+                //     'divider' => 'top',
+                //     'list' => [
+                //         ['type' => 'date', 'name' => 'date', 'label' => 'თარიღი'],
+                //         ['type' => 'text', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                //         ['type' => 'text', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+                //     ]
+                // ],
+
                 ['type' => 'textarea', 'name' => 'methodology_ka', 'label' => 'მეთოდოლოგია (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'methodology_en', 'label' => 'მეთოდოლოგია (ინგ.)'],
                 ['type' => 'textarea', 'name' => 'for_ka', 'label' => 'ვისთვისაა საჭირო ეს კურსები (ქარ.)'],
@@ -44,17 +60,36 @@ class CourseController extends AdminController
                 ['type' => 'select', 'name' => 'instructor_id', 'label' => 'ინსტრუქტორი'],
                 ['type' => 'file', 'name' => 'image', 'label' => 'სურათი'],
             ]
-        ]
+        ],
     ];
 
     public function __construct()
     {
-        parent::__construct();
-        $this->categories = Category::all()->map(function (Category $category) {
+        // $this->categories = Category::all()->map(function (Category $category) {
+        //     return [
+        //         'text' => $category->title_ka,
+        //         'value' => $category->id,
+        //     ];
+        // })->toArray();
+        $this->fields[1]['list'][2]['options'] = Category::all()->map(function (Category $category) {
             return [
                 'text' => $category->title_ka,
                 'value' => $category->id,
             ];
-        })->toArray();
+        });
+        $this->fields[1]['list'][3]['options'] = City::all()->map(function (City $city) {
+            return [
+                'text' => $city->name_ka,
+                'value' => $city->id,
+            ];
+        });
+        $this->fields[1]['list'][4]['options'] = Instructor::all()->map(function (Instructor $instructor) {
+            return [
+                'text' => $instructor->name_ka,
+                'value' => $instructor->id,
+            ];
+        });
+
+        parent::__construct();
     }
 }

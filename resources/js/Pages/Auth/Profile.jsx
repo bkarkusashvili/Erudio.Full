@@ -2,10 +2,10 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link } from '@inertiajs/inertia-react';
 
-const Profile = ({ lang, auth }) => {
+const Profile = () => {
 
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="profile">
                 <div className="container wrap">
                     <h1 className="tp-header small headline">ნაყიდი ტრეინინგების ისტორია</h1>

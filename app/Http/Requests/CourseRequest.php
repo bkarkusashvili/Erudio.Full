@@ -30,8 +30,12 @@ class CourseRequest extends FormRequest
             'address_en' => 'nullable|string',
             'goal_ka' => 'required|string',
             'goal_en' => 'nullable|string',
-            'goal_ka' => 'required|string',
-            'goal_en' => 'nullable|string',
+
+            // 'date' => 'required|date',
+            // 'text_ka' => 'required|array',
+            // 'text_ka.*' => 'required|string',
+            // 'text_en' => 'nullable|string',
+
             'methodology_ka' => 'required|string',
             'methodology_en' => 'nullable|string',
             'for_ka' => 'required|string',

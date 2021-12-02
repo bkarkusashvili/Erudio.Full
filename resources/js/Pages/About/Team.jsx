@@ -1,9 +1,9 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 
-const Team = ({ list, lang, auth }) => {
+const Team = ({ list, lang }) => {
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="team-wrap">
                 <div className="container header">
                     <h1 className="tp-header">ჩვენი გუნდი</h1>

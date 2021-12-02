@@ -8,7 +8,7 @@ import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import { TextField } from '@mui/material';
 
-export default function Login({ status, canResetPassword, lang, auth }) {
+export default function Login({ status, canResetPassword }) {
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -32,7 +32,7 @@ export default function Login({ status, canResetPassword, lang, auth }) {
     };
 
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="login">
                 <h1>კურსე რეგისტრაციისთვის გთხოვთ შეხვიდეთ სისტემაში!</h1>
 

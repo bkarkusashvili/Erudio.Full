@@ -3,8 +3,8 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import { getClassName, isActivePage } from '@/Helper';
 import { MainMenu } from '@/router';
 
-export const Header = ({ lang, auth }) => {
-    const { categories } = usePage().props;
+export const Header = () => {
+    const { categories, lang, auth } = usePage().props;
 
     const menu = MainMenu.map(item => {
         if (item.name === 'category') {
@@ -13,9 +13,10 @@ export const Header = ({ lang, auth }) => {
                 item.list.push({
                     name: 'category.single',
                     value: category['title_' + lang],
-                    id: category.id
+                    id: category.id,
                 });
             });
+
         }
 
         return item;
@@ -35,7 +36,7 @@ export const Header = ({ lang, auth }) => {
                             className={getClassName({ active: isActivePage(item.name) })}
                         >
                             <span>{item.value}</span>
-                            {item.list && item.list.length && (
+                            {item.list && item.list.length ? (
                                 <div className="nav-list">
                                     {item.list.map((item, key) => (
                                         <Link
@@ -50,7 +51,7 @@ export const Header = ({ lang, auth }) => {
                                         </Link>
                                     ))}
                                 </div>
-                            )}
+                            ) : null}
                         </Link>
                     ))}
                     <Link href={route('login')} className={isActivePage('login') ? 'active' : ''}>

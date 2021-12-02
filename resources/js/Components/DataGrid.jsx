@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 import { IconButton, Dialog, DialogTitle, DialogActions, Button } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useForm } from '@inertiajs/inertia-react'
@@ -25,6 +25,7 @@ export const DataGrid = ({ rows, columns, model }) => {
     //     destroy(route(`${model}.destroy`, id));
     //     handleClose();
     // };
+    const { actions } = usePage().props;
 
     return (
         <TableContainer component={Paper}>
@@ -61,17 +62,21 @@ export const DataGrid = ({ rows, columns, model }) => {
                                 </TableCell>
                             ))}
                             <TableCell align="right">
-                                <Link href={route(`${model}.edit`, row.id)}>
-                                    <IconButton color={'success'} edge={'end'} children={<Edit />} />
-                                </Link>
-                                <Link href={route(`${model}.destroy`, row.id)} method={'delete'}>
-                                    <IconButton
-                                        // onClick={() => handleOpen(row.id)}
-                                        color={'error'}
-                                        edge={'end'}
-                                        children={<Delete />}
-                                    />
-                                </Link>
+                                {actions.edit && (
+                                    <Link href={route(`${model}.edit`, row.id)}>
+                                        <IconButton color={'success'} edge={'end'} children={<Edit />} />
+                                    </Link>
+                                )}
+                                {actions.delete && (
+                                    <Link href={route(`${model}.destroy`, row.id)} method={'delete'}>
+                                        <IconButton
+                                            // onClick={() => handleOpen(row.id)}
+                                            color={'error'}
+                                            edge={'end'}
+                                            children={<Delete />}
+                                        />
+                                    </Link>
+                                )}
                             </TableCell>
                         </TableRow>
                     ))}

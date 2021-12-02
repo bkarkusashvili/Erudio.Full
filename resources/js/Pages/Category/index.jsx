@@ -2,9 +2,9 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link } from '@inertiajs/inertia-react';
 
-const Category = ({ list, lang, auth }) => {
+const Category = ({ list, lang }) => {
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="category-wrap">
                 <div className="container list">
                     {list.map(item => (

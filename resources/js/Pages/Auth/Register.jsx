@@ -9,7 +9,7 @@ import { MainLayout } from '@/Layouts';
 import { TextField } from '@mui/material';
 import Checkbox from '@/Components/Checkbox';
 
-export default function Register({ lang, auth }) {
+export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
@@ -35,7 +35,7 @@ export default function Register({ lang, auth }) {
     };
 
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="login">
                 <form onSubmit={submit}>
                     <div className="fileds">

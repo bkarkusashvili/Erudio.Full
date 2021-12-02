@@ -3,10 +3,10 @@ import { MainLayout } from '@/Layouts';
 import { Link } from '@inertiajs/inertia-react';
 import Moment from 'moment';
 
-const Media = ({ list, lang, auth }) => {
+const Media = ({ list, lang }) => {
 
     return (
-        <MainLayout lang={lang} auth={auth}>
+        <MainLayout>
             <section className="media-wrap">
                 <div className="container header">
                     <h1 className="tp-header">მედია</h1>

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import DateAdapter from '@mui/lab/AdapterMoment';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
 
-export const Field = ({ data, error, value, setChange }) => {
+export const Field = ({ data, error, value = null, setChange }) => {
     const [image, setImage] = useState(value ? `/storage/${value}` : '');
     const isMultiline = data.type === 'textarea';
     const isImage = data.type === 'file';
     const isSelect = data.type === 'select';
+    const isDate = data.type === 'date';
 
     const imageChange = (e) => {
         const file = e.target.files[0];
@@ -22,12 +25,26 @@ export const Field = ({ data, error, value, setChange }) => {
             <input type={data.type} onChange={imageChange} hidden />
         </div>
     ) : isSelect ? (
-        <FormControl fullWidth>
+        <FormControl fullWidth error={!!error}>
             <InputLabel>{data.label}</InputLabel>
-            <Select value={value} label={data.label} onChange={value => setChange(data.name, value)}>
-                {/* <MenuItem value={10}>Ten</MenuItem> */}
+            <Select
+                defaultValue={value}
+                label={data.label}
+                onChange={e => setChange(data.name, e.target.value)}
+            >
+                {data.options?.map(option => <MenuItem value={option.value} children={option.text} />)}
             </Select>
+            <FormHelperText children={error} />
         </FormControl>
+    ) : isDate ? (
+        <LocalizationProvider dateAdapter={DateAdapter}>
+            <DesktopDatePicker
+                label="თარიღი"
+                value={value}
+                onChange={value => setChange(data.name, value.toDate())}
+                renderInput={params => <TextField {...params} />}
+            />
+        </LocalizationProvider>
     ) : (
         <TextField
             variant="outlined"

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\City;
+use App\Models\Course;
 use App\Models\Media;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -68,18 +70,39 @@ class FrontController extends Controller
         $item = Category::findOrFail($id);
 
         return Inertia::render('Category/CategorySingle', [
-            'item' => $item
+            'item' => $item,
+            'courses' => $item->courses,
         ]);
     }
 
-    public function course()
+    public function course(Request $request)
     {
-        return Inertia::render('Course', []);
+        $query = Course::query();
+
+        $query->when($request->has('category'), function ($q) {
+            return $q->where('category_id', request('category'));
+        });
+
+        $query->when($request->has('city'), function ($q) {
+            return $q->where('city_id', request('city'));
+        });
+
+        $list = $query->get();
+
+        return Inertia::render('Course', [
+            'list' => $list,
+            'categories' => Category::all(),
+            'cities' => City::all(),
+        ]);
     }
 
-    public function courseSingle()
+    public function courseSingle(int $id)
     {
-        return Inertia::render('Course/CourseSingle', []);
+        $item = Course::with('instructor')->findOrFail($id);
+
+        return Inertia::render('Course/CourseSingle', [
+            'item' => $item
+        ]);
     }
 
     public function contact()

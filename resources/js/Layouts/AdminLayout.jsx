@@ -14,19 +14,21 @@ const drawerWidth = 240;
 const menu = [
     // { text: 'მომხმარებლები', model: 'course' },
     // { text: 'სლაიდერი', model: 'slider' },
-    { text: 'გვერდები', model: 'page' },
-    { text: 'გუნდი', model: 'team' },
-    { text: 'მედია', model: 'media' },
-    { text: 'კატეგორია', model: 'category' },
+    { text: 'გვერდები', model: 'page', canAdd: false },
+    { text: 'მომხმარებლები', model: 'user', canAdd: false },
+    { text: 'გუნდი', model: 'team', canAdd: true },
+    { text: 'მედია', model: 'media', canAdd: true },
+    { text: 'კატეგორია', model: 'category', canAdd: true },
+    { text: 'შეკვეთები', model: 'order', canAdd: false },
     {
         list: [
-            { text: 'ქალაქები', model: 'city' },
-            { text: 'ინსტრუქტორები', model: 'instructor' },
-            { text: 'კურსები', model: 'course' },
+            { text: 'ქალაქები', model: 'city', canAdd: true },
+            { text: 'ინსტრუქტორები', model: 'instructor', canAdd: true },
+            { text: 'კურსები', model: 'course', canAdd: true },
         ]
     },
     // { text: 'გამოწერები', model: 'subscribe' },
-    { text: 'პარამეტრები', model: 'option' },
+    { text: 'პარამეტრები', model: 'option', canAdd: false },
 ];
 
 const LocalListItem = ({ item }) => {
@@ -37,11 +39,13 @@ const LocalListItem = ({ item }) => {
             component={Link}
         >
             <ListItemText primary={item.text} />
-            <ListItemSecondaryAction>
-                <Link href={route(`${item.model}.create`)}>
-                    <IconButton color={'success'} edge={'end'} children={<AddCircle />} />
-                </Link>
-            </ListItemSecondaryAction>
+            {item.canAdd && (
+                <ListItemSecondaryAction>
+                    <Link as="span" href={route(`${item.model}.create`)}>
+                        <IconButton color={'success'} edge={'end'} children={<AddCircle />} />
+                    </Link>
+                </ListItemSecondaryAction>
+            )}
         </ListItemButton>
     )
 }
@@ -77,11 +81,11 @@ export const AdminLayout = ({ children }) => {
                         }
 
                         return (
-                            <>
+                            <React.Fragment key={key}>
                                 <Divider />
                                 {item.list.map((item, key) => <LocalListItem key={key} item={item} />)}
                                 <Divider />
-                            </>
+                            </React.Fragment>
                         )
                     })}
                 </List>
