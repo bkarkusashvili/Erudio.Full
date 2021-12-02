@@ -18,7 +18,7 @@ class FrontController extends Controller
     {
         Inertia::share('categories', Category::all());
         Inertia::share('lang', Lang::locale());
-        Inertia::share('base', request()->has('erudio') ? '/erudio' : '');
+        Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 
     public function home()
