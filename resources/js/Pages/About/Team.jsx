@@ -20,7 +20,7 @@ const Team = ({ list, lang }) => {
                             <div className="content">
                                 <h3 className="tp-header">{item['name_' + lang]}</h3>
                                 <h4 className="tp-header small mb-36">{item['profession_' + lang]}</h4>
-                                <div className="tp-text">{item.bio}</div>
+                                <div className="tp-text">{item['bio_' + lang]}</div>
                             </div>
                         </div>
                     ))}
