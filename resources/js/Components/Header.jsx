@@ -45,7 +45,7 @@ export const Header = () => {
                                                 route(item.name, item.id) :
                                                 route(item.name)
                                             }
-                                            className={getClassName({ active: isActivePage(item.name), 'nav-item': true })}
+                                            className={getClassName({ active: isActivePage(item.name, item.id), 'nav-item': true })}
                                         >
                                             {item.value}
                                         </Link>
