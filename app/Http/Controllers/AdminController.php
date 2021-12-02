@@ -129,7 +129,9 @@ class AdminController extends Controller
         $validator->validate();
 
         $model = $this->model::findOrFail($id);
-        $data = collect($validator->validated())->filter(fn ($item) => $item !== null);
+        $data = collect($validator->validated())->filter(function ($item) {
+            return $item !== null;
+        });
 
         $data->each(function ($item, $key) use ($data, $model) {
             if ($item instanceof UploadedFile) {
