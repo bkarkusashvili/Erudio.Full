@@ -18,8 +18,8 @@ class CreateClientsTable extends Migration
             $table->string('image')->nullable();
             $table->string('name_ka');
             $table->string('name_en')->nullable();
-            $table->string('text_ka');
-            $table->string('text_en')->nullable();
+            $table->text('text_ka');
+            $table->text('text_en')->nullable();
             $table->timestamps();
         });
     }
