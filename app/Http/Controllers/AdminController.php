@@ -18,7 +18,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    private string $route;
+    private $route;
 
     public $model;
     public $request;
