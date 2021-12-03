@@ -29,6 +29,43 @@ class FrontController extends Controller
         ]);
     }
 
+    public function search(Request $request)
+    {
+        $s = $request->get('s');
+
+        if (!$s) {
+            return [];
+        }
+
+        $categories = Category::where('title_ka', 'like', '%' . $s . '%')
+            ->orWhere('title_en', 'like', '%' . $s . '%')
+            ->get();
+        $categories = $categories->map(function (Category $item) {
+            return [
+                'id' => $item->id,
+                'url' => route('course', ['category' => $item->id]),
+                'text_ka' => $item->title_ka,
+                'text_en' => $item->title_en,
+            ];
+        });
+
+        $courses = Course::where('name_ka', 'like', '%' . $s . '%')
+            ->orWhere('name_en', 'like', '%' . $s . '%')
+            ->get();
+        $courses = $courses->map(function (Category $item) {
+            return [
+                'id' => $item->id,
+                'url' => route('course', $item->id),
+                'text_ka' => $item->name_ka,
+                'text_en' => $item->name_en,
+            ];
+        });
+
+        return collect($categories, $courses)->filter(function ($item, $index) {
+            return $index <= 2;
+        });
+    }
+
     public function about()
     {
         return Inertia::render('About', []);
