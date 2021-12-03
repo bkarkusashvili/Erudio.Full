@@ -32,7 +32,6 @@ export const Slider = () => {
                                     {sug.map((item, key) => (
                                         <Link key={key} href={item.url} children={item['text_' + lang]} />
                                     ))}
-                                    {/* <Link href="/" children="asasda" /> */}
                                 </div>
                             )}
                         </div>

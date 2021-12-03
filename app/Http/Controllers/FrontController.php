@@ -14,15 +14,12 @@ use Inertia\Inertia;
 
 class FrontController extends Controller
 {
-    public $base;
 
     public function __construct()
     {
-        $this->base = explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '';
-
         Inertia::share('categories', Category::all());
         Inertia::share('lang', Lang::locale());
-        Inertia::share('base', $this->base);
+        Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 
     public function home()
@@ -46,7 +43,7 @@ class FrontController extends Controller
         $categories = $categories->map(function (Category $item) {
             return [
                 'id' => $item->id,
-                'url' => route($this->base . 'course', ['category' => $item->id]),
+                'url' => route('course', ['category' => $item->id]),
                 'text_ka' => $item->title_ka,
                 'text_en' => $item->title_en,
             ];
@@ -55,10 +52,10 @@ class FrontController extends Controller
         $courses = Course::where('name_ka', 'like', '%' . $s . '%')
             ->orWhere('name_en', 'like', '%' . $s . '%')
             ->get();
-        $courses = $courses->map(function (Category $item) {
+        $courses = $courses->map(function (Course $item) {
             return [
                 'id' => $item->id,
-                'url' => route($this->base . 'course', $item->id),
+                'url' => route('course.single', $item->id),
                 'text_ka' => $item->name_ka,
                 'text_en' => $item->name_en,
             ];
