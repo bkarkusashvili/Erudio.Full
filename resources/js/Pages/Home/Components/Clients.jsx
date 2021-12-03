@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { usePage } from '@inertiajs/inertia-react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
-export const Clients = () => {
+export const Clients = ({ list = [] }) => {
+    const { lang, base } = usePage().props;
+    const [active, setActive] = useState();
+    // list = [...list, ...list, ...list, ...list, ...list, ...list, ...list,];
 
     return (
         <section className="clients-wrap">
             <div className="container">
                 <h3 className="tp-header small mb-33">რას ამბობენ კლიენტები ჩვენზე</h3>
-                <p className="tp-text">
-                    „სს „მიკროსაფინანსო ორგანიზაცია სვის კაპიტალ”-ი რამდენიმე წელია თანამშრომლობს ,,ლოიალტე”-სთან, რომელიც ხშირად გვაწვდის საინტერესო, საჭირო და დროულ ტრენინგებს. კომპანიებს შორის თანაშრომლობა წლების განმავლობაში წარმატებულად ვითარდებოდა და სწავლებაში მონაწილე თანაშრომლები ყოველთვის აღფრთოვანებასა და კმაყოფილებას გამოთქვამენ მიღებული ტრენინგების შეფასების დროს, რადგან სასწავლო კურსების ორგანიზება ხდება თითოეული დეტალის სწორად გათვალისწინებით,  ტრენინგის კონცეფცია და შინაარსი ყოველთვის ზუსტად არის  გათვლილი კომპანიის თანაშრომელთა საჭიროებაზე.
-                    სს „მიკროსაფინანსო ორგანიზაცია სვის კაპიტალი“-ს სახელით რეკომენდაციას ვუწევთ ,,ლოიალტე”-ს,  რადგან ვთვლით, რომ კომპანიას ჰყავს საუკეთესო,  პროფესიონალი ადამიანებით დაკომპლექტებული გუნდი, რომელსაც შეუძლია ნებისმიერ საჭიროებას მოერგოს და სწავლების დროს იყოს ნაყოფიერი და შედგზე ორიენტირებული.“
-                </p>
+                {list.map(item => (
+                    <p key={item.id} className="tp-text" children={item['text_' + lang]} />
+                ))}
+                <Swiper className="clients-slider" centeredSlides={true} loop={true} onSlideChange={(e) => {
+                    console.log(e);
+                }} slidesPerView={5}>
+                    {list.map(item => (
+                        <SwiperSlide key={item.id}>
+                            <div className="slider-wrap">
+                                <img src={`${base}/storage/${item.image}`} alt={item['name_' + lang]} />
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                    {/* <div className="navigation">
+                        <a href="" className="left">
+                            <i className="icon icon-slide-arrow"></i>
+                        </a>
+                        <a href="" className="right">
+                            <i className="icon icon-slide-arrow icon-rotate-180"></i>
+                        </a>
+                    </div> */}
+                </Swiper>
             </div>
         </section>
     );

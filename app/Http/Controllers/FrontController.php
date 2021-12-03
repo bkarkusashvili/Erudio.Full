@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\City;
+use App\Models\Client;
 use App\Models\Course;
 use App\Models\Media;
 use App\Models\Team;
@@ -23,7 +24,9 @@ class FrontController extends Controller
 
     public function home()
     {
-        return Inertia::render('Home', []);
+        return Inertia::render('Home', [
+            'clients' => Client::all()
+        ]);
     }
 
     public function about()

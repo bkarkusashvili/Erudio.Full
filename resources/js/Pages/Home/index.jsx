@@ -11,13 +11,13 @@ const list = [
     }
 ];
 
-const Home = () => {
+const Home = ({ clients }) => {
 
     return (
         <MainLayout hasFooterMenu>
             <Slider />
             <CourseList title="პოპულარული ტრენინგები" list={list} />
-            <Clients />
+            <Clients list={clients} />
             <CourseList title="პოპულარული კურსები" list={list} isReverce />
             <section className="client-info-wrap">
                 <div className="container">
