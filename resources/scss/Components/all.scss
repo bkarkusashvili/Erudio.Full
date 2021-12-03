@@ -10,6 +10,8 @@
 
     .client-text {
         display: none;
+        height: 290px;
+        overflow: hidden;
 
         &.active {
             display: block;
@@ -18,6 +20,7 @@
 
     .clients-slider {
         position: relative;
+        margin-top: 30px;
 
         .swiper-wrapper {
             position: relative;
