@@ -14,12 +14,15 @@ use Inertia\Inertia;
 
 class FrontController extends Controller
 {
+    public $base;
 
     public function __construct()
     {
+        $this->base = explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '';
+
         Inertia::share('categories', Category::all());
         Inertia::share('lang', Lang::locale());
-        Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
+        Inertia::share('base', $this->base);
     }
 
     public function home()
@@ -43,7 +46,7 @@ class FrontController extends Controller
         $categories = $categories->map(function (Category $item) {
             return [
                 'id' => $item->id,
-                'url' => route('course', ['category' => $item->id]),
+                'url' => route($this->base . 'course', ['category' => $item->id]),
                 'text_ka' => $item->title_ka,
                 'text_en' => $item->title_en,
             ];
@@ -55,7 +58,7 @@ class FrontController extends Controller
         $courses = $courses->map(function (Category $item) {
             return [
                 'id' => $item->id,
-                'url' => route('course', $item->id),
+                'url' => route($this->base . 'course', $item->id),
                 'text_ka' => $item->name_ka,
                 'text_en' => $item->name_en,
             ];

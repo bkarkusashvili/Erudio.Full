@@ -5,11 +5,11 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 
 export const Slider = () => {
-    const { lang, base } = usePage().props
+    const { lang } = usePage().props
     const [sug, setSug] = useState([]);
 
     const getSearch = (e) => {
-        fetch(base + route('search', { s: e.target.value }))
+        fetch(route('search', { s: e.target.value }))
             .then(res => res.json())
             .then(res => setSug(res))
             .catch(e => { });
