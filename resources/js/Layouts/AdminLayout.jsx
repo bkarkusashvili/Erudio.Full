@@ -15,7 +15,7 @@ const menu = [
     // { text: 'სლაიდერი', model: 'slider' },
     { text: 'გვერდები', model: 'page', canAdd: false },
     { text: 'მომხმარებლები', model: 'user', canAdd: false },
-    { text: 'კლიენტები', model: 'client', canAdd: true },
+    { text: 'შეფასებები', model: 'client', canAdd: true },
     { text: 'გუნდი', model: 'team', canAdd: true },
     { text: 'მედია', model: 'media', canAdd: true },
     { text: 'კატეგორია', model: 'category', canAdd: true },

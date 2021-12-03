@@ -22,15 +22,16 @@ export const Clients = ({ list = [] }) => {
                 <Swiper
                     className="clients-slider"
                     centeredSlides={true}
+                    loop={true}
                     onInit={slider => {
                         setSwiper(slider);
-                        setActive(slider.activeIndex)
+                        setActive(slider.realIndex);
                     }}
-                    onSlideChange={slider => setActive(slider.activeIndex)}
+                    onSlideChange={slider => setActive(slider.realIndex)}
                     slidesPerView={5}
                 >
                     {list.map((item, index) => (
-                        <SwiperSlide key={item.id} onClick={() => swiper.slideTo(index)}>
+                        <SwiperSlide key={item.id} onClick={() => swiper.slideToLoop(index)}>
                             <div className="slider-wrap">
                                 <img src={`${base}/storage/${item.image}`} alt={item['name_' + lang]} />
                             </div>
