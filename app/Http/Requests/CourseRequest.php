@@ -41,6 +41,10 @@ class CourseRequest extends FormRequest
             'for_ka' => 'required|string',
             'for_en' => 'nullable|string',
 
+            'popular_training' => 'nullable|boolean',
+            'popular_course' => 'nullable|boolean',
+            'popular_masterclass' => 'nullable|boolean',
+
             'price' => 'required|integer',
             'phone' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',

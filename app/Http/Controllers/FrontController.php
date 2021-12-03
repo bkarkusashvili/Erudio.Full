@@ -25,7 +25,10 @@ class FrontController extends Controller
     public function home()
     {
         return Inertia::render('Home', [
-            'clients' => Client::all()
+            'clients' => Client::all(),
+            'trainings' => Course::where('popular_training', true)->get(),
+            'courses' => Course::where('popular_course', true)->get(),
+            'masterclasses' => Course::where('popular_masterclass', true)->get(),
         ]);
     }
 

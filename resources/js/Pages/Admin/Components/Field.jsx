@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material';
+import { FormControl, FormControlLabel, FormHelperText, InputLabel, MenuItem, Select, Switch, TextField } from '@mui/material';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
@@ -10,6 +10,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
     const [image, setImage] = useState(value ? `${base}/storage/${value}` : '');
     const isMultiline = data.type === 'textarea';
     const isImage = data.type === 'file';
+    const isToggle = data.type === 'toggle';
     const isSelect = data.type === 'select';
     const isDate = data.type === 'date';
 
@@ -47,6 +48,17 @@ export const Field = ({ data, error, value = null, setChange }) => {
                 renderInput={params => <TextField {...params} />}
             />
         </LocalizationProvider>
+    ) : isToggle ? (
+        <FormControlLabel
+            style={{ marginLeft: 0 }}
+            control={
+                <Switch
+                    onChange={e => setChange(data.name, e.target.checked)}
+                    defaultChecked={value}
+                />
+            }
+            label={data.label}
+        />
     ) : (
         <TextField
             variant="outlined"

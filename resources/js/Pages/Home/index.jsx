@@ -2,6 +2,7 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 
 import { Slider, CourseList, Clients, Subscribe } from './Components';
+import { Line } from '@/Components';
 
 const list = [
     {
@@ -11,14 +12,15 @@ const list = [
     }
 ];
 
-const Home = ({ clients }) => {
+const Home = ({ clients, trainings, courses, masterclasses }) => {
 
     return (
         <MainLayout hasFooterMenu>
             <Slider />
-            <CourseList title="პოპულარული ტრენინგები" list={list} />
+            <Line style={{ marginTop: '-4px' }} />
+            <CourseList title="პოპულარული ტრენინგები" list={trainings} />
             <Clients list={clients} />
-            <CourseList title="პოპულარული კურსები" list={list} isReverce />
+            <CourseList title="პოპულარული კურსები" list={courses} isReverce />
             <section className="client-info-wrap">
                 <div className="container">
                     <h3 className="tp-header small mb-33">კლიენტებზე მორგებული გადაწყვეტები</h3>
@@ -31,7 +33,7 @@ const Home = ({ clients }) => {
                     </div>
                 </div>
             </section>
-            <CourseList title="პოპულარული მასტერკლასები" list={list} />
+            <CourseList title="პოპულარული მასტერკლასები" list={masterclasses} />
             <Subscribe />
         </MainLayout>
     );

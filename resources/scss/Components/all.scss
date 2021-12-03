@@ -1134,3 +1134,13 @@
         }
     }
 }
+
+.line-wrap {
+    display: flex;
+    justify-content: center;
+
+    div {
+        height: 25px;
+        background-color: #5952d3;
+    }
+}

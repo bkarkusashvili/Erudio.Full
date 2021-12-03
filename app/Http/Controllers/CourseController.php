@@ -53,6 +53,9 @@ class CourseController extends AdminController
         [
             'size' => 4,
             'list' => [
+                ['type' => 'toggle', 'name' => 'popular_training', 'label' => 'პოპულალური ტრენინგი', 'value' => false],
+                ['type' => 'toggle', 'name' => 'popular_course', 'label' => 'პოპულალური კურსი', 'value' => false],
+                ['type' => 'toggle', 'name' => 'popular_masterclass', 'label' => 'პოპულალური მასტერკლასი', 'value' => false],
                 ['type' => 'number', 'name' => 'price', 'label' => 'ფასი'],
                 ['type' => 'text', 'name' => 'phone', 'label' => 'ტელეფონი'],
                 ['type' => 'select', 'name' => 'category_id', 'label' => 'კატეგორია'],
@@ -71,19 +74,19 @@ class CourseController extends AdminController
         //         'value' => $category->id,
         //     ];
         // })->toArray();
-        $this->fields[1]['list'][2]['options'] = Category::all()->map(function (Category $category) {
+        $this->fields[1]['list'][5]['options'] = Category::all()->map(function (Category $category) {
             return [
                 'text' => $category->title_ka,
                 'value' => $category->id,
             ];
         });
-        $this->fields[1]['list'][3]['options'] = City::all()->map(function (City $city) {
+        $this->fields[1]['list'][6]['options'] = City::all()->map(function (City $city) {
             return [
                 'text' => $city->name_ka,
                 'value' => $city->id,
             ];
         });
-        $this->fields[1]['list'][4]['options'] = Instructor::all()->map(function (Instructor $instructor) {
+        $this->fields[1]['list'][7]['options'] = Instructor::all()->map(function (Instructor $instructor) {
             return [
                 'text' => $instructor->name_ka,
                 'value' => $instructor->id,
