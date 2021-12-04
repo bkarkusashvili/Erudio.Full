@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
 
 export const Footer = ({ hasFooterMenu = false }) => {
+    const { categories, lang } = usePage().props;
 
     return (
         <footer>
@@ -19,16 +20,13 @@ export const Footer = ({ hasFooterMenu = false }) => {
                     </div>
                     <div className="item">
                         <h3 className="title">სფეროები</h3>
-                        <Link href={route('about')}>კორპორატიული ტრენინგები</Link>
-                        <Link href={route('about')}>შესაბამისობა (Compliance)</Link>
-                        <Link href={route('about')}>საბანკო-საფინანსო</Link>
-                        <Link href={route('about')}>საგადასახადო</Link>
-                        <Link href={route('about')}>იურიდიული</Link>
-                        <Link href={route('about')}>გაყიდვები</Link>
-                        <Link href={route('about')}>ეკონომიკა</Link>
-                        <Link href={route('about')}>ტურიზმი</Link>
-                        <Link href={route('about')}>ტექნოლოგიური</Link>
-                        <Link href={route('about')}>ციფრული მარკეტინგი</Link>
+                        {categories.map((item, key) =>
+                            <Link
+                                key={key}
+                                href={route('category.single', item.id)}
+                                children={item['title_' + lang]}
+                            />
+                        )}
                     </div>
                     <div className="item">
                         <h3 className="title">სოციალური ქსელი</h3>
