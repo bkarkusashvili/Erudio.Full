@@ -39,6 +39,6 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                     </figure>
                 </div>
             </div>
-        </section >
+        </section>
     );
 };
