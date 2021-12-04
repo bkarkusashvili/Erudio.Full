@@ -45,6 +45,9 @@ class CourseRequest extends FormRequest
             'popular_course' => 'nullable|boolean',
             'popular_masterclass' => 'nullable|boolean',
 
+            'text_ka' => 'nullable|string',
+            'text_en' => 'nullable|string',
+
             'price' => 'required|integer',
             'phone' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',

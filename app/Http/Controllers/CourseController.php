@@ -56,6 +56,8 @@ class CourseController extends AdminController
                 ['type' => 'toggle', 'name' => 'popular_training', 'label' => 'პოპულალური ტრენინგი', 'value' => false],
                 ['type' => 'toggle', 'name' => 'popular_course', 'label' => 'პოპულალური კურსი', 'value' => false],
                 ['type' => 'toggle', 'name' => 'popular_masterclass', 'label' => 'პოპულალური მასტერკლასი', 'value' => false],
+                ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'მთავარი გვერდის ტექსტი, მოკლე აღწერა (ქარ.)'],
+                ['type' => 'textarea', 'name' => 'text_en', 'label' => 'მთავარი გვერდის ტექსტი, მოკლე აღწერა (ინგ.)'],
                 ['type' => 'number', 'name' => 'price', 'label' => 'ფასი'],
                 ['type' => 'text', 'name' => 'phone', 'label' => 'ტელეფონი'],
                 ['type' => 'select', 'name' => 'category_id', 'label' => 'კატეგორია'],
@@ -74,19 +76,19 @@ class CourseController extends AdminController
         //         'value' => $category->id,
         //     ];
         // })->toArray();
-        $this->fields[1]['list'][5]['options'] = Category::all()->map(function (Category $category) {
+        $this->fields[1]['list'][7]['options'] = Category::all()->map(function (Category $category) {
             return [
                 'text' => $category->title_ka,
                 'value' => $category->id,
             ];
         });
-        $this->fields[1]['list'][6]['options'] = City::all()->map(function (City $city) {
+        $this->fields[1]['list'][8]['options'] = City::all()->map(function (City $city) {
             return [
                 'text' => $city->name_ka,
                 'value' => $city->id,
             ];
         });
-        $this->fields[1]['list'][7]['options'] = Instructor::all()->map(function (Instructor $instructor) {
+        $this->fields[1]['list'][9]['options'] = Instructor::all()->map(function (Instructor $instructor) {
             return [
                 'text' => $instructor->name_ka,
                 'value' => $instructor->id,

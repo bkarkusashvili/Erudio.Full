@@ -27,6 +27,12 @@ section.course-list {
             }
 
             .content {
+                display: none;
+
+                &.active {
+                    display: block;
+                }
+
                 p {
                     margin-bottom: 38px;
                 }
@@ -35,6 +41,20 @@ section.course-list {
                     font-size: 22px;
                     color: #1a1a1a;
                     text-decoration: none;
+                }
+            }
+
+            .navigation {
+                margin-top: 115px;
+
+                a {
+                    cursor: pointer;
+                    font-size: 36px;
+                    color: #1a1a1a;
+
+                    &:first-of-type {
+                        margin-right: 80px;
+                    }
                 }
             }
         }
