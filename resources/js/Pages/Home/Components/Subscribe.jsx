@@ -1,5 +1,5 @@
 import { getClassName } from '@/Helper';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 export const Subscribe = () => {
     const [email, setEmail] = useState('');
@@ -7,6 +7,7 @@ export const Subscribe = () => {
         success: true,
         message: ''
     });
+    const emailInput = useRef(null);
 
     const submit = e => {
         e.preventDefault();
@@ -17,7 +18,7 @@ export const Subscribe = () => {
                 setInfo(res);
 
                 if (res.success) {
-                    setEmail('');
+                    emailInput.current.value = '';
                 }
             });
     };
@@ -27,7 +28,7 @@ export const Subscribe = () => {
             <div className="container">
                 <h3 className="tp-header small">გამოიწერე სიახლეები</h3>
                 <form className={getClassName({ error: !info.success, subscribe: true })} onSubmit={submit}>
-                    <input type="text" placeholder="ელ.ფოსტა" autoComplete="off" onChange={e => setEmail(e.target.value)} />
+                    <input ref={emailInput} type="text" placeholder="ელ.ფოსტა" autoComplete="off" onChange={e => setEmail(e.target.value)} />
                     <button type="submit">გამოიწერე</button>
                 </form>
                 <span className={getClassName({ error: !info.success, message: true })}>{info.message}</span>

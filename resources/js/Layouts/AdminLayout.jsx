@@ -27,7 +27,7 @@ const menu = [
             { text: 'კურსები', model: 'course', canAdd: true },
         ]
     },
-    // { text: 'გამოწერები', model: 'subscribe' },
+    { text: 'გამოწერები', model: 'subscribe' },
     { text: 'პარამეტრები', model: 'option', canAdd: false },
 ];
 
