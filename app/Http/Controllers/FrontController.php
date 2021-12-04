@@ -76,7 +76,7 @@ class FrontController extends Controller
 
         $response = [
             'success' => false,
-            'message' => 'დაემატა',
+            'message' => 'თქვენი ელ-ფოსტა წარმატებით დაემატა გამომწერთა სიაში',
         ];
         $validator = Validator::make($request->all(), ['email' => 'required|email|unique:subscribes']);
 
