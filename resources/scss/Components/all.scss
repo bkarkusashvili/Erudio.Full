@@ -160,6 +160,16 @@
             }
         }
     }
+
+    .message {
+        margin-top: 10px;
+        font-weight: bold;
+        color: #2e7d32;
+
+        &.error {
+            color: #d32f2f;
+        }
+    }
 }
 
 .video-wrap {

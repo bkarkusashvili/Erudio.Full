@@ -7,9 +7,11 @@ use App\Models\City;
 use App\Models\Client;
 use App\Models\Course;
 use App\Models\Media;
+use App\Models\Subscribe;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class FrontController extends Controller
@@ -67,6 +69,26 @@ class FrontController extends Controller
         return collect($categories, $courses)->filter(function ($item, $index) {
             return $index <= 2;
         });
+    }
+
+    public function subscribe(Request $request)
+    {
+
+        $response = [
+            'success' => false,
+            'message' => 'დაემატა',
+        ];
+        $validator = Validator::make($request->all(), ['email' => 'required|email|unique:subscribes']);
+
+        if ($validator->fails()) {
+            $response['message'] = $validator->errors()->get('email')[0];
+        } else {
+            Subscribe::create(['email' => $request->get('email')]);
+
+            $response['success'] = true;
+        }
+
+        return $response;
     }
 
     public function about()

@@ -16,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/search', [FrontController::class, 'search'])->name('search');
+Route::get('/subscribe', [FrontController::class, 'subscribe'])->name('add.subscribe');

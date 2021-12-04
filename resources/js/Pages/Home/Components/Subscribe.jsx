@@ -1,15 +1,36 @@
-import React from 'react';
+import { getClassName } from '@/Helper';
+import React, { useState } from 'react';
 
 export const Subscribe = () => {
+    const [email, setEmail] = useState('');
+    const [info, setInfo] = useState({
+        success: true,
+        message: ''
+    });
+
+    const submit = e => {
+        e.preventDefault();
+
+        fetch(route('add.subscribe', { email }))
+            .then(res => res.json())
+            .then(res => {
+                setInfo(res);
+
+                if (res.success) {
+                    setEmail('');
+                }
+            });
+    };
 
     return (
         <section className="subscribe-wrap">
             <div className="container">
                 <h3 className="tp-header small">გამოიწერე სიახლეები</h3>
-                <div className="subscribe">
-                    <input type="email" placeholder="ელ.ფოსტა |" autoComplete="off" />
+                <form className={getClassName({ error: !info.success, subscribe: true })} onSubmit={submit}>
+                    <input type="text" placeholder="ელ.ფოსტა" autoComplete="off" onChange={e => setEmail(e.target.value)} />
                     <button type="submit">გამოიწერე</button>
-                </div>
+                </form>
+                <span className={getClassName({ error: !info.success, message: true })}>{info.message}</span>
             </div>
         </section>
     );
