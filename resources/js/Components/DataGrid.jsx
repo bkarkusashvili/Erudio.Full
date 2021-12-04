@@ -42,7 +42,7 @@ export const DataGrid = ({ rows, columns, model }) => {
                                 {column.headerName}
                             </TableCell>
                         ))}
-                        {actions.edit && actions.delete && (
+                        {(actions.edit || actions.delete) && (
                             <TableCell align={'right'} style={{ fontWeight: 'bold' }}>
                                 მოქმედება
                             </TableCell>
@@ -63,7 +63,7 @@ export const DataGrid = ({ rows, columns, model }) => {
                                     {row[column.field]}
                                 </TableCell>
                             ))}
-                            {actions.edit && actions.delete && (
+                            {(actions.edit || actions.delete) && (
                                 <TableCell align="right">
                                     {actions.edit && (
                                         <Link href={route(`${model}.edit`, row.id)}>

@@ -7,6 +7,10 @@ use App\Models\Option;
 
 class OptionController extends AdminController
 {
+    public $create = false;
+    public $delete = false;
+    public $edit = true;
+
     public $model = Option::class;
     public $request = OptionRequest::class;
     public $columns = [

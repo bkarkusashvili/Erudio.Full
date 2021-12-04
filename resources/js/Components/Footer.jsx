@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 
 export const Footer = ({ hasFooterMenu = false }) => {
-    const { categories, lang } = usePage().props;
+    const { categories, options, lang } = usePage().props;
 
     return (
         <footer>
@@ -30,17 +30,17 @@ export const Footer = ({ hasFooterMenu = false }) => {
                     </div>
                     <div className="item">
                         <h3 className="title">სოციალური ქსელი</h3>
-                        <Link href="https://facebook.com" target="_blank">Facebook</Link>
-                        <Link href="https://twitter.com" target="_blank">Twitter</Link>
-                        <Link href="https://www.youtube.com" target="_blank">Youtube</Link>
-                        <Link href="https://www.linkedin.com" target="_blank">LInkedin</Link>
-                        <Link href="https://instagram.com" target="_blank">instagram</Link>
+                        {options.facebook && <Link href={options.facebook} target="_blank">Facebook</Link>}
+                        {options.twitter && <Link href={options.twitter} target="_blank">Twitter</Link>}
+                        {options.youtube && <Link href={options.youtube} target="_blank">Youtube</Link>}
+                        {options.linkedin && <Link href={options.linkedin} target="_blank">LInkedin</Link>}
+                        {options.instagram && <Link href={options.instagram} target="_blank">instagram</Link>}
                     </div>
                     <div className="item">
                         <h3 className="title">კონტაქტი</h3>
-                        <Link href={route('about')}>erudio@gmail.com</Link>
-                        <Link href={route('about')}>+995 123 123</Link>
-                        <Link href={route('about')}>ი.აბაშიძის 173</Link>
+                        {options.email && <Link href={'mailto:' + options.email} target="_blank">{options.email}</Link>}
+                        {options.phone && <Link href={'tel:' + options.phone} target="_blank">{options.phone}</Link>}
+                        {options['address_' + lang] && <Link href={'mailto:' + options['address_' + lang]} target="_blank">{options['address_' + lang]}</Link>}
                     </div>
                 </div>
             )}

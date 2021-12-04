@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Client;
 use App\Models\Course;
 use App\Models\Media;
+use App\Models\Option;
 use App\Models\Subscribe;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -20,6 +21,7 @@ class FrontController extends Controller
     public function __construct()
     {
         Inertia::share('categories', Category::all());
+        Inertia::share('options', Option::all());
         Inertia::share('lang', Lang::locale());
         Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }

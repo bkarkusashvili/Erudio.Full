@@ -14,6 +14,15 @@ class OptionSeeder extends Seeder
      */
     public function run()
     {
-        Option::create([]);
+        Option::create(['key' => 'facebook', 'value' => '']);
+        Option::create(['key' => 'twitter', 'value' => '']);
+        Option::create(['key' => 'youtube', 'value' => '']);
+        Option::create(['key' => 'linkedin', 'value' => '']);
+        Option::create(['key' => 'instagram', 'value' => '']);
+
+        Option::create(['key' => 'email', 'value' => '']);
+        Option::create(['key' => 'phone', 'value' => '']);
+        Option::create(['key' => 'address_ka', 'value' => '']);
+        Option::create(['key' => 'address_en', 'value' => '']);
     }
 }
