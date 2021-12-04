@@ -4,6 +4,8 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 export const Footer = ({ hasFooterMenu = false }) => {
     const { categories, options, lang } = usePage().props;
 
+    console.log(options);
+
     return (
         <footer>
             {hasFooterMenu && (
@@ -14,9 +16,9 @@ export const Footer = ({ hasFooterMenu = false }) => {
                     <div className="item">
                         <h3 className="title">ჩვენს შესახებ</h3>
                         <Link href={route('about')}>ერუდიო შესახებ</Link>
-                        <Link href={route('about')}>ჩვენი გუნდი</Link>
-                        <Link href={route('about')}>სოციალური პასუხისმგებლობა</Link>
-                        <Link href={route('about')}>მედია</Link>
+                        <Link href={route('team')}>ჩვენი გუნდი</Link>
+                        <Link href={route('social')}>სოციალური პასუხისმგებლობა</Link>
+                        <Link href={route('media')}>მედია</Link>
                     </div>
                     <div className="item">
                         <h3 className="title">სფეროები</h3>

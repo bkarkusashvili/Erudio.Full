@@ -22,7 +22,7 @@ class OptionController extends AdminController
         [
             'size' => 6,
             'list' => [
-                ['type' => 'text', 'name' => 'key', 'label' => 'Key'],
+                ['type' => 'text', 'name' => 'key', 'label' => 'Key', 'disabled' => true],
             ]
         ],
         [

@@ -21,7 +21,9 @@ class FrontController extends Controller
     public function __construct()
     {
         Inertia::share('categories', Category::all());
-        Inertia::share('options', Option::all());
+        Inertia::share('options', Option::all()->mapWithKeys(function (Option $option) {
+            return [$option->key => $option->value];
+        }));
         Inertia::share('lang', Lang::locale());
         Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }

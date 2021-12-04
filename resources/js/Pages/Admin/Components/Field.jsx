@@ -31,6 +31,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <FormControl fullWidth error={!!error}>
             <InputLabel>{data.label}</InputLabel>
             <Select
+                disabled={data.disabled}
                 defaultValue={value}
                 label={data.label}
                 onChange={e => setChange(data.name, e.target.value)}
@@ -42,6 +43,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
     ) : isDate ? (
         <LocalizationProvider dateAdapter={DateAdapter}>
             <DesktopDatePicker
+                disabled={data.disabled}
                 label="თარიღი"
                 value={value}
                 onChange={value => setChange(data.name, value.toDate())}
@@ -51,6 +53,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
     ) : isToggle ? (
         <FormControlLabel
             style={{ marginLeft: 0 }}
+            disabled={data.disabled}
             control={
                 <Switch
                     onChange={e => setChange(data.name, e.target.checked)}
@@ -61,6 +64,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
         />
     ) : (
         <TextField
+            disabled={data.disabled}
             variant="outlined"
             label={data.label}
             error={!!error}
