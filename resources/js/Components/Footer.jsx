@@ -32,17 +32,17 @@ export const Footer = ({ hasFooterMenu = false }) => {
                     </div>
                     <div className="item">
                         <h3 className="title">სოციალური ქსელი</h3>
-                        {options.facebook && <Link href={options.facebook} target="_blank">Facebook</Link>}
-                        {options.twitter && <Link href={options.twitter} target="_blank">Twitter</Link>}
-                        {options.youtube && <Link href={options.youtube} target="_blank">Youtube</Link>}
-                        {options.linkedin && <Link href={options.linkedin} target="_blank">LInkedin</Link>}
-                        {options.instagram && <Link href={options.instagram} target="_blank">instagram</Link>}
+                        {options.facebook && <a href={options.facebook} target="_blank">Facebook</a>}
+                        {options.twitter && <a href={options.twitter} target="_blank">Twitter</a>}
+                        {options.youtube && <a href={options.youtube} target="_blank">Youtube</a>}
+                        {options.linkedin && <a href={options.linkedin} target="_blank">LInkedin</a>}
+                        {options.instagram && <a href={options.instagram} target="_blank">instagram</a>}
                     </div>
                     <div className="item">
                         <h3 className="title">კონტაქტი</h3>
-                        {options.email && <Link href={'mailto:' + options.email} target="_blank">{options.email}</Link>}
-                        {options.phone && <Link href={'tel:' + options.phone} target="_blank">{options.phone}</Link>}
-                        {options['address_' + lang] && <Link href={'mailto:' + options['address_' + lang]} target="_blank">{options['address_' + lang]}</Link>}
+                        {options.email && <a href={'mailto:' + options.email} target="_blank">{options.email}</a>}
+                        {options.phone && <a href={'tel:' + options.phone} target="_blank">{options.phone}</a>}
+                        {options['address_' + lang] && <a>{options['address_' + lang]}</a>}
                     </div>
                 </div>
             )}
