@@ -4,6 +4,7 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
 import { usePage } from '@inertiajs/inertia-react';
+import { getInputName } from '@/Helper';
 
 export const Field = ({ data, error, value = null, setChange }) => {
     const { base } = usePage().props;
@@ -15,9 +16,9 @@ export const Field = ({ data, error, value = null, setChange }) => {
     const isSelect = data.type === 'select';
     const isDate = data.type === 'date';
 
-    const imageChange = (e) => {
+    const fileChange = (e) => {
         const file = e.target.files[0];
-        setChange(data.name, file);
+        setChange(getInputName(data), file);
 
         setImage(URL.createObjectURL(file));
     };
@@ -26,8 +27,18 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <div className="image-input-wrap">
             <img src={image} />
             <Button variant="contained" onClick={e => e.target.nextSibling.click()} children="არჩევა" />
-            <input type="file" onChange={imageChange} hidden />
+            <input type="file" onChange={fileChange} hidden />
         </div>
+    ) : isFile ? (
+        <TextField
+            disabled={data.disabled}
+            variant="outlined"
+            error={!!error}
+            helperText={error}
+            type={data.type}
+            onChange={fileChange}
+            fullWidth
+        />
     ) : isSelect ? (
         <FormControl fullWidth error={!!error}>
             <InputLabel>{data.label}</InputLabel>
@@ -35,7 +46,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
                 disabled={data.disabled}
                 defaultValue={value}
                 label={data.label}
-                onChange={e => setChange(data.name, e.target.value)}
+                onChange={e => setChange(getInputName(data), e.target.value)}
             >
                 {data.options?.map(option => <MenuItem value={option.value} children={option.text} />)}
             </Select>
@@ -47,7 +58,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
                 disabled={data.disabled}
                 label="თარიღი"
                 value={value}
-                onChange={value => setChange(data.name, value.toDate())}
+                onChange={value => setChange(getInputName(data), value.toDate())}
                 renderInput={params => <TextField {...params} />}
             />
         </LocalizationProvider>
@@ -57,8 +68,8 @@ export const Field = ({ data, error, value = null, setChange }) => {
             disabled={data.disabled}
             control={
                 <Switch
-                    onChange={e => setChange(data.name, e.target.checked)}
-                    defaultChecked={value}
+                    onChange={e => setChange(getInputName(data), e.target.checked)}
+                    defaultChecked={!!value}
                 />
             }
             label={data.label}
@@ -67,12 +78,12 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <TextField
             disabled={data.disabled}
             variant="outlined"
-            label={!isFile && data.label}
+            label={data.label}
             error={!!error}
             helperText={error}
             defaultValue={value}
             type={data.type}
-            onChange={e => setChange(data.name, e.target.value)}
+            onChange={e => setChange(getInputName(data), e.target.value)}
             multiline={isMultiline}
             minRows={3}
             fullWidth

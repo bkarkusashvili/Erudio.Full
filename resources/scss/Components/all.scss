@@ -420,8 +420,8 @@
                 }
 
                 img {
-                    max-width: 268px;
-                    max-height: 100%;
+                    width: 100%;
+                    height: 100%;
                     object-fit: cover;
                 }
             }
@@ -1056,6 +1056,7 @@
             }
 
             .form-submit {
+                cursor: pointer;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -1068,7 +1069,45 @@
                 font-size: 20px;
                 font-weight: bold;
                 border-radius: 40px;
+                transition: all 0.3s;
+
+                &:hover {
+                    color: #ffffff;
+                    background-color: #5952d3;
+                }
             }
+        }
+    }
+
+    .user-email {
+        font-weight: bold;
+    }
+
+    .delete {
+        display: inline-block;
+        font-weight: bold;
+        color: #1a1a1a;
+        font-size: 22px;
+        text-decoration: none;
+        margin-top: 40px;
+        font-family: 'Caps';
+    }
+
+    .delete-wrap {
+        display: flex;
+        align-items: center;
+
+        .delete-check {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 3px;
+            border: 1px solid #888893;
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+            color: #5952d2;
         }
     }
 }
@@ -1152,5 +1191,46 @@
     div {
         height: 25px;
         background-color: #5952d3;
+    }
+}
+
+.video-js {
+    .vjs-big-play-button {
+        border: none !important;
+        background-color: transparent !important;
+        left: 50% !important;
+        top: 50% !important;
+        font-size: 60px !important;
+        color: #edbd03;
+        transform: translate(-50%, -50%);
+    }
+
+    .vjs-progress-control {
+        position: absolute !important;
+        width: 100% !important;
+        bottom: -6px !important;
+        height: 6px !important;
+
+        .vjs-progress-holder {
+            margin: 0 !important;
+            height: 6px !important;
+        }
+    }
+
+    .vjs-play-control {
+        display: none;
+    }
+
+    .vjs-play-progress {
+        background-color: #edbd03 !important;
+        border-radius: 0 5px 5px 0;
+
+        &::before {
+            display: none;
+        }
+    }
+
+    .vjs-load-progress {
+        background-color: #d6d6d6 !important;
     }
 }

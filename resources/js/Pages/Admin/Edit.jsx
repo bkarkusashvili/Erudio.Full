@@ -3,13 +3,16 @@ import { AdminLayout } from '@/Layouts/AdminLayout';
 import { Grid, Stack, Typography, Button } from '@mui/material';
 import { useForm } from '@inertiajs/inertia-react';
 import { Field } from './Components';
+import { getInputName } from '@/Helper';
+
+const Files = new Set(['file', 'image', 'video']);
 
 const Edit = ({ model, data, fields }) => {
     const initForm = { _method: 'PUT' };
     fields.forEach(field => field.list
         .forEach(item => {
-            const key = item.name;
-            const value = item.type !== 'file' ? data[item.name] : null;
+            const key = getInputName(item);
+            const value = Files.has(item.type) ? null : data[item.name];
 
             initForm[key] = value;
         })

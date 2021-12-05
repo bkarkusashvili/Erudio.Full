@@ -2,6 +2,7 @@ import React from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getClassName, isActivePage } from '@/Helper';
 import { MainMenu } from '@/router';
+import { Smile } from './Smile';
 
 export const Header = () => {
     const { categories, lang, auth } = usePage().props;
@@ -55,7 +56,10 @@ export const Header = () => {
                         </Link>
                     ))}
                     <Link href={route('login')} className={isActivePage('login') ? 'active' : ''}>
-                        {auth.user?.firstname || 'შესვლა'}
+                        <div className="smile-wrap">
+                            <Smile />
+                            {auth.user?.firstname || 'შესვლა'}
+                        </div>
                         {auth.user && (
                             <div className="nav-list">
                                 <Link href={route('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children="ჩემი გვერდი" />

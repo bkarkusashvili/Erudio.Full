@@ -189,4 +189,9 @@ class FrontController extends Controller
     {
         return Inertia::render('Auth/Settings', []);
     }
+
+    public function updatePassword()
+    {
+        return Inertia::render('Auth/Settings', []);
+    }
 }

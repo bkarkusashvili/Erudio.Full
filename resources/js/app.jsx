@@ -5,6 +5,8 @@ import { render } from 'react-dom';
 import { createInertiaApp } from '@inertiajs/inertia-react';
 import { InertiaProgress } from '@inertiajs/progress';
 import 'swiper/css';
+import 'video.js/dist/video-js.css';
+import videojs from "video.js";
 
 const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
 

@@ -58,15 +58,22 @@ class CourseController extends AdminController
                 ['type' => 'toggle', 'name' => 'popular_masterclass', 'label' => 'პოპულალური მასტერკლასი', 'value' => false],
                 ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'მთავარი გვერდის ტექსტი, მოკლე აღწერა (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'text_en', 'label' => 'მთავარი გვერდის ტექსტი, მოკლე აღწერა (ინგ.)'],
+                ['type' => 'number', 'name' => 'days', 'label' => 'დღეები'],
                 ['type' => 'number', 'name' => 'price', 'label' => 'ფასი'],
                 ['type' => 'text', 'name' => 'phone', 'label' => 'ტელეფონი'],
+                ['type' => 'text', 'name' => 'url', 'label' => 'ლინკი'],
+                ['type' => 'select', 'name' => 'type', 'label' => 'კურსის ტიპი'],
                 ['type' => 'select', 'name' => 'category_id', 'label' => 'კატეგორია'],
                 ['type' => 'select', 'name' => 'city_id', 'label' => 'ქალაქი'],
                 ['type' => 'select', 'name' => 'instructor_id', 'label' => 'ინსტრუქტორი'],
+                ['type' => 'file', 'name' => 'video', 'label' => 'ვიდეო'],
+                ['type' => 'file', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],
                 ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ],
     ];
+    public $fileFilds = ['image', 'file', 'video'];
+
 
     public function __construct()
     {
@@ -76,19 +83,24 @@ class CourseController extends AdminController
         //         'value' => $category->id,
         //     ];
         // })->toArray();
-        $this->fields[1]['list'][7]['options'] = Category::all()->map(function (Category $category) {
+        $start = 9;
+        $this->fields[1]['list'][$start++]['options'] = [
+            ['text' => 'ჩანაწერი', 'value' => 0],
+            ['text' => 'ლაივი', 'value' => 1],
+        ];
+        $this->fields[1]['list'][$start++]['options'] = Category::all()->map(function (Category $category) {
             return [
                 'text' => $category->title_ka,
                 'value' => $category->id,
             ];
         });
-        $this->fields[1]['list'][8]['options'] = City::all()->map(function (City $city) {
+        $this->fields[1]['list'][$start++]['options'] = City::all()->map(function (City $city) {
             return [
                 'text' => $city->name_ka,
                 'value' => $city->id,
             ];
         });
-        $this->fields[1]['list'][9]['options'] = Instructor::all()->map(function (Instructor $instructor) {
+        $this->fields[1]['list'][$start++]['options'] = Instructor::all()->map(function (Instructor $instructor) {
             return [
                 'text' => $instructor->name_ka,
                 'value' => $instructor->id,
