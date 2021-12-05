@@ -40,7 +40,7 @@ const Settings = () => {
                         </div>
                         <div className="item">
                             <span className="tp-text"></span>
-                            <input className="form-submit" type="submit" autoComplete="off" placeholder="მონაცემების დამახსოვრება" />
+                            <input className="form-submit" type="submit" autoComplete="off" value="მონაცემების დამახსოვრება" />
                         </div>
                     </form>
                     <div className="tp-text">
