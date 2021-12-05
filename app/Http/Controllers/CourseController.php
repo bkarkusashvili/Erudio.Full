@@ -16,7 +16,7 @@ class CourseController extends AdminController
     public $request = CourseRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
-        ['field' => 'name', 'headerName' => 'სახელი'],
+        ['field' => 'name_ka', 'headerName' => 'სახელი'],
         ['field' => 'price', 'headerName' => 'ფასი'],
     ];
     public $fields = [
