@@ -2,6 +2,7 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getVideoType } from '@/Helper';
+import videojs from "video.js";
 
 const CourseSingle = ({ item, lang }) => {
     const { auth, base } = usePage().props;
