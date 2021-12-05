@@ -3,17 +3,19 @@ import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getVideoType } from '@/Helper';
 import videojs from "video.js";
+import 'video.js/dist/video-js.css';
 
 const CourseSingle = ({ item, lang }) => {
-    const { auth, base } = usePage().props;
+    const { auth: { user }, base } = usePage().props;
 
+    const isLive = user.id === 2 && item.id === 2;
     return (
         <MainLayout>
             <div className="course-single-wrap">
                 <div className="container video-box-wrap">
                     <div className="media">
                         {item.video ? (
-                            <video width="640" height="360" class="video-js" controls preload="auto" poster={`${base}/storage/${item.image}`}
+                            <video width="640" height="360" className="video-js" controls preload="auto" poster={`${base}/storage/${item.image}`}
                                 data-setup="{}">
                                 <source src={`${base}/storage/${item.video}`} type={`video/${getVideoType(item.video)}`} />
                             </video>
@@ -49,11 +51,24 @@ const CourseSingle = ({ item, lang }) => {
                                 <span>{item.phone}</span>
                             </div>
                         </div>
-                        <Link href={route('register')} className="tp-register">
-                            {auth.user ? 'ყიდვა' : 'რეგისტრაცია'}
-                        </Link>
+                        {!isLive && (
+                            <Link href={route('register')} className="tp-register">
+                                {user ? 'ყიდვა' : 'რეგისტრაცია'}
+                            </Link>
+                        )}
                     </div>
                 </div>
+                {isLive && (
+                    <div className="container live-course">
+                        <h3 className="tp-header">
+                            კურსი მოიცავს ლაივ ტრეინინგებს
+                            <span>LIVE</span>
+                        </h3>
+                        <p className="tp-text live-course-days">კურსი შედგება {item.days} ლექციისგან</p>
+                        <p className="tp-text">LIVE ტრეინინგის ლინკი:</p>
+                        <a href={item.url} target="_blank">{item.url}</a>
+                    </div>
+                )}
                 <div className="container info">
                     <h3 className="tp-header">კურსის მიზანი და ამოცანა</h3>
                     <div className="tp-text">{item['goal_' + lang]}</div>

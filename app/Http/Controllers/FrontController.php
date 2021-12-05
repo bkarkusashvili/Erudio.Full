@@ -182,7 +182,9 @@ class FrontController extends Controller
 
     public function profile()
     {
-        return Inertia::render('Auth/Profile', []);
+        return Inertia::render('Auth/Profile', [
+            'item' => Course::find(2),
+        ]);
     }
 
     public function settings()

@@ -847,6 +847,50 @@
         }
     }
 
+    .live-course {
+        margin-bottom: 118px;
+
+        h3 {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+
+            span {
+                display: flex;
+                align-items: center;
+                margin-left: 50px;
+                background-color: #dd3434;
+                color: #ffffff;
+                font-size: 18px;
+                border-radius: 8px;
+                font-family: 'Caps';
+                padding: 9px 11px 5px 9px;
+                transform: translateY(-5px);
+
+                &::before {
+                    content: '';
+                    width: 8px;
+                    height: 8px;
+                    background-color: #ffffff;
+                    border-radius: 50%;
+                    margin-right: 8px;
+                    flex-shrink: 0;
+                    transform: translateY(-2px);
+                }
+            }
+        }
+
+        .live-course-days {
+            margin-bottom: 48px;
+        }
+
+        a {
+            color: #5851d1;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    }
+
     .info {
         margin-bottom: 118px;
 
