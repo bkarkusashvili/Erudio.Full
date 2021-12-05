@@ -83,7 +83,7 @@ class AdminController extends Controller
 
         $data->each(function ($item, $key) use ($data) {
             if ($item instanceof UploadedFile) {
-                $data[$key] = $this->uploadImage($item);
+                $data[$key] = $this->uploadImage($item, null, $key);
             }
         });
 
@@ -127,6 +127,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, int $id)
     {
+
         $validator = $this->validator($request);
         $validator->validate();
 
@@ -135,11 +136,9 @@ class AdminController extends Controller
             return $item !== null;
         });
 
-        dd($data);
-
         $data->each(function ($item, $key) use ($data, $model) {
             if ($item instanceof UploadedFile) {
-                $data[$key] = $this->uploadImage($item, $model[$key]);
+                $data[$key] = $this->uploadImage($item, $model[$key], $key);
             }
         });
 
@@ -175,13 +174,13 @@ class AdminController extends Controller
         return Validator::make($request->all(), $this->request::createFrom($request)->rules());
     }
 
-    private function uploadImage(UploadedFile $image, string $oldImage = null)
+    private function uploadImage(UploadedFile $file, string $oldFile = null, string $folder)
     {
-        if ($oldImage) {
-            $this->removeFile($oldImage);
+        if ($oldFile) {
+            $this->removeFile($oldFile);
         }
 
-        return Storage::disk('public')->putFile('images/' . $this->route, $image) ?: null;
+        return Storage::disk('public')->putFile($folder . '/' . $this->route, $file) ?: null;
     }
 
     private function removeFile(string $url)

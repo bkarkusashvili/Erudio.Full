@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
+import { getVideoType } from '@/Helper';
 
 const CourseSingle = ({ item, lang }) => {
     const { auth, base } = usePage().props;
@@ -10,11 +11,18 @@ const CourseSingle = ({ item, lang }) => {
             <div className="course-single-wrap">
                 <div className="container video-box-wrap">
                     <div className="media">
-                        <img src={`${base}/storage/${item.image}`} alt={item['name_' + lang]} />
-                        <div className="over">
+                        {item.video ? (
+                            <video width="640" height="360" class="video-js" controls preload="auto" poster={`${base}/storage/${item.image}`}
+                                data-setup="{}">
+                                <source src={`${base}/storage/${item.video}`} type={`video/${getVideoType(item.video)}`} />
+                            </video>
+                        ) : (
+                            <img src={`${base}/storage/${item.image}`} alt={item['name_' + lang]} />
+                        )}
+                        {/* <div className="over">
                             <span className="donwoload">საპრეზენტაციო ფაილის გადმოწერა</span>
                             <span className="time">05:30</span>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="content">
                         <h1 className="tp-header small">{item['name_' + lang]}</h1>

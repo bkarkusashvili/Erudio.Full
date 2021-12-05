@@ -16,9 +16,9 @@ export const Field = ({ data, error, value = null, setChange }) => {
     const isSelect = data.type === 'select';
     const isDate = data.type === 'date';
 
-    const imageChange = (e) => {
+    const fileChange = (e) => {
         const file = e.target.files[0];
-        setChange(data.name, file);
+        setChange(getInputName(data), file);
 
         setImage(URL.createObjectURL(file));
     };
@@ -27,8 +27,18 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <div className="image-input-wrap">
             <img src={image} />
             <Button variant="contained" onClick={e => e.target.nextSibling.click()} children="არჩევა" />
-            <input type="file" onChange={imageChange} hidden />
+            <input type="file" onChange={fileChange} hidden />
         </div>
+    ) : isFile ? (
+        <TextField
+            disabled={data.disabled}
+            variant="outlined"
+            error={!!error}
+            helperText={error}
+            type={data.type}
+            onChange={fileChange}
+            fullWidth
+        />
     ) : isSelect ? (
         <FormControl fullWidth error={!!error}>
             <InputLabel>{data.label}</InputLabel>
@@ -59,7 +69,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
             control={
                 <Switch
                     onChange={e => setChange(getInputName(data), e.target.checked)}
-                    defaultChecked={value}
+                    defaultChecked={!!value}
                 />
             }
             label={data.label}
@@ -68,7 +78,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <TextField
             disabled={data.disabled}
             variant="outlined"
-            label={!isFile && data.label}
+            label={data.label}
             error={!!error}
             helperText={error}
             defaultValue={value}

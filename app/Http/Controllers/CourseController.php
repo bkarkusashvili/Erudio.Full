@@ -66,10 +66,14 @@ class CourseController extends AdminController
                 ['type' => 'select', 'name' => 'category_id', 'label' => 'კატეგორია'],
                 ['type' => 'select', 'name' => 'city_id', 'label' => 'ქალაქი'],
                 ['type' => 'select', 'name' => 'instructor_id', 'label' => 'ინსტრუქტორი'],
+                ['type' => 'file', 'name' => 'video', 'label' => 'ვიდეო'],
+                ['type' => 'file', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],
                 ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ],
     ];
+    public $fileFilds = ['image', 'file', 'video'];
+
 
     public function __construct()
     {

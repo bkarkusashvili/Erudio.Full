@@ -60,6 +60,13 @@ class CourseRequest extends FormRequest
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'
             ],
+            'video' => [
+                request()->isMethod('POST') ? 'required' : 'nullable'
+            ],
+            'file' => [
+                'file',
+                request()->isMethod('POST') ? 'required' : 'nullable'
+            ],
         ];
     }
 }

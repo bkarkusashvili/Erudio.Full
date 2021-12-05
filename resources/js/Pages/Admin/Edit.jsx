@@ -5,14 +5,14 @@ import { useForm } from '@inertiajs/inertia-react';
 import { Field } from './Components';
 import { getInputName } from '@/Helper';
 
-const Files = new Set(['file', 'image']);
+const Files = new Set(['file', 'image', 'video']);
 
 const Edit = ({ model, data, fields }) => {
     const initForm = { _method: 'PUT' };
     fields.forEach(field => field.list
         .forEach(item => {
             const key = getInputName(item);
-            const value = Files.has(data.type) ? null : data[item.name];
+            const value = Files.has(item.type) ? null : data[item.name];
 
             initForm[key] = value;
         })
