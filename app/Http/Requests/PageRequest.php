@@ -28,11 +28,11 @@ class PageRequest extends FormRequest
 
         if ($id == 2) {
             $rules = [
-                'metas[title_ka]' => 'required|string',
-                'metas[title_en]' => 'nullable|string',
-                'metas[text_ka]' => 'required|string',
-                'metas[text_en]' => 'nullable|string',
-                'metas[image]' => [
+                'metas.title_ka' => 'required|string',
+                'metas.title_en' => 'nullable|string',
+                'metas.text_ka' => 'required|string',
+                'metas.text_en' => 'nullable|string',
+                'metas.image' => [
                     'image',
                     request()->isMethod('POST') ? 'required' : 'nullable'
                 ],

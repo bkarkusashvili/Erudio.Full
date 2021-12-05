@@ -41,16 +41,16 @@ class PageController extends AdminController
             [
                 'size' => 8,
                 'list' => [
-                    ['type' => 'text', 'name' => 'metas[title_ka]', 'label' => 'სათაური (ქარ.)'],
-                    ['type' => 'text', 'name' => 'metas[title_en]', 'label' => 'სათაური (ინგ.)'],
-                    ['type' => 'textarea', 'name' => 'metas[text_ka]', 'label' => 'ტექსტი (ქარ.)'],
-                    ['type' => 'textarea', 'name' => 'metas[text_en]', 'label' => 'ტექსტი (ინგ.)'],
+                    ['type' => 'text', 'relation' => 'metas', 'name' => 'title_ka', 'label' => 'სათაური (ქარ.)'],
+                    ['type' => 'text', 'relation' => 'metas', 'name' => 'title_en', 'label' => 'სათაური (ინგ.)'],
+                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
                 ]
             ],
             [
                 'size' => 4,
                 'list' => [
-                    ['type' => 'image', 'name' => 'metas[image]', 'label' => 'სურათი'],
+                    ['type' => 'image', 'relation' => 'metas', 'name' => 'image', 'label' => 'სურათი'],
                 ]
             ]
         ],

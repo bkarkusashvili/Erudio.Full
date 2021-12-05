@@ -10,30 +10,15 @@ const Profile = () => {
                 <div className="container wrap">
                     <h1 className="tp-header small headline">ნაყიდი ტრეინინგების ისტორია</h1>
                     <div className="list">
-                        <div className="item">
+                        <p className="tp-text" style={{ textAlign: 'center' }}>
+                            თქვენ არ გაქვთ შეძენილი კურსები
+                        </p>
+                        {/* <div className="item">
                             <span className="date">თარიღი: 20.12.20-30.12.21</span>
                             <span className="title">კურსის სათაური კურსის სათაური</span>
                             <span className="price">ღირებულება: 2000 Gel</span>
                             <Link href="/">ონლაინ კურსის ლინკი</Link>
-                        </div>
-                        <div className="item">
-                            <span className="date">თარიღი: 20.12.20-30.12.21</span>
-                            <span className="title">კურსის სათაური კურსის სათაური</span>
-                            <span className="price">ღირებულება: 2000 Gel</span>
-                            <Link href="/">ონლაინ კურსის ლინკი</Link>
-                        </div>
-                        <div className="item">
-                            <span className="date">თარიღი: 20.12.20-30.12.21</span>
-                            <span className="title">კურსის სათაური კურსის სათაური</span>
-                            <span className="price">ღირებულება: 2000 Gel</span>
-                            <Link href="/">ონლაინ კურსის ლინკი</Link>
-                        </div>
-                        <div className="item">
-                            <span className="date">თარიღი: 20.12.20-30.12.21</span>
-                            <span className="title">კურსის სათაური კურსის სათაური</span>
-                            <span className="price">ღირებულება: 2000 Gel</span>
-                            <Link href="/">ონლაინ კურსის ლინკი</Link>
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </section>

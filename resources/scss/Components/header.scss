@@ -143,4 +143,27 @@ header {
             }
         }
     }
+
+    .smile-wrap {
+        display: flex;
+        align-items: center;
+
+        .smile {
+            transform: translateY(-2px);
+            margin-right: 18px;
+
+            &.active {
+                #Ellipse_40 {
+                    stroke: #5952d2;
+                    fill: #5952d2;
+                }
+
+                #Ellipse_41,
+                #Ellipse_42,
+                #Path_813 {
+                    stroke: #ffffff;
+                }
+            }
+        }
+    }
 }
