@@ -6,6 +6,9 @@ import { Button } from '@mui/material';
 import { usePage } from '@inertiajs/inertia-react';
 import { getInputName } from '@/Helper';
 
+// import { createReactEditorJS } from 'react-editor-js'
+// const ReactEditorJS = createReactEditorJS()
+
 export const Field = ({ data, error, value = null, setChange }) => {
     const { base } = usePage().props;
     const [image, setImage] = useState(value ? `${base}/storage/${value}` : '');
