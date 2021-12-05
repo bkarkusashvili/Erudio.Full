@@ -4,6 +4,22 @@
     font-family: 'Hel';
 }
 
+html,
+body,
+#app,
+.main-layout {
+    height: 100%;
+}
+
+.main-layout {
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 .container {
     width: 1366px;
 

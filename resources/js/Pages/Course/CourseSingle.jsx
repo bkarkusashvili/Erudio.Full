@@ -83,10 +83,6 @@ const CourseSingle = ({ item, lang }) => {
                     <div className="video-box-wrap">
                         <div className="media">
                             <img src={`${base}/storage/${item.instructor.image}`} alt={item.instructor['name_' + lang]} />
-                            <div className="over">
-                                <span className="donwoload">საპრეზენტაციო ფაილის გადმოწერა</span>
-                                <span className="time">05:30</span>
-                            </div>
                         </div>
                         <div className="content">
                             <h3 className="tp-header">{item.instructor['name_' + lang]}</h3>

@@ -785,9 +785,11 @@
             height: 360px;
 
             img {
+                position: relative;
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
+                z-index: 2;
             }
 
             .over {
@@ -886,6 +888,39 @@
                 &:last-of-type {
                     margin-bottom: 0;
                 }
+            }
+        }
+
+        .media {
+            width: 420px;
+            height: auto;
+
+            &::before,
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                z-index: 1;
+            }
+
+            &::before {
+                background-color: #5952d3;
+                width: 337px;
+                height: 412px;
+                right: -10px;
+                top: -10px;
+            }
+
+            &::after {
+                background-color: #edbd03;
+                width: 252px;
+                height: 307px;
+                bottom: -10px;
+                left: -10px;
+            }
+
+            img {
+                height: auto;
             }
         }
 
