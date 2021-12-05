@@ -7,18 +7,71 @@ use App\Models\Page;
 
 class PageController extends AdminController
 {
+    public $edit = true;
+    public $create = false;
+    public $delete = false;
+
     public $model = Page::class;
     public $request = PageRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
-        ['field' => 'title', 'headerName' => 'სათაური'],
+        ['field' => 'title_ka', 'headerName' => 'სათაური'],
     ];
     public $fields = [
-        [
-            'size' => 8,
-            'list' => [
-                ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
+        1 => [
+            [
+                'size' => 8,
+                'list' => [
+                    ['type' => 'text', 'name' => 'slider_title_ka', 'label' => 'სლაიდერის სათაური (ქარ.)'],
+                    ['type' => 'text', 'name' => 'slider_title_en', 'label' => 'სლაიდერის სათაური (ინგ.)'],
+                    ['type' => 'text', 'name' => 'section_title_ka', 'label' => 'სექციის სათაური (ქარ.)'],
+                    ['type' => 'text', 'name' => 'section_title_en', 'label' => 'სექციის სათაური (ინგ.)'],
+                    ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'კლიენტებზე მორგებული გადაწყვეტები (ქარ.)'],
+                    ['type' => 'textarea', 'name' => 'text_en', 'label' => 'კლიენტებზე მორგებული გადაწყვეტები (ინგ.)'],
+                ]
+            ],
+            [
+                'size' => 4,
+                'list' => [
+                    ['type' => 'file', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],
+                ]
+            ]
+        ],
+        2 => [
+            [
+                'size' => 8,
+                'list' => [
+                    ['type' => 'text', 'name' => 'metas[title_ka]', 'label' => 'სათაური (ქარ.)'],
+                    ['type' => 'text', 'name' => 'metas[title_en]', 'label' => 'სათაური (ინგ.)'],
+                    ['type' => 'textarea', 'name' => 'metas[text_ka]', 'label' => 'ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'name' => 'metas[text_en]', 'label' => 'ტექსტი (ინგ.)'],
+                ]
+            ],
+            [
+                'size' => 4,
+                'list' => [
+                    ['type' => 'image', 'name' => 'metas[image]', 'label' => 'სურათი'],
+                ]
+            ]
+        ],
+        3 => [
+            [
+                'size' => 8,
+                'list' => [
+                    ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
+                ]
             ]
         ]
     ];
+
+    public function __construct()
+    {
+        $id = (int) request()->route('page');
+
+        if ($id) {
+            $this->fields = $this->fields[$id];
+        }
+
+        parent::__construct();
+    }
 }

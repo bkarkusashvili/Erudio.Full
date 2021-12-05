@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -133,6 +134,8 @@ class AdminController extends Controller
         $data = collect($validator->validated())->filter(function ($item) {
             return $item !== null;
         });
+
+        dd($data);
 
         $data->each(function ($item, $key) use ($data, $model) {
             if ($item instanceof UploadedFile) {

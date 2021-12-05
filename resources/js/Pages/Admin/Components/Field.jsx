@@ -9,7 +9,8 @@ export const Field = ({ data, error, value = null, setChange }) => {
     const { base } = usePage().props;
     const [image, setImage] = useState(value ? `${base}/storage/${value}` : '');
     const isMultiline = data.type === 'textarea';
-    const isImage = data.type === 'file';
+    const isFile = data.type === 'file';
+    const isImage = data.type === 'image';
     const isToggle = data.type === 'toggle';
     const isSelect = data.type === 'select';
     const isDate = data.type === 'date';
@@ -25,7 +26,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <div className="image-input-wrap">
             <img src={image} />
             <Button variant="contained" onClick={e => e.target.nextSibling.click()} children="არჩევა" />
-            <input type={data.type} onChange={imageChange} hidden />
+            <input type="file" onChange={imageChange} hidden />
         </div>
     ) : isSelect ? (
         <FormControl fullWidth error={!!error}>
@@ -66,7 +67,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <TextField
             disabled={data.disabled}
             variant="outlined"
-            label={data.label}
+            label={!isFile && data.label}
             error={!!error}
             helperText={error}
             defaultValue={value}

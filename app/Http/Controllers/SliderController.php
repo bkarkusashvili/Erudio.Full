@@ -18,7 +18,7 @@ class SliderController extends AdminController
             'size' => 8,
             'list' => [
                 ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
-                ['type' => 'text', 'name' => 'file', 'label' => 'ფაილი'],
+                ['type' => 'text', 'name' => 'image', 'label' => 'ფაილი'],
             ]
         ]
     ];

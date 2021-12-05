@@ -26,7 +26,7 @@ class ClientController extends AdminController
         [
             'size' => 4,
             'list' => [
-                ['type' => 'file', 'name' => 'image', 'label' => 'სურათი'],
+                ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ]
     ];

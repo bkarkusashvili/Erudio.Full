@@ -29,7 +29,7 @@ class TeamController extends AdminController
             'list' => [
                 ['type' => 'text', 'name' => 'profession_ka', 'label' => 'პროფესია (ქარ.)'],
                 ['type' => 'text', 'name' => 'profession_en', 'label' => 'პროფესია (ინგ.)'],
-                ['type' => 'file', 'name' => 'image', 'label' => 'სურათი'],
+                ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ]
     ];

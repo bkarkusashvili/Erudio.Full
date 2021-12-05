@@ -4,8 +4,6 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 export const Footer = ({ hasFooterMenu = false }) => {
     const { categories, options, lang } = usePage().props;
 
-    console.log(options);
-
     return (
         <footer>
             {hasFooterMenu && (

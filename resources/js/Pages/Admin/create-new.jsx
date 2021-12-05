@@ -44,7 +44,6 @@ const Create = ({ model, fields }) => {
     }, []);
 
     const submit = () => {
-        // console.log(data);
         post(
             route(`${model}.store`)
         )
@@ -66,7 +65,6 @@ const Create = ({ model, fields }) => {
 
     const isGroup = type => type === 'group';
     const addGroup = (name, group) => {
-        console.log(data, data[name]);
         data[name].push(getFields(group));
     };
     const getGroupInputs = data => (
@@ -87,7 +85,6 @@ const Create = ({ model, fields }) => {
 
     return (
         <AdminLayout>
-            {console.log(data)}
             <Stack direction="row" justifyContent="space-between" alignItems="center" mt={2} mb={4}>
                 <Typography variant="h4" component="h3" children="ახლის დამატება" />
                 <Button variant="contained" onClick={submit} children="დამატება" disabled={processing} />

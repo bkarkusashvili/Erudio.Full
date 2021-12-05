@@ -4,7 +4,6 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 
 const Category = ({ list, lang }) => {
     const { base } = usePage().props;
-    console.log(`${base}/storage/ss`);
 
     return (
         <MainLayout>

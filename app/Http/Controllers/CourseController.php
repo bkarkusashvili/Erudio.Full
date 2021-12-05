@@ -63,7 +63,7 @@ class CourseController extends AdminController
                 ['type' => 'select', 'name' => 'category_id', 'label' => 'კატეგორია'],
                 ['type' => 'select', 'name' => 'city_id', 'label' => 'ქალაქი'],
                 ['type' => 'select', 'name' => 'instructor_id', 'label' => 'ინსტრუქტორი'],
-                ['type' => 'file', 'name' => 'image', 'label' => 'სურათი'],
+                ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ],
     ];
