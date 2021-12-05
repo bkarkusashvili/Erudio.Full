@@ -29,7 +29,7 @@ const CourseSingle = ({ item, lang }) => {
                             </div>
                             <div className="item">
                                 <span>დღეები:</span>
-                                <span>5 დღე</span>
+                                <span>{item.days} დღე</span>
                             </div>
                             <div className="item">
                                 <span>ფასი:</span>

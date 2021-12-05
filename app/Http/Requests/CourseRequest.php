@@ -48,7 +48,10 @@ class CourseRequest extends FormRequest
             'text_ka' => 'nullable|string',
             'text_en' => 'nullable|string',
 
+            'days' => 'required|integer|min:1',
             'price' => 'required|integer',
+            'url' => 'required|string|url',
+            'type' => 'required|integer|between:0,1',
             'phone' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',
             'city_id' => 'required|integer|exists:cities,id',
