@@ -8,7 +8,7 @@ import 'video.js/dist/video-js.css';
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base } = usePage().props;
 
-    const isLive = user.id === 2 && item.id === 2;
+    const isLive = user && user.id === 2 && item.id === 2;
     return (
         <MainLayout>
             <div className="course-single-wrap">
