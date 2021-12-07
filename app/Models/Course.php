@@ -26,16 +26,6 @@ class Course extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function dates()
-    {
-        return $this->hasMany(CourseDate::class);
-    }
-
-    public function days()
-    {
-        return $this->hasMany(CourseDay::class);
-    }
-
     public function topics()
     {
         return $this->hasMany(CourseTopic::class);

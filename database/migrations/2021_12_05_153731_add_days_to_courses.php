@@ -16,7 +16,6 @@ class AddDaysToCourses extends Migration
         Schema::table('courses', function (Blueprint $table) {
             $table->smallInteger('days')->default(0)->after('text_en');
             $table->smallInteger('type')->default(0)->after('days');
-            $table->string('url')->nullable()->after('type');
 
             $table->string('video')->nullable()->after('phone');
             $table->string('file')->nullable()->after('video');
@@ -33,7 +32,6 @@ class AddDaysToCourses extends Migration
         Schema::table('courses', function (Blueprint $table) {
             $table->dropColumn('days');
             $table->dropColumn('type');
-            $table->dropColumn('url');
             $table->dropColumn('file');
             $table->dropColumn('video');
         });

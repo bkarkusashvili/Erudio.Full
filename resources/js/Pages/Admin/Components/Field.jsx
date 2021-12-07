@@ -12,6 +12,7 @@ import { getInputName } from '@/Helper';
 export const Field = ({ data, error, value = null, setChange }) => {
     const { base } = usePage().props;
     const [image, setImage] = useState(value ? `${base}/storage/${value}` : '');
+    const [dateValue, setDateValue] = useState(value);
     const isMultiline = data.type === 'textarea';
     const isFile = data.type === 'file';
     const isImage = data.type === 'image';
@@ -59,10 +60,18 @@ export const Field = ({ data, error, value = null, setChange }) => {
         <LocalizationProvider dateAdapter={DateAdapter}>
             <DesktopDatePicker
                 disabled={data.disabled}
-                label="თარიღი"
-                value={value}
-                onChange={value => setChange(getInputName(data), value.toDate())}
-                renderInput={params => <TextField {...params} />}
+                label={data.label}
+                value={dateValue}
+                onChange={moment => {
+                    setDateValue(moment);
+                    setChange(getInputName(data), moment.format("YYYY-MM-DD HH:mm:ss"));
+                }}
+                renderInput={params =>
+                    <TextField
+                        {...params}
+                        error={!!error}
+                        helperText={error}
+                    />}
             />
         </LocalizationProvider>
     ) : isToggle ? (

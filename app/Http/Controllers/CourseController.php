@@ -10,7 +10,7 @@ use App\Models\Instructor;
 
 class CourseController extends AdminController
 {
-    public $categories;
+    // public $categories;
 
     public $model = Course::class;
     public $request = CourseRequest::class;
@@ -61,7 +61,6 @@ class CourseController extends AdminController
                 ['type' => 'number', 'name' => 'days', 'label' => 'დღეები'],
                 ['type' => 'number', 'name' => 'price', 'label' => 'ფასი'],
                 ['type' => 'text', 'name' => 'phone', 'label' => 'ტელეფონი'],
-                ['type' => 'text', 'name' => 'url', 'label' => 'ლინკი'],
                 ['type' => 'select', 'name' => 'type', 'label' => 'კურსის ტიპი'],
                 ['type' => 'select', 'name' => 'category_id', 'label' => 'კატეგორია'],
                 ['type' => 'select', 'name' => 'city_id', 'label' => 'ქალაქი'],
@@ -83,7 +82,7 @@ class CourseController extends AdminController
         //         'value' => $category->id,
         //     ];
         // })->toArray();
-        $start = 9;
+        $start = 8;
         $this->fields[1]['list'][$start++]['options'] = [
             ['text' => 'ჩანაწერი', 'value' => 0],
             ['text' => 'ლაივი', 'value' => 1],

@@ -25,6 +25,7 @@ const menu = [
             { text: 'ქალაქები', model: 'city', canAdd: true },
             { text: 'ინსტრუქტორები', model: 'instructor', canAdd: true },
             { text: 'კურსები', model: 'course', canAdd: true },
+            { text: 'Live კურსები', model: 'livecourse', canAdd: true },
         ]
     },
     { text: 'გამოწერები', model: 'subscribe' },

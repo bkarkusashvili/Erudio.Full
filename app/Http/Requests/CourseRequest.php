@@ -50,7 +50,6 @@ class CourseRequest extends FormRequest
 
             'days' => 'required|integer|min:1',
             'price' => 'required|integer',
-            'url' => 'required|string|url',
             'type' => 'required|integer|between:0,1',
             'phone' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',

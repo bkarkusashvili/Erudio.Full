@@ -6,6 +6,7 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\LiveCourseController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\OrderController;
@@ -58,6 +59,7 @@ require __DIR__ . '/auth.php';
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::resources([
         'course' => CourseController::class,
+        'livecourse' => LiveCourseController::class,
         'city' => CityController::class,
         'instructor' => InstructorController::class,
         'slider' => SliderController::class,
