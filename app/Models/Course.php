@@ -11,6 +11,11 @@ class Course extends Model
 
     public $guarded = [];
 
+    public function getIsLiveAttribute()
+    {
+        return $this->type == 1;
+    }
+
     public function instructor()
     {
         return $this->belongsTo(Instructor::class);
@@ -29,5 +34,15 @@ class Course extends Model
     public function topics()
     {
         return $this->hasMany(CourseTopic::class);
+    }
+
+    public function lives()
+    {
+        return $this->hasMany(LiveCourse::class);
+    }
+
+    public function videos()
+    {
+        return $this->hasMany(CourseVideo::class);
     }
 }

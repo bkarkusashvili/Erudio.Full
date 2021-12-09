@@ -10,6 +10,7 @@ use App\Models\Media;
 use App\Models\Option;
 use App\Models\Subscribe;
 use App\Models\Team;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
@@ -147,14 +148,25 @@ class FrontController extends Controller
 
     public function course(Request $request)
     {
-        $query = Course::query();
+        $today = now()->setHour(0)->setMinute(0)->setSecond(0)->setMilliseconds(0);
+
+        $type = (int) $request->input('type', 1);
+        $date = $request->input('date', $today);
+        $date = new Carbon($date);
+        $query = Course::query()->where('type', $type)->with('lives');
+
+        $query->when($type == 1, function ($q) use ($date) {
+            $q->whereHas('lives', function ($q) use ($date) {
+                $q->whereDate('start', '>=', $date);
+            });
+        });
 
         $query->when($request->has('category'), function ($q) {
-            return $q->where('category_id', request('category'));
+            $q->where('category_id', request('category'));
         });
 
         $query->when($request->has('city'), function ($q) {
-            return $q->where('city_id', request('city'));
+            $q->where('city_id', request('city'));
         });
 
         $list = $query->get();
@@ -168,7 +180,8 @@ class FrontController extends Controller
 
     public function courseSingle(int $id)
     {
-        $item = Course::with('instructor')->findOrFail($id);
+        $item = Course::with('instructor', 'lives', 'videos')->findOrFail($id);
+        $item->isLive = $item->isLive;
 
         return Inertia::render('Course/CourseSingle', [
             'item' => $item

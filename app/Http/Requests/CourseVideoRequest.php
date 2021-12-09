@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LiveCourseRequest extends FormRequest
+class CourseVideoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,11 +24,16 @@ class LiveCourseRequest extends FormRequest
     public function rules()
     {
         return [
-            'url' => 'required|string|url',
-            'start' => 'required|date',
-            'end' => 'required|date|after:start',
+            'name_ka' => 'required|string',
+            'name_en' => 'nullable|string',
+
+            'number' => 'required|integer|min:1',
             'course_id' => 'required|integer|exists:courses,id',
-            'quantity' => 'nullable|integer|min:1',
+            'video' => 'required|string|url',
+            'image' => [
+                'image',
+                request()->isMethod('POST') ? 'required' : 'nullable'
+            ],
         ];
     }
 }

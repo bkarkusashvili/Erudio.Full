@@ -32,6 +32,7 @@ class LiveCourseController extends AdminController
         [
             'size' => 4,
             'list' => [
+                ['type' => 'number', 'name' => 'quantity', 'label' => 'რაოდენობა'],
                 ['type' => 'text', 'name' => 'url', 'label' => 'ლინკი'],
                 ['type' => 'select', 'name' => 'course_id', 'label' => 'კურსი'],
             ]
@@ -41,7 +42,7 @@ class LiveCourseController extends AdminController
     public function __construct()
     {
 
-        $this->fields[2]['list'][1]['options'] = Course::where('type', 1)->get()->map(function (Course $course) {
+        $this->fields[2]['list'][2]['options'] = Course::where('type', 1)->get()->map(function (Course $course) {
             return [
                 'text' => $course->name_ka,
                 'value' => $course->id,

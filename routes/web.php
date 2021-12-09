@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\CourseVideoController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LiveCourseController;
@@ -60,6 +61,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::resources([
         'course' => CourseController::class,
         'livecourse' => LiveCourseController::class,
+        'coursevideo' => CourseVideoController::class,
         'city' => CityController::class,
         'instructor' => InstructorController::class,
         'slider' => SliderController::class,

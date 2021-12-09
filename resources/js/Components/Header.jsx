@@ -42,6 +42,7 @@ export const Header = () => {
                                     {item.list.map((item, key) => (
                                         <Link
                                             key={key}
+                                            as="span"
                                             href={item.id ?
                                                 route(item.name, item.id) :
                                                 route(item.name)
@@ -62,9 +63,9 @@ export const Header = () => {
                         </div>
                         {auth.user && (
                             <div className="nav-list">
-                                <Link href={route('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children="ჩემი გვერდი" />
-                                <Link href={route('settings')} className={getClassName({ active: isActivePage('settings'), 'nav-item': true })} children="პარამეტრები" />
-                                <Link href={route('logout')} className={getClassName({ 'nav-item': true })} method="post" as="button" children="სისტემიდან გასვლა" />
+                                <Link as="span" href={route('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children="ჩემი გვერდი" />
+                                <Link as="span" href={route('settings')} className={getClassName({ active: isActivePage('settings'), 'nav-item': true })} children="პარამეტრები" />
+                                <Link as="span" href={route('logout')} className={getClassName({ 'nav-item': true })} method="post" as="button" children="სისტემიდან გასვლა" />
                             </div>
                         )}
                     </Link>

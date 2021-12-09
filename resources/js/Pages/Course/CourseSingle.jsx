@@ -1,14 +1,26 @@
-import React from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getVideoType } from '@/Helper';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
+import moment from 'moment';
 
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base } = usePage().props;
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [activeVideo, setActiveVideo] = useState();
 
-    const isLive = user && user.id === 2 && item.id === 2;
+    const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
+    const hasCourse = user && user.id === 1;
+    const live = item.lives && item.lives.length && item.lives[0];
+
+    useEffect(() => {
+        if (!hasVideos || item.isLive) return;
+
+        setActiveVideo(item.videos[activeIndex]);
+    }, []);
+
     return (
         <MainLayout>
             <div className="course-single-wrap">
@@ -34,10 +46,12 @@ const CourseSingle = ({ item, lang }) => {
                                 <span>ლოკაცია:</span>
                                 <span>{item['address_' + lang]}</span>
                             </div>
-                            <div className="item">
-                                <span>თარიღი:</span>
-                                <span>20.12.21 - 25.12.21</span>
-                            </div>
+                            {item.type === 1 && (
+                                <div className="item">
+                                    <span>თარიღი:</span>
+                                    <span>{moment(live.start).format('DD.MM.y')} - {moment(live.end).format('DD.MM.y')}</span>
+                                </div>
+                            )}
                             <div className="item">
                                 <span>დღეები:</span>
                                 <span>{item.days} დღე</span>
@@ -51,23 +65,57 @@ const CourseSingle = ({ item, lang }) => {
                                 <span>{item.phone}</span>
                             </div>
                         </div>
-                        {!isLive && (
+                        {!hasCourse && (
                             <Link href={route('register')} className="tp-register">
                                 {user ? 'ყიდვა' : 'რეგისტრაცია'}
                             </Link>
                         )}
                     </div>
                 </div>
-                {isLive && (
-                    <div className="container live-course">
-                        <h3 className="tp-header">
-                            კურსი მოიცავს ლაივ ტრეინინგებს
-                            <span>LIVE</span>
-                        </h3>
-                        <p className="tp-text live-course-days">კურსი შედგება {item.days} ლექციისგან</p>
-                        <p className="tp-text">LIVE ტრეინინგის ლინკი:</p>
-                        <a href={item.url} target="_blank">{item.url}</a>
-                    </div>
+                {hasCourse && (
+                    item.isLive ? (
+                        <div className="container live-course">
+                            <h3 className="tp-header">
+                                კურსი მოიცავს ლაივ ტრეინინგებს
+                                <span>LIVE</span>
+                            </h3>
+                            <p className="tp-text live-course-days">კურსი შედგება {item.days} ლექციისგან</p>
+                            <p className="tp-text">LIVE ტრეინინგის ლინკი:</p>
+                            <a href={live.url} target="_blank">{live.url}</a>
+                        </div>
+                    ) : hasVideos && activeVideo && (
+                        <div className="container ofline-course">
+                            <h3 className="tp-header">კურსი მოიცავს ონლაინ ტრეინინგებს</h3>
+                            <p className="tp-text live-course-days">კურსი შედგება 5 ლექციისგან</p>
+                            <p className="tp-text course-number">ლექცია 1 / მიმოხილვა</p>
+                            <div className="active-video">
+                                <video width="1366" height="810" className="video-js" controls preload="auto" poster={`${base}/storage/${activeVideo.image}`}
+                                    data-setup="{}">
+                                    <source src={activeVideo.video} type={'video/' + getVideoType(activeVideo.video)} />
+                                </video>
+                            </div>
+                            <div className="video-list">
+                                <div className="item">
+                                    <figure>
+                                        <img src={`${base}/storage/${activeVideo.image}`} alt="" />
+                                    </figure>
+                                    <h3>{activeVideo.name_ka}</h3>
+                                </div>
+                                <div className="item">
+                                    <figure>
+                                        <img src={`${base}/storage/${activeVideo.image}`} alt="" />
+                                    </figure>
+                                    <h3>{activeVideo.name_ka}</h3>
+                                </div>
+                                <div className="item">
+                                    <figure>
+                                        <img src={`${base}/storage/${activeVideo.image}`} alt="" />
+                                    </figure>
+                                    <h3>{activeVideo.name_ka}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    )
                 )}
                 <div className="container info">
                     <h3 className="tp-header">კურსის მიზანი და ამოცანა</h3>
