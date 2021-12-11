@@ -20,7 +20,7 @@ const CategorySingle = ({ item, courses, lang }) => {
                     <div className="courses">
                         <h3 className="tp-header">კურსები</h3>
                         <div className="list">
-                            {courses.map(item => <CourseCard data={item} />)}
+                            {courses.map(item => <CourseCard key={item.id} data={item} />)}
                         </div>
                     </div>
                 </div>

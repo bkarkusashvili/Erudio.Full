@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
+import { useRoute } from '@/Components/Route';
 
 const Category = ({ list, lang }) => {
     const { base } = usePage().props;
@@ -17,7 +18,7 @@ const Category = ({ list, lang }) => {
                             <div className="content">
                                 <h3 className="tp-header small">{item['title_' + lang]}</h3>
                                 <div className="tp-text">{item['text_' + lang]}</div>
-                                <Link href={route('category.single', item.id)} className="tp-more">ვრცლად</Link>
+                                <Link href={useRoute('category.single', { id: item.id })} className="tp-more">ვრცლად</Link>
                             </div>
                         </div>
                     ))}

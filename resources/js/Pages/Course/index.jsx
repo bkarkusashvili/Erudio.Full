@@ -6,6 +6,7 @@ import DateAdapter from '@mui/lab/AdapterMoment';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Link, useForm } from '@inertiajs/inertia-react';
 import { getClassName } from '@/Helper';
+import { useRoute } from '@/Components/Route';
 
 const initData = {
     category: null,
@@ -19,15 +20,9 @@ const Courses = ({ list, lang, categories, cities }) => {
     const [date, setDate] = useState(null);
     const [isDateOpen, setIsDateOpen] = useState(false);
     const { data, setData, transform } = useForm(initData);
+    const replacePath = useRoute('course', data);
 
-    const submit = () => {
-        // transform(data => {
-        //     Object.keys(data).forEach(key => !data[key] && delete data[key]);
-
-        //     return data;
-        // })
-        Inertia.replace(route('course', data));
-    };
+    const submit = () => Inertia.replace(replacePath);
     const isLive = type === 1;
     const onTypeChange = type => {
         setType(type);
@@ -54,13 +49,21 @@ const Courses = ({ list, lang, categories, cities }) => {
                     <select onChange={(e) => setData('category', e.target.value)}>
                         <option value="">თემა/კატეგორია</option>
                         {categories.map(item => (
-                            <option value={item.id}>{item['title_' + lang]}</option>
+                            <option
+                                key={item.id}
+                                value={item.id}
+                                children={item['title_' + lang]}
+                            />
                         ))}
                     </select>
                     <select onChange={(e) => setData('city', e.target.value)}>
                         <option value="">ქალაქი</option>
                         {cities.map(item => (
-                            <option value={item.id}>{item['name_' + lang]}</option>
+                            <option
+                                key={item.id}
+                                children={item['name_' + lang]}
+                                value={item.id}
+                            />
                         ))}
                     </select>
                     <select onChange={(e) => onTypeChange(+e.target.value)}>
@@ -90,12 +93,12 @@ const Courses = ({ list, lang, categories, cities }) => {
                     )}
                     <div className='actions-wrap'>
                         <button onClick={submit} className="search">ძებნა</button>
-                        <Link href={route('course')} className="clear">გასუფთვება</Link>
+                        <Link href={useRoute('course')} className="clear">გასუფთვება</Link>
                     </div>
                 </div>
                 <div className="container">
                     <div className="list">
-                        {list.map(item => <CourseCard data={item} />)}
+                        {list.map(item => <CourseCard key={item.id} data={item} />)}
                     </div>
                 </div>
             </div>

@@ -1,3 +1,4 @@
+import { useRoute } from '@/Components/Route';
 import { getClassName } from '@/Helper';
 import React, { useRef, useState } from 'react';
 
@@ -12,7 +13,7 @@ export const Subscribe = () => {
     const submit = e => {
         e.preventDefault();
 
-        fetch(route('add.subscribe', { email }))
+        fetch(useRoute('add.subscribe', { email }))
             .then(res => res.json())
             .then(res => {
                 setInfo(res);

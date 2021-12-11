@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getClassName } from '@/Helper';
+import { useRoute } from '@/Components/Route';
 
 export const CourseList = ({ title, list = [], isReverce = false }) => {
     const { lang, base } = usePage().props;
@@ -22,7 +23,7 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                             <div key={key} className={getClassName({ active: active === key, content: true })}>
                                 <h4 className="tp-header mb-36 small">{item['name_' + lang]}</h4>
                                 <p className="tp-text">{item['text_' + lang]}</p>
-                                <Link href={route('course.single', item.id)} children={'ვრცლად'} />
+                                <Link href={useRoute('course.single', { id: item.id })} children={'ვრცლად'} />
                             </div>
                         ))}
                         <div className="navigation">

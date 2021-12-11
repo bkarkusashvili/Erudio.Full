@@ -5,6 +5,7 @@ import { getVideoType } from '@/Helper';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 import moment from 'moment';
+import { useRoute } from '@/Components/Route';
 
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base } = usePage().props;
@@ -66,7 +67,7 @@ const CourseSingle = ({ item, lang }) => {
                             </div>
                         </div>
                         {!hasCourse && (
-                            <Link href={route('register')} className="tp-register">
+                            <Link href={useRoute('register')} className="tp-register">
                                 {user ? 'ყიდვა' : 'რეგისტრაცია'}
                             </Link>
                         )}

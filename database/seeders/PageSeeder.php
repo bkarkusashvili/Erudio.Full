@@ -14,8 +14,10 @@ class PageSeeder extends Seeder
      */
     public function run()
     {
-        Page::create(['title_ka' => 'მთავარი']);
-        Page::create(['title_ka' => 'ჩვენს შესახებ']);
-        Page::create(['title_ka' => 'სოციალური პასუხისმგებლობა']);
+        // Page::create(['title_ka' => 'მთავარი']);
+        // Page::create(['title_ka' => 'ჩვენს შესახებ']);
+        // Page::create(['title_ka' => 'სოციალური პასუხისმგებლობა']);
+
+        Page::create(['title_ka' => 'წესები და პირობები']);
     }
 }

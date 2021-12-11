@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
+import { useRoute } from '@/Components/Route';
 
 const Profile = ({ item }) => {
     const { auth: { user }, lang } = usePage().props;
@@ -17,7 +18,7 @@ const Profile = ({ item }) => {
                                 <span className="date">თარიღი: 20.12.20-30.12.21</span>
                                 <span className="title">{item['name_' + lang]}</span>
                                 <span className="price">ღირებულება: {item.price} Gel</span>
-                                <Link href={route('course.single', item.id)}>ონლაინ კურსის ლინკი</Link>
+                                <Link href={useRoute('course.single', { id: item.id })}>ონლაინ კურსის ლინკი</Link>
                             </div>
                         ) : (
                             <p className="tp-text" style={{ textAlign: 'center' }}>

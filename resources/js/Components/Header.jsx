@@ -2,7 +2,8 @@ import React from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getClassName, isActivePage } from '@/Helper';
 import { MainMenu } from '@/router';
-import { Smile } from './Smile';
+import { useRoute } from './Route';
+import { Smile } from './Icons/Smile';
 
 export const Header = () => {
     const { categories, lang, auth } = usePage().props;
@@ -17,7 +18,6 @@ export const Header = () => {
                     id: category.id,
                 });
             });
-
         }
 
         return item;
@@ -33,7 +33,7 @@ export const Header = () => {
                     {menu.map((item, key) => (
                         <Link
                             key={key}
-                            href={route(item.name)}
+                            href={useRoute(item.name)}
                             className={getClassName({ active: isActivePage(item.name) })}
                         >
                             <span>{item.value}</span>
@@ -44,8 +44,8 @@ export const Header = () => {
                                             key={key}
                                             as="span"
                                             href={item.id ?
-                                                route(item.name, item.id) :
-                                                route(item.name)
+                                                useRoute(item.name, { id: item.id }) :
+                                                useRoute(item.name)
                                             }
                                             className={getClassName({ active: isActivePage(item.name, item.id), 'nav-item': true })}
                                         >
@@ -56,19 +56,29 @@ export const Header = () => {
                             ) : null}
                         </Link>
                     ))}
-                    <Link href={route('login')} className={isActivePage('login') ? 'active' : ''}>
+                    <Link href={useRoute('login')} className={isActivePage('login') ? 'active' : ''}>
                         <div className="smile-wrap">
                             <Smile />
                             {auth.user?.firstname || 'შესვლა'}
                         </div>
                         {auth.user && (
                             <div className="nav-list">
-                                <Link as="span" href={route('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children="ჩემი გვერდი" />
-                                <Link as="span" href={route('settings')} className={getClassName({ active: isActivePage('settings'), 'nav-item': true })} children="პარამეტრები" />
-                                <Link as="span" href={route('logout')} className={getClassName({ 'nav-item': true })} method="post" as="button" children="სისტემიდან გასვლა" />
+                                <Link as="span" href={useRoute('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children="ჩემი გვერდი" />
+                                <Link as="span" href={useRoute('settings')} className={getClassName({ active: isActivePage('settings'), 'nav-item': true })} children="პარამეტრები" />
+                                <Link as="span" href={useRoute('logout')} className={getClassName({ 'nav-item': true })} method="post" as="button" children="სისტემიდან გასვლა" />
                             </div>
                         )}
                     </Link>
+                    <div className="lang-wrap">
+                        <span>
+                            <img src="/images/geo.svg" />
+                            ქარ
+                        </span>
+                        <span>
+                            <img src="/images/eng.svg" />
+                            ENG
+                        </span>
+                    </div>
                 </nav>
             </div>
         </header>

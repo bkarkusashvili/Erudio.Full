@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
+import { useRoute } from './Route';
 
 export const Footer = ({ hasFooterMenu = false }) => {
     const { categories, options, lang } = usePage().props;
@@ -13,17 +14,17 @@ export const Footer = ({ hasFooterMenu = false }) => {
                     </div>
                     <div className="item">
                         <h3 className="title">ჩვენს შესახებ</h3>
-                        <Link href={route('about')}>ერუდიო შესახებ</Link>
-                        <Link href={route('team')}>ჩვენი გუნდი</Link>
-                        <Link href={route('social')}>სოციალური პასუხისმგებლობა</Link>
-                        <Link href={route('media')}>მედია</Link>
+                        <Link href={useRoute('about')}>ერუდიო შესახებ</Link>
+                        <Link href={useRoute('team')}>ჩვენი გუნდი</Link>
+                        <Link href={useRoute('social')}>სოციალური პასუხისმგებლობა</Link>
+                        <Link href={useRoute('media')}>მედია</Link>
                     </div>
                     <div className="item">
                         <h3 className="title">სფეროები</h3>
                         {categories.map((item, key) =>
                             <Link
                                 key={key}
-                                href={route('category.single', item.id)}
+                                href={useRoute('category.single', { id: item.id })}
                                 children={item['title_' + lang]}
                             />
                         )}

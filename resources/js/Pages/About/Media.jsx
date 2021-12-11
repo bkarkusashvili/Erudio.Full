@@ -2,6 +2,7 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import Moment from 'moment';
+import { useRoute } from '@/Components/Route';
 
 const Media = ({ list, lang }) => {
     const { base } = usePage().props;
@@ -26,7 +27,7 @@ const Media = ({ list, lang }) => {
                                 <span className="tp-text date">
                                     {Moment(item.created_at).format('DD.MM.YYYY')}
                                 </span>
-                                <Link href={route('media.single', item.id)} className="tp-more">ვრცლად</Link>
+                                <Link href={useRoute('media.single', { id: item.id })} className="tp-more">ვრცლად</Link>
                             </div>
                         </div>
                     ))}

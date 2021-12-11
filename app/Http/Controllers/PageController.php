@@ -61,7 +61,16 @@ class PageController extends AdminController
                     ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
                 ]
             ]
-        ]
+        ],
+        4 => [
+            [
+                'size' => 12,
+                'list' => [
+                    ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+                ]
+            ]
+        ],
     ];
 
     public function __construct()

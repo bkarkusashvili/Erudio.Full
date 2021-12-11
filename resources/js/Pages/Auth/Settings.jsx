@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MainLayout } from '@/Layouts';
 import { usePage } from '@inertiajs/inertia-react';
-import CheckIcon from '@mui/icons-material/Check';
+import { Checkmark } from '@/Components/Checkmark';
 
 const Settings = () => {
     const { auth: { user } } = usePage().props;
@@ -47,11 +47,7 @@ const Settings = () => {
                         <p>გსურთ მომხმარებლის წაშლა: <span className="user-email">{user.email}?</span></p>
                         <p>ყურადღება! ექაუნთის წაშლის შემთaხვევაში წაიშლება ყველა თქვენი მონაცემი.</p>
                         <p className="delete-wrap">
-                            <i
-                                className="delete-check"
-                                children={checked && <CheckIcon />}
-                                onClick={() => setChecked(!checked)}
-                            />
+                            <Checkmark checked={checked} onClick={() => setChecked(checked)} />
                             თანახმა ხართ რომ წაშალოთ თქვენი ექაუნთი
                         </p>
                         <a href="" className="delete"><strong>წაშლა</strong></a>

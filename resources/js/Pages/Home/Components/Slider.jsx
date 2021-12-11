@@ -6,6 +6,7 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import { SearchSharp } from '@mui/icons-material';
 import { Inertia } from '@inertiajs/inertia';
 import { IconButton } from '@mui/material';
+import { useRoute } from '@/Components/Route';
 
 const slides = [
     '/images/main-slider.jpg',
@@ -17,16 +18,17 @@ export const Slider = () => {
     const [sug, setSug] = useState([]);
     const [search, setSearch] = useState();
     const [slider, setSlider] = useState();
+    const serachPath = useRoute('search', { s: search });
 
     const getSearch = e => setSearch(e.target.value);
     const handleSubmit = e => {
         e.preventDefault();
 
-        Inertia.get(route('course', { s: search }));
+        Inertia.get(useRoute('course', { s: search }));
     };
 
     useEffect(() => {
-        fetch(route('search', { s: search }))
+        fetch(serachPath)
             .then(res => res.json())
             .then(res => setSug(res))
             .catch(e => { });

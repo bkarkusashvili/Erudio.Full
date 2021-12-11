@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
-import Button from '@/Components/Button';
-import Guest from '@/Layouts/Guest';
-import Input from '@/Components/Input';
-import Label from '@/Components/Label';
-import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import { MainLayout } from '@/Layouts';
 import { TextField } from '@mui/material';
-import Checkbox from '@/Components/Checkbox';
+import { Checkmark } from '@/Components/Checkmark';
+import { getClassName } from '@/Helper';
+import { useRoute } from '@/Components/Route';
 
 export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
@@ -16,6 +13,7 @@ export default function Register() {
         personalnumber: '',
         email: '',
         password: '',
+        terms: false,
     });
 
     useEffect(() => {
@@ -31,8 +29,10 @@ export default function Register() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(route('register'));
+        post(useRoute('register'));
     };
+
+    const onTermCheck = () => setData('terms', !data.terms);
 
     return (
         <MainLayout>
@@ -87,7 +87,6 @@ export default function Register() {
                             autoComplete="off"
                             onChange={onHandleChange}
                         />
-
                         <TextField
                             className="input-wrap"
                             label="პაროლი"
@@ -100,6 +99,10 @@ export default function Register() {
                             autoComplete="off"
                             onChange={onHandleChange}
                         />
+                        <div className={getClassName({ error: errors.terms, 'terms checkbox': true })}>
+                            <Checkmark checked={data.terms} onClick={onTermCheck} />
+                            <Link href={useRoute('terms')}>წესები და პირობები</Link>
+                        </div>
                         <button className="btn register-btn" type="submit" disabled={processing}>რეგისტრაცია</button>
                     </div>
                 </form>

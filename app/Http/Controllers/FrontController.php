@@ -53,7 +53,7 @@ class FrontController extends Controller
         $categories = $categories->map(function (Category $item) {
             return [
                 'id' => $item->id,
-                'url' => route('course', ['category' => $item->id]),
+                'url' => route('course', ['category' => $item->id, 'lang' => app()->getLocale()]),
                 'text_ka' => $item->title_ka,
                 'text_en' => $item->title_en,
             ];
@@ -65,7 +65,7 @@ class FrontController extends Controller
         $courses = $courses->map(function (Course $item) {
             return [
                 'id' => $item->id,
-                'url' => route('course.single', $item->id),
+                'url' => route('course.single', [$item->id, 'lang' => app()->getLocale()]),
                 'text_ka' => $item->name_ka,
                 'text_en' => $item->name_en,
             ];
@@ -120,7 +120,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public function mediaSingle(int $id)
+    public function mediaSingle(string $lang, int $id)
     {
         $item = Media::findOrFail($id);
 
@@ -136,13 +136,17 @@ class FrontController extends Controller
         ]);
     }
 
-    public function categorySingle(int $id)
+    public function categorySingle(string $lang, int $id)
     {
         $item = Category::findOrFail($id);
 
         return Inertia::render('Category/CategorySingle', [
             'item' => $item,
-            'courses' => $item->courses,
+            'courses' => $item->courses->map(function (Course $course) {
+                $course->isLive = $course->isLive;
+
+                return $course;
+            }),
         ]);
     }
 
@@ -178,7 +182,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public function courseSingle(int $id)
+    public function courseSingle(string $lang, int $id)
     {
         $item = Course::with('instructor', 'lives', 'videos')->findOrFail($id);
         $item->isLive = $item->isLive;
@@ -203,6 +207,11 @@ class FrontController extends Controller
     public function settings()
     {
         return Inertia::render('Auth/Settings', []);
+    }
+
+    public function terms()
+    {
+        return Inertia::render('Terms', []);
     }
 
     public function updatePassword()
