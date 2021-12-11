@@ -32,12 +32,13 @@ use Inertia\Inertia;
 */
 
 $hasErudio = explode('/', request()->path())[0] == 'erudio';
+$segment = $hasErudio ? 2 : 1;
 $basePath = $hasErudio ? '/erudio' : '';
 
 Route::redirect('/',  $basePath . '/ka');
 
-Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function () {
-    $lang = request()->segment(1);
+Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function () use ($segment) {
+    $lang = request()->segment($segment);
 
     if (in_array($lang, ['en', 'ka'])) {
         app()->setLocale($lang);
