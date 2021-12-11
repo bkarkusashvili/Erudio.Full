@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import { MainLayout } from '@/Layouts';
-import Guest from '@/Layouts/Guest';
-import Input from '@/Components/Input';
-import Label from '@/Components/Label';
-import ValidationErrors from '@/Components/ValidationErrors';
 import { Head, Link, useForm } from '@inertiajs/inertia-react';
 import { TextField } from '@mui/material';
 import { useRoute } from '@/Components/Route';
@@ -15,6 +11,7 @@ export default function Login({ status, canResetPassword }) {
         password: '',
         remember: '',
     });
+    const loginPath = useRoute('login');
 
     useEffect(() => {
         return () => {
@@ -29,7 +26,7 @@ export default function Login({ status, canResetPassword }) {
     const submit = (e) => {
         e.preventDefault();
 
-        post(useRoute('login'));
+        post(loginPath);
     };
 
     return (

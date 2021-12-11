@@ -57,7 +57,7 @@ export const Header = () => {
                             ) : null}
                         </Link>
                     ))}
-                    <Link href={useRoute('login')} className={isActivePage('login') ? 'active' : ''}>
+                    <Link href={useRoute(auth.user ? 'profile' : 'login')} className={isActivePage('login') ? 'active' : ''}>
                         <div className="smile-wrap">
                             <Smile />
                             {auth.user?.firstname || 'შესვლა'}
