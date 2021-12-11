@@ -44,7 +44,7 @@ $hasErudio = request()->has('erudio');
 $segment = $hasErudio ? 2 : 1;
 $basePath = $hasErudio ? '/erudio' : '';
 
-Route::redirect('/', '/ka');
+Route::redirect('/',  $basePath . '/ka');
 
 Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function () use ($segment) {
     $lang = request()->segment($segment);
