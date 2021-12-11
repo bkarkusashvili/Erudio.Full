@@ -31,7 +31,7 @@ use Inertia\Inertia;
 |
 */
 
-$hasErudio = request()->has('erudio');
+$hasErudio = explode('/', request()->path())[0] == 'erudio';
 $basePath = $hasErudio ? '/erudio' : '';
 
 Route::redirect('/',  $basePath . '/ka');
