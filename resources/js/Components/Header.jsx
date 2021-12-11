@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getClassName, isActivePage } from '@/Helper';
 import { MainMenu } from '@/router';
 import { useRoute } from './Route';
 import { Smile } from './Icons/Smile';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const Header = () => {
-    const { categories, lang, auth } = usePage().props;
+    const [isLangActive, setIsLangActive] = useState();
+    const { categories, lang, auth, base } = usePage().props;
 
     const menu = MainMenu.map(item => {
         if (item.name === 'category') {
@@ -19,7 +21,6 @@ export const Header = () => {
                 });
             });
         }
-
         return item;
     });
 
@@ -70,14 +71,17 @@ export const Header = () => {
                         )}
                     </Link>
                     <div className="lang-wrap">
-                        <span>
-                            <img src="/images/geo.svg" />
-                            ქარ
-                        </span>
-                        <span>
-                            <img src="/images/eng.svg" />
-                            ENG
-                        </span>
+                        <div className="current-lang" onClick={() => setIsLangActive(!isLangActive)}>
+                            <img src={`${base}/images/${lang === 'en' ? 'eng' : 'geo'}.svg`} />
+                            <span>{lang === 'en' ? 'ENG' : 'ქარ'}</span>
+                            <KeyboardArrowDownIcon />
+                        </div>
+                        <div className={getClassName({ active: isLangActive, drop: true })}>
+                            <Link href={route('home', { lang: lang === 'ka' ? 'en' : 'ka' })}>
+                                <img src={`${base}/images/${lang === 'ka' ? 'eng' : 'geo'}.svg`} />
+                                <span>{lang === 'ka' ? 'ENG' : 'ქარ'}</span>
+                            </Link>
+                        </div>
                     </div>
                 </nav>
             </div>

@@ -169,5 +169,38 @@ header {
 
     .lang-wrap {
         display: flex;
+        flex-direction: column;
+        margin-left: 60px;
+        transform: translateY(-3px);
+
+        a,
+        .current-lang {
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #888893;
+            font-family: 'Caps';
+            font-size: 22px;
+            font-weight: bold;
+
+            img {
+                margin-right: 18px;
+            }
+
+            span {
+                transform: translateY(3px);
+            }
+        }
+
+        .drop {
+            display: none;
+            position: absolute;
+            bottom: -40px;
+
+            &.active {
+                display: block;
+            }
+        }
     }
 }

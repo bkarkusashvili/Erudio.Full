@@ -17,7 +17,6 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\UserController;
 use App\Services\TBCPaymentService;
-use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -31,14 +30,6 @@ use Inertia\Inertia;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-// Route::get('/{locale?}', function ($locale = null) {
-//     if (isset($locale) && in_array($locale, config('app.available_locales'))) {
-//         app()->setLocale($locale);
-//     }
-
-//     return view('welcome');
-// });
 
 $hasErudio = request()->has('erudio');
 $segment = $hasErudio ? 2 : 1;
