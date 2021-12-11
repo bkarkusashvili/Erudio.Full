@@ -25,6 +25,7 @@ class AuthenticatedSessionController extends Controller
         Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
             return [$option->key => $option->$lang];
         }));
+        Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 
     /**

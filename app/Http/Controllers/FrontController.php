@@ -77,7 +77,7 @@ class FrontController extends Controller
             ];
         });
 
-        return collect($categories, $courses)->filter(function ($item, $index) {
+        return collect($categories)->merge($courses)->filter(function ($item, $index) {
             return $index <= 2;
         });
     }
