@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Category;
+use App\Models\Translate;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,8 +18,13 @@ class AuthenticatedSessionController extends Controller
 
     public function __construct()
     {
+        $lang = Lang::locale();
+
         Inertia::share('categories', Category::all());
-        Inertia::share('lang', Lang::locale());
+        Inertia::share('lang', $lang);
+        Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
+            return [$option->key => $option->$lang];
+        }));
     }
 
     /**
