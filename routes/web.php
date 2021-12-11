@@ -40,13 +40,16 @@ use Inertia\Inertia;
 //     return view('welcome');
 // });
 
-Route::redirect('/', '/ka');
+$hasErudio = request()->has('erudio');
+$segment = $hasErudio ? 2 : 1;
 
-Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function () {
-    $lang = request()->segment(1);
+Route::redirect('/', $hasErudio ? '/erudio' : '' . '/ka');
+
+Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function () use ($segment) {
+    $lang = request()->segment($segment);
 
     if (in_array($lang, ['en', 'ka'])) {
-        app()->setLocale(request()->segment(1));
+        app()->setLocale($lang);
     }
 
     Route::get('/', [FrontController::class, 'home'])->name('home');
