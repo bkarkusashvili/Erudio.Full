@@ -1,5 +1,5 @@
-export const MainMenu = [
-    { name: 'home', value: 'მთავარი' },
+export const MainMenu = (translate) => ([
+    { name: 'home', value: translate.home },
     {
         name: 'about', value: 'ჩვენს შესახებ', list: [
             { name: 'about', value: 'ჩვენს შესახებ' },
@@ -18,4 +18,4 @@ export const MainMenu = [
     //         { name: 'settings', value: 'სისტემიდან გასვლა' }
     //     ]
     // },
-];
+]);

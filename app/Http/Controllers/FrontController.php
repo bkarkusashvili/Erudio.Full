@@ -10,6 +10,7 @@ use App\Models\Media;
 use App\Models\Option;
 use App\Models\Subscribe;
 use App\Models\Team;
+use App\Models\Translate;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -21,11 +22,16 @@ class FrontController extends Controller
 
     public function __construct()
     {
+        $lang = Lang::locale();
+
         Inertia::share('categories', Category::all());
         Inertia::share('options', Option::all()->mapWithKeys(function (Option $option) {
             return [$option->key => $option->value];
         }));
-        Inertia::share('lang', Lang::locale());
+        Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
+            return [$option->key => $option->$lang];
+        }));
+        Inertia::share('lang', $lang);
         Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 

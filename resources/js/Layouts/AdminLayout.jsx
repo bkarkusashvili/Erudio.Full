@@ -6,8 +6,8 @@ import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import { Collapse, IconButton, ListItem, ListItemButton, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@mui/material';
-import { AddCircle, StarBorder } from '@mui/icons-material';
+import { IconButton, ListItemButton, ListItemSecondaryAction, ListItemText } from '@mui/material';
+import { AddCircle } from '@mui/icons-material';
 import { Link } from '@inertiajs/inertia-react';
 
 const drawerWidth = 240;
@@ -31,6 +31,7 @@ const menu = [
     },
     { text: 'გამოწერები', model: 'subscribe' },
     { text: 'პარამეტრები', model: 'option', canAdd: false },
+    { text: 'თარგმანი', model: 'translate', canAdd: true },
 ];
 
 const LocalListItem = ({ item }) => {

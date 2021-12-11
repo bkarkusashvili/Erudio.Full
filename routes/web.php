@@ -15,6 +15,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\SliderController;
 use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
 use App\Services\TBCPaymentService;
 use Illuminate\Support\Facades\Route;
@@ -87,6 +88,7 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         'category' => CategoryController::class,
         'page' => PageController::class,
         'option' => OptionController::class,
+        'translate' => TranslateController::class,
         'order' => OrderController::class,
         'user' => UserController::class,
         'client' => ClientController::class,

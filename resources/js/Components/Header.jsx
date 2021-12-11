@@ -8,9 +8,9 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 
 export const Header = () => {
     const [isLangActive, setIsLangActive] = useState();
-    const { categories, lang, auth, base } = usePage().props;
+    const { categories, lang, auth, base, translate } = usePage().props;
 
-    const menu = MainMenu.map(item => {
+    const menu = MainMenu(translate).map(item => {
         if (item.name === 'category') {
             item.list = [];
             categories.forEach(category => {
