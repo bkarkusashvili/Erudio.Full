@@ -266,7 +266,8 @@ class FrontController extends Controller
 
     public function payCheck(Request $request)
     {
-        Log::info($request->all());
+        Log::info($request->input('PaymentId'));
+        Log::info($request);
 
         $payId = $request->get('PaymentId');
 
