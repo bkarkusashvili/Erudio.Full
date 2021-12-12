@@ -7,6 +7,7 @@ use App\Models\LiveCourse;
 use App\Models\Order;
 use Illuminate\Support\Facades\Http;
 use Lang;
+use Log;
 
 class TBCPaymentService
 {
@@ -70,6 +71,8 @@ class TBCPaymentService
         if ($response->ok()) {
             $user = auth()->user();
             $body = json_decode($response->body());
+
+            Log::info($body);
 
             $course->orders()->create([
                 'user_id' => $user->id,
