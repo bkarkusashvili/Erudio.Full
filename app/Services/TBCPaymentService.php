@@ -71,6 +71,8 @@ class TBCPaymentService
             $user = auth()->user();
             $body = json_decode($response->body());
 
+            Log::info($body);
+
             $course->orders()->create([
                 'user_id' => $user->id,
                 'userName' => $user->firstname . ' ' . $user->lastname,
