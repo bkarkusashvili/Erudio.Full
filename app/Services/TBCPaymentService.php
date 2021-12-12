@@ -68,12 +68,9 @@ class TBCPaymentService
                 // "callbackUrl" => 'https://erudio.ge/ka/course/2',
             ]);
 
-        dd($response->body());
         if ($response->ok()) {
             $user = auth()->user();
             $body = json_decode($response->body());
-
-            dd($body);
 
             $course->orders()->create([
                 'user_id' => $user->id,
