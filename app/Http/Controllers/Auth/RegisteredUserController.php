@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Translate;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -18,8 +19,14 @@ class RegisteredUserController extends Controller
 {
     public function __construct()
     {
+        $lang = Lang::locale();
+
         Inertia::share('categories', Category::all());
-        Inertia::share('lang', Lang::locale());
+        Inertia::share('lang', $lang);
+        Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
+            return [$option->key => $option->$lang];
+        }));
+        Inertia::share('base', '');
     }
 
     /**

@@ -11,3 +11,20 @@ export const getVideoType = video => {
 
     return paths[paths.length - 1].split('.')[1];
 };
+export const getParams = () => {
+    const search = location.search;
+    const params = {};
+
+    if (search) {
+        const list = search.split('?')[1];
+
+        list.split('&').forEach(item => {
+            const [key, value] = item.split('=');
+
+            params[key] = value;
+        });
+    }
+
+
+    return params;
+};

@@ -6,11 +6,14 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Client;
 use App\Models\Course;
+use App\Models\LiveCourse;
 use App\Models\Media;
 use App\Models\Option;
+use App\Models\Order;
 use App\Models\Subscribe;
 use App\Models\Team;
 use App\Models\Translate;
+use App\Services\TBCPaymentService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -193,6 +196,11 @@ class FrontController extends Controller
         $item = Course::with('instructor', 'lives', 'videos')->findOrFail($id);
         $item->isLive = $item->isLive;
 
+        $user = auth()->user();
+        if ($user) {
+            $item->hasCourse = $user->hasCourse($item);
+        }
+
         return Inertia::render('Course/CourseSingle', [
             'item' => $item
         ]);
@@ -206,7 +214,7 @@ class FrontController extends Controller
     public function profile()
     {
         return Inertia::render('Auth/Profile', [
-            'item' => Course::find(2),
+            'list' => Order::with('course')->where('status', 1)->get(),
         ]);
     }
 
@@ -223,5 +231,33 @@ class FrontController extends Controller
     public function updatePassword()
     {
         return Inertia::render('Auth/Settings', []);
+    }
+
+    public function pay(Request $request)
+    {
+        $courseId = $request->get('courseId');
+        // $request->input('courseId');
+
+        $payment = app(TBCPaymentService::class);
+        $response = $payment->pay(Course::findOrFail($courseId));
+
+        if ($response->ok()) {
+            $body = json_decode($response->body());
+            $redirectUrl = $body->links[1]->uri;
+
+            return response()->json([
+                'data' => $redirectUrl,
+                'success' => true,
+            ]);
+        }
+    }
+
+    public function payCheck(Request $request)
+    {
+        $payId = $request->get('PaymentId');
+
+        $payment = app(TBCPaymentService::class);
+
+        $payment->checkStatus($payId);
     }
 }

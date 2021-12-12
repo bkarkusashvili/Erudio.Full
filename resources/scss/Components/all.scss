@@ -836,6 +836,18 @@
                 margin-bottom: 13px;
             }
 
+            .tp-register {
+                &.loading {
+                    pointer-events: none;
+                    background-color: rgba(#5952d2, 0.5);
+
+                    span {
+                        width: 25px !important;
+                        height: 25px !important;
+                    }
+                }
+            }
+
             .list {
                 display: flex;
                 flex-direction: column;
@@ -1128,6 +1140,12 @@
             height: 100%;
         }
     }
+}
+
+.dialog-action {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
 }
 
 .profile {

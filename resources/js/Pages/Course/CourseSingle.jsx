@@ -1,26 +1,44 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
-import { getVideoType } from '@/Helper';
+import { getClassName, getParams, getVideoType } from '@/Helper';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 import moment from 'moment';
 import { useRoute } from '@/Components/Route';
+import axios from 'axios';
+import { Button, CircularProgress } from '@mui/material';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base } = usePage().props;
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeVideo, setActiveVideo] = useState();
+    const [liveCourse, setLiveCourse] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [dialog, setDialog] = useState(false);
+    const params = getParams();
 
     const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
-    const hasCourse = user && user.id === 1;
     const live = item.lives && item.lives.length && item.lives[0];
 
+    useEffect(() => params.status === 'paid' && setDialog(true), []);
     useEffect(() => {
         if (!hasVideos || item.isLive) return;
 
         setActiveVideo(item.videos[activeIndex]);
     }, []);
+
+    const pay = (e) => {
+        e.preventDefault();
+        setLoading(true);
+        axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse })
+            .then(res => res.data)
+            .then(res => window.location.replace(res.data))
+            .catch(e => console.log(e));
+    };
 
     return (
         <MainLayout>
@@ -66,14 +84,19 @@ const CourseSingle = ({ item, lang }) => {
                                 <span>{item.phone}</span>
                             </div>
                         </div>
-                        {!hasCourse && (
-                            <Link href={useRoute('register')} className="tp-register">
-                                {user ? 'ყიდვა' : 'რეგისტრაცია'}
-                            </Link>
+                        {!item.hasCourse && (
+                            user ?
+                                <Link
+                                    onClick={pay}
+                                    href="#"
+                                    className={getClassName({ loading, 'tp-register': true })}
+                                    children={loading ? <CircularProgress /> : "ყიდვა"}
+                                /> :
+                                <Link href={useRoute('register')} className="tp-register" children="რეგისტრაცია" />
                         )}
                     </div>
                 </div>
-                {hasCourse && (
+                {item.hasCourse && (
                     item.isLive ? (
                         <div className="container live-course">
                             <h3 className="tp-header">
@@ -160,6 +183,12 @@ const CourseSingle = ({ item, lang }) => {
                     </div>
                 </div>
             </div>
+            <Dialog open={dialog}>
+                <DialogTitle children={'გადახდა წარმატებით განხორციელდა'} />
+                <DialogActions className="dialog-action">
+                    <Button onClick={() => setDialog(false)} children={'დახურვა'} />
+                </DialogActions>
+            </Dialog>
         </MainLayout>
     );
 };

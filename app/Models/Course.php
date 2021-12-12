@@ -45,4 +45,9 @@ class Course extends Model
     {
         return $this->hasMany(CourseVideo::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

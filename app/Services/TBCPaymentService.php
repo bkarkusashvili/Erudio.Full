@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Course;
+use App\Models\LiveCourse;
+use App\Models\Order;
 use Illuminate\Support\Facades\Http;
+use Lang;
 
 class TBCPaymentService
 {
@@ -31,7 +35,13 @@ class TBCPaymentService
         }
     }
 
-    public function pay()
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  Course  $course
+     * @return \Illuminate\Http\Response
+     */
+    public function pay(Course $course)
     {
         $this->getToken();
 
@@ -45,19 +55,56 @@ class TBCPaymentService
             ->post('payments', [
                 "amount" => [
                     "currency" => "GEL",
-                    "total" => 200,
+                    "total" => 0.01,
                 ],
-                "methods" => [5],
-                "returnurl" => 'https://erudio.ge/pay',
-                "callbackUrl" => 'https://erudio.ge/pay'
+                "returnurl" => route('course.single', [
+                    $course->id,
+                    'lang' => Lang::locale(),
+                    'status' => 'paid',
+                ]),
+                "callbackUrl" => route('pay.check'),
+                // "returnurl" => 'https://erudio.ge/ka/course/2',
+                // "callbackUrl" => 'https://erudio.ge/ka/course/2',
             ]);
 
-        // if ($response->ok()) {
-        //     $body = json_decode($response->body());
+        if ($response->ok()) {
+            $user = auth()->user();
+            $body = json_decode($response->body());
 
-        //     $this->access_token = $body->access_token;
-        // }
+            $course->orders()->create([
+                'user_id' => $user->id,
+                'userName' => $user->firstname . ' ' . $user->lastname,
+                'amount' => $course->price,
+                'payId' => $body->payId,
+            ]);
+        }
 
         return $response;
+    }
+
+    public function checkStatus(string $payId)
+    {
+        $this->getToken();
+
+        $response = Http::withHeaders([
+            'apiKey' => $this->apiKey,
+            'Authorization' => 'Bearer ' . $this->access_token
+        ])
+            ->withoutVerifying()
+            ->asJson()
+            ->baseUrl($this->baseUrl)
+            ->get('payments/' . $payId);
+
+        if ($response->ok()) {
+            $body = json_decode($response->body());
+
+            if ($body->status === 'Succeeded') {
+                $order = Order::where('payId', $payId)->first();
+
+                if ($order) {
+                    $order->markAsPaid();
+                }
+            }
+        }
     }
 }

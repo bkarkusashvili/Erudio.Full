@@ -17,7 +17,6 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
-use App\Services\TBCPaymentService;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -70,6 +69,9 @@ Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function (
     require __DIR__ . '/auth.php';
 });
 
+Route::post('/pay', [FrontController::class, 'pay'])->middleware('auth')->name('pay');
+Route::post('/pay/check', [FrontController::class, 'payCheck'])->name('pay.check');
+
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::resources([
         'course' => CourseController::class,
@@ -95,10 +97,4 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::any('{query}', function () {
         return redirect()->route('course.index');
     })->where('query', '.*');
-});
-
-Route::get('/pay', function () {
-    $payment = app(TBCPaymentService::class);
-
-    return $payment->pay()->json();
 });

@@ -2,38 +2,30 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\OrderRequest;
 use App\Models\Order;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class OrderController extends AdminController
 {
     public $edit = true;
-    public $create = false;
+    public $create = true;
     public $delete = true;
 
     public $model = Order::class;
-    public $request = MediaRequest::class;
+    public $request = OrderRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
-        ['field' => 'title_ka', 'headerName' => 'კურსი'],
+        ['field' => 'payId', 'headerName' => 'შეკვეთის ნომერი'],
+        ['field' => 'userName', 'headerName' => 'მომხმარებლები'],
+        ['field' => 'amount', 'headerName' => 'თანხა'],
+        ['field' => 'status', 'headerName' => 'სტატუსი'],
     ];
     public $fields = [
         [
             'size' => 8,
             'list' => [
-                ['type' => 'text', 'name' => 'title_ka', 'label' => 'სათაური (ქარ.)'],
-                ['type' => 'text', 'name' => 'title_en', 'label' => 'სათაური (ინგ.)'],
-                ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
-                ['type' => 'textarea', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+                ['type' => 'number', 'name' => 'status', 'label' => 'სტატუსი'],
             ]
         ],
-        [
-            'size' => 4,
-            'list' => [
-                ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
-            ]
-        ]
     ];
-    public $fileFilds = ['image'];
 }
