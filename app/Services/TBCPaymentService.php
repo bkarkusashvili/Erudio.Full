@@ -74,6 +74,7 @@ class TBCPaymentService
 
             Log::info($response->body());
 
+            dump(route('pay.check'));
             dd($body);
 
             $course->orders()->create([
