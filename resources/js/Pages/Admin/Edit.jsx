@@ -11,10 +11,17 @@ const Edit = ({ model, data, fields }) => {
     const initForm = { _method: 'PUT' };
     fields.forEach(field => field.list
         .forEach(item => {
-            const key = getInputName(item);
+            const key = item.name;
             const value = Files.has(item.type) ? null : data[item.name];
 
-            initForm[key] = value;
+            if (item.relation) {
+                if (!initForm[item.relation]) {
+                    initForm[item.relation] = {}
+                }
+                initForm[item.relation][key] = value;
+            } else {
+                initForm[key] = value;
+            }
         })
     );
 
@@ -23,6 +30,7 @@ const Edit = ({ model, data, fields }) => {
     const submit = () => post(
         route(`${model}.update`, data.id)
     );
+    const getError = item => errors[item.relation ? `${item.relation}.${item.name}` : item.name];
 
     return (
         <AdminLayout>
@@ -35,7 +43,7 @@ const Edit = ({ model, data, fields }) => {
                     <Grid item key={key} xs={field.size}>
                         <Stack spacing={2}>
                             {field.list.map((item, key) => (
-                                <Field key={key} data={item} error={errors[item.name]} value={data[item.name]} setChange={setData} />
+                                <Field key={key} data={item} error={getError(item)} value={data[item.name]} setChange={setData} />
                             ))}
                         </Stack>
                     </Grid>

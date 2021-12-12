@@ -66,8 +66,8 @@ class PageController extends AdminController
             [
                 'size' => 12,
                 'list' => [
-                    ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
-                    ['type' => 'textarea', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
                 ]
             ]
         ],

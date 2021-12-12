@@ -20,9 +20,19 @@ export const Field = ({ data, error, value = null, setChange }) => {
     const isSelect = data.type === 'select';
     const isDate = data.type === 'date';
 
+    const updateData = value => setChange(prev => {
+        if (data.relation) {
+            prev[data.relation][data.name] = value;
+        } else {
+            prev[data.name] = value;
+        }
+
+        return { ...prev };
+    });
+
     const fileChange = (e) => {
         const file = e.target.files[0];
-        setChange(getInputName(data), file);
+        updateData(file);
 
         setImage(URL.createObjectURL(file));
     };
@@ -50,7 +60,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
                 disabled={data.disabled}
                 defaultValue={value}
                 label={data.label}
-                onChange={e => setChange(getInputName(data), e.target.value)}
+                onChange={e => updateData(e.target.value)}
             >
                 {data.options?.map(option => <MenuItem value={option.value} children={option.text} />)}
             </Select>
@@ -64,7 +74,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
                 value={dateValue}
                 onChange={moment => {
                     setDateValue(moment);
-                    setChange(getInputName(data), moment.format("YYYY-MM-DD HH:mm:ss"));
+                    updateData(moment.format("YYYY-MM-DD HH:mm:ss"));
                 }}
                 renderInput={params =>
                     <TextField
@@ -80,7 +90,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
             disabled={data.disabled}
             control={
                 <Switch
-                    onChange={e => setChange(getInputName(data), e.target.checked)}
+                    onChange={e => updateData(e.target.checked)}
                     defaultChecked={!!value}
                 />
             }
@@ -95,7 +105,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
             helperText={error}
             defaultValue={value}
             type={data.type}
-            onChange={e => setChange(getInputName(data), e.target.value)}
+            onChange={e => updateData(e.target.value)}
             multiline={isMultiline}
             minRows={3}
             fullWidth

@@ -39,6 +39,13 @@ class PageRequest extends FormRequest
             ];
         }
 
+        if ($id == 4) {
+            $rules = [
+                'metas.text_ka' => 'required|string',
+                'metas.text_en' => 'nullable|string',
+            ];
+        }
+
         return $rules;
     }
 }
