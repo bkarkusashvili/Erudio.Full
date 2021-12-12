@@ -267,9 +267,8 @@ class FrontController extends Controller
     public function payCheck(Request $request)
     {
         Log::info($request->input('PaymentId'));
-        Log::info($request);
 
-        $payId = $request->get('PaymentId');
+        $payId = $request->input('PaymentId');
 
         $payment = app(TBCPaymentService::class);
 
