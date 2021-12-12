@@ -106,5 +106,7 @@ class TBCPaymentService
                 }
             }
         }
+
+        return $response;
     }
 }

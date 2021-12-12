@@ -19,6 +19,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Log;
 
 class FrontController extends Controller
 {
@@ -254,15 +255,19 @@ class FrontController extends Controller
 
     public function check(Request $request)
     {
+        Log::info($request->all());
+
         $payId = $request->get('PaymentId');
 
         $payment = app(TBCPaymentService::class);
 
-        $payment->checkStatus($payId);
+        return $payment->checkStatus($payId)->json();
     }
 
     public function payCheck(Request $request)
     {
+        Log::info($request->all());
+
         $payId = $request->get('PaymentId');
 
         $payment = app(TBCPaymentService::class);
