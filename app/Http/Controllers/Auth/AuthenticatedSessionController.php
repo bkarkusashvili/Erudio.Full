@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\Category;
 use App\Models\Translate;
-use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Lang;
@@ -25,7 +24,7 @@ class AuthenticatedSessionController extends Controller
         Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
             return [$option->key => $option->$lang];
         }));
-        Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
+        Inertia::share('base', '');
     }
 
     /**

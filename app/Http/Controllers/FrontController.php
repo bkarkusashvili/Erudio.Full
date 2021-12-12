@@ -32,7 +32,7 @@ class FrontController extends Controller
             return [$option->key => $option->$lang];
         }));
         Inertia::share('lang', $lang);
-        Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
+        Inertia::share('base', '');
     }
 
     public function home()

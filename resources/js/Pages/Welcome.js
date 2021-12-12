@@ -199,9 +199,6 @@ export default function Welcome(props) {
                                             Sanctum
                                         </a>
                                         ,{' '}
-                                        <a href="https://laravel.com/docs/telescope" className="underline">
-                                            Telescope
-                                        </a>
                                         , and more.
                                     </div>
                                 </div>
