@@ -63,7 +63,6 @@ class TBCPaymentService
                     'lang' => Lang::locale(),
                     'status' => 'paid',
                 ]),
-                "callbackUrl" => route('pay.check'),
                 // "returnurl" => 'https://erudio.ge/ka/course/2',
                 // "callbackUrl" => 'https://erudio.ge/ka/course/2',
             ]);
