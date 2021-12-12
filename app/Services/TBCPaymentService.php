@@ -97,6 +97,7 @@ class TBCPaymentService
 
         if ($response->ok()) {
             $body = json_decode($response->body());
+            log($body);
 
             if ($body->status === 'Succeeded') {
                 $order = Order::where('payId', $payId)->first();
