@@ -15,9 +15,4 @@ class LiveCourse extends Model
     {
         return $this->belongsTo(Course::class);
     }
-
-    // public function orders()
-    // {
-    //     return $this->morphMany(Order::class, 'orderable');
-    // }
 }

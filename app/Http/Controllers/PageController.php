@@ -41,16 +41,17 @@ class PageController extends AdminController
             [
                 'size' => 8,
                 'list' => [
-                    ['type' => 'text', 'relation' => 'metas', 'name' => 'title_ka', 'label' => 'სათაური (ქარ.)'],
-                    ['type' => 'text', 'relation' => 'metas', 'name' => 'title_en', 'label' => 'სათაური (ინგ.)'],
-                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
-                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+                    ['type' => 'text', 'relation' => 'body', 'name' => 'title_ka', 'label' => 'სათაური (ქარ.)'],
+                    ['type' => 'text', 'relation' => 'body', 'name' => 'title_en', 'label' => 'სათაური (ინგ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
                 ]
             ],
             [
                 'size' => 4,
                 'list' => [
-                    ['type' => 'image', 'relation' => 'metas', 'name' => 'image', 'label' => 'სურათი'],
+                    ['type' => 'file', 'relation' => 'body', 'name' => 'video', 'label' => 'ვიდეო'],
+                    ['type' => 'image', 'relation' => 'body', 'name' => 'image', 'label' => 'სურათი'],
                 ]
             ]
         ],
@@ -58,7 +59,21 @@ class PageController extends AdminController
             [
                 'size' => 8,
                 'list' => [
-                    ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
+                    ['type' => 'text', 'relation' => 'body', 'name' => 'title_ka', 'label' => 'სათაური (ქარ.)'],
+                    ['type' => 'text', 'relation' => 'body', 'name' => 'title_en', 'label' => 'სათაური (ინგ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+
+                    ['type' => 'text', 'relation' => 'body', 'name' => 'active_title_ka', 'label' => 'აქტივობა სათაური (ქარ.)'],
+                    ['type' => 'text', 'relation' => 'body', 'name' => 'active_title_en', 'label' => 'აქტივობა სათაური (ინგ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'active_text_ka', 'label' => 'აქტივობა ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'active_text_en', 'label' => 'აქტივობა ტექსტი (ინგ.)'],
+                ]
+            ],
+            [
+                'size' => 4,
+                'list' => [
+                    ['type' => 'image', 'relation' => 'body', 'name' => 'image', 'label' => 'სურათი'],
                 ]
             ]
         ],
@@ -66,8 +81,8 @@ class PageController extends AdminController
             [
                 'size' => 12,
                 'list' => [
-                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
-                    ['type' => 'textarea', 'relation' => 'metas', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
                 ]
             ]
         ],

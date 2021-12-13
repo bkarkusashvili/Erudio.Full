@@ -1,37 +1,29 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
+import { getVideoType } from '@/Helper';
+import videojs from "video.js";
+import 'video.js/dist/video-js.css';
 
-const About = () => {
+const About = ({ item, lang, base }) => {
+    const data = item.body || {};
 
     return (
         <MainLayout>
             <section className="video-wrap">
-                <img src="/images/about.jpg" alt="" />
-                <div className="over"></div>
+                {data.video ? (
+                    <video width="1920" height="788" className="video-js" controls preload="auto" poster={`${base}/storage/${data.image}`}
+                        data-setup="{}">
+                        <source src={`${base}/storage/${data.video}`} type={`video/${getVideoType(data.video)}`} />
+                    </video>
+                ) : (
+                    <img src={`${base}/storage/${data.image}`} />
+                )}
+                {/* <div className="over"></div> */}
             </section>
             <section className="about-info">
                 <div className="container wrap">
-                    <h1 className="tp-header mb-40">ჩვენს შესახებ</h1>
-                    <div className="tp-text">
-                        <p>
-                            erudio წარმოადგენს აუდიტორული და საკონსულტაციო კომპანია Loialté-ს საგანმანათლებლო მიმართულებას და გთავაზობთ პროფესიული ტრენინგების მრავალფეროვან ჩამონათვალს.
-                        </p>
-                        <p>
-                            erudios-ს გუნდი ორიენტირებულია მაღალ სტანდარტსა და ხარისხზე. ის, რისი სწავლაც ჩვენთან შეგიძლიათ, სრულებით უცხო და არადამახასიათებელია ქართული საგანმანათლებლო ბაზრისთვის.
-                            ჩვენი პრიორიტეტული სატრენინგო თემატიკებია: საგადასახადო, იურიდიული, ფინანსები და ინვესტიციები, საბანკო საქმე, დაზღვევა, ეკონომიკა, რეგულაციებთან შესაბამისობა, გაყიდვები, HR, ციფრული მარკეტინგი, ტურიზმი, ტექნოლოგიები და ა.შ.
-                        </p>
-                        <p>
-                            ცენტრში ფუნქციონირებს, როგორც სასერტიფიკატო კურსები, ასევე - მოკლე და გრძელვადიანი, სპეციალური სასწავლო პროგრამები, მორგებული მომხმარებლის მოთხოვნაზე. ტრენერთა აბსოლუტური უმრავლესობა არის პრაქტიკოსი და საკუთარ სფეროში წარმატებული ადამიანი.
-
-                        </p>
-                        <p>
-                            erudios-ს მისიაა, გადმოგცეთ ცოდნა, რომელიც კონკურენტუნარიანსა და მოთხოვნადს გაგხდით დასაქმების ბაზარზე, გაგიუმჯობესებთ უნარ-ჩვევებს სხვადასხვა მიმართულებით და დაგეხმარებათ, გაზარდოთ პროდუქტიულობის მაჩვენებელი.
-
-                        </p>
-                        <p>
-                            ჩვენთან შეგიძლიათ, აქციოთ ცოდნა წარმატების მიღწევის საშუალებად!
-                        </p>
-                    </div>
+                    <h1 className="tp-header mb-40" children={data['title_' + lang]} />
+                    <div className="tp-text" children={data['text_' + lang]} />
                 </div>
             </section>
         </MainLayout>

@@ -83,7 +83,7 @@ class AdminController extends Controller
 
         $data->each(function ($item, $key) use ($data) {
             if ($item instanceof UploadedFile) {
-                $data[$key] = $this->uploadImage($item, null, $key);
+                $data[$key] = $this->uploadFile($item, null, $key);
             }
         });
 
@@ -136,9 +136,23 @@ class AdminController extends Controller
             return $item !== null;
         });
 
-        $data->each(function ($item, $key) use ($data, $model) {
+        $data->filter(function ($item) {
+            return $item instanceof UploadedFile || is_array($item);
+        })->each(function ($item, $key) use ($data, $model) {
             if ($item instanceof UploadedFile) {
-                $data[$key] = $this->uploadImage($item, $model[$key], $key);
+                $data[$key] = $this->uploadFile($item, $model[$key], $key);
+            }
+
+            if (is_array($item)) {
+                $relation = $key;
+                $files = collect($item)->filter(function ($item) {
+                    return $item instanceof UploadedFile;
+                })->map(function ($item, $key) use ($model, $relation) {
+                    $old = isset($model[$relation]->$key) ? $model[$relation]->$key : null;
+
+                    return $this->uploadFile($item, $old, $key);
+                });
+                $data[$key] = array_merge($item, $files->toArray());
             }
         });
 
@@ -174,7 +188,7 @@ class AdminController extends Controller
         return Validator::make($request->all(), $this->request::createFrom($request)->rules());
     }
 
-    private function uploadImage(UploadedFile $file, string $oldFile = null, string $folder)
+    private function uploadFile(UploadedFile $file, string $oldFile = null, string $folder)
     {
         if ($oldFile) {
             $this->removeFile($oldFile);

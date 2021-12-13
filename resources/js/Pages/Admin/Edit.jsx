@@ -3,7 +3,6 @@ import { AdminLayout } from '@/Layouts/AdminLayout';
 import { Grid, Stack, Typography, Button } from '@mui/material';
 import { useForm } from '@inertiajs/inertia-react';
 import { Field } from './Components';
-import { getInputName } from '@/Helper';
 
 const Files = new Set(['file', 'image', 'video']);
 
@@ -18,7 +17,7 @@ const Edit = ({ model, data, fields }) => {
                 if (!initForm[item.relation]) {
                     initForm[item.relation] = {}
                 }
-                initForm[item.relation][key] = value;
+                initForm[item.relation][key] = data[item.relation] ? data[item.relation][item.name] : null;
             } else {
                 initForm[key] = value;
             }
@@ -43,7 +42,13 @@ const Edit = ({ model, data, fields }) => {
                     <Grid item key={key} xs={field.size}>
                         <Stack spacing={2}>
                             {field.list.map((item, key) => (
-                                <Field key={key} data={item} error={getError(item)} value={data[item.name]} setChange={setData} />
+                                <Field
+                                    key={key}
+                                    data={item}
+                                    error={getError(item)}
+                                    value={!item.relation ? data[item.name] : data[item.relation] ? data[item.relation][item.name] : null}
+                                    setChange={setData}
+                                />
                             ))}
                         </Stack>
                     </Grid>

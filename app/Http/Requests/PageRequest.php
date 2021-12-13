@@ -28,11 +28,31 @@ class PageRequest extends FormRequest
 
         if ($id == 2) {
             $rules = [
-                'metas.title_ka' => 'required|string',
-                'metas.title_en' => 'nullable|string',
-                'metas.text_ka' => 'required|string',
-                'metas.text_en' => 'nullable|string',
-                'metas.image' => [
+                'body.title_ka' => 'required|string',
+                'body.title_en' => 'nullable|string',
+                'body.text_ka' => 'required|string',
+                'body.text_en' => 'nullable|string',
+                'body.video' => 'file|nullable',
+                'body.image' => [
+                    'image',
+                    request()->isMethod('POST') ? 'required' : 'nullable'
+                ],
+            ];
+        }
+
+        if ($id == 3) {
+            $rules = [
+                'body.title_ka' => 'required|string',
+                'body.title_en' => 'nullable|string',
+                'body.text_ka' => 'required|string',
+                'body.text_en' => 'nullable|string',
+
+                'body.active_title_ka' => 'required|string',
+                'body.active_title_en' => 'nullable|string',
+                'body.active_text_ka' => 'required|string',
+                'body.active_text_en' => 'nullable|string',
+
+                'body.image' => [
                     'image',
                     request()->isMethod('POST') ? 'required' : 'nullable'
                 ],
@@ -41,8 +61,8 @@ class PageRequest extends FormRequest
 
         if ($id == 4) {
             $rules = [
-                'metas.text_ka' => 'required|string',
-                'metas.text_en' => 'nullable|string',
+                'body.text_ka' => 'required|string',
+                'body.text_en' => 'nullable|string',
             ];
         }
 

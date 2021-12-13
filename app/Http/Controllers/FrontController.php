@@ -10,6 +10,7 @@ use App\Models\LiveCourse;
 use App\Models\Media;
 use App\Models\Option;
 use App\Models\Order;
+use App\Models\Page;
 use App\Models\Subscribe;
 use App\Models\Team;
 use App\Models\Translate;
@@ -108,7 +109,9 @@ class FrontController extends Controller
 
     public function about()
     {
-        return Inertia::render('About', []);
+        return Inertia::render('About', [
+            'item' => Page::findOrFail(2),
+        ]);
     }
 
     public function team()
@@ -120,7 +123,9 @@ class FrontController extends Controller
 
     public function social()
     {
-        return Inertia::render('About/Social', []);
+        return Inertia::render('About/Social', [
+            'item' => Page::findOrFail(3),
+        ]);
     }
 
     public function media()
@@ -226,7 +231,9 @@ class FrontController extends Controller
 
     public function terms()
     {
-        return Inertia::render('Terms', []);
+        return Inertia::render('Terms', [
+            'item' => Page::find(4)
+        ]);
     }
 
     public function updatePassword()

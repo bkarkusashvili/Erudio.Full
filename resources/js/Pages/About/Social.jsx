@@ -1,7 +1,8 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 
-const Social = () => {
+const Social = ({ item, lang, base }) => {
+    const data = item.body || {};
 
     return (
         <MainLayout>
@@ -11,35 +12,15 @@ const Social = () => {
                 </div>
                 <div className="info-top">
                     <div className="container">
-                        <h3 className="tp-header small mb-33">სათაური</h3>
-                        <div className="tp-text">
-                            <p>
-                                ერუდიოში ფუნქციონირებს, როგორც სასერტიფიკატო კურსები, ასევე - მოკლე და გრძელვადიანი, სპეციალური სასწავლო პროგრამები, მორგებული მომხმარებლის მოთხოვნაზე.
-                            </p>
-                            <p>
-                                erudio-ს გუნდი ორიენტირებულია მაღალ სტანდარტსა და ხარისხზე. ის, რისი სწავლაც ჩვენთან შეგიძლიათ, სრულებით უცხო და არადამახასიათებელია ქართული საგანმანათლებლო ბაზრისთვის.
-                            </p>
-                            <p>
-                                ერუდიოს პრიორიტეტული სატრენინგო თემატიკებია: საგადასახადო, იურიდიული, ფინანსები და ინვესტიციები, საბანკო საქმე, დაზღვევა, ეკონომიკა, რეგულაციებთან შესაბამისობა, გაყიდვები, HR, ციფრული მარკეტინგი, ტურიზმი, ტექნოლოგიები და ა.შ.
-                            </p>
-                        </div>
+                        <h3 className="tp-header small mb-33" children={data['title_' + lang]} />
+                        <div className="tp-text" children={data['text_' + lang]} />
                     </div>
                 </div>
-                <img className="social-image" src="/images/social-image.jpg" alt="" />
+                <img className="social-image" src={`${base}/storage/${data.image}`} />
                 <div className="info-bottom">
                     <div className="container">
-                        <h3 className="tp-header small mb-33">აქტივობების შესახებ ინფო</h3>
-                        <div className="tp-text">
-                            <p>
-                                ერუდიოში ფუნქციონირებს, როგორც სასერტიფიკატო კურსები, ასევე - მოკლე და გრძელვადიანი, სპეციალური სასწავლო პროგრამები, მორგებული მომხმარებლის მოთხოვნაზე.
-                            </p>
-                            <p>
-                                erudio-ს გუნდი ორიენტირებულია მაღალ სტანდარტსა და ხარისხზე. ის, რისი სწავლაც ჩვენთან შეგიძლიათ, სრულებით უცხო და არადამახასიათებელია ქართული საგანმანათლებლო ბაზრისთვის.
-                            </p>
-                            <p>
-                                ერუდიოს პრიორიტეტული სატრენინგო თემატიკებია: საგადასახადო, იურიდიული, ფინანსები და ინვესტიციები, საბანკო საქმე, დაზღვევა, ეკონომიკა, რეგულაციებთან შესაბამისობა, გაყიდვები, HR, ციფრული მარკეტინგი, ტურიზმი, ტექნოლოგიები და ა.შ.
-                            </p>
-                        </div>
+                        <h3 className="tp-header small mb-33" children={data['active_title_' + lang]} />
+                        <div className="tp-text" children={data['active_text_' + lang]} />
                     </div>
                 </div>
             </section>
