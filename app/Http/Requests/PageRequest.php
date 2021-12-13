@@ -24,7 +24,16 @@ class PageRequest extends FormRequest
     public function rules()
     {
         $id = (int) request()->route('page');
-        $rules = ['title' => 'required|string'];
+        $rules = [];
+
+        if ($id == 1) {
+            $rules = [
+                'body.file' => [
+                    'file',
+                    request()->isMethod('POST') ? 'required' : 'nullable'
+                ],
+            ];
+        }
 
         if ($id == 2) {
             $rules = [

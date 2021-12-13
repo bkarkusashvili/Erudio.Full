@@ -13,7 +13,7 @@ const slides = [
     '/images/main-slider.jpg',
 ];
 
-export const Slider = () => {
+export const Slider = ({ data }) => {
     const { lang } = usePage().props
     const [sug, setSug] = useState([]);
     const [search, setSearch] = useState();
@@ -63,12 +63,14 @@ export const Slider = () => {
                         )}
                     </div>
                 </div>
-                <div className="container slider-over">
-                    <a href="" className="download">
-                        <FontAwesomeIcon icon={faArrowDown} />
-                        <span>საპრეზენტაციო ფაილის გადმოწერა</span>
-                    </a>
-                </div>
+                {data.file && (
+                    <div className="container slider-over">
+                        <a href={`/storage/${data.file}`} target={'_blank'} className="download">
+                            <FontAwesomeIcon icon={faArrowDown} />
+                            <span>საპრეზენტაციო ფაილის გადმოწერა</span>
+                        </a>
+                    </div>
+                )}
             </div>
             {slides.length > 1 && (
                 <div className="navigation">

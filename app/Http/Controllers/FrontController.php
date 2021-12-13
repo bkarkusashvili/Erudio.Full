@@ -47,6 +47,7 @@ class FrontController extends Controller
             'trainings' => Course::where('popular_training', true)->get(),
             'courses' => Course::where('popular_course', true)->get(),
             'masterclasses' => Course::where('popular_masterclass', true)->get(),
+            'item' => Page::findOrFail(1),
         ]);
     }
 

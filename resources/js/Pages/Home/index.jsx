@@ -4,19 +4,12 @@ import { MainLayout } from '@/Layouts';
 import { Slider, CourseList, Clients, Subscribe } from './Components';
 import { Line } from '@/Components';
 
-const list = [
-    {
-        title: 'საბანკო საფინანსო',
-        text: 'მოკლე აღწერამოკლე აღწერამოკლე აღწერამოკლე აღწერამოკლე აღწერამოკლე აღწერამოკლე აღწერამოკლეაღწერამოკლე აღწერა…',
-        image: '/images/popular-trainings.png',
-    }
-];
-
-const Home = ({ clients, trainings, courses, masterclasses }) => {
+const Home = ({ clients, trainings, courses, masterclasses, item }) => {
+    const data = item.body || {};
 
     return (
         <MainLayout hasFooterMenu>
-            <Slider />
+            <Slider data={data} />
             <Line style={{ marginTop: '-4px' }} />
             <CourseList title="პოპულარული ტრენინგები" list={trainings} />
             <Clients list={clients} />

@@ -20,20 +20,9 @@ class PageController extends AdminController
     public $fields = [
         1 => [
             [
-                'size' => 8,
-                'list' => [
-                    ['type' => 'text', 'name' => 'slider_title_ka', 'label' => 'სლაიდერის სათაური (ქარ.)'],
-                    ['type' => 'text', 'name' => 'slider_title_en', 'label' => 'სლაიდერის სათაური (ინგ.)'],
-                    ['type' => 'text', 'name' => 'section_title_ka', 'label' => 'სექციის სათაური (ქარ.)'],
-                    ['type' => 'text', 'name' => 'section_title_en', 'label' => 'სექციის სათაური (ინგ.)'],
-                    ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'კლიენტებზე მორგებული გადაწყვეტები (ქარ.)'],
-                    ['type' => 'textarea', 'name' => 'text_en', 'label' => 'კლიენტებზე მორგებული გადაწყვეტები (ინგ.)'],
-                ]
-            ],
-            [
                 'size' => 4,
                 'list' => [
-                    ['type' => 'file', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],
+                    ['type' => 'file', 'relation' => 'body', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],
                 ]
             ]
         ],
