@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddBodyToTables extends Migration
+class EditPagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -26,7 +26,7 @@ class AddBodyToTables extends Migration
     public function down()
     {
         Schema::table('pages', function (Blueprint $table) {
-            $table->removeColumn('body');
+            $table->dropColumn('body');
         });
     }
 }
