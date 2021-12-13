@@ -40,7 +40,7 @@ export const Slider = ({ data, list }) => {
             slidesPerView={1}
             onInit={slider => setSlider(slider)}
             loop={true}
-            autoplay={{ delay: 10000 }}
+            autoplay={!!list.length && { delay: 10000 }}
         >
             {list.map(item => (
                 <SwiperSlide key={item.id}>
