@@ -9,6 +9,10 @@ import { IconButton } from '@mui/material';
 import { useRoute } from '@/Components/Route';
 import { Video } from '@/Components/Video';
 
+import SwiperCore, { Autoplay } from 'swiper';
+
+SwiperCore.use([Autoplay]);
+
 export const Slider = ({ data, list }) => {
     const { lang, base } = usePage().props
     const [sug, setSug] = useState([]);
@@ -36,10 +40,11 @@ export const Slider = ({ data, list }) => {
             slidesPerView={1}
             onInit={slider => setSlider(slider)}
             loop={true}
+            autoplay={{ delay: 10000 }}
         >
             {list.map(item => (
                 <SwiperSlide key={item.id}>
-                    <Video data={item} autoPlay controls={false} />
+                    <Video data={item} autoPlay loop controls={false} />
                 </SwiperSlide>
             ))}
             <div className="over">

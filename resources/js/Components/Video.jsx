@@ -4,7 +4,7 @@ import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 import { getVideoType } from "@/Helper";
 
-export const Video = ({ data, width = 1920, height = 788, autoPlay = false, controls = true }) => {
+export const Video = ({ data, width = 1920, height = 788, autoPlay = false, controls = true, loop = false }) => {
     const { base } = usePage().props;
 
     return data.video ? (
@@ -14,7 +14,8 @@ export const Video = ({ data, width = 1920, height = 788, autoPlay = false, cont
             className="video-js"
             autoPlay={autoPlay}
             controls={controls}
-            preload={false}
+            loop={loop}
+            preload='auto'
             poster={`${base}/storage/${data.image}`
             }
             data-setup="{}">
