@@ -3,6 +3,7 @@ import { AdminLayout } from '@/Layouts/AdminLayout';
 import { Grid, Stack, Typography, Button } from '@mui/material';
 import { useForm } from '@inertiajs/inertia-react';
 import { Field } from './Components';
+import { getInitForm } from './Components/InputHelper';
 
 const Create = ({ model, fields }) => {
     const initForm = {};
@@ -26,9 +27,9 @@ const Create = ({ model, fields }) => {
                 {fields.map((field, key) => (
                     <Grid item key={key} xs={field.size}>
                         <Stack spacing={2}>
-                            {field.list.map((item, key) => (
+                            {field.list.map((item, key) =>
                                 <Field key={key} data={item} error={errors[item.name]} setChange={setData} />
-                            ))}
+                            )}
                         </Stack>
                     </Grid>
                 ))}

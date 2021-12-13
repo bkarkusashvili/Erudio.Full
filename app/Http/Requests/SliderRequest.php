@@ -25,7 +25,12 @@ class SliderRequest extends FormRequest
     {
         return [
             'title' => 'required|string',
-            'file' => 'required|string',
+            'status' => 'nullable|boolean',
+            'image' => [
+                'image',
+                request()->isMethod('POST') ? 'required' : 'nullable'
+            ],
+            'video' => 'nullable'
         ];
     }
 }

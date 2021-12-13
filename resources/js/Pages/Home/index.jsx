@@ -4,12 +4,12 @@ import { MainLayout } from '@/Layouts';
 import { Slider, CourseList, Clients, Subscribe } from './Components';
 import { Line } from '@/Components';
 
-const Home = ({ clients, trainings, courses, masterclasses, item }) => {
+const Home = ({ clients, trainings, courses, masterclasses, item, slider }) => {
     const data = item.body || {};
 
     return (
         <MainLayout hasFooterMenu>
-            <Slider data={data} />
+            <Slider data={data} list={slider} />
             <Line style={{ marginTop: '-4px' }} />
             <CourseList title="პოპულარული ტრენინგები" list={trainings} />
             <Clients list={clients} />

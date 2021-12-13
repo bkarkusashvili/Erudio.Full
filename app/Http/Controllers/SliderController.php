@@ -12,14 +12,23 @@ class SliderController extends AdminController
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
         ['field' => 'title', 'headerName' => 'სათაური'],
+        ['field' => 'title', 'status' => 'სტატუსი'],
     ];
     public $fields = [
         [
             'size' => 8,
             'list' => [
                 ['type' => 'text', 'name' => 'title', 'label' => 'სათაური'],
-                ['type' => 'text', 'name' => 'image', 'label' => 'ფაილი'],
+            ]
+        ],
+        [
+            'size' => 4,
+            'list' => [
+                ['type' => 'toggle', 'name' => 'status', 'label' => 'სტატუსი', 'value' => false],
+                ['type' => 'file', 'name' => 'video', 'label' => 'ვიდეო'],
+                ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ]
     ];
+    public $fileFilds = ['image', 'video'];
 }

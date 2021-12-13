@@ -6,3 +6,4 @@ export * from './Line';
 export * from './Icons';
 export * from './Checkmark';
 export * from './Route';
+export * from './Video';

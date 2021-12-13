@@ -1,8 +1,6 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
-import { getVideoType } from '@/Helper';
-import videojs from "video.js";
-import 'video.js/dist/video-js.css';
+import { Video } from '@/Components/Video';
 
 const About = ({ item, lang, base }) => {
     const data = item.body || {};
@@ -10,14 +8,7 @@ const About = ({ item, lang, base }) => {
     return (
         <MainLayout>
             <section className="video-wrap">
-                {data.video ? (
-                    <video width="1920" height="788" className="video-js" controls preload="auto" poster={`${base}/storage/${data.image}`}
-                        data-setup="{}">
-                        <source src={`${base}/storage/${data.video}`} type={`video/${getVideoType(data.video)}`} />
-                    </video>
-                ) : (
-                    <img src={`${base}/storage/${data.image}`} />
-                )}
+                <Video data={data} />
                 {/* <div className="over"></div> */}
             </section>
             <section className="about-info">

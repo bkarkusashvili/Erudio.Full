@@ -12,8 +12,12 @@ import { Link } from '@inertiajs/inertia-react';
 
 const drawerWidth = 240;
 const menu = [
-    // { text: 'სლაიდერი', model: 'slider' },
-    { text: 'გვერდები', model: 'page', canAdd: false },
+    {
+        list: [
+            { text: 'გვერდები', model: 'page', canAdd: false },
+            { text: 'სლაიდერი', model: 'slider', canAdd: true },
+        ]
+    },
     { text: 'მომხმარებლები', model: 'user', canAdd: false },
     { text: 'შეფასებები', model: 'client', canAdd: true },
     { text: 'გუნდი', model: 'team', canAdd: true },

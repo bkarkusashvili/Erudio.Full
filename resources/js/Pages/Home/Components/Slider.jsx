@@ -7,14 +7,10 @@ import { SearchSharp } from '@mui/icons-material';
 import { Inertia } from '@inertiajs/inertia';
 import { IconButton } from '@mui/material';
 import { useRoute } from '@/Components/Route';
+import { Video } from '@/Components/Video';
 
-const slides = [
-    '/images/main-slider.jpg',
-    '/images/main-slider.jpg',
-];
-
-export const Slider = ({ data }) => {
-    const { lang } = usePage().props
+export const Slider = ({ data, list }) => {
+    const { lang, base } = usePage().props
     const [sug, setSug] = useState([]);
     const [search, setSearch] = useState();
     const [slider, setSlider] = useState();
@@ -41,9 +37,9 @@ export const Slider = ({ data }) => {
             onInit={slider => setSlider(slider)}
             loop={true}
         >
-            {slides.map((slide, key) => (
-                <SwiperSlide key={key}>
-                    <img src={slide} alt="" />
+            {list.map(item => (
+                <SwiperSlide key={item.id}>
+                    <Video data={item} autoPlay controls={false} />
                 </SwiperSlide>
             ))}
             <div className="over">
@@ -72,7 +68,7 @@ export const Slider = ({ data }) => {
                     </div>
                 )}
             </div>
-            {slides.length > 1 && (
+            {list.length > 1 && (
                 <div className="navigation">
                     <a className="left" onClick={() => slider.slidePrev()}>
                         <i className="icon icon-slide-arrow"></i>

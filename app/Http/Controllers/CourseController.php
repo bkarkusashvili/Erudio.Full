@@ -34,7 +34,22 @@ class CourseController extends AdminController
                 // [
                 //     'type' => 'group',
                 //     'title' => 'დღეები',
-                //     'name' => 'days',
+                //     'name' => 'day',
+                //     'relation' => 'body',
+                //     'addMore' => true,
+                //     'divider' => 'top',
+                //     'list' => [
+                //         ['type' => 'date', 'name' => 'date', 'label' => 'თარიღი'],
+                //         ['type' => 'text', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
+                //         ['type' => 'text', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
+                //     ]
+                // ],
+
+                // [
+                //     'type' => 'group',
+                //     'title' => 'თემები',
+                //     'name' => 'topic',
+                //     'relation' => 'body',
                 //     'addMore' => true,
                 //     'divider' => 'top',
                 //     'list' => [

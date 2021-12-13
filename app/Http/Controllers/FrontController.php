@@ -11,6 +11,7 @@ use App\Models\Media;
 use App\Models\Option;
 use App\Models\Order;
 use App\Models\Page;
+use App\Models\Slider;
 use App\Models\Subscribe;
 use App\Models\Team;
 use App\Models\Translate;
@@ -48,6 +49,7 @@ class FrontController extends Controller
             'courses' => Course::where('popular_course', true)->get(),
             'masterclasses' => Course::where('popular_masterclass', true)->get(),
             'item' => Page::findOrFail(1),
+            'slider' => Slider::where('status', 1)->get()
         ]);
     }
 

@@ -5,7 +5,6 @@ export const isActivePage = (page, id = null) => {
     return route().current(page, params);
 };
 export const getClassName = classes => Object.keys(classes).filter(name => classes[name]).join(' ');
-export const getInputName = data => data.relation ? `${data.relation}.${data.name}` : data.name;
 export const getVideoType = video => {
     const paths = video.split('/');
 
@@ -28,3 +27,23 @@ export const getParams = () => {
 
     return params;
 };
+
+
+export const isObject = (item) => (item && typeof item === 'object' && !Array.isArray(item));
+export const mergeDeep = (target, ...sources) => {
+    if (!sources.length) return target;
+    const source = sources.shift();
+
+    if (isObject(target) && isObject(source)) {
+        for (const key in source) {
+            if (isObject(source[key])) {
+                if (!target[key]) Object.assign(target, { [key]: {} });
+                mergeDeep(target[key], source[key]);
+            } else {
+                Object.assign(target, { [key]: source[key] });
+            }
+        }
+    }
+
+    return mergeDeep(target, ...sources);
+}
