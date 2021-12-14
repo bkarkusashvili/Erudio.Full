@@ -4,57 +4,57 @@ import { usePage } from '@inertiajs/inertia-react';
 import { Checkmark } from '@/Components/Checkmark';
 
 const Settings = () => {
-    const { auth: { user } } = usePage().props;
+    const { auth: { user }, translate } = usePage().props;
     const [checked, setChecked] = useState(false);
 
     return (
         <MainLayout>
             <section className="settings">
                 <div className="container wrap">
-                    <h1 className="tp-header small headline">პარამეტრები</h1>
-                    <div className="tp-text">თუ გსურთ თქვენი პარამეტრების შეცვლა გთხოვთ ქვემოთ მითითებული ველები ჩაანაცვლოთ ახლით</div>
+                    <h1 className="tp-header small headline" children={translate.settings} />
+                    <div className="tp-text" children={translate.fill_if_want_change} />
                     <form className="form">
                         <div className="item">
-                            <span className="tp-text">სახელი</span>
-                            <input className="form-field" type="text" placeholder="სახელი" readOnly value={user.firstname} />
+                            <span className="tp-text" children={translate.firstname} />
+                            <input className="form-field" type="text" placeholder={translate.firstname} readOnly value={user.firstname} />
                         </div>
                         <div className="item">
-                            <span className="tp-text">გვარი</span>
-                            <input className="form-field" type="text" placeholder="გვარი" readOnly value={user.lastname} />
+                            <span className="tp-text" children={translate.lastname} />
+                            <input className="form-field" type="text" placeholder={translate.lastname} readOnly value={user.lastname} />
                         </div>
                         <div className="item">
-                            <span className="tp-text">პირადი N</span>
-                            <input className="form-field" type="text" placeholder="პირადი N" readOnly value={user.personalnumber} />
+                            <span className="tp-text" children={translate.personalnumber} />
+                            <input className="form-field" type="text" placeholder={translate.personalnumber} readOnly value={user.personalnumber} />
                         </div>
                         <div className="item">
-                            <span className="tp-text">ელ.ფოსტა</span>
-                            <input className="form-field" type="text" placeholder="ელ.ფოსტა" readOnly value={user.email} />
+                            <span className="tp-text" children={translate.email} />
+                            <input className="form-field" type="text" placeholder={translate.email} readOnly value={user.email} />
                         </div>
                         <div className="item">
-                            <span className="tp-text">პაროლი</span>
-                            <input className="form-field" type="password" placeholder="პაროლი" />
+                            <span className="tp-text" children={translate.password} />
+                            <input className="form-field" type="password" placeholder={translate.password} />
                         </div>
                         <div className="item">
-                            <span className="tp-text">გაიმეორეთ ახალი პაროლი</span>
-                            <input className="form-field" type="password" autoComplete="off" placeholder="პაროლი" />
+                            <span className="tp-text" children={translate.confirm_new_password} />
+                            <input className="form-field" type="password" autoComplete="off" placeholder={translate.password} />
                         </div>
                         <div className="item">
                             <span className="tp-text"></span>
-                            <input className="form-submit" type="submit" autoComplete="off" value="მონაცემების დამახსოვრება" />
+                            <input className="form-submit" type="submit" autoComplete="off" value={translate.save_records} />
                         </div>
-                    </form>
+                    </form >
                     <div className="tp-text">
-                        <p>გსურთ მომხმარებლის წაშლა: <span className="user-email">{user.email}?</span></p>
-                        <p>ყურადღება! ექაუნთის წაშლის შემთaხვევაში წაიშლება ყველა თქვენი მონაცემი.</p>
+                        <p>{translate.want_delete_user}: <span className="user-email">{user.email}?</span></p>
+                        <p children={translate.delete_info} />
                         <p className="delete-wrap">
                             <Checkmark checked={checked} onClick={() => setChecked(checked)} />
-                            თანახმა ხართ რომ წაშალოთ თქვენი ექაუნთი
+                            {translate.confirm_delete}
                         </p>
-                        <a href="" className="delete"><strong>წაშლა</strong></a>
-                    </div>
-                </div>
-            </section>
-        </MainLayout>
+                        <a href="" className="delete"><strong>{translate.delete}</strong></a>
+                    </div >
+                </div >
+            </section >
+        </MainLayout >
     );
 };
 

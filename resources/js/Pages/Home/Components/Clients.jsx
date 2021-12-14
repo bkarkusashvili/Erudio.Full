@@ -4,19 +4,19 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { getClassName } from '@/Helper';
 
 export const Clients = ({ list = [] }) => {
-    const { lang, base } = usePage().props;
+    const { lang, base, translate } = usePage().props;
     const [active, setActive] = useState();
     const [swiper, setSwiper] = useState();
 
     return (
         <section className="clients-wrap">
             <div className="container">
-                <h3 className="tp-header small mb-33">რას ამბობენ კლიენტები ჩვენზე</h3>
+                <h3 className="tp-header small mb-33" children={translate.Main_Page_Section} />
                 {list.map((item, index) => (
                     <p
                         key={item.id}
                         className={getClassName({ active: active === index, "tp-text client-text": true })}
-                        children={item['text_' + lang]}
+                        dangerouslySetInnerHTML={{ __html: item['text_' + lang] }}
                     />
                 ))}
                 <Swiper

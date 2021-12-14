@@ -14,7 +14,7 @@ const About = ({ item, lang, base }) => {
             <section className="about-info">
                 <div className="container wrap">
                     <h1 className="tp-header mb-40" children={data['title_' + lang]} />
-                    <div className="tp-text" children={data['text_' + lang]} />
+                    <div className="tp-text" dangerouslySetInnerHTML={{ __html: data['text_' + lang] }} />
                 </div>
             </section>
         </MainLayout>

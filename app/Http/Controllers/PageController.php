@@ -20,6 +20,13 @@ class PageController extends AdminController
     public $fields = [
         1 => [
             [
+                'size' => 8,
+                'list' => [
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_ka', 'label' => 'კლიენტებზე მორგებული გადაწყვეტები (ქარ.)'],
+                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_en', 'label' => 'კლიენტებზე მორგებული გადაწყვეტები (ინგ.)'],
+                ]
+            ],
+            [
                 'size' => 4,
                 'list' => [
                     ['type' => 'file', 'relation' => 'body', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],

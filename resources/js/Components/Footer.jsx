@@ -3,24 +3,24 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import { useRoute } from './Route';
 
 export const Footer = ({ hasFooterMenu = false }) => {
-    const { categories, options, lang } = usePage().props;
+    const { categories, options, lang, translate } = usePage().props;
 
     return (
         <footer>
             {hasFooterMenu && (
                 <div className="container footer-nav">
                     <div className="item">
-                        <h3 className="title">მთავარი</h3>
+                        <h3 className="title" children={translate.home} />
                     </div>
                     <div className="item">
-                        <h3 className="title">ჩვენს შესახებ</h3>
-                        <Link href={useRoute('about')}>ერუდიო შესახებ</Link>
-                        <Link href={useRoute('team')}>ჩვენი გუნდი</Link>
-                        <Link href={useRoute('social')}>სოციალური პასუხისმგებლობა</Link>
-                        <Link href={useRoute('media')}>მედია</Link>
+                        <h3 className="title" children={translate.about} />
+                        <Link href={useRoute('about')} children={translate.aboutErudio} />
+                        <Link href={useRoute('team')} children={translate.team} />
+                        <Link href={useRoute('social')} children={translate.socialFull} />
+                        <Link href={useRoute('media')} children={translate.media} />
                     </div>
                     <div className="item">
-                        <h3 className="title">სფეროები</h3>
+                        <h3 className="title" children={translate.sphere} />
                         {categories.map((item, key) =>
                             <Link
                                 key={key}
@@ -30,7 +30,7 @@ export const Footer = ({ hasFooterMenu = false }) => {
                         )}
                     </div>
                     <div className="item">
-                        <h3 className="title">სოციალური ქსელი</h3>
+                        <h3 className="title" children={translate.socialMedia} />
                         {options.facebook && <a href={options.facebook} target="_blank">Facebook</a>}
                         {options.twitter && <a href={options.twitter} target="_blank">Twitter</a>}
                         {options.youtube && <a href={options.youtube} target="_blank">Youtube</a>}
@@ -38,7 +38,7 @@ export const Footer = ({ hasFooterMenu = false }) => {
                         {options.instagram && <a href={options.instagram} target="_blank">instagram</a>}
                     </div>
                     <div className="item">
-                        <h3 className="title">კონტაქტი</h3>
+                        <h3 className="title" children={translate.contact} />
                         {options.email && <a href={'mailto:' + options.email} target="_blank">{options.email}</a>}
                         {options.phone && <a href={'tel:' + options.phone} target="_blank">{options.phone}</a>}
                         {options['address_' + lang] && <a>{options['address_' + lang]}</a>}

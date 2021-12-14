@@ -15,7 +15,7 @@ const initData = {
     type: null,
 };
 
-const Courses = ({ list, lang, categories, cities }) => {
+const Courses = ({ list, lang, categories, cities, translate }) => {
     const [type, setType] = useState(1);
     const [date, setDate] = useState(null);
     const [isDateOpen, setIsDateOpen] = useState(false);
@@ -33,21 +33,21 @@ const Courses = ({ list, lang, categories, cities }) => {
         <MainLayout>
             <div className="courses-wrap">
                 <div className="container header">
-                    <h1 className="tp-header small">კურსების ძიება</h1>
+                    <h1 className="tp-header small" children={translate.searchCourses} />
                 </div>
                 <div className="container top-filters">
                     <div className="item">
-                        <span className="tp-text">მაჩვენე მხოლოდ ონლაინ კურსები</span>
+                        <span className="tp-text" children={translate.show_only_online} />
                         <i onClick={() => onTypeChange(1)} className={getClassName({ active: type === 1 })} />
                     </div>
                     <div className="item">
-                        <span className="tp-text">მაჩვენე მხოლოდ ოფლაინ კურსები</span>
+                        <span className="tp-text" children={translate.show_only_offline} />
                         <i onClick={() => onTypeChange(0)} className={getClassName({ active: type === 0 })} />
                     </div>
                 </div>
                 <div className="container bottom-filters">
                     <select onChange={(e) => setData('category', e.target.value)}>
-                        <option value="">თემა/კატეგორია</option>
+                        <option value="">{translate.topic_category}</option>
                         {categories.map(item => (
                             <option
                                 key={item.id}
@@ -57,7 +57,7 @@ const Courses = ({ list, lang, categories, cities }) => {
                         ))}
                     </select>
                     <select onChange={(e) => setData('city', e.target.value)}>
-                        <option value="">ქალაქი</option>
+                        <option value="">{translate.city}</option>
                         {cities.map(item => (
                             <option
                                 key={item.id}
@@ -67,9 +67,9 @@ const Courses = ({ list, lang, categories, cities }) => {
                         ))}
                     </select>
                     <select onChange={(e) => onTypeChange(+e.target.value)}>
-                        <option value={null}>კურსის ტიპი</option>
-                        <option value={0} selected={type === 0}>ჩანაწერი</option>
-                        <option value={1} selected={type === 1}>ლაივი</option>
+                        <option value={null}>{translate.course_type}</option>
+                        <option value={0} selected={type === 0}>{translate.record}</option>
+                        <option value={1} selected={type === 1}>{translate.live}</option>
                     </select>
                     {isLive && (
                         <LocalizationProvider dateAdapter={DateAdapter}>
@@ -84,7 +84,7 @@ const Courses = ({ list, lang, categories, cities }) => {
                                 renderInput={({ inputRef, inputProps, InputProps }) => <input
                                     ref={inputRef}
                                     {...inputProps}
-                                    placeholder="თარიღი"
+                                    placeholder={translate.date}
                                     onClick={() => setIsDateOpen(!isDateOpen)}
                                     readOnly
                                 />}
@@ -92,14 +92,12 @@ const Courses = ({ list, lang, categories, cities }) => {
                         </LocalizationProvider>
                     )}
                     <div className='actions-wrap'>
-                        <button onClick={submit} className="search">ძებნა</button>
-                        <Link href={useRoute('course')} className="clear">გასუფთვება</Link>
+                        <button onClick={submit} className="search" children={translate.search} />
+                        <Link href={useRoute('course')} className="clear" children={translate.clear} />
                     </div>
                 </div>
                 <div className="container">
-                    <div className="list">
-                        {list.map(item => <CourseCard key={item.id} data={item} />)}
-                    </div>
+                    <div className="list" children={list.map(item => <CourseCard key={item.id} data={item} />)} />
                 </div>
             </div>
         </MainLayout>

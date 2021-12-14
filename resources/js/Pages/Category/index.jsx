@@ -4,7 +4,7 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import { useRoute } from '@/Components/Route';
 
 const Category = ({ list, lang }) => {
-    const { base } = usePage().props;
+    const { base, translate } = usePage().props;
 
     return (
         <MainLayout>
@@ -17,8 +17,8 @@ const Category = ({ list, lang }) => {
                             </div>
                             <div className="content">
                                 <h3 className="tp-header small">{item['title_' + lang]}</h3>
-                                <div className="tp-text">{item['text_' + lang]}</div>
-                                <Link href={useRoute('category.single', { id: item.id })} className="tp-more">ვრცლად</Link>
+                                <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
+                                <Link href={useRoute('category.single', { id: item.id })} className="tp-more" children={translate.more} />
                             </div>
                         </div>
                     ))}

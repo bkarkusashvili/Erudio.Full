@@ -14,7 +14,7 @@ import SwiperCore, { Autoplay } from 'swiper';
 SwiperCore.use([Autoplay]);
 
 export const Slider = ({ data, list }) => {
-    const { lang, base } = usePage().props
+    const { lang, translate } = usePage().props
     const [sug, setSug] = useState([]);
     const [search, setSearch] = useState();
     const [slider, setSlider] = useState();
@@ -49,10 +49,10 @@ export const Slider = ({ data, list }) => {
             ))}
             <div className="over">
                 <div className="container wrap">
-                    <h3>ცვლილებები წარმატებისთვის</h3>
+                    <h3 children={translate.header_title} />
                     <div className="search-input">
                         <form className="search-wrap" onSubmit={handleSubmit}>
-                            <input type="text" name="search" onChange={getSearch} autoComplete="off" placeholder="მოძებნე შენთვის სასურველი კურსი" />
+                            <input type="text" name="search" onChange={getSearch} autoComplete="off" placeholder={translate.Search_text} />
                             <IconButton type="submit" className="search-icon" children={<SearchSharp />} />
                         </form>
                         {!!sug.length && (
@@ -68,7 +68,7 @@ export const Slider = ({ data, list }) => {
                     <div className="container slider-over">
                         <a href={`/storage/${data.file}`} target={'_blank'} className="download">
                             <FontAwesomeIcon icon={faArrowDown} />
-                            <span>საპრეზენტაციო ფაილის გადმოწერა</span>
+                            <span children={translate.Slider_File} />
                         </a>
                     </div>
                 )}

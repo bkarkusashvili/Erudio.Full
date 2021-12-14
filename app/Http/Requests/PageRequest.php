@@ -28,6 +28,8 @@ class PageRequest extends FormRequest
 
         if ($id == 1) {
             $rules = [
+                'body.text_ka' => 'required|string',
+                'body.text_en' => 'nullable|string',
                 'body.file' => [
                     'file',
                     request()->isMethod('POST') ? 'required' : 'nullable'

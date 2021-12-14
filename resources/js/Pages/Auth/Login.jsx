@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import { MainLayout } from '@/Layouts';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { TextField } from '@mui/material';
 import { useRoute } from '@/Components/Route';
 
 export default function Login({ status, canResetPassword }) {
+    const { translate } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         email: '',
         password: '',
@@ -32,13 +33,13 @@ export default function Login({ status, canResetPassword }) {
     return (
         <MainLayout>
             <section className="login">
-                <h1>კურსე რეგისტრაციისთვის გთხოვთ შეხვიდეთ სისტემაში!</h1>
+                <h1 children={translate.please_login} />
 
                 <form onSubmit={submit}>
                     <div className="fileds">
                         <TextField
                             className="input-wrap"
-                            label="Email"
+                            label={translate.email}
                             variant="standard"
                             type="text"
                             name="email"
@@ -51,7 +52,7 @@ export default function Login({ status, canResetPassword }) {
 
                         <TextField
                             className="input-wrap"
-                            label="Password"
+                            label={translate.password}
                             variant="standard"
                             type="password"
                             name="password"
@@ -65,11 +66,11 @@ export default function Login({ status, canResetPassword }) {
                             <label className="flex items-center">
                                 <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
 
-                                <span className="ml-2 text-sm text-gray-600">Remember me</span>
+                                <span className="ml-2 text-sm text-gray-600">{translate.remember}</span>
                             </label>
                         </div>
-                        <button className="btn login-btn" type="submit" disabled={processing}>შესვლა</button>
-                        <Link href={useRoute('register')} className="btn register-btn">რეგისტრაცია</Link>
+                        <button className="btn login-btn" type="submit" disabled={processing} children={translate.login} />
+                        <Link href={useRoute('register')} className="btn register-btn" children={translate.registration} />
                     </div>
 
 

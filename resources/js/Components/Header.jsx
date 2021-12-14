@@ -60,13 +60,13 @@ export const Header = () => {
                     <Link href={useRoute(auth.user ? 'profile' : 'login')} className={isActivePage('login') ? 'active' : ''}>
                         <div className="smile-wrap">
                             <Smile />
-                            {auth.user?.firstname || 'შესვლა'}
+                            {auth.user?.firstname || translate.login}
                         </div>
                         {auth.user && (
                             <div className="nav-list">
-                                <Link as="span" href={useRoute('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children="ჩემი გვერდი" />
-                                <Link as="span" href={useRoute('settings')} className={getClassName({ active: isActivePage('settings'), 'nav-item': true })} children="პარამეტრები" />
-                                <Link as="span" href={useRoute('logout')} className={getClassName({ 'nav-item': true })} method="post" as="button" children="სისტემიდან გასვლა" />
+                                <Link as="span" href={useRoute('profile')} className={getClassName({ active: isActivePage('profile'), 'nav-item': true })} children={translate.myPage} />
+                                <Link as="span" href={useRoute('settings')} className={getClassName({ active: isActivePage('settings'), 'nav-item': true })} children={translate.settings} />
+                                <Link as="span" href={useRoute('logout')} className={getClassName({ 'nav-item': true })} method="post" as="button" children={translate.logout} />
                             </div>
                         )}
                     </Link>

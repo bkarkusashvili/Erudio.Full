@@ -4,7 +4,7 @@ import { CourseCard } from '@/Components';
 import { usePage } from '@inertiajs/inertia-react';
 
 const CategorySingle = ({ item, courses, lang }) => {
-    const { base } = usePage().props;
+    const { base, translate } = usePage().props;
 
     return (
         <MainLayout>
@@ -15,13 +15,14 @@ const CategorySingle = ({ item, courses, lang }) => {
                 <div className="container wrap">
                     <div className="info">
                         <h1 className="tp-header small mb-33">{item['title_' + lang]}</h1>
-                        <div className="tp-text">{item['text_' + lang]}</div>
+                        <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
                     </div>
                     <div className="courses">
-                        <h3 className="tp-header">კურსები</h3>
-                        <div className="list">
-                            {courses.map(item => <CourseCard key={item.id} data={item} />)}
-                        </div>
+                        <h3 className="tp-header" children={translate.courses} />
+                        <div
+                            className="list"
+                            children={courses.map(item => <CourseCard key={item.id} data={item} />)}
+                        />
                     </div>
                 </div>
             </section>

@@ -24,7 +24,7 @@ const MediaSingle = ({ item, lang }) => {
                 </div>
                 <div className="container info">
                     <h3 className="tp-header small mb-33">{item['title_' + lang]}</h3>
-                    <div className="tp-text">{item['text_' + lang]}</div>
+                    <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
                 </div>
             </section>
         </MainLayout>

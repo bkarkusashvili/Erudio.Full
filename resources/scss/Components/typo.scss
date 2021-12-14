@@ -65,17 +65,17 @@
         font-size: 18px;
     }
 
-    p {
-        margin-bottom: 30px;
+    // p {
+    //     margin-bottom: 30px;
 
-        @include lg {
-            margin-bottom: 22px;
-        }
+    //     @include lg {
+    //         margin-bottom: 22px;
+    //     }
 
-        &:last-of-type {
-            margin-bottom: 0;
-        }
-    }
+    //     &:last-of-type {
+    //         margin-bottom: 0;
+    //     }
+    // }
 }
 
 .tp-more {

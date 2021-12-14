@@ -1,8 +1,10 @@
+import React, { useRef, useState } from 'react';
 import { useRoute } from '@/Components/Route';
 import { getClassName } from '@/Helper';
-import React, { useRef, useState } from 'react';
+import { usePage } from '@inertiajs/inertia-react';
 
 export const Subscribe = () => {
+    const { translate } = usePage().props;
     const [email, setEmail] = useState('');
     const [info, setInfo] = useState({
         success: true,
@@ -27,12 +29,12 @@ export const Subscribe = () => {
     return (
         <section className="subscribe-wrap">
             <div className="container">
-                <h3 className="tp-header small">გამოიწერე სიახლეები</h3>
+                <h3 className="tp-header small" children={translate.subscribe_news} />
                 <form className={getClassName({ error: !info.success, subscribe: true })} onSubmit={submit}>
-                    <input ref={emailInput} type="text" placeholder="ელ.ფოსტა" autoComplete="off" onChange={e => setEmail(e.target.value)} />
-                    <button type="submit">გამოიწერე</button>
+                    <input ref={emailInput} type="text" placeholder={translate.email} autoComplete="off" onChange={e => setEmail(e.target.value)} />
+                    <button type="submit" children={translate.subscribe} />
                 </form>
-                <span className={getClassName({ error: !info.success, message: true })}>{info.message}</span>
+                <span className={getClassName({ error: !info.success, message: true })} children={info.message} />
             </div>
         </section>
     );

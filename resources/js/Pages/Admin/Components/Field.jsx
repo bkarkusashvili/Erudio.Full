@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
-import { Divider, FormControl, FormControlLabel, FormHelperText, IconButton, InputLabel, MenuItem, Select, Stack, Switch, TextField, Typography } from '@mui/material';
+import { Editor } from '@tinymce/tinymce-react';
+import { Divider, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, IconButton, InputLabel, MenuItem, Select, Stack, Switch, TextField, Typography } from '@mui/material';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
 import { usePage } from '@inertiajs/inertia-react';
 import { AddCircleOutlineOutlined } from '@mui/icons-material';
-
-// import { createReactEditorJS } from 'react-editor-js'
-// const ReactEditorJS = createReactEditorJS()
 
 export const Field = ({ data, error, value = null, setChange }) => {
     const { base } = usePage().props;
@@ -109,6 +107,29 @@ export const Field = ({ data, error, value = null, setChange }) => {
             }
             label={data.label}
         />
+    ) : isMultiline ? (
+        <FormGroup>
+            <FormLabel children={data.label} error={!!error} style={{ marginBottom: 8 }} />
+            <Editor
+                initialValue={value}
+                onEditorChange={e => updateData(e)}
+                init={{
+                    height: 300,
+                    menubar: false,
+                    // plugins: [
+                    //     'advlist autolink lists link image charmap print preview anchor',
+                    //     'searchreplace visualblocks code fullscreen',
+                    //     'insertdatetime media table paste code help wordcount'
+                    // ],
+                    // toolbar: 'undo redo | formatselect | ' +
+                    //     'bold italic backcolor | alignleft aligncenter ' +
+                    //     'alignright alignjustify | bullist numlist outdent indent | ' +
+                    //     'removeformat | help',
+                    // content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }'
+                }}
+            />
+            <FormHelperText error={!!error} children={error} style={{ marginTop: 8 }} />
+        </FormGroup>
     ) : (
         <TextField
             disabled={data.disabled}

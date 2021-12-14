@@ -40,6 +40,7 @@
         "@editorjs/editorjs": "^2.22.2",
         "@editorjs/paragraph": "^2.8.0",
         "@mui/lab": "^5.0.0-alpha.53",
+        "@tinymce/tinymce-react": "^3.13.0",
         "awesome-debounce-promise": "^2.1.0",
         "moment": "^2.29.1",
         "react-editor-js": "^2.0.3",

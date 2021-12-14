@@ -13,7 +13,7 @@ import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 
 const CourseSingle = ({ item, lang }) => {
-    const { auth: { user }, base } = usePage().props;
+    const { auth: { user }, base, translate } = usePage().props;
     const [activeIndex, setActiveIndex] = useState(0);
     const [activeVideo, setActiveVideo] = useState();
     const [liveCourse, setLiveCourse] = useState(null);
@@ -62,25 +62,25 @@ const CourseSingle = ({ item, lang }) => {
                         <h1 className="tp-header small">{item['name_' + lang]}</h1>
                         <div className="list tp-text">
                             <div className="item">
-                                <span>ლოკაცია:</span>
+                                <span>{translate.location}:</span>
                                 <span>{item['address_' + lang]}</span>
                             </div>
                             {item.type === 1 && (
                                 <div className="item">
-                                    <span>თარიღი:</span>
+                                    <span>{translate.date}:</span>
                                     <span>{moment(live.start).format('DD.MM.y')} - {moment(live.end).format('DD.MM.y')}</span>
                                 </div>
                             )}
                             <div className="item">
-                                <span>დღეები:</span>
-                                <span>{item.days} დღე</span>
+                                <span>{translate.days}:</span>
+                                <span>{item.days} {translate.day}</span>
                             </div>
                             <div className="item">
-                                <span>ფასი:</span>
+                                <span>{translate.price}:</span>
                                 <span>{item.price} Gel</span>
                             </div>
                             <div className="item">
-                                <span>დარეკვა:</span>
+                                <span>{translate.call}:</span>
                                 <span>{item.phone}</span>
                             </div>
                         </div>
@@ -90,9 +90,9 @@ const CourseSingle = ({ item, lang }) => {
                                     onClick={pay}
                                     href="#"
                                     className={getClassName({ loading, 'tp-register': true })}
-                                    children={loading ? <CircularProgress /> : "ყიდვა"}
+                                    children={loading ? <CircularProgress /> : translate.buy}
                                 /> :
-                                <Link href={useRoute('register')} className="tp-register" children="რეგისტრაცია" />
+                                <Link href={useRoute('register')} className="tp-register" children={translate.registration} />
                         )}
                     </div>
                 </div>
@@ -100,11 +100,11 @@ const CourseSingle = ({ item, lang }) => {
                     item.isLive ? (
                         <div className="container live-course">
                             <h3 className="tp-header">
-                                კურსი მოიცავს ლაივ ტრეინინგებს
+                                {translate.course_has_live}
                                 <span>LIVE</span>
                             </h3>
                             <p className="tp-text live-course-days">კურსი შედგება {item.days} ლექციისგან</p>
-                            <p className="tp-text">LIVE ტრეინინგის ლინკი:</p>
+                            <p className="tp-text">{translate.live_link}: {moment(live.start).format('DD.MM.y')} - {moment(live.end).format('DD.MM.y')}</p>
                             <a href={live.url} target="_blank">{live.url}</a>
                         </div>
                     ) : hasVideos && activeVideo && (
@@ -142,7 +142,7 @@ const CourseSingle = ({ item, lang }) => {
                     )
                 )}
                 <div className="container info">
-                    <h3 className="tp-header">კურსის მიზანი და ამოცანა</h3>
+                    <h3 className="tp-header" children={translate.course_goal} />
                     <div className="tp-text">{item['goal_' + lang]}</div>
                 </div>
                 {/* <div className="container info-list days">
@@ -158,15 +158,15 @@ const CourseSingle = ({ item, lang }) => {
                     </div>
                 </div> */}
                 <div className="container info">
-                    <h3 className="tp-header small">მეთოდოლოგია</h3>
-                    <div className="tp-text">{item['methodology_' + lang]}</div>
+                    <h3 className="tp-header small" children={translate.course_methodology} />
+                    <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['methodology_' + lang] }} />
                 </div>
                 <div className="container info">
-                    <h3 className="tp-header small">ვისთვისაა საჭირო ეს კურსები</h3>
-                    <div className="tp-text">{item['for_' + lang]}</div>
+                    <h3 className="tp-header small" children={translate.course_for} />
+                    <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['for_' + lang] }} />
                 </div>
                 <div className="container lector">
-                    <h3 className="tp-header small">ინსტრუქტორის შესახებ</h3>
+                    <h3 className="tp-header small" children={translate.about_instructor} />
                     <div className="video-box-wrap">
                         <div className="media">
                             <img src={`${base}/storage/${item.instructor.image}`} alt={item.instructor['name_' + lang]} />
@@ -178,15 +178,15 @@ const CourseSingle = ({ item, lang }) => {
                         </div>
                     </div>
                     <div className="bio">
-                        <h3>ბიოგრაფია</h3>
-                        <div className="tp-text">{item.instructor['bio_' + lang]}</div>
+                        <h3 children={translate.biography} />
+                        <div className="tp-text" dangerouslySetInnerHTML={{ __html: item.instructor['bio_' + lang] }} />
                     </div>
                 </div>
             </div>
             <Dialog open={dialog}>
-                <DialogTitle children={'გადახდა წარმატებით განხორციელდა'} />
+                <DialogTitle children={translate.success_message} />
                 <DialogActions className="dialog-action">
-                    <Button onClick={() => setDialog(false)} children={'დახურვა'} />
+                    <Button onClick={() => setDialog(false)} children={translate.close} />
                 </DialogActions>
             </Dialog>
         </MainLayout>

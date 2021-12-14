@@ -1,21 +1,14 @@
 export const MainMenu = (translate) => ([
     { name: 'home', value: translate.home },
     {
-        name: 'about', value: 'ჩვენს შესახებ', list: [
-            { name: 'about', value: 'ჩვენს შესახებ' },
-            { name: 'team', value: 'ჩვენი გუნდი' },
-            { name: 'social', value: 'სოც. პასუხისმგებლობა' },
-            { name: 'media', value: 'მედია' },
+        name: 'about', value: translate.about, list: [
+            { name: 'about', value: translate.about },
+            { name: 'team', value: translate.team },
+            { name: 'social', value: translate.social },
+            { name: 'media', value: translate.media },
         ]
     },
-    { name: 'category', value: 'კატეგორიები' },
-    { name: 'course', value: 'კურსები' },
-    { name: 'contact', value: 'კონტაქტი' },
-    // {
-    //     name: 'login', value: 'შესლვა', list: [
-    //         { name: 'profile', value: 'ჩემი გვერდი' },
-    //         { name: 'settings', value: 'პარამეტრები' },
-    //         { name: 'settings', value: 'სისტემიდან გასვლა' }
-    //     ]
-    // },
+    { name: 'category', value: translate.categories },
+    { name: 'course', value: translate.courses },
+    { name: 'contact', value: translate.contact },
 ]);

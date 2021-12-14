@@ -4,7 +4,7 @@ import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
 
 export const CourseList = ({ title, list = [], isReverce = false }) => {
-    const { lang, base } = usePage().props;
+    const { lang, base, translate } = usePage().props;
     const [active, setActive] = useState(0);
 
     const prevSlide = () => setActive(active === 0 ? list.length - 1 : active - 1);
@@ -22,8 +22,8 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                         {list.map((item, key) => (
                             <div key={key} className={getClassName({ active: active === key, content: true })}>
                                 <h4 className="tp-header mb-36 small">{item['name_' + lang]}</h4>
-                                <p className="tp-text">{item['text_' + lang]}</p>
-                                <Link href={useRoute('course.single', { id: item.id })} children={'ვრცლად'} />
+                                <p className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
+                                <Link href={useRoute('course.single', { id: item.id })} children={translate.more} />
                             </div>
                         ))}
                         <div className="navigation">

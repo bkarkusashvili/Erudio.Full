@@ -5,13 +5,13 @@ import Moment from 'moment';
 import { useRoute } from '@/Components/Route';
 
 const Media = ({ list, lang }) => {
-    const { base } = usePage().props;
+    const { base, translate } = usePage().props;
 
     return (
         <MainLayout>
             <section className="media-wrap">
                 <div className="container header">
-                    <h1 className="tp-header">მედია</h1>
+                    <h1 className="tp-header" children={translate.media} />
                 </div>
                 <div className="list">
                     {list.map(item => (
@@ -23,7 +23,7 @@ const Media = ({ list, lang }) => {
                             </div>
                             <div className="content">
                                 <h3 className="tp-header mb-33 small headline">{item['title_' + lang]}</h3>
-                                <div className="tp-text">{item['text_' + lang]}</div>
+                                <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
                                 <span className="tp-text date">
                                     {Moment(item.created_at).format('DD.MM.YYYY')}
                                 </span>

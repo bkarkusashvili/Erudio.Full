@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Head, Link, useForm } from '@inertiajs/inertia-react';
+import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { MainLayout } from '@/Layouts';
 import { TextField } from '@mui/material';
 import { Checkmark } from '@/Components/Checkmark';
@@ -7,6 +7,7 @@ import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
 
 export default function Register() {
+    const { translate } = usePage().props;
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
@@ -41,7 +42,7 @@ export default function Register() {
                     <div className="fileds">
                         <TextField
                             className="input-wrap"
-                            label="სახელი"
+                            label={translate.firstname}
                             variant="standard"
                             type="text"
                             name="firstname"
@@ -53,7 +54,7 @@ export default function Register() {
                         />
                         <TextField
                             className="input-wrap"
-                            label="გვარი"
+                            label={translate.lastname}
                             variant="standard"
                             type="text"
                             name="lastname"
@@ -65,7 +66,7 @@ export default function Register() {
                         />
                         <TextField
                             className="input-wrap"
-                            label="პირადი N"
+                            label={translate.personalnumber}
                             variant="standard"
                             type="text"
                             name="personalnumber"
@@ -77,7 +78,7 @@ export default function Register() {
                         />
                         <TextField
                             className="input-wrap"
-                            label="ელ.ფოსტა"
+                            label={translate.email}
                             variant="standard"
                             type="email"
                             name="email"
@@ -89,7 +90,7 @@ export default function Register() {
                         />
                         <TextField
                             className="input-wrap"
-                            label="პაროლი"
+                            label={translate.password}
                             variant="standard"
                             type="password"
                             name="password"
@@ -101,9 +102,9 @@ export default function Register() {
                         />
                         <div className={getClassName({ error: errors.terms, 'terms checkbox': true })}>
                             <Checkmark checked={data.terms} onClick={onTermCheck} />
-                            <Link href={useRoute('terms')}>წესები და პირობები</Link>
+                            <Link href={useRoute('terms')} children={translate.terms} />
                         </div>
-                        <button className="btn register-btn" type="submit" disabled={processing}>რეგისტრაცია</button>
+                        <button className="btn register-btn" type="submit" disabled={processing} children={translate.registration} />
                     </div>
                 </form>
             </section>
