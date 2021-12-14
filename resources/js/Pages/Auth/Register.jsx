@@ -16,6 +16,7 @@ export default function Register() {
         password: '',
         terms: false,
     });
+    const registerUrl = useRoute('register');
 
     useEffect(() => {
         return () => {
@@ -30,7 +31,7 @@ export default function Register() {
     const submit = (e) => {
         e.preventDefault();
 
-        post(useRoute('register'));
+        post(registerUrl);
     };
 
     const onTermCheck = () => setData('terms', !data.terms);
@@ -47,7 +48,7 @@ export default function Register() {
                             type="text"
                             name="firstname"
                             helperText={errors.firstname}
-                            error={errors.firstname}
+                            error={!!errors.firstname}
                             value={data.firstname}
                             autoComplete="off"
                             onChange={onHandleChange}
@@ -59,7 +60,7 @@ export default function Register() {
                             type="text"
                             name="lastname"
                             helperText={errors.lastname}
-                            error={errors.lastname}
+                            error={!!errors.lastname}
                             value={data.lastname}
                             autoComplete="off"
                             onChange={onHandleChange}
@@ -71,7 +72,7 @@ export default function Register() {
                             type="text"
                             name="personalnumber"
                             helperText={errors.personalnumber}
-                            error={errors.personalnumber}
+                            error={!!errors.personalnumber}
                             value={data.personalnumber}
                             autoComplete="off"
                             onChange={onHandleChange}
@@ -83,7 +84,7 @@ export default function Register() {
                             type="email"
                             name="email"
                             helperText={errors.email}
-                            error={errors.email}
+                            error={!!errors.email}
                             value={data.email}
                             autoComplete="off"
                             onChange={onHandleChange}
@@ -95,12 +96,12 @@ export default function Register() {
                             type="password"
                             name="password"
                             helperText={errors.password}
-                            error={errors.password}
+                            error={!!errors.password}
                             value={data.password}
                             autoComplete="off"
                             onChange={onHandleChange}
                         />
-                        <div className={getClassName({ error: errors.terms, 'terms checkbox': true })}>
+                        <div className={getClassName({ error: !!errors.terms, 'terms checkbox': true })}>
                             <Checkmark checked={data.terms} onClick={onTermCheck} />
                             <Link href={useRoute('terms')} children={translate.terms} />
                         </div>
