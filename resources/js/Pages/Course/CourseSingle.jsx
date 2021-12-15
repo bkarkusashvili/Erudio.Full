@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
-import { getClassName, getParams, getVideoType } from '@/Helper';
+import { getClassName, getIdFromUrl, getParams, getVideoType } from '@/Helper';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 import moment from 'moment';
@@ -11,6 +11,7 @@ import { Button, CircularProgress } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import { useRef } from 'react';
 
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base, translate } = usePage().props;
@@ -21,6 +22,8 @@ const CourseSingle = ({ item, lang }) => {
     const [dialog, setDialog] = useState(false);
     const params = getParams();
 
+    const player = useRef();
+    const source = useRef();
     const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
     const live = item.lives && item.lives.length && item.lives[0];
 
@@ -39,6 +42,19 @@ const CourseSingle = ({ item, lang }) => {
             .then(res => window.location.replace(res.data))
             .catch(e => console.log(e));
     };
+
+    const replaceVideo = (video) => {
+        player.current.pause();
+        setActiveVideo(video);
+
+        source.current.setAttribute('src', `https://drive.google.com/u/0/uc?id=${getIdFromUrl(video.video)}&export=download`);
+    };
+    useEffect(() => {
+        if (player.current) {
+            player.current.load();
+            player.current.play();
+        }
+    }, [activeVideo]);
 
     return (
         <MainLayout>
@@ -111,33 +127,25 @@ const CourseSingle = ({ item, lang }) => {
                         <div className="container ofline-course">
                             <h3 className="tp-header">კურსი მოიცავს ონლაინ ტრეინინგებს</h3>
                             <p className="tp-text live-course-days">კურსი შედგება 5 ლექციისგან</p>
-                            <p className="tp-text course-number">ლექცია 1 / მიმოხილვა</p>
+                            <p className="tp-text course-number">{activeVideo['name_' + lang]}</p>
                             <div className="active-video">
-                                <video width="1366" height="810" className="video-js" controls preload="auto" poster={`${base}/storage/${activeVideo.image}`}
+                                <video ref={player} width="1366" height="810" className="video-js" controls preload="auto" poster={`${base}/storage/${activeVideo.image}`}
                                     data-setup="{}">
-                                    <source src={activeVideo.video} type={'video/' + getVideoType(activeVideo.video)} />
+                                    <source ref={source} src={`https://drive.google.com/u/0/uc?id=${getIdFromUrl(activeVideo.video)}&export=download`} type="video/mp4" />
                                 </video>
                             </div>
-                            <div className="video-list">
-                                <div className="item">
-                                    <figure>
-                                        <img src={`${base}/storage/${activeVideo.image}`} alt="" />
-                                    </figure>
-                                    <h3>{activeVideo.name_ka}</h3>
+                            {item.videos.length > 1 && (
+                                <div className="video-list">
+                                    {item.videos.filter(video => video.id !== activeVideo.id).map(video => (
+                                        <div className="item" onClick={() => replaceVideo(video)}>
+                                            <figure>
+                                                <img src={`${base}/storage/${video.image}`} alt="" />
+                                            </figure>
+                                            <h3>{video['name_' + lang]}</h3>
+                                        </div>
+                                    ))}
                                 </div>
-                                <div className="item">
-                                    <figure>
-                                        <img src={`${base}/storage/${activeVideo.image}`} alt="" />
-                                    </figure>
-                                    <h3>{activeVideo.name_ka}</h3>
-                                </div>
-                                <div className="item">
-                                    <figure>
-                                        <img src={`${base}/storage/${activeVideo.image}`} alt="" />
-                                    </figure>
-                                    <h3>{activeVideo.name_ka}</h3>
-                                </div>
-                            </div>
+                            )}
                         </div>
                     )
                 )}

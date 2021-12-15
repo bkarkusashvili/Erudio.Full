@@ -263,15 +263,6 @@ class FrontController extends Controller
         }
     }
 
-    public function check(Request $request)
-    {
-        $payId = $request->get('PaymentId');
-
-        $payment = app(TBCPaymentService::class);
-
-        return $payment->checkStatus($payId)->json();
-    }
-
     public function payCheck(Request $request)
     {
         Log::info('payCheck');

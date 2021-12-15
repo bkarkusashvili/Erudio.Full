@@ -70,7 +70,6 @@ Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function (
 });
 
 Route::post('/pay', [FrontController::class, 'pay'])->middleware('auth')->name('pay');
-Route::get('/check', [FrontController::class, 'check'])->middleware('auth')->name('check');
 
 Route::middleware('admin')->prefix('admin')->group(function () {
     Route::resources([

@@ -27,3 +27,4 @@ export const getParams = () => {
 
     return params;
 };
+export const getIdFromUrl = url => url.match(/[-\w]{25,}/)[0] || null;

@@ -58,13 +58,12 @@ class TBCPaymentService
                     "currency" => "GEL",
                     "total" => 0.01,
                 ],
-                "returnurl" => route('course.single', [
-                    $course->id,
-                    'lang' => Lang::locale(),
-                    'status' => 'paid',
-                ]),
-                // "returnurl" => 'https://erudio.ge/ka/course/2',
-                // "callbackUrl" => 'https://erudio.ge/ka/course/2',
+                // "returnurl" => route('course.single', [
+                //     $course->id,
+                //     'lang' => Lang::locale(),
+                //     'status' => 'paid',
+                // ]),
+                "returnurl" => 'https://erudio.ge/ka/course/2',
             ]);
 
         if ($response->ok()) {
