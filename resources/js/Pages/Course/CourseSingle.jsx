@@ -131,7 +131,8 @@ const CourseSingle = ({ item, lang }) => {
                             <div className="active-video">
                                 <video ref={player} width="1366" height="810" className="video-js" controls preload="auto" poster={`${base}/storage/${activeVideo.image}`}
                                     data-setup="{}">
-                                    <source ref={source} src={`https://drive.google.com/u/0/uc?id=${getIdFromUrl(activeVideo.video)}&export=download`} type="video/mp4" />
+                                    {/* <source ref={source} src={`https://drive.google.com/u/0/uc?id=${getIdFromUrl(activeVideo.video)}&export=download`} type="video/mp4" /> */}
+                                    <source ref={source} src="https://erudio.ge/storage/video/course/A4nzjiwo2nkuiVZZmPW1A0xMMDzdnA4VmzWwDgN3.mp4" type="video/mp4" />
                                 </video>
                             </div>
                             {item.videos.length > 1 && (
