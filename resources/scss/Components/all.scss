@@ -1737,7 +1737,16 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 110px 0;
+    padding-top: 110px;
+    padding-bottom: 110px;
+
+    @include md {
+        padding: 68px 40px;
+    }
+
+    @include sm {
+        padding: 68px 30px;
+    }
 
     h1 {
         font-size: 28px;
@@ -1745,12 +1754,26 @@
         font-weight: bold;
         margin-bottom: 100px;
         font-family: 'Caps';
+
+        @include md {
+            display: none;
+        }
+    }
+
+    form {
+        @include md {
+            width: 100%;
+        }
     }
 
     .fileds {
         display: flex;
         flex-direction: column;
         width: 500px;
+
+        @include sm {
+            width: 100%;
+        }
 
         .input-wrap {
             margin-bottom: 25px;

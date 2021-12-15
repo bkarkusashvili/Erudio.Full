@@ -43,7 +43,10 @@ export const Header = () => {
                 </a>
                 <div className="menu-toggle">
                     {menuStatus ?
-                        <CloseIcon onClick={() => setMenuStatus(false)} /> :
+                        <CloseIcon onClick={() => {
+                            setMenuStatus(false);
+                            setActive(-1);
+                        }} /> :
                         <ReorderIcon onClick={() => setMenuStatus(true)} />
                     }
                 </div>
