@@ -5,8 +5,12 @@ import { MainMenu } from '@/router';
 import { useRoute } from './Route';
 import { Smile } from './Icons/Smile';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import ReorderIcon from '@mui/icons-material/Reorder';
+import CloseIcon from '@mui/icons-material/Close';
 
 export const Header = () => {
+    const [menuStatus, setMenuStatus] = useState(false);
+    const [active, setActive] = useState(-1);
     const [isLangActive, setIsLangActive] = useState();
     const { categories, lang, auth, base, translate } = usePage().props;
 
@@ -23,6 +27,13 @@ export const Header = () => {
         }
         return item;
     });
+    const openSubMenu = (e, item, key) => {
+        if (menuStatus && item.list.length) {
+            e.preventDefault();
+
+            setActive(key);
+        }
+    };
 
     return (
         <header>
@@ -30,12 +41,19 @@ export const Header = () => {
                 <a href="/" className="logo">
                     <img src="/images/logo.png" alt="Erudio" />
                 </a>
-                <nav>
+                <div className="menu-toggle">
+                    {menuStatus ?
+                        <CloseIcon onClick={() => setMenuStatus(false)} /> :
+                        <ReorderIcon onClick={() => setMenuStatus(true)} />
+                    }
+                </div>
+                <nav className={getClassName({ active: menuStatus })}>
                     {menu.map((item, key) => (
                         <Link
                             key={key}
                             href={useRoute(item.name)}
-                            className={getClassName({ active: isActivePage(item.name) })}
+                            className={getClassName({ active: isActivePage(item.name), isOpen: active === key })}
+                            onClick={(e) => openSubMenu(e, item, key)}
                         >
                             <span>{item.value}</span>
                             {item.list && item.list.length ? (

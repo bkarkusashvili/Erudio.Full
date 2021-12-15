@@ -16,13 +16,14 @@ const Media = ({ list, lang }) => {
                 <div className="list">
                     {list.map(item => (
                         <div key={item.id} className="container item">
+                            <h3 className="tp-header md mb-33 small headline">{item['title_' + lang]}</h3>
                             <div className="media">
                                 <figure>
                                     <img src={`${base}/storage/${item.image}`} alt="" />
                                 </figure>
                             </div>
                             <div className="content">
-                                <h3 className="tp-header mb-33 small headline">{item['title_' + lang]}</h3>
+                                <h3 className="tp-header lg mb-33 small headline">{item['title_' + lang]}</h3>
                                 <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
                                 <span className="tp-text date">
                                     {Moment(item.created_at).format('DD.MM.YYYY')}

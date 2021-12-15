@@ -19,13 +19,16 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                 <div className="container wrap">
                     <div className="info">
                         <h3 className="tp-header">{title}</h3>
-                        {list.map((item, key) => (
-                            <div key={key} className={getClassName({ active: active === key, content: true })}>
-                                <h4 className="tp-header mb-36 small">{item['name_' + lang]}</h4>
-                                <p className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
-                                <Link href={useRoute('course.single', { id: item.id })} children={translate.more} />
+                        <div className="content">
+                            <h4 className="tp-header mb-36 small">{list[active]['name_' + lang]}</h4>
+                            <div className="media media-md">
+                                <figure>
+                                    <img src={`${base}/storage/${list[active].image}`} alt={list[active]['name_' + lang]} />
+                                </figure>
                             </div>
-                        ))}
+                            <p className="tp-text" dangerouslySetInnerHTML={{ __html: list[active]['text_' + lang] }} />
+                            <Link href={useRoute('course.single', { id: list[active].id })} children={translate.more} />
+                        </div>
                         <div className="navigation">
                             <a className="left" onClick={() => prevSlide()}>
                                 <i className="icon icon-slide-arrow"></i>
@@ -35,7 +38,7 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                             </a>
                         </div>
                     </div>
-                    <div className="media">
+                    <div className="media media-lg">
                         <figure>
                             <img src={`${base}/storage/${list[active].image}`} alt={list[active]['name_' + lang]} />
                         </figure>

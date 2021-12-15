@@ -17,6 +17,18 @@ header {
         box-shadow: 0 1px 6px rgba(#000000, 0.05);
     }
 
+    .menu-toggle {
+        display: none;
+
+        svg {
+            cursor: pointer;
+        }
+
+        @include md {
+            display: block;
+        }
+    }
+
     .wrap {
         position: relative;
         display: flex;
@@ -29,9 +41,35 @@ header {
             height: 90px;
         }
 
+        .logo {
+            img {
+                @include lg {
+                    height: 36px;
+                }
+            }
+        }
+
         nav {
             display: flex;
             align-items: center;
+
+            @include md {
+                display: none;
+                position: fixed;
+                background-color: #ffffff;
+                flex-direction: column;
+                align-items: flex-end;
+                padding: 30px 36px 0 20px;
+                top: 80px;
+                right: 0;
+                min-width: 50vw;
+                max-width: 85vw;
+                height: 100%;
+
+                &.active {
+                    display: flex;
+                }
+            }
 
             & > a {
                 position: relative;
@@ -45,7 +83,7 @@ header {
 
                 @include lg {
                     font-size: 18px;
-                    margin-right: 30px;
+                    margin-right: 20px;
                 }
 
                 &:last-of-type {
@@ -95,9 +133,33 @@ header {
                     }
                 }
 
+                &.isOpen {
+                    .nav-list {
+                        display: flex;
+                        position: fixed;
+                        visibility: visible;
+                        height: 100%;
+                        border: none;
+                        top: 0;
+                        right: 0;
+                        text-align: right;
+                        background-color: #ffffff;
+                        align-items: flex-end;
+                        padding: 30px 36px 0 20px;
+                        top: 80px;
+                        min-width: 50vw;
+                        max-width: 85vw;
+                        z-index: 3;
+                    }
+                }
+
                 &:hover {
                     .nav-list {
                         visibility: visible;
+
+                        @include md {
+                            display: none;
+                        }
                     }
                 }
 
@@ -125,6 +187,11 @@ header {
                         background-color: transparent;
                         border: none;
                         outline: none;
+
+                        @include lg {
+                            font-size: 18px;
+                            margin-right: 20px;
+                        }
 
                         &:last-of-type {
                             margin-bottom: 0;
@@ -173,6 +240,10 @@ header {
         margin-left: 60px;
         transform: translateY(-3px);
 
+        @include lg {
+            margin-left: 30px;
+        }
+
         a,
         .current-lang {
             cursor: pointer;
@@ -184,8 +255,16 @@ header {
             font-size: 22px;
             font-weight: bold;
 
+            @include lg {
+                font-size: 18px;
+            }
+
             img {
                 margin-right: 18px;
+
+                @include lg {
+                    margin-right: 10px;
+                }
             }
 
             span {

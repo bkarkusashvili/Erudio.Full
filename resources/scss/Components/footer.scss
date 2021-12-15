@@ -7,7 +7,17 @@ footer {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         grid-gap: 20px;
-        padding: 68px 0 55px;
+        padding-top: 68px;
+        padding-bottom: 55px;
+
+        @include lg {
+            padding-top: 48px;
+            padding-bottom: 44px;
+        }
+
+        @include md {
+            display: none;
+        }
 
         .item {
             display: flex;
@@ -39,6 +49,10 @@ footer {
         justify-content: center;
         padding: 52px 0;
         background-color: #f3f4f8;
+
+        @include lg {
+            padding: 30px 0;
+        }
 
         .wrap {
             display: flex;

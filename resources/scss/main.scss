@@ -25,11 +25,19 @@ main {
 
     @include lg {
         width: 100%;
-        padding: 0 50px;
+        padding-left: 50px;
+        padding-right: 50px;
         box-sizing: border-box;
     }
 
     @include md {
         width: 100%;
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+
+    @include sm {
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }

@@ -8,11 +8,19 @@
         font-size: 28px;
     }
 
+    @include md {
+        font-size: 22px;
+    }
+
     &.small {
         font-size: 28px;
 
         @include lg {
             font-size: 22px;
+        }
+
+        @include md {
+            font-size: 18px;
         }
     }
 
@@ -35,7 +43,11 @@
         margin-bottom: 33px;
 
         @include lg {
-            margin-bottom: 28px;
+            margin-bottom: 24px;
+        }
+
+        @include md {
+            margin-bottom: 16px;
         }
     }
 
@@ -43,7 +55,11 @@
         margin-bottom: 36px;
 
         @include lg {
-            margin-bottom: 32px;
+            margin-bottom: 28px;
+        }
+
+        @include md {
+            margin-bottom: 18px;
         }
     }
 
@@ -51,7 +67,11 @@
         margin-bottom: 40px;
 
         @include lg {
-            margin-bottom: 34px;
+            margin-bottom: 30px;
+        }
+
+        @include md {
+            margin-bottom: 20px;
         }
     }
 }
@@ -65,17 +85,9 @@
         font-size: 18px;
     }
 
-    // p {
-    //     margin-bottom: 30px;
-
-    //     @include lg {
-    //         margin-bottom: 22px;
-    //     }
-
-    //     &:last-of-type {
-    //         margin-bottom: 0;
-    //     }
-    // }
+    @include md {
+        font-size: 16px;
+    }
 }
 
 .tp-more {
@@ -85,6 +97,10 @@
 
     @include lg {
         font-size: 18px;
+    }
+
+    @include md {
+        font-size: 16px;
     }
 }
 
@@ -101,4 +117,10 @@
     color: #ffffff;
     width: 300px;
     height: 60px;
+
+    @include sm {
+        width: 100%;
+        height: 42px;
+        font-size: 16px;
+    }
 }
