@@ -29,7 +29,6 @@ const Edit = ({ model, data, fields }) => {
     const submit = () => post(
         route(`${model}.update`, data.id)
     );
-    const getError = item => errors[item.relation ? `${item.relation}.${item.name}` : item.name];
 
     return (
         <AdminLayout>
@@ -45,7 +44,7 @@ const Edit = ({ model, data, fields }) => {
                                 <Field
                                     key={key}
                                     data={item}
-                                    error={getError(item)}
+                                    errors={errors}
                                     value={!item.relation ? data[item.name] : data[item.relation] ? data[item.relation][item.name] : null}
                                     setChange={setData}
                                 />

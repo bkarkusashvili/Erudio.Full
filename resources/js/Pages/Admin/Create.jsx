@@ -28,7 +28,7 @@ const Create = ({ model, fields }) => {
                     <Grid item key={key} xs={field.size}>
                         <Stack spacing={2}>
                             {field.list.map((item, key) =>
-                                <Field key={key} data={item} error={errors[item.name]} setChange={setData} />
+                                <Field key={key} data={item} errors={errors} setChange={setData} />
                             )}
                         </Stack>
                     </Grid>

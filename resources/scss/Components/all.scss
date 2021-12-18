@@ -1091,8 +1091,52 @@
         .media {
             position: relative;
             margin-right: 100px;
-            width: 604px;
+            width: 640px;
             height: 360px;
+
+            .video-js {
+                width: 640px !important;
+                height: 360px !important;
+
+                .vjs-big-play-button {
+                    border: none !important;
+                    background-color: transparent !important;
+                    left: 50% !important;
+                    top: 50% !important;
+                    font-size: 60px !important;
+                    color: #edbd03;
+                    transform: translate(-50%, -50%);
+                }
+
+                .vjs-progress-control {
+                    position: absolute !important;
+                    width: 100% !important;
+                    bottom: -6px !important;
+                    height: 6px !important;
+
+                    .vjs-progress-holder {
+                        margin: 0 !important;
+                        height: 6px !important;
+                    }
+                }
+
+                .vjs-play-control {
+                    display: none;
+                }
+
+                .vjs-play-progress {
+                    background-color: #edbd03 !important;
+                    border-radius: 0 5px 5px 0;
+
+                    &::before {
+                        display: none;
+                    }
+                }
+
+                .vjs-load-progress {
+                    background-color: #d6d6d6 !important;
+                }
+            }
 
             @include sm {
                 width: 100% !important;

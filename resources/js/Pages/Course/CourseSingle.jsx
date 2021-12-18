@@ -62,7 +62,7 @@ const CourseSingle = ({ item, lang }) => {
                 <div className="container video-box-wrap">
                     <div className="media">
                         {item.video ? (
-                            <video width="640" height="360" className="video-js" controls preload="auto" poster={`${base}/storage/${item.image}`}
+                            <video id="course-video" width="640" height="360" className="video-js" controls preload="auto" poster={`${base}/storage/${item.image}`}
                                 data-setup="{}">
                                 <source src={`${base}/storage/${item.video}`} type={`video/${getVideoType(item.video)}`} />
                             </video>

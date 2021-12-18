@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { Divider, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, IconButton, InputLabel, MenuItem, Select, Stack, Switch, TextField, Typography } from '@mui/material';
 import DateAdapter from '@mui/lab/AdapterMoment';
@@ -6,11 +6,13 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
 import { usePage } from '@inertiajs/inertia-react';
 import { AddCircleOutlineOutlined } from '@mui/icons-material';
+import { getError } from './InputHelper';
 
-export const Field = ({ data, error, value = null, setChange }) => {
+export const Field = ({ data, errors, value = null, setChange, group = null, relation = null }) => {
     const { base } = usePage().props;
     const [image, setImage] = useState(value ? `${base}/storage/${value}` : '');
     const [dateValue, setDateValue] = useState(value);
+    const [error, setError] = useState();
     const isMultiline = data.type === 'textarea';
     const isFile = data.type === 'file';
     const isImage = data.type === 'image';
@@ -20,8 +22,12 @@ export const Field = ({ data, error, value = null, setChange }) => {
     const isGroup = data.type === 'group';
 
     const updateData = value => setChange(prev => {
-        if (data.relation) {
-            prev[data.relation][data.name] = value;
+        if (relation || data.relation) {
+            if (group) {
+                prev[relation || data.relation][group][data.name] = value;
+            } else {
+                prev[data.relation][data.name] = value;
+            }
         } else {
             prev[data.name] = value;
         }
@@ -35,6 +41,8 @@ export const Field = ({ data, error, value = null, setChange }) => {
 
         setImage(URL.createObjectURL(file));
     };
+
+    useEffect(() => setError(getError(errors, relation || data.relation, group, data.name)), [errors]);
 
     return isImage ? (
         <div className="image-input-wrap">
@@ -60,7 +68,7 @@ export const Field = ({ data, error, value = null, setChange }) => {
                 <IconButton color={'primary'} onClick={() => addGroup(data.name, data.list)} children={<AddCircleOutlineOutlined />} />
             </Stack>
             {data.list.map((item, key) =>
-                <Field key={key} data={item} />
+                <Field key={key} data={item} errors={errors} group={data.name} relation={data.relation} setChange={setChange} />
             )}
             {data.divider === 'top' && <Divider />}
         </>
