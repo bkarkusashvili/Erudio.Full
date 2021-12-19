@@ -95,7 +95,7 @@ export const Field = ({ data, errors, value = null, setChange, group = null, rel
                 label={data.label}
                 onChange={e => updateData(e.target.value)}
             >
-                {data.options?.map(option => <MenuItem value={option.value} children={option.text} />)}
+                {data.options?.map((option, key) => <MenuItem key={key} value={option.value} children={option.text} />)}
             </Select>
             <FormHelperText children={error} />
         </FormControl>

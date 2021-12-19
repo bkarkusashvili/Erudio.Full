@@ -35,7 +35,7 @@ const menu = [
     },
     { text: 'გამოწერები', model: 'subscribe' },
     { text: 'პარამეტრები', model: 'option', canAdd: false },
-    { text: 'თარგმანი', model: 'translate', canAdd: true },
+    { text: 'თარგმანი', model: 'translate', canAdd: false },
 ];
 
 const LocalListItem = ({ item }) => {

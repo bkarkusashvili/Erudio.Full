@@ -91,20 +91,8 @@ Route::middleware('admin')->prefix('admin')->group(function () {
         'client' => ClientController::class,
     ]);
     Route::post('course/deleteFile/{id}', [CourseController::class, 'deleteFile'])->name('course.deleteFile');
-    // Route::post('livecourse', [CourseController::class, 'deleteFile'])->name('livecourse.deleteFile');
-    // Route::post('coursevideo', [CourseController::class, 'deleteFile'])->name('coursevideo.deleteFile');
-    // Route::post('instructor', [CourseController::class, 'deleteFile'])->name('instructor.deleteFile');
-    // Route::post('slider', [CourseController::class, 'deleteFile'])->name('slider.deleteFile');
-    // Route::post('team', [CourseController::class, 'deleteFile'])->name('team.deleteFile');
-    // Route::post('media', [CourseController::class, 'deleteFile'])->name('media.deleteFile');
-    // Route::post('subscribe', [CourseController::class, 'deleteFile'])->name('subscribe.deleteFile');
-    // Route::post('category', [CourseController::class, 'deleteFile'])->name('category.deleteFile');
-    // Route::post('page', [CourseController::class, 'deleteFile'])->name('page.deleteFile');
-    // Route::post('option', [CourseController::class, 'deleteFile'])->name('option.deleteFile');
-    // Route::post('translate', [CourseController::class, 'deleteFile'])->name('translate.deleteFile');
-    // Route::post('order', [CourseController::class, 'deleteFile'])->name('order.deleteFile');
-    // Route::post('user', [CourseController::class, 'deleteFile'])->name('user.deleteFile');
-    // Route::post('client', [CourseController::class, 'deleteFile'])->name('client.deleteFile');
+    Route::post('page/deleteFile/{id}', [PageController::class, 'deleteFile'])->name('page.deleteFile');
+    Route::post('slider/deleteFile/{id}', [SliderController::class, 'deleteFile'])->name('slider.deleteFile');
     Route::get('/', function () {
         return redirect()->route('course.index');
     });

@@ -30,7 +30,11 @@ const Edit = ({ model, data, fields }) => {
     const submit = () => post(
         route(`${model}.update`, data.id)
     );
-    const deleteFile = file => post(Inertia.post(route(`${model}.deleteFile`, data.id), { file }));
+    const deleteFile = file => Inertia.post(
+        route(`${model}.deleteFile`, data.id),
+        { file },
+        { preserveScroll: true }
+    );
 
     return (
         <AdminLayout>

@@ -7,33 +7,26 @@ use App\Models\Translate;
 
 class TranslateController extends AdminController
 {
-    public $create = true;
-    public $delete = true;
+    public $create = false;
+    public $delete = false;
     public $edit = true;
 
     public $model = Translate::class;
     public $request = TranslateRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
-        ['field' => 'key', 'headerName' => 'Key'],
-        ['field' => 'ka', 'headerName' => 'ka'],
-        ['field' => 'en', 'headerName' => 'en'],
+        ['field' => 'ka', 'headerName' => 'ქართული'],
+        ['field' => 'en', 'headerName' => 'ინგლისური'],
     ];
     public $fields = [
         [
-            'size' => 4,
-            'list' => [
-                ['type' => 'text', 'name' => 'key', 'label' => 'Key'],
-            ]
-        ],
-        [
-            'size' => 4,
+            'size' => 6,
             'list' => [
                 ['type' => 'text', 'name' => 'ka', 'label' => 'ქართული'],
             ]
         ],
         [
-            'size' => 4,
+            'size' => 6,
             'list' => [
                 ['type' => 'text', 'name' => 'en', 'label' => 'ინგლისური'],
             ]
