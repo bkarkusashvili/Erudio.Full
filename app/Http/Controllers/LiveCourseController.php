@@ -14,6 +14,7 @@ class LiveCourseController extends AdminController
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
         ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'სახელი'],
+        ['field' => 'start', 'headerName' => 'დაწყების თარიღი'],
     ];
     public $fields = [
         [

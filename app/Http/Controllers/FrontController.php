@@ -141,7 +141,12 @@ class FrontController extends Controller
     public function media()
     {
         return Inertia::render('About/Media', [
-            'list' => Media::all()
+            'list' => Media::all()->map(function (Media $media) {
+                $media->text_ka = Str::limit(strip_tags($media->text_ka), 220, '...');
+                $media->text_en = Str::limit(strip_tags($media->text_en), 220, '...');
+
+                return $media;
+            })
         ]);
     }
 
@@ -285,8 +290,8 @@ class FrontController extends Controller
 
     private function limitCourseText(Course $course)
     {
-        $course->text_ka = Str::limit($course->text_ka, 128, '...');
-        $course->text_en = Str::limit($course->text_en, 128, '...');
+        $course->text_ka = Str::limit(strip_tags($course->text_ka), 200, '...');
+        $course->text_en = Str::limit(strip_tags($course->text_en), 200, '...');
 
         return $course;
     }
