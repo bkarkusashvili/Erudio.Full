@@ -183,10 +183,18 @@ class FrontController extends Controller
     {
         $today = now()->setHour(0)->setMinute(0)->setSecond(0)->setMilliseconds(0);
 
-        $type = (int) $request->input('type', 1);
+        $type = (int) $request->input('type', -1);
         $date = $request->input('date', $today);
         $date = new Carbon($date);
-        $query = Course::query()->where('type', $type)->with('lives');
+        $query = Course::query()->with('lives');
+
+        $query->when($type == -1, function ($q) {
+            $q->whereHas('lives')->orWhere('type', 0);
+        });
+
+        $query->when($type >= 0, function ($q) use ($type) {
+            $q->where('type', $type);
+        });
 
         $query->when($type == 1, function ($q) use ($date) {
             $q->whereHas('lives', function ($q) use ($date) {

@@ -11,7 +11,9 @@ export const CourseCard = ({ data }) => {
     return (
         <div className="course-card">
             <div className="wrap">
-                <h3 className="tp-header small">{data['name_' + lang]}</h3>
+                <h3 className="tp-header small">
+                    <Link href={useRoute('course.single', { id: data.id })} children={data['name_' + lang]} />
+                </h3>
                 <div className="content">
                     <div className="tp-text address">{translate.location}: {data['address_' + lang]}</div>
                     {data.isLive && !!live && (

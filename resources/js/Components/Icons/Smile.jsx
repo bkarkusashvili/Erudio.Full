@@ -5,6 +5,8 @@ import { getClassName } from '@/Helper';
 export const Smile = () => {
     const { auth: { user } } = usePage().props;
 
+    if (!user) return '';
+
     return (
         <svg className={getClassName({ active: user, smile: true })} xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 23 23">
             <g id="Group_1541" data-name="Group 1541" transform="translate(-1521 -59.786)">

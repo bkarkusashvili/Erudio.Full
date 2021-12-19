@@ -719,8 +719,12 @@
             background-color: rgba(#e7e9f0, 0.5);
 
             .media {
-                padding: 70px;
                 box-sizing: border-box;
+                padding: 30px;
+                height: 450px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
 
                 img {
                     width: 100%;
@@ -845,6 +849,11 @@
             position: relative;
             padding: 0 40px;
 
+            a {
+                color: #1a1a1a;
+                text-decoration: none;
+            }
+
             &::before {
                 content: '';
                 position: absolute;
@@ -862,6 +871,7 @@
             display: flex;
             flex-direction: column;
             padding: 0 12px 0;
+            align-items: flex-start;
         }
 
         .date {
@@ -1620,7 +1630,7 @@
 
         .item {
             display: grid;
-            grid-template-columns: 2fr 3fr 2fr 2fr;
+            grid-template-columns: 2fr 3fr 2fr;
             grid-gap: 30px;
             font-size: 22px;
             color: #888893;

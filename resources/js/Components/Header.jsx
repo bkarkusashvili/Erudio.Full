@@ -81,7 +81,7 @@ export const Header = () => {
                     <Link href={useRoute(auth.user ? 'profile' : 'login')} className={isActivePage('login') ? 'active' : ''}>
                         <div className="smile-wrap">
                             <Smile />
-                            {auth.user?.firstname || translate.login}
+                            <span>{auth.user?.firstname || translate.login}</span>
                         </div>
                         {auth.user && (
                             <div className="nav-list">

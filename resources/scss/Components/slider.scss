@@ -5,9 +5,11 @@
     display: flex;
     justify-content: center;
     height: 788px;
+    margin-top: -8px;
 
     @include lg {
         height: 540px;
+        margin-top: 0px;
     }
 
     @include md {

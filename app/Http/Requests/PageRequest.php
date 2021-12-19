@@ -53,9 +53,9 @@ class PageRequest extends FormRequest
 
         if ($id == 3) {
             $rules = [
-                'body.title_ka' => 'required|string',
+                'body.title_ka' => 'nullable|string',
                 'body.title_en' => 'nullable|string',
-                'body.text_ka' => 'required|string',
+                'body.text_ka' => 'nullable|string',
                 'body.text_en' => 'nullable|string',
 
                 'body.active_title_ka' => 'required|string',

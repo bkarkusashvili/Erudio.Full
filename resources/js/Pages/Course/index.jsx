@@ -17,7 +17,7 @@ const initData = {
 };
 
 const Courses = ({ list, lang, categories, cities, translate }) => {
-    const [type, setType] = useState(1);
+    const [type, setType] = useState(null);
     const [date, setDate] = useState(null);
     const [isDateOpen, setIsDateOpen] = useState(false);
     const { data, setData, transform } = useForm(initData);
@@ -67,11 +67,6 @@ const Courses = ({ list, lang, categories, cities, translate }) => {
                                 value={item.id}
                             />
                         ))}
-                    </select>
-                    <select onChange={(e) => onTypeChange(+e.target.value)}>
-                        <option value={null}>{translate.course_type}</option>
-                        <option value={0} selected={type === 0}>{translate.record}</option>
-                        <option value={1} selected={type === 1}>{translate.live}</option>
                     </select>
                     {isLive && (
                         <LocalizationProvider dateAdapter={DateAdapter}>
