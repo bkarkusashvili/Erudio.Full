@@ -13,10 +13,10 @@
     }
 
     &.small {
-        font-size: 28px;
+        font-size: 24px;
 
         @include lg {
-            font-size: 22px;
+            font-size: 20px;
         }
 
         @include md {
@@ -78,7 +78,7 @@
 
 .tp-text {
     color: #888893;
-    font-size: 22px;
+    font-size: 20px;
     line-height: 36px;
 
     @include lg {
