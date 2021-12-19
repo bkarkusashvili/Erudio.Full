@@ -2,7 +2,7 @@ import React from 'react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { Grid, Stack, Typography, Button } from '@mui/material';
 import { Inertia } from '@inertiajs/inertia';
-import { useForm } from '@inertiajs/inertia-react';
+import { Link, useForm } from '@inertiajs/inertia-react';
 import { Field } from './Components';
 
 const Files = new Set(['file', 'image', 'video']);
@@ -27,8 +27,11 @@ const Edit = ({ model, data, fields }) => {
 
     const { post, errors, processing, data: formData, setData } = useForm(initForm);
 
-    const submit = () => post(
-        route(`${model}.update`, data.id)
+    const submit = (close = false) => post(
+        route(`${model}.update`, data.id),
+        {
+            onSuccess: (e) => close && Inertia.replace(route(`${model}.index`))
+        }
     );
     const deleteFile = file => Inertia.post(
         route(`${model}.deleteFile`, data.id),
@@ -40,7 +43,11 @@ const Edit = ({ model, data, fields }) => {
         <AdminLayout>
             <Stack direction="row" justifyContent="space-between" alignItems="center" mt={2} mb={4}>
                 <Typography variant="h4" component="h3" children="რედაქტირება" />
-                <Button variant="contained" onClick={submit} children="განახლება" disabled={processing} />
+                <Stack spacing={2} direction={'row'}>
+                    <Button variant="contained" onClick={() => submit(false)} children="შენახვა" disabled={processing} />
+                    <Button variant="contained" onClick={() => submit(true)} children="შენახვა და დახურვა" disabled={processing} />
+                    <Button component={Link} href={route(`${model}.index`)} variant="contained" children="გაუქმება" disabled={processing} />
+                </Stack>
             </Stack>
             <Grid container spacing={2}>
                 {fields.map((field, key) => (
