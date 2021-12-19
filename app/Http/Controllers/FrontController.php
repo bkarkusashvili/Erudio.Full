@@ -242,7 +242,7 @@ class FrontController extends Controller
     public function profile()
     {
         return Inertia::render('Auth/Profile', [
-            'list' => auth()->user()->orders()->where('status', 1)->get(),
+            'list' => auth()->user()->orders()->with('course')->where('status', 1)->get(),
         ]);
     }
 
