@@ -10,7 +10,7 @@ const Home = ({ clients, trainings, courses, masterclasses, item, slider, transl
 
     return (
         <MainLayout hasFooterMenu>
-            <Metas title={translate.home} />
+            <Metas isMain />
             <Slider data={data} list={slider} />
             <Line style={{ marginTop: '-4px' }} />
             <CourseList title={translate.popular_trainings} list={trainings} />

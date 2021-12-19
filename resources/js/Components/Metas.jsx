@@ -1,9 +1,11 @@
 import React from 'react';
 import { Head, usePage } from '@inertiajs/inertia-react'
 
-export const Metas = ({ title = '', text = '', image = '' }) => {
+export const Metas = ({ title = '', text = '', image = '', isMain = false }) => {
     const baseTitle = 'Erudio';
     title = title ? `${title} - ${baseTitle}` : baseTitle;
+    image = image ? window.location.origin + image : '';
+    title = isMain ? 'erudio • ერუდიო - education hub' : title;
 
     const url = window.location.origin + window.location.pathname
 
