@@ -25,6 +25,6 @@ class OptionSeeder extends Seeder
         // Option::create(['key' => 'address_ka', 'value' => '']);
         // Option::create(['key' => 'address_en', 'value' => '']);
 
-        Option::create(['key' => 'copyright', 'value' => '']);
+        Option::create(['key' => 'map', 'value' => '']);
     }
 }

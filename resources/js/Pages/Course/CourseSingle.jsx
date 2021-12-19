@@ -12,6 +12,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
+import { Metas } from '@/Components/Metas';
 
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base, translate } = usePage().props;
@@ -58,6 +59,7 @@ const CourseSingle = ({ item, lang }) => {
 
     return (
         <MainLayout>
+            <Metas title={item['name_' + lang]} text={item['text_' + lang]} image={`${base}/storage/${item.image}`} />
             <div className="course-single-wrap">
                 <div className="container video-box-wrap">
                     <div className="media">

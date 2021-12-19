@@ -1,12 +1,14 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { usePage } from '@inertiajs/inertia-react';
+import { Metas } from '@/Components/Metas';
 
 const Team = ({ list, lang }) => {
     const { base, translate } = usePage().props;
 
     return (
         <MainLayout>
+            <Metas title={translate.team} />
             <section className="team-wrap">
                 <div className="container header">
                     <h1 className="tp-header" children={translate.team} />

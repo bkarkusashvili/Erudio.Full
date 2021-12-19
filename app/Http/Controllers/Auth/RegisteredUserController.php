@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Option;
 use App\Models\Translate;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
@@ -25,6 +26,9 @@ class RegisteredUserController extends Controller
         Inertia::share('lang', $lang);
         Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
             return [$option->key => $option->$lang];
+        }));
+        Inertia::share('options', Option::all()->mapWithKeys(function (Option $option) {
+            return [$option->key => $option->value];
         }));
         Inertia::share('base', '');
     }

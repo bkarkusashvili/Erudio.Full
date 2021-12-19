@@ -1,12 +1,14 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Video } from '@/Components/Video';
+import { Metas } from '@/Components/Metas';
 
 const About = ({ item, lang, base }) => {
     const data = item.body || {};
 
     return (
         <MainLayout>
+            <Metas title={data['title_' + lang]} text={data['text_' + lang]} image={`${base}/storage/${data.image}`} />
             <section className="video-wrap">
                 <Video data={data} />
                 {/* <div className="over"></div> */}

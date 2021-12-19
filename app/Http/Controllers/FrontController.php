@@ -26,7 +26,6 @@ use Str;
 
 class FrontController extends Controller
 {
-
     public function __construct()
     {
         $lang = Lang::locale();

@@ -1,6 +1,7 @@
 import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { usePage } from '@inertiajs/inertia-react';
+import { Metas } from '@/Components/Metas';
 
 const Social = ({ item, lang, base }) => {
     const { translate } = usePage().props;
@@ -8,6 +9,7 @@ const Social = ({ item, lang, base }) => {
 
     return (
         <MainLayout>
+            <Metas title={translate.socialFull} text={data['text_' + lang]} image={`${base}/storage/${data.image}`} />
             <section className="social-wrap">
                 <div className="container header">
                     <h1 className="tp-header" children={translate.socialFull} />

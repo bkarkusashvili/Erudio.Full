@@ -5,6 +5,7 @@ import { TextField } from '@mui/material';
 import { Checkmark } from '@/Components/Checkmark';
 import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
+import { Metas } from '@/Components/Metas';
 
 export default function Register() {
     const { translate } = usePage().props;
@@ -38,6 +39,7 @@ export default function Register() {
 
     return (
         <MainLayout>
+            <Metas title={translate.registration} />
             <section className="login">
                 <form onSubmit={submit}>
                     <div className="fileds">

@@ -4,6 +4,7 @@ import { MainLayout } from '@/Layouts';
 import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { TextField } from '@mui/material';
 import { useRoute } from '@/Components/Route';
+import { Metas } from '@/Components/Metas';
 
 export default function Login({ status, canResetPassword }) {
     const { translate } = usePage().props;
@@ -32,6 +33,7 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <MainLayout>
+            <Metas title={translate.login} />
             <section className="login">
                 <h1 children={translate.please_login} />
 

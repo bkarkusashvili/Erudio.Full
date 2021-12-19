@@ -7,6 +7,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Link, useForm } from '@inertiajs/inertia-react';
 import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
+import { Metas } from '@/Components/Metas';
 
 const initData = {
     category: null,
@@ -31,6 +32,7 @@ const Courses = ({ list, lang, categories, cities, translate }) => {
 
     return (
         <MainLayout>
+            <Metas title={translate.courses} />
             <div className="courses-wrap">
                 <div className="container header">
                     <h1 className="tp-header small" children={translate.searchCourses} />

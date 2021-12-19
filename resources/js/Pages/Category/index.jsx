@@ -2,12 +2,14 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { useRoute } from '@/Components/Route';
+import { Metas } from '@/Components/Metas';
 
 const Category = ({ list, lang }) => {
     const { base, translate } = usePage().props;
 
     return (
         <MainLayout>
+            <Metas title={translate.categories} />
             <section className="category-wrap">
                 <div className="container list">
                     {list.map(item => (
