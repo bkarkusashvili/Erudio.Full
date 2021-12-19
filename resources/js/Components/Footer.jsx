@@ -48,7 +48,7 @@ export const Footer = ({ hasFooterMenu = false }) => {
             <div className="copyright">
                 <div className="container wrap">
                     <span>ყველა უფლება დაცულია  .  2021 </span>
-                    <span>Erudio-Education Hab <span>©</span></span>
+                    <span>{options.copyright} <span>©</span></span>
                 </div>
             </div>
         </footer>

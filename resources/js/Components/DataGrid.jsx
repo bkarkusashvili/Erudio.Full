@@ -60,7 +60,7 @@ export const DataGrid = ({ rows, columns, model }) => {
                                     key={key}
                                     align={key === 0 ? 'left' : 'right'}
                                 >
-                                    {row[column.field]}
+                                    {column.relation ? row[column.relation][column.field] : row[column.field]}
                                 </TableCell>
                             ))}
                             {(actions.edit || actions.delete) && (

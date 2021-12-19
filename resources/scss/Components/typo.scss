@@ -124,3 +124,16 @@
         font-size: 16px;
     }
 }
+
+.settings,
+.profile {
+    .tp-header {
+        &.headline {
+            display: inline-block;
+
+            &::after {
+                width: 80%;
+            }
+        }
+    }
+}

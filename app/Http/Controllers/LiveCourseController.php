@@ -13,8 +13,7 @@ class LiveCourseController extends AdminController
     public $request = LiveCourseRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
-        ['field' => 'name_ka', 'headerName' => 'სახელი'],
-        ['field' => 'price', 'headerName' => 'ფასი'],
+        ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'სახელი'],
     ];
     public $fields = [
         [
@@ -50,5 +49,12 @@ class LiveCourseController extends AdminController
         });
 
         parent::__construct();
+    }
+
+    public function index($result = null)
+    {
+        $result = LiveCourse::with('course')->latest()->paginate(10);
+
+        return parent::index($result);
     }
 }

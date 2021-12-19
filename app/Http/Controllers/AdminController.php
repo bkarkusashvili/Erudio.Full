@@ -39,9 +39,11 @@ class AdminController extends Controller
         Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 
-    public function index()
+    public function index($result = null)
     {
-        $result = $this->model::latest()->paginate(10);
+        if ($result == null) {
+            $result = $this->model::latest()->paginate(10);
+        }
         $paginate = [
             'page' => $result->currentPage(),
             'count' => $result->lastPage(),

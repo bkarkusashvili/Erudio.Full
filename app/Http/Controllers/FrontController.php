@@ -22,6 +22,7 @@ use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 use Log;
+use Str;
 
 class FrontController extends Controller
 {
@@ -45,9 +46,15 @@ class FrontController extends Controller
     {
         return Inertia::render('Home', [
             'clients' => Client::all(),
-            'trainings' => Course::where('popular_training', true)->get(),
-            'courses' => Course::where('popular_course', true)->get(),
-            'masterclasses' => Course::where('popular_masterclass', true)->get(),
+            'trainings' => Course::where('popular_training', true)->get()->map(function ($course) {
+                return $this->limitCourseText($course);
+            }),
+            'courses' => Course::where('popular_course', true)->get()->map(function ($course) {
+                return $this->limitCourseText($course);
+            }),
+            'masterclasses' => Course::where('popular_masterclass', true)->get()->map(function ($course) {
+                return $this->limitCourseText($course);
+            }),
             'item' => Page::findOrFail(1),
             'slider' => Slider::where('status', 1)->get()
         ]);
@@ -274,5 +281,13 @@ class FrontController extends Controller
         $payment = app(TBCPaymentService::class);
 
         $payment->checkStatus($payId);
+    }
+
+    private function limitCourseText(Course $course)
+    {
+        $course->text_ka = Str::limit($course->text_ka, 128, '...');
+        $course->text_en = Str::limit($course->text_en, 128, '...');
+
+        return $course;
     }
 }

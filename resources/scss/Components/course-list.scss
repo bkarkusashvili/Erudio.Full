@@ -188,6 +188,12 @@ section.course-list {
                 @include md {
                     text-align: initial;
                 }
+
+                .content {
+                    .tp-text {
+                        text-align: left;
+                    }
+                }
             }
 
             .media {
