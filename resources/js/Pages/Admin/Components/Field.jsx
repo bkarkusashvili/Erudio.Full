@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
-import { Divider, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, IconButton, InputLabel, MenuItem, Select, Stack, Switch, TextField, Typography } from '@mui/material';
+import { Divider, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, IconButton, InputAdornment, InputLabel, MenuItem, Select, Stack, Switch, TextField, Typography } from '@mui/material';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
 import { usePage } from '@inertiajs/inertia-react';
-import { AddCircleOutlineOutlined } from '@mui/icons-material';
+import { AddCircleOutlineOutlined, Delete } from '@mui/icons-material';
 import { getError } from './InputHelper';
 
-export const Field = ({ data, errors, value = null, setChange, group = null, relation = null }) => {
+export const Field = ({ data, errors, value = null, setChange, group = null, relation = null, deleteFile }) => {
     const { base } = usePage().props;
     const [image, setImage] = useState(value ? `${base}/storage/${value}` : '');
     const [dateValue, setDateValue] = useState(value);
@@ -51,15 +51,29 @@ export const Field = ({ data, errors, value = null, setChange, group = null, rel
             <input type="file" onChange={fileChange} hidden />
         </div>
     ) : isFile ? (
-        <TextField
-            disabled={data.disabled}
-            variant="outlined"
-            error={!!error}
-            helperText={error}
-            type={data.type}
-            onChange={fileChange}
-            fullWidth
-        />
+        <>
+            <FormLabel children={data.label} error={!!error} />
+            <TextField
+                variant="outlined"
+                error={!!error}
+                helperText={error}
+                type="file"
+                InputProps={{
+                    endAdornment:
+                        value ?
+                            <InputAdornment position="end">
+                                <IconButton edge="end" onClick={() => deleteFile(data.name)}>
+                                    <Delete />
+                                </IconButton>
+                            </InputAdornment> :
+                            null
+                }}
+                onChange={fileChange}
+                multiline={isMultiline}
+                minRows={3}
+                fullWidth
+            />
+        </>
     ) : isGroup ? (
         <>
             {data.divider === 'top' && <Divider />}

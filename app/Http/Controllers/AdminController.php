@@ -179,6 +179,18 @@ class AdminController extends Controller
         $model->delete();
     }
 
+    public function deleteFile(int $id)
+    {
+        $model = $this->model::findOrFail($id);
+        $file = request()->get('file');
+
+        $this->removeFile($model->$file);
+
+        $model->update([$file => null]);
+
+        return Redirect::back();
+    }
+
     protected function beforeDestroy(Model $model)
     {
     }

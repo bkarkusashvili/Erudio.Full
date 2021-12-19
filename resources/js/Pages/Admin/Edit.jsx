@@ -1,6 +1,7 @@
 import React from 'react';
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { Grid, Stack, Typography, Button } from '@mui/material';
+import { Inertia } from '@inertiajs/inertia';
 import { useForm } from '@inertiajs/inertia-react';
 import { Field } from './Components';
 
@@ -29,6 +30,7 @@ const Edit = ({ model, data, fields }) => {
     const submit = () => post(
         route(`${model}.update`, data.id)
     );
+    const deleteFile = file => post(Inertia.post(route(`${model}.deleteFile`, data.id), { file }));
 
     return (
         <AdminLayout>
@@ -47,6 +49,7 @@ const Edit = ({ model, data, fields }) => {
                                     errors={errors}
                                     value={!item.relation ? data[item.name] : data[item.relation] ? data[item.relation][item.name] : null}
                                     setChange={setData}
+                                    deleteFile={deleteFile}
                                 />
                             ))}
                         </Stack>
