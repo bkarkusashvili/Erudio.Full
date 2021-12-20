@@ -6,10 +6,8 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Client;
 use App\Models\Course;
-use App\Models\LiveCourse;
 use App\Models\Media;
 use App\Models\Option;
-use App\Models\Order;
 use App\Models\Page;
 use App\Models\Slider;
 use App\Models\Subscribe;
@@ -21,7 +19,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
-use Log;
 use Str;
 
 class FrontController extends Controller
@@ -284,10 +281,6 @@ class FrontController extends Controller
 
     public function payCheck(Request $request)
     {
-        Log::info('payCheck');
-        Log::info($request);
-        Log::info($request->all());
-
         $payId = $request->get('PaymentId');
 
         $payment = app(TBCPaymentService::class);

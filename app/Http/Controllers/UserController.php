@@ -17,7 +17,7 @@ class UserController extends AdminController
         ['field' => 'id', 'headerName' => 'ID'],
         ['field' => 'firstname', 'headerName' => 'სახელი'],
         ['field' => 'lastname', 'headerName' => 'გვარი'],
-        ['field' => 'personalnumber', 'headerName' => 'პირადი ნომერი'],
+        ['field' => 'phone', 'headerName' => 'მობილური'],
         ['field' => 'email', 'headerName' => 'მეილი'],
     ];
     public $fields = [

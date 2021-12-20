@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { MainLayout } from '@/Layouts';
-import { TextField } from '@mui/material';
+import { InputAdornment, TextField } from '@mui/material';
 import { Checkmark } from '@/Components/Checkmark';
 import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
@@ -12,7 +12,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         firstname: '',
         lastname: '',
-        personalnumber: '',
+        phone: '',
         email: '',
         password: '',
         terms: false,
@@ -69,15 +69,18 @@ export default function Register() {
                         />
                         <TextField
                             className="input-wrap"
-                            label={translate.personalnumber}
+                            label={translate.phone}
                             variant="standard"
                             type="text"
-                            name="personalnumber"
-                            helperText={errors.personalnumber}
-                            error={!!errors.personalnumber}
-                            value={data.personalnumber}
+                            name="phone"
+                            helperText={errors.phone}
+                            error={!!errors.phone}
+                            value={data.phone}
                             autoComplete="off"
                             onChange={onHandleChange}
+                            InputProps={{
+                                startAdornment: <InputAdornment position="start" children={5} />,
+                            }}
                         />
                         <TextField
                             className="input-wrap"
