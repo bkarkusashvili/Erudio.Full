@@ -8,6 +8,7 @@ import { Link, useForm } from '@inertiajs/inertia-react';
 import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
+import { TextField } from '@mui/material';
 
 const initData = {
     category: null,
@@ -19,6 +20,7 @@ const initData = {
 const Courses = ({ list, lang, categories, cities, translate }) => {
     const [type, setType] = useState(null);
     const [date, setDate] = useState(null);
+    const [catchBlur, setCatchBlur] = useState(false);
     const [isDateOpen, setIsDateOpen] = useState(false);
     const { data, setData, transform } = useForm(initData);
     const replacePath = useRoute('course', data);
@@ -78,13 +80,11 @@ const Courses = ({ list, lang, categories, cities, translate }) => {
                                     setIsDateOpen(false);
                                     setData('date', moment.format("YYYY-MM-DD"));
                                 }}
-                                renderInput={({ inputRef, inputProps, InputProps }) => <input
-                                    ref={inputRef}
-                                    {...inputProps}
-                                    placeholder={translate.date}
-                                    onClick={() => setIsDateOpen(!isDateOpen)}
-                                    readOnly
-                                />}
+                                onClose={() => setCatchBlur(false)}
+                                onOpen={() => setCatchBlur(true)}
+                                renderInput={({ params }) =>
+                                    <TextField {...params} onClick={() => setIsDateOpen(!isDateOpen)} />
+                                }
                             />
                         </LocalizationProvider>
                     )}

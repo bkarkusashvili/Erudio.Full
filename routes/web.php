@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\EmailVerificationPromptController;
+use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\ClientController;
@@ -17,6 +19,9 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
+use App\Notifications\RegisterNotification;
+use App\Notifications\ResetPasswordNotification;
+use App\Notifications\ChangeEmailNotification;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -55,7 +60,7 @@ Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function (
     Route::get('/course/{id}', [FrontController::class, 'CourseSingle'])->name('course.single');
     Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
-    Route::middleware('auth')->group(function () {
+    Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/profile', [FrontController::class, 'profile'])->name('profile');
         Route::get('/settings', [FrontController::class, 'settings'])->name('settings');
     });
@@ -68,6 +73,10 @@ Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function (
 
     require __DIR__ . '/auth.php';
 });
+
+Route::get('/verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
+    ->middleware(['auth', 'signed', 'throttle:6,1'])
+    ->name('verification.verify');
 
 Route::post('/pay', [FrontController::class, 'pay'])->middleware('auth')->name('pay');
 
@@ -99,4 +108,30 @@ Route::middleware('admin')->prefix('admin')->group(function () {
     Route::any('{query}', function () {
         return redirect()->route('course.index');
     })->where('query', '.*');
+});
+
+
+Route::get('/not/1', function () {
+    $message = (new ResetPasswordNotification)->toMail('example@gmail.com');
+    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('vendor.notifications.email', $message->data());
+});
+Route::get('/not/2', function () {
+    $message = (new RegisterNotification)->toMail('example@gmail.com');
+    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('vendor.notifications.email', $message->data());
+});
+Route::get('/not/3', function () {
+    $message = (new ChangeEmailNotification)->toMail('example@gmail.com');
+    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('vendor.notifications.email', $message->data());
+});
+Route::get('/not/4', function () {
+    $message = (new ChangeEmailNotification)->toMail('example@gmail.com');
+    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('vendor.notifications.email', $message->data());
 });
