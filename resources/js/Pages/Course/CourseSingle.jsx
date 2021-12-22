@@ -28,6 +28,8 @@ const CourseSingle = ({ item, lang }) => {
     const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
     const live = item.lives && item.lives.length && item.lives[0];
 
+    console.log(user);
+
     useEffect(() => params.status === 'paid' && setDialog(true), []);
     useEffect(() => {
         if (!hasVideos || item.isLive) return;

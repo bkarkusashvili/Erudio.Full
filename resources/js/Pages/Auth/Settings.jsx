@@ -53,10 +53,10 @@ const Settings = () => {
                             {translate.confirm_delete}
                         </p>
                         <a href="" className="delete"><strong>{translate.delete}</strong></a>
-                    </div >
-                </div >
-            </section >
-        </MainLayout >
+                    </div>
+                </div>
+            </section>
+        </MainLayout>
     );
 };
 

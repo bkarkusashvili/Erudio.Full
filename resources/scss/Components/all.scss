@@ -1873,6 +1873,35 @@
     }
 }
 
+.verify {
+    display: flex;
+    justify-content: center;
+    padding: 100px 0;
+
+    .tp-text {
+        margin-bottom: 20px;
+    }
+
+    .actions-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .submit,
+        .logout {
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            margin: 0 5px;
+        }
+
+        .logout {
+        }
+    }
+}
+
 .line-wrap {
     display: flex;
     justify-content: center;
