@@ -29,10 +29,6 @@ class CreateCoursesTable extends Migration
             $table->string('phone')->nullable();
             $table->string('image')->nullable();
 
-            $table->boolean('popular_training')->default(false);
-            $table->boolean('popular_course')->default(false);
-            $table->boolean('popular_masterclass')->default(false);
-
             $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('city_id');
             $table->unsignedBigInteger('instructor_id');
