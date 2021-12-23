@@ -37,6 +37,8 @@ export default function Login({ status, canResetPassword }) {
             <section className="login">
                 <h1 children={translate.please_login} />
 
+                {status && <div className="info tp-text">{status}</div>}
+
                 <form onSubmit={submit}>
                     <div className="fileds">
                         <TextField

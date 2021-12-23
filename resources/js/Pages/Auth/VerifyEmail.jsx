@@ -22,14 +22,14 @@ export default function VerifyEmail({ status }) {
                         თქვენი ანგარიშის გასააქტიურებლად, გთხოვთ შეამოწმოთ ელ-ფოსტა. იმ შემთხვევაში თუ არ მიგიღიათ წერილი გთხოვთ დააჭიროთ ხელახლა გაგზავნას.
                     </div>
                     {status === 'verification-link-sent' && (
-                        <div className="tp-text">
+                        <div className="tp-text success">
                             აქტივაციის ახალი წერილი გამოგზავნილია თქვენს ელ-ფოსტაზე
                         </div>
                     )}
 
                     <form onSubmit={submit}>
                         <div className="actions-wrap">
-                            <Button processing={processing} className="submit">ხელახლა გაგზავნა</Button>
+                            <Button processing={processing} className="tp-register">ხელახლა გაგზავნა</Button>
                             <Link
                                 href={route('logout')}
                                 method="post"

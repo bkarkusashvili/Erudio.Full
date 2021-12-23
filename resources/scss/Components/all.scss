@@ -1805,6 +1805,12 @@
     padding-top: 110px;
     padding-bottom: 110px;
 
+    .info {
+        margin-bottom: 15px;
+        color: #2e7d32;
+        font-weight: bold;
+    }
+
     @include md {
         padding: 68px 40px;
     }
@@ -1886,11 +1892,20 @@
         padding: 68px 30px;
     }
 
+    .tp-text {
+        width: 60%;
+
+        @include md {
+            width: 100%;
+        }
+    }
+
     .info {
         font-size: 18px;
         margin-top: 20px;
         color: #2e7d32;
         font-weight: bold;
+        text-align: center;
     }
 
     form {
@@ -1916,26 +1931,40 @@
     justify-content: center;
     padding: 100px 0;
 
+    .wrap {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .success {
+        color: #2e7d32;
+        font-weight: bold;
+        text-align: center;
+    }
+
     .tp-text {
         margin-bottom: 20px;
+        width: 80%;
+
+        @include md {
+            width: 100%;
+        }
     }
 
     .actions-wrap {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
 
-        .submit,
         .logout {
             cursor: pointer;
             background-color: transparent;
             border: none;
             outline: none;
             font-size: 16px;
-            margin: 0 5px;
-        }
-
-        .logout {
+            margin-top: 15px;
         }
     }
 }

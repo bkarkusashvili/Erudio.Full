@@ -39,8 +39,6 @@ export default function ResetPassword({ token, email }) {
                     დაგავიწყდათ პაროლი? არაა პრობლემა. უბრალოდ შეგვატყობინეთ თქვენი ელფოსტის მისამართი და ჩვენ გამოგიგზავნით პაროლის აღდგენის ბმულს.
                 </div>
 
-                {/* {status && <div className="info tp-text">{status}</div>} */}
-
                 <form onSubmit={submit}>
                     <TextField
                         disabled
@@ -59,7 +57,7 @@ export default function ResetPassword({ token, email }) {
                         className="input-wrap"
                         label={translate.password}
                         variant="standard"
-                        type="text"
+                        type="password"
                         name="password"
                         helperText={errors.password}
                         error={errors.password}
@@ -69,18 +67,18 @@ export default function ResetPassword({ token, email }) {
                     />
                     <TextField
                         className="input-wrap"
-                        label={translate.password}
+                        label={translate.confirm_new_password}
                         variant="standard"
-                        type="text"
-                        name="password"
-                        helperText={errors.password}
-                        error={errors.password}
-                        value={data.password}
+                        type="password"
+                        name="password_confirmation"
+                        helperText={errors.password_confirmation}
+                        error={errors.password_confirmation}
+                        value={data.password_confirmation}
                         autoComplete="off"
                         onChange={onHandleChange}
                     />
 
-                    <Button className="tp-register" processing={processing} children={'პაროლის აღდგენის ბმული'} />
+                    <Button className="tp-register" processing={processing} children={'პაროლის აღდგენა'} />
                 </form>
             </section>
         </MainLayout>
