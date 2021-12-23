@@ -23,12 +23,6 @@ const Social = ({ item, lang, base }) => {
                     </div>
                 )}
                 <img className="social-image" src={`${base}/storage/${data.image}`} />
-                <div className="info-bottom">
-                    <div className="container">
-                        <h3 className="tp-header small mb-33" children={data['active_title_' + lang]} />
-                        <div className="tp-text" dangerouslySetInnerHTML={{ __html: data['active_text_' + lang] }} />
-                    </div>
-                </div>
             </section>
         </MainLayout>
     );

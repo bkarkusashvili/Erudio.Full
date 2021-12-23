@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import Checkbox from '@/Components/Checkbox';
 import { MainLayout } from '@/Layouts';
-import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
+import { Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { TextField } from '@mui/material';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
@@ -67,22 +67,29 @@ export default function Login({ status, canResetPassword }) {
                         <div className="block mt-4">
                             <label className="flex items-center">
                                 <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
-
                                 <span className="ml-2 text-sm text-gray-600">{translate.remember}</span>
                             </label>
+                            {canResetPassword && (
+                                <Link
+                                    href={useRoute('password.request')}
+                                    className="underline text-sm text-gray-600 hover:text-gray-900"
+                                >
+                                    დაგავიწყდა პაროლი?
+                                </Link>
+                            )}
                         </div>
                         <button className="btn login-btn" type="submit" disabled={processing} children={translate.login} />
                         <Link href={useRoute('register')} className="btn register-btn" children={translate.registration} />
                     </div>
 
-
-                    {/* <div className="flex items-center justify-end mt-4">
+                    {/*
+                    <div className="flex items-center justify-end mt-4">
                         {canResetPassword && (
                             <Link
                                 href={route('password.request')}
                                 className="underline text-sm text-gray-600 hover:text-gray-900"
                             >
-                                Forgot your password?
+                                დაგავიწყდა პაროლი?
                             </Link>
                         )}
 

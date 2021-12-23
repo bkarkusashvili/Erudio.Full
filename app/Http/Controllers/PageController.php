@@ -59,11 +59,6 @@ class PageController extends AdminController
                     ['type' => 'text', 'relation' => 'body', 'name' => 'title_en', 'label' => 'სათაური (ინგ.)'],
                     ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
                     ['type' => 'textarea', 'relation' => 'body', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
-
-                    ['type' => 'text', 'relation' => 'body', 'name' => 'active_title_ka', 'label' => 'აქტივობა სათაური (ქარ.)'],
-                    ['type' => 'text', 'relation' => 'body', 'name' => 'active_title_en', 'label' => 'აქტივობა სათაური (ინგ.)'],
-                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'active_text_ka', 'label' => 'აქტივობა ტექსტი (ქარ.)'],
-                    ['type' => 'textarea', 'relation' => 'body', 'name' => 'active_text_en', 'label' => 'აქტივობა ტექსტი (ინგ.)'],
                 ]
             ],
             [

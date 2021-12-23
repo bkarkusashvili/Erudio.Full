@@ -58,11 +58,6 @@ class PageRequest extends FormRequest
                 'body.text_ka' => 'nullable|string',
                 'body.text_en' => 'nullable|string',
 
-                'body.active_title_ka' => 'required|string',
-                'body.active_title_en' => 'nullable|string',
-                'body.active_text_ka' => 'required|string',
-                'body.active_text_en' => 'nullable|string',
-
                 'body.image' => [
                     'image',
                     request()->isMethod('POST') ? 'required' : 'nullable'
