@@ -1213,6 +1213,35 @@
                 padding: 32px 20px 41px;
             }
 
+            .actions {
+                display: flex;
+                align-items: center;
+
+                @include md {
+                    flex-direction: column;
+                }
+
+                .tp-register {
+                    width: auto;
+                    padding-left: 25px;
+                    padding-right: 25px;
+
+                    @include md {
+                        width: 100%;
+                        box-sizing: border-box;
+                    }
+
+                    &:first-of-type {
+                        margin-right: 15px;
+
+                        @include md {
+                            margin-right: 0;
+                            margin-bottom: 15px;
+                        }
+                    }
+                }
+            }
+
             .tp-header {
                 margin-bottom: 13px;
             }

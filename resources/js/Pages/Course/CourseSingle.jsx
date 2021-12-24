@@ -28,8 +28,6 @@ const CourseSingle = ({ item, lang }) => {
     const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
     const live = item.lives && item.lives.length && item.lives[0];
 
-    console.log(user);
-
     useEffect(() => params.status === 'paid' && setDialog(true), []);
     useEffect(() => {
         if (!hasVideos || item.isLive) return;
@@ -106,12 +104,21 @@ const CourseSingle = ({ item, lang }) => {
                         </div>
                         {!item.hasCourse && (
                             user ?
-                                <Link
-                                    onClick={pay}
-                                    href="#"
-                                    className={getClassName({ loading, 'tp-register': true })}
-                                    children={loading ? <CircularProgress /> : translate.buy}
-                                /> :
+                                <div className="actions">
+                                    <Link
+                                        onClick={pay}
+                                        href="#"
+                                        className={getClassName({ loading, 'tp-register': true })}
+                                        children={loading ? <CircularProgress /> : translate.buy}
+                                    />
+                                    <Link
+                                        onClick={pay}
+                                        href="#"
+                                        className={getClassName({ loading, 'tp-register': true })}
+                                        children={loading ? <CircularProgress /> : 'განვადება'}
+                                    />
+                                </div>
+                                :
                                 <Link href={useRoute('register')} className="tp-register" children={translate.registration} />
                         )}
                     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
 import { Inertia } from '@inertiajs/inertia';
@@ -31,6 +31,19 @@ const Courses = ({ list, lang, categories, cities, translate }) => {
         setType(type);
         setData('type', type);
     };
+
+    const handleClickOutside = (event) => {
+        // if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        //     alert('You clicked outside of me!');
+        // }
+    };
+
+    useEffect(() => {
+        document.addEventListener('click', handleClickOutside);
+
+        return document.removeEventListener('click', handleClickOutside);
+    }, []);
+
 
     return (
         <MainLayout>
@@ -75,17 +88,24 @@ const Courses = ({ list, lang, categories, cities, translate }) => {
                             <DesktopDatePicker
                                 value={date}
                                 open={isDateOpen}
+                                DialogProps={{ onBackdropClick: (e) => console.log(e) }}
                                 onChange={moment => {
                                     setDate(moment);
                                     setIsDateOpen(false);
                                     setData('date', moment.format("YYYY-MM-DD"));
                                 }}
-                                onClose={() => setCatchBlur(false)}
-                                onOpen={() => setCatchBlur(true)}
-                                renderInput={({ params }) =>
-                                    <TextField {...params} onClick={() => setIsDateOpen(!isDateOpen)} />
-                                }
+                                renderInput={({ inputRef, inputProps, InputProps }) => <input
+                                    ref={inputRef}
+                                    {...inputProps}
+                                    placeholder={translate.date}
+                                    onClick={() => setIsDateOpen(!isDateOpen)}
+                                    readOnly
+                                />}
                             />
+                            {/* <DesktopDatePicker
+                                inputFormat="MM/dd/yyyy"
+                                renderInput={(params) => <TextField {...params} />}
+                            /> */}
                         </LocalizationProvider>
                     )}
                     <div className='actions-wrap'>
