@@ -12,7 +12,7 @@ class SliderController extends AdminController
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
         ['field' => 'title', 'headerName' => 'სათაური'],
-        ['field' => 'title', 'status' => 'სტატუსი'],
+        ['field' => 'status', 'headerName' => 'სტატუსი', 'type' => 'checkbox'],
     ];
     public $fields = [
         [
@@ -30,6 +30,14 @@ class SliderController extends AdminController
                 ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ]
+    ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'title', 'type' => 'text', 'label' => 'სათაური'],
+        ['name' => 'status', 'type' => 'select', 'label' => 'სტატუსი', 'options' => [
+            ['value' => 1, 'text' => 'აქტიური'],
+            ['value' => 0, 'text' => 'გათიშული']
+        ]],
     ];
     public $fileFilds = ['image', 'video'];
 }

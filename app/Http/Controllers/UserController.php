@@ -37,5 +37,12 @@ class UserController extends AdminController
             ]
         ]
     ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'firstname', 'type' => 'text', 'label' => 'სახელი'],
+        ['name' => 'lastname', 'type' => 'text', 'label' => 'გვარი'],
+        ['name' => 'phone', 'type' => 'text', 'label' => 'მობილური'],
+        ['name' => 'email', 'type' => 'text', 'label' => 'მეილი'],
+    ];
     public $fileFilds = ['image'];
 }

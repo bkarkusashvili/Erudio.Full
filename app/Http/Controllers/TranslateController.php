@@ -32,4 +32,9 @@ class TranslateController extends AdminController
             ]
         ],
     ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'ka', 'type' => 'text', 'label' => 'ქართული'],
+        ['name' => 'en', 'type' => 'text', 'label' => 'ინგლისური'],
+    ];
 }

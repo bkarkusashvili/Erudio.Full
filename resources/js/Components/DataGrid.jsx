@@ -7,11 +7,15 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Link, usePage } from '@inertiajs/inertia-react';
-import { IconButton, Dialog, DialogTitle, DialogActions, Button } from '@mui/material';
+import { IconButton, Dialog, DialogTitle, DialogActions, Button, Checkbox } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useForm } from '@inertiajs/inertia-react'
 
 export const DataGrid = ({ rows, columns, model }) => {
+    const isCheckbox = column => column.type === 'checkbox';
+
+    const getValue = (column, row) => column.relation ? row[column.relation][column.field] : row[column.field];
+
     // const [open, setOpen] = useState(false);
     // const [id, setId] = useState();
     // const { delete: destroy } = useForm();
@@ -60,7 +64,11 @@ export const DataGrid = ({ rows, columns, model }) => {
                                     key={key}
                                     align={key === 0 ? 'left' : 'right'}
                                 >
-                                    {column.relation ? row[column.relation][column.field] : row[column.field]}
+                                    {
+                                        isCheckbox(column) ?
+                                            <Checkbox readOnly checked={!!getValue(column, row)} /> :
+                                            getValue(column, row)
+                                    }
                                 </TableCell>
                             ))}
                             {(actions.edit || actions.delete) && (

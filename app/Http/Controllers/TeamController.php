@@ -12,7 +12,7 @@ class TeamController extends AdminController
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
         ['field' => 'name_ka', 'headerName' => 'სახელი'],
-        ['field' => 'profession', 'headerName' => 'პროფესია'],
+        ['field' => 'profession_ka', 'headerName' => 'პროფესია'],
     ];
     public $fields = [
         [
@@ -33,6 +33,11 @@ class TeamController extends AdminController
                 ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ]
+    ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'name_ka', 'type' => 'text', 'label' => 'სათაური'],
+        ['name' => 'profession_ka', 'type' => 'text', 'label' => 'პროფესია'],
     ];
     public $fileFilds = ['image'];
 }

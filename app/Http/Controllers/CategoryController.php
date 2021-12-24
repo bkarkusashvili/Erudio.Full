@@ -31,5 +31,9 @@ class CategoryController extends AdminController
             ]
         ]
     ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'title_ka', 'type' => 'text', 'label' => 'სათაური'],
+    ];
     public $fileFilds = ['image'];
 }

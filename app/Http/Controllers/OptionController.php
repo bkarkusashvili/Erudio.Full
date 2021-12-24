@@ -32,4 +32,9 @@ class OptionController extends AdminController
             ]
         ],
     ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'key', 'type' => 'text', 'label' => 'Key'],
+        ['name' => 'value', 'type' => 'text', 'label' => 'Value'],
+    ];
 }

@@ -31,5 +31,9 @@ class ClientController extends AdminController
             ]
         ]
     ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'name_ka', 'type' => 'text', 'label' => 'სათაური'],
+    ];
     public $fileFilds = ['image'];
 }

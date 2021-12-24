@@ -18,7 +18,7 @@ class OrderController extends AdminController
         ['field' => 'payId', 'headerName' => 'შეკვეთის ნომერი'],
         ['field' => 'userName', 'headerName' => 'მომხმარებლები'],
         ['field' => 'amount', 'headerName' => 'თანხა'],
-        ['field' => 'status', 'headerName' => 'სტატუსი'],
+        ['field' => 'status', 'headerName' => 'სტატუსი', 'type' => 'checkbox'],
     ];
     public $fields = [
         [
@@ -27,5 +27,15 @@ class OrderController extends AdminController
                 ['type' => 'number', 'name' => 'status', 'label' => 'სტატუსი'],
             ]
         ],
+    ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'payId', 'type' => 'text', 'label' => 'შეკვეთის ნომერი'],
+        ['name' => 'userName', 'type' => 'text', 'label' => 'მომხმარებლები'],
+        ['name' => 'amount', 'type' => 'number', 'label' => 'თანხა'],
+        ['name' => 'status', 'type' => 'select', 'label' => 'სტატუსი', 'options' => [
+            ['value' => 1, 'text' => 'აქტიური'],
+            ['value' => 0, 'text' => 'გათიშული']
+        ]],
     ];
 }

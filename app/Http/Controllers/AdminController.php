@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Page;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -25,6 +24,7 @@ class AdminController extends Controller
     public $request;
     public $columns = [];
     public $fields;
+    public $search = [];
     public $edit = true;
     public $create = true;
     public $delete = true;
@@ -36,13 +36,25 @@ class AdminController extends Controller
 
         Inertia::share('model', $this->route);
         Inertia::share('fields', $this->fields);
+        Inertia::share('search', $this->search);
         Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 
     public function index($result = null)
     {
+
         if ($result == null) {
-            $result = $this->model::latest()->paginate(10);
+            $result = $this->model::query();
+
+            collect(request()->all())->filter(function ($item, $key) {
+                return $key !== 'page';
+            })->each(function ($item, $key) use ($result) {
+                $result->when($item !=  null, function ($q) use ($item, $key) {
+                    $q->where($key, 'like', '%' . $item . '%');
+                });
+            });
+
+            $result = $result->latest()->paginate(10);
         }
         $paginate = [
             'page' => $result->currentPage(),

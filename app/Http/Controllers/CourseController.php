@@ -87,6 +87,11 @@ class CourseController extends AdminController
             ]
         ],
     ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'name_ka', 'type' => 'text', 'label' => 'სახელი'],
+        ['name' => 'price', 'type' => 'number', 'label' => 'ფასი'],
+    ];
     public $fileFilds = ['image', 'file', 'video'];
 
 

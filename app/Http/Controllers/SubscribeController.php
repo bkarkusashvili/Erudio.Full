@@ -21,4 +21,8 @@ class SubscribeController extends AdminController
             ]
         ]
     ];
+    public $search = [
+        ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'email', 'type' => 'text', 'label' => 'მეილი'],
+    ];
 }
