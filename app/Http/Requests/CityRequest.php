@@ -26,6 +26,10 @@ class CityRequest extends FormRequest
         return [
             'name_ka' => 'required|string',
             'name_en' => 'nullable|string',
+            'created_at' => [
+                'date',
+                request()->isMethod('PUT') ? 'required' : 'nullable'
+            ],
         ];
     }
 }

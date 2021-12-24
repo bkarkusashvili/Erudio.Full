@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Editor } from '@tinymce/tinymce-react';
 import { Divider, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, IconButton, InputAdornment, InputLabel, MenuItem, Select, Stack, Switch, TextField, Typography } from '@mui/material';
 import DateAdapter from '@mui/lab/AdapterMoment';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
+import { DateTimePicker, DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Button } from '@mui/material';
 import { usePage } from '@inertiajs/inertia-react';
 import { AddCircleOutlineOutlined, Delete } from '@mui/icons-material';
@@ -19,6 +19,7 @@ export const Field = ({ data, errors, value = null, setChange, group = null, rel
     const isToggle = data.type === 'toggle';
     const isSelect = data.type === 'select';
     const isDate = data.type === 'date';
+    const isDateTime = data.type === 'datetime';
     const isGroup = data.type === 'group';
 
     const updateData = value => setChange(prev => {
@@ -102,6 +103,24 @@ export const Field = ({ data, errors, value = null, setChange, group = null, rel
     ) : isDate ? (
         <LocalizationProvider dateAdapter={DateAdapter}>
             <DesktopDatePicker
+                disabled={data.disabled}
+                label={data.label}
+                value={dateValue}
+                onChange={moment => {
+                    setDateValue(moment);
+                    updateData(moment.format("YYYY-MM-DD HH:mm:ss"));
+                }}
+                renderInput={params =>
+                    <TextField
+                        {...params}
+                        error={!!error}
+                        helperText={error}
+                    />}
+            />
+        </LocalizationProvider>
+    ) : isDateTime ? (
+        <LocalizationProvider dateAdapter={DateAdapter}>
+            <DateTimePicker
                 disabled={data.disabled}
                 label={data.label}
                 value={dateValue}

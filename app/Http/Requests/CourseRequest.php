@@ -59,6 +59,10 @@ class CourseRequest extends FormRequest
             'category_id' => 'required|integer|exists:categories,id',
             'city_id' => 'required|integer|exists:cities,id',
             'instructor_id' => 'required|integer|exists:instructors,id',
+            'created_at' => [
+                'date',
+                request()->isMethod('PUT') ? 'required' : 'nullable'
+            ],
             'image' => [
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'

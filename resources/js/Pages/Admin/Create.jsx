@@ -8,6 +8,7 @@ import { getInitForm } from './Components/InputHelper';
 const Create = ({ model, fields }) => {
     const initForm = {};
     fields.forEach(field => field.list
+        .filter(item => !item.disableCreate)
         .forEach(item => initForm[item.name] = item.value)
     );
 
@@ -28,6 +29,7 @@ const Create = ({ model, fields }) => {
                     <Grid item key={key} xs={field.size}>
                         <Stack spacing={2}>
                             {field.list.map((item, key) =>
+                                !item.disableCreate &&
                                 <Field key={key} data={item} errors={errors} setChange={setData} />
                             )}
                         </Stack>

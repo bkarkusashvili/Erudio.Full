@@ -17,6 +17,7 @@ class CityController extends AdminController
         [
             'size' => 12,
             'list' => [
+                ['type' => 'datetime', 'name' => 'created_at', 'label' => 'დამატების თარიღი', 'disableCreate' => true],
                 ['type' => 'text', 'name' => 'name_ka', 'label' => 'ქალაქი (ქარ.)'],
                 ['type' => 'text', 'name' => 'name_en', 'label' => 'ქალაქი (ინგ.)'],
             ]

@@ -26,6 +26,7 @@ class CategoryController extends AdminController
         [
             'size' => 4,
             'list' => [
+                ['type' => 'datetime', 'name' => 'created_at', 'label' => 'დამატების თარიღი', 'disableCreate' => true],
                 ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]
         ]

@@ -25,6 +25,7 @@ class SliderController extends AdminController
             'size' => 4,
             'list' => [
                 ['type' => 'toggle', 'name' => 'status', 'label' => 'სტატუსი', 'value' => false],
+                ['type' => 'datetime', 'name' => 'created_at', 'label' => 'დამატების თარიღი', 'disableCreate' => true],
                 ['type' => 'file', 'name' => 'video', 'label' => 'ვიდეო'],
                 ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
             ]

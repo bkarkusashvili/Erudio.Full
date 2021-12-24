@@ -30,6 +30,10 @@ class CourseVideoRequest extends FormRequest
             'number' => 'required|integer|min:1',
             'course_id' => 'required|integer|exists:courses,id',
             'video' => 'required|string|url',
+            'created_at' => [
+                'date',
+                request()->isMethod('PUT') ? 'required' : 'nullable'
+            ],
             'image' => [
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'

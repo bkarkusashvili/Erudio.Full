@@ -28,6 +28,10 @@ class MediaRequest extends FormRequest
             'title_en' => 'nullable|string',
             'text_ka' => 'required|string',
             'text_en' => 'nullable|string',
+            'created_at' => [
+                'date',
+                request()->isMethod('PUT') ? 'required' : 'nullable'
+            ],
             'image' => [
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'

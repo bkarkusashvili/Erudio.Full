@@ -26,6 +26,10 @@ class SliderRequest extends FormRequest
         return [
             'title' => 'required|string',
             'status' => 'nullable|boolean',
+            'created_at' => [
+                'date',
+                request()->isMethod('PUT') ? 'required' : 'nullable'
+            ],
             'image' => [
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'

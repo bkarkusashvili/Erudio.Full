@@ -30,6 +30,10 @@ class TeamRequest extends FormRequest
             'profession_en' => 'nullable|string',
             'bio_ka' => 'required|string',
             'bio_en' => 'nullable|string',
+            'created_at' => [
+                'date',
+                request()->isMethod('PUT') ? 'required' : 'nullable'
+            ],
             'image' => [
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'

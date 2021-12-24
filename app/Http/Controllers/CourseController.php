@@ -71,6 +71,7 @@ class CourseController extends AdminController
                 ['type' => 'toggle', 'name' => 'popular_training', 'label' => 'პოპულალური ტრენინგი', 'value' => false],
                 ['type' => 'toggle', 'name' => 'popular_course', 'label' => 'პოპულალური კურსი', 'value' => false],
                 ['type' => 'toggle', 'name' => 'popular_masterclass', 'label' => 'პოპულალური მასტერკლასი', 'value' => false],
+                ['type' => 'datetime', 'name' => 'created_at', 'label' => 'დამატების თარიღი', 'disableCreate' => true],
                 ['type' => 'textarea', 'name' => 'text_ka', 'label' => 'მთავარი გვერდის ტექსტი, მოკლე აღწერა (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'text_en', 'label' => 'მთავარი გვერდის ტექსტი, მოკლე აღწერა (ინგ.)'],
                 ['type' => 'number', 'name' => 'days', 'label' => 'დღეები'],
@@ -97,7 +98,7 @@ class CourseController extends AdminController
         //         'value' => $category->id,
         //     ];
         // })->toArray();
-        $start = 8;
+        $start = 9;
         $this->fields[1]['list'][$start++]['options'] = [
             ['text' => 'ჩანაწერი', 'value' => 0],
             ['text' => 'ლაივი', 'value' => 1],

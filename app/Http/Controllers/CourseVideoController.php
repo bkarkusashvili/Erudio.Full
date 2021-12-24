@@ -26,6 +26,7 @@ class CourseVideoController extends AdminController
         [
             'size' => 4,
             'list' => [
+                ['type' => 'datetime', 'name' => 'created_at', 'label' => 'დამატების თარიღი', 'disableCreate' => true],
                 ['type' => 'number', 'name' => 'number', 'label' => 'ვიდეოს ნომერი'],
                 ['type' => 'select', 'name' => 'course_id', 'label' => 'კურსი'],
 
@@ -39,7 +40,7 @@ class CourseVideoController extends AdminController
     public function __construct()
     {
 
-        $this->fields[1]['list'][1]['options'] = Course::where('type', 0)->get()->map(function (Course $course) {
+        $this->fields[1]['list'][2]['options'] = Course::where('type', 0)->get()->map(function (Course $course) {
             return [
                 'text' => $course->name_ka,
                 'value' => $course->id,
