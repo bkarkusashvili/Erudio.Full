@@ -7,7 +7,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class ChangeEmailNotification extends Notification
+class SubscribeNotification extends Notification
 {
     use Queueable;
 
@@ -41,6 +41,7 @@ class ChangeEmailNotification extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
+            ->subject('გამოწერა')
             ->line('თქვენი ელ-ფოსტა წარმატებით დაემატა ჩვენს გამომწერთა სიას.');
     }
 

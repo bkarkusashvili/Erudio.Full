@@ -11,11 +11,12 @@ export const Subscribe = () => {
         message: ''
     });
     const emailInput = useRef(null);
+    const subPath = useRoute('add.subscribe', { email });
 
     const submit = e => {
         e.preventDefault();
 
-        fetch(useRoute('add.subscribe', { email }))
+        fetch(subPath)
             .then(res => res.json())
             .then(res => {
                 setInfo(res);

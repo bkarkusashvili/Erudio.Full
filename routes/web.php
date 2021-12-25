@@ -131,29 +131,3 @@ Route::middleware('admin')->prefix('admin')->group(function () use ($adminResour
         return redirect()->route('course.index');
     })->where('query', '.*');
 });
-
-
-// Route::get('/not/1', function () {
-//     $message = (new ResetPasswordNotification)->toMail('example@gmail.com');
-//     $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
-
-//     return $markdown->render('vendor.notifications.email', $message->data());
-// });
-// Route::get('/not/2', function () {
-//     $message = (new RegisterNotification)->toMail('example@gmail.com');
-//     $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
-
-//     return $markdown->render('vendor.notifications.email', $message->data());
-// });
-// Route::get('/not/3', function () {
-//     $message = (new ChangeEmailNotification)->toMail('example@gmail.com');
-//     $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
-
-//     return $markdown->render('vendor.notifications.email', $message->data());
-// });
-// Route::get('/not/4', function () {
-//     $message = (new ChangeEmailNotification)->toMail('example@gmail.com');
-//     $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
-
-//     return $markdown->render('vendor.notifications.email', $message->data());
-// });

@@ -13,6 +13,8 @@ use App\Models\Slider;
 use App\Models\Subscribe;
 use App\Models\Team;
 use App\Models\Translate;
+use App\Models\User;
+use App\Notifications\SubscribeNotification;
 use App\Services\TBCPaymentService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -105,9 +107,13 @@ class FrontController extends Controller
         if ($validator->fails()) {
             $response['message'] = $validator->errors()->get('email')[0];
         } else {
-            Subscribe::create(['email' => $request->get('email')]);
+            $email = $request->get('email');
+            Subscribe::create(['email' => $email]);
 
             $response['success'] = true;
+
+            $user = new User(['email' => $email]);
+            $user->notify(new SubscribeNotification);
         }
 
         return $response;
