@@ -95,28 +95,35 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 
 Route::post('/pay', [FrontController::class, 'pay'])->middleware('auth')->name('pay');
 
-Route::middleware('admin')->prefix('admin')->group(function () {
-    Route::resources([
-        'course' => CourseController::class,
-        'livecourse' => LiveCourseController::class,
-        'coursevideo' => CourseVideoController::class,
-        'city' => CityController::class,
-        'instructor' => InstructorController::class,
-        'slider' => SliderController::class,
-        'team' => TeamController::class,
-        'media' => MediaController::class,
-        'subscribe' => SubscribeController::class,
-        'category' => CategoryController::class,
-        'page' => PageController::class,
-        'option' => OptionController::class,
-        'translate' => TranslateController::class,
-        'order' => OrderController::class,
-        'user' => UserController::class,
-        'client' => ClientController::class,
-    ]);
+$adminResources = [
+    'course' => CourseController::class,
+    'livecourse' => LiveCourseController::class,
+    'coursevideo' => CourseVideoController::class,
+    'city' => CityController::class,
+    'instructor' => InstructorController::class,
+    'slider' => SliderController::class,
+    'team' => TeamController::class,
+    'media' => MediaController::class,
+    'subscribe' => SubscribeController::class,
+    'category' => CategoryController::class,
+    'page' => PageController::class,
+    'option' => OptionController::class,
+    'translate' => TranslateController::class,
+    'order' => OrderController::class,
+    'user' => UserController::class,
+    'client' => ClientController::class,
+];
+
+Route::middleware('admin')->prefix('admin')->group(function () use ($adminResources) {
+    collect($adminResources)->each(function ($item, $key) {
+        Route::get($key . '/export', [$item, 'export'])->name($key . '.export');
+    });
+
+    Route::resources($adminResources);
     Route::post('course/deleteFile/{id}', [CourseController::class, 'deleteFile'])->name('course.deleteFile');
     Route::post('page/deleteFile/{id}', [PageController::class, 'deleteFile'])->name('page.deleteFile');
     Route::post('slider/deleteFile/{id}', [SliderController::class, 'deleteFile'])->name('slider.deleteFile');
+
     Route::get('/', function () {
         return redirect()->route('course.index');
     });

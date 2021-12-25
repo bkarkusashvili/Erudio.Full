@@ -70,6 +70,12 @@ const List = ({ rows, columns, model, paginate, search = [] }) => {
                             variant="outlined"
                             children="გასუფთავება"
                         />
+                        <Button
+                            disabled={processing}
+                            href={route(`${model}.export`)}
+                            variant="contained"
+                            children="გადმოწერა"
+                        />
                     </Stack>
                 </Stack>
             )}

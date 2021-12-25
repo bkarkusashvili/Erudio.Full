@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\DataExport;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -9,6 +10,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AdminController extends Controller
 {
@@ -42,19 +44,8 @@ class AdminController extends Controller
 
     public function index($result = null)
     {
-
         if ($result == null) {
-            $result = $this->model::query();
-
-            collect(request()->all())->filter(function ($item, $key) {
-                return $key !== 'page';
-            })->each(function ($item, $key) use ($result) {
-                $result->when($item !=  null, function ($q) use ($item, $key) {
-                    $q->where($key, 'like', '%' . $item . '%');
-                });
-            });
-
-            $result = $result->latest()->paginate(10);
+            $result = $this->getListData()->paginate(10);
         }
         $paginate = [
             'page' => $result->currentPage(),
@@ -205,6 +196,11 @@ class AdminController extends Controller
         return Redirect::back();
     }
 
+    public function export()
+    {
+        return Excel::download(new DataExport($this->getListData()), 'data.xlsx');
+    }
+
     protected function beforeDestroy(Model $model)
     {
     }
@@ -226,5 +222,20 @@ class AdminController extends Controller
     private function removeFile(string $url)
     {
         Storage::disk('public')->delete($url);
+    }
+
+    private function getListData()
+    {
+        $result = $this->model::query();
+
+        collect(request()->all())->filter(function ($item, $key) {
+            return $key !== 'page';
+        })->each(function ($item, $key) use ($result) {
+            $result->when($item !=  null, function ($q) use ($item, $key) {
+                $q->where($key, 'like', '%' . $item . '%');
+            });
+        });
+
+        return $result->latest();
     }
 }
