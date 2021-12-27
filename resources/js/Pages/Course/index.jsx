@@ -3,7 +3,7 @@ import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
 import { Inertia } from '@inertiajs/inertia';
 import DateAdapter from '@mui/lab/AdapterMoment';
-import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
+import { DesktopDatePicker, LocalizationProvider, MobileDatePicker } from '@mui/lab';
 import { Link, useForm } from '@inertiajs/inertia-react';
 import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
@@ -88,7 +88,6 @@ const Courses = ({ list, lang, categories, cities, translate }) => {
                             <DesktopDatePicker
                                 value={date}
                                 open={isDateOpen}
-                                DialogProps={{ onBackdropClick: (e) => console.log(e) }}
                                 onChange={moment => {
                                     setDate(moment);
                                     setIsDateOpen(false);
@@ -102,10 +101,6 @@ const Courses = ({ list, lang, categories, cities, translate }) => {
                                     readOnly
                                 />}
                             />
-                            {/* <DesktopDatePicker
-                                inputFormat="MM/dd/yyyy"
-                                renderInput={(params) => <TextField {...params} />}
-                            /> */}
                         </LocalizationProvider>
                     )}
                     <div className='actions-wrap'>

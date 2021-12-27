@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
-import Checkbox from '@/Components/Checkbox';
 import { MainLayout } from '@/Layouts';
 import { Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { TextField } from '@mui/material';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
+import { Checkmark } from '@/Components/Checkmark';
 
 export default function Login({ status, canResetPassword }) {
     const { translate } = usePage().props;
@@ -21,9 +21,9 @@ export default function Login({ status, canResetPassword }) {
         };
     }, []);
 
-    const onHandleChange = (event) => {
-        setData(event.target.name, event.target.type === 'checkbox' ? event.target.checked : event.target.value);
-    };
+    const onHandleChange = (event) => setData(event.target.name, event.target.value);
+
+    const onTermCheck = () => setData('remember', !data.remember);
 
     const submit = (e) => {
         e.preventDefault();
@@ -67,14 +67,14 @@ export default function Login({ status, canResetPassword }) {
                             onChange={onHandleChange}
                         />
                         <div className="block mt-4">
-                            <label className="flex items-center">
-                                <Checkbox name="remember" value={data.remember} handleChange={onHandleChange} />
+                            <label className="remember-wrap" onClick={onTermCheck}>
+                                <Checkmark name="remember" checked={data.remember} />
                                 <span className="ml-2 text-sm text-gray-600">{translate.remember}</span>
                             </label>
                             {canResetPassword && (
                                 <Link
                                     href={useRoute('password.request')}
-                                    className="underline text-sm text-gray-600 hover:text-gray-900"
+                                    className="password-reset"
                                 >
                                     დაგავიწყდა პაროლი?
                                 </Link>

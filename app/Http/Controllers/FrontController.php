@@ -296,8 +296,8 @@ class FrontController extends Controller
 
     private function limitCourseText(Course $course)
     {
-        $course->text_ka = Str::limit(strip_tags($course->text_ka), 200, '...');
-        $course->text_en = Str::limit(strip_tags($course->text_en), 200, '...');
+        $course->text_ka = Str::words(strip_tags($course->text_ka), 30, '');
+        $course->text_en = Str::words(strip_tags($course->text_en), 30, '');
 
         return $course;
     }

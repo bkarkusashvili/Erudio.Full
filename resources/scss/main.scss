@@ -1,7 +1,9 @@
 @import 'var';
 
-* {
-    font-family: 'Hel';
+*,
+a {
+    font-family: 'FiraGO';
+    line-height: 1.57;
 }
 
 html,
@@ -16,11 +18,7 @@ body,
     flex-direction: column;
 
     main {
-        margin-top: 120px;
-
-        @include lg {
-            margin-top: 100px;
-        }
+        margin-top: 90px;
     }
 }
 

@@ -32,7 +32,6 @@ section.course-list {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         grid-gap: 16px;
-        align-items: flex-start;
 
         @include md {
             grid-template-columns: 1fr;
@@ -51,14 +50,24 @@ section.course-list {
             }
 
             h3 {
-                margin-bottom: 73px;
-
-                @include lg {
-                    margin-bottom: 30px;
-                }
+                margin-bottom: 30px;
             }
 
             .content {
+                display: flex;
+                flex-direction: column;
+                flex: 1;
+
+                .tp-text {
+                    flex: 1;
+                    font-size: 18px;
+                    line-height: 1.57;
+
+                    @include md {
+                        font-size: 16px;
+                    }
+                }
+
                 @include md {
                     display: flex;
                     flex-direction: column;
@@ -84,28 +93,19 @@ section.course-list {
             }
 
             .navigation {
-                margin-top: 115px;
-
-                @include lg {
-                    margin-top: 70px;
-                }
+                margin-top: 30px;
 
                 @include md {
                     text-align: center;
-                    margin-top: 50px;
                 }
 
                 a {
                     cursor: pointer;
-                    font-size: 30px;
+                    font-size: 22px;
                     color: #1a1a1a;
 
-                    @include md {
-                        font-size: 26px;
-                    }
-
                     &:first-of-type {
-                        margin-right: 45px;
+                        margin-right: 25px;
 
                         @include md {
                             margin-right: 40px;

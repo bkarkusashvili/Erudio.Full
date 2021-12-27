@@ -37,12 +37,8 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            height: 110px;
+            height: 80px;
             z-index: 3;
-
-            @include lg {
-                height: 90px;
-            }
 
             .logo {
                 img {
@@ -78,14 +74,14 @@
                     position: relative;
                     text-decoration: none;
                     color: #888893;
-                    font-size: 22px;
+                    font-size: 18px;
                     font-weight: bold;
-                    margin-right: 45px;
+                    margin-right: 30px;
                     font-family: 'Caps';
                     padding: 20px 0;
 
                     @include lg {
-                        font-size: 18px;
+                        font-size: 16px;
                         margin-right: 20px;
                     }
 
@@ -170,14 +166,14 @@
                         position: absolute;
                         visibility: hidden;
                         top: 62px;
-                        left: calc(50% - (358px / 2));
+                        left: calc(50% - (300px / 2));
                         display: flex;
                         flex-direction: column;
                         align-items: center;
-                        width: 358px;
+                        width: 300px;
                         border: 2px solid #edbd03;
                         background-color: #ffffff;
-                        padding: 42px 10px;
+                        padding: 22px 10px;
                         box-sizing: border-box;
 
                         @include md {
@@ -186,21 +182,17 @@
 
                         .nav-item {
                             color: #888893;
-                            font-size: 22px;
+                            font-size: 18px;
                             font-weight: bold;
                             font-family: 'Caps';
-                            margin-bottom: 24px;
+                            margin-bottom: 12px;
                             text-decoration: none;
                             background-color: transparent;
                             border: none;
                             outline: none;
 
                             @include lg {
-                                font-size: 18px;
-                                margin-right: 20px;
-                            }
-
-                            @include md {
+                                font-size: 16px;
                                 margin-right: 0;
                             }
 
@@ -248,11 +240,11 @@
         .lang-wrap {
             display: flex;
             flex-direction: column;
-            margin-left: 40px;
+            margin-left: 30px;
             transform: translateY(-3px);
 
             @include lg {
-                margin-left: 30px;
+                margin-left: 20px;
             }
 
             a,
@@ -263,11 +255,11 @@
                 text-decoration: none;
                 color: #888893;
                 font-family: 'Caps';
-                font-size: 22px;
+                font-size: 18px;
                 font-weight: bold;
 
                 @include lg {
-                    font-size: 18px;
+                    font-size: 16px;
                 }
 
                 img {

@@ -1924,14 +1924,42 @@
             font-family: 'Caps';
             text-decoration: none;
             margin-top: 36px;
+            border: 1px solid;
+            transition: all 0.3s;
         }
 
         .login-btn {
             background-color: #5952d2;
+            border-color: #5952d2;
+
+            &:hover {
+                background-color: transparent;
+                color: #5952d2;
+            }
         }
 
         .register-btn {
             background-color: #ed9c03;
+            border-color: #ed9c03;
+
+            &:hover {
+                background-color: transparent;
+                color: #ed9c03;
+            }
+        }
+    }
+
+    .block {
+        display: flex;
+        justify-content: space-between;
+
+        .password-reset {
+            color: #ed9c03;
+        }
+
+        .remember-wrap {
+            display: flex;
+            align-items: center;
         }
     }
 }
