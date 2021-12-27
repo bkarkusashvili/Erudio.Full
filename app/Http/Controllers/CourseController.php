@@ -105,8 +105,9 @@ class CourseController extends AdminController
         // })->toArray();
         $start = 9;
         $this->fields[1]['list'][$start++]['options'] = [
-            ['text' => 'ჩანაწერი', 'value' => 0],
-            ['text' => 'ლაივი', 'value' => 1],
+            ['text' => 'Online ტრენინგი', 'value' => 1],
+            ['text' => 'Offline ტრენინგი', 'value' => 2],
+            ['text' => 'მასტერკლასი', 'value' => 0],
         ];
         $this->fields[1]['list'][$start++]['options'] = Category::all()->map(function (Category $category) {
             return [

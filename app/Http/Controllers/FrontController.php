@@ -219,6 +219,11 @@ class FrontController extends Controller
             'list' => $list,
             'categories' => Category::all(),
             'cities' => City::all(),
+            'types' => [
+                ['title_ka' => 'Online ტრენინგი', 'title_en' => 'Online Training', 'value' => 1],
+                ['title_ka' => 'Offline ტრენინგი', 'title_en' => 'Offline Training', 'value' => 2],
+                ['title_ka' => 'მასტერკლასი', 'title_en' => 'Masterclass', 'value' => 0],
+            ]
         ]);
     }
 
