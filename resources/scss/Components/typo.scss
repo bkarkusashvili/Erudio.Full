@@ -78,15 +78,7 @@
 
 .tp-text {
     color: #888893;
-    font-size: 20px;
-
-    @include lg {
-        font-size: 18px;
-    }
-
-    @include md {
-        font-size: 16px;
-    }
+    font-size: 16px;
 }
 
 .tp-more {

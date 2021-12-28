@@ -935,63 +935,6 @@
         }
     }
 
-    .top-filters {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        margin-bottom: 40px;
-
-        .item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 430px;
-            margin-bottom: 35px;
-
-            @include md {
-                margin-bottom: 30px;
-                width: 100%;
-            }
-
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-
-            i {
-                cursor: pointer;
-                margin-left: 16px;
-                flex-shrink: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                width: 27px;
-                height: 27px;
-                box-sizing: border-box;
-                border: 2px solid #5952d3;
-
-                @include md {
-                    width: 18px;
-                    height: 18px;
-                }
-
-                &.active {
-                    &::before {
-                        content: '';
-                        display: block;
-                        width: 15px;
-                        height: 15px;
-                        background-color: #5952d3;
-
-                        @include md {
-                            width: 10px;
-                            height: 10px;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     .bottom-filters {
         display: flex;
         align-items: center;
@@ -1036,11 +979,11 @@
 
             @include lg {
                 margin-right: 24px;
-                flex: 1;
                 width: initial !important;
             }
 
             @include md {
+                flex: 1 0 60px;
                 width: 100% !important;
                 margin-right: 0;
                 margin-bottom: 32px;
@@ -1052,6 +995,24 @@
                 @include md {
                     width: 100% !important;
                 }
+            }
+        }
+
+        select {
+            background: url(http://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/br_down.png) no-repeat
+                right #ddd;
+            -webkit-appearance: none;
+            background-position: right 15px center;
+            background-color: #fff;
+        }
+
+        .type-select {
+            background-color: #edbd03;
+            color: #ffffff;
+
+            option {
+                background-color: #ffffff;
+                color: #888893;
             }
         }
 

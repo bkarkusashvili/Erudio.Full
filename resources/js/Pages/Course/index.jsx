@@ -48,6 +48,16 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                     <h1 className="tp-header small" children={translate.searchCourses} />
                 </div>
                 <div className="container bottom-filters">
+                    <select className="type-select" onChange={(e) => setData('type', e.target.value)}>
+                        <option value="">{translate.course_type}</option>
+                        {types.map(item => (
+                            <option
+                                key={item.value}
+                                children={item['title_' + lang]}
+                                value={item.value}
+                            />
+                        ))}
+                    </select>
                     <select onChange={(e) => setData('category', e.target.value)}>
                         <option value="">{translate.topic_category}</option>
                         {categories.map(item => (
@@ -65,16 +75,6 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                                 key={item.id}
                                 children={item['name_' + lang]}
                                 value={item.id}
-                            />
-                        ))}
-                    </select>
-                    <select onChange={(e) => setData('type', e.target.value)}>
-                        <option value="">{translate.course_type}</option>
-                        {types.map(item => (
-                            <option
-                                key={item.value}
-                                children={item['title_' + lang]}
-                                value={item.value}
                             />
                         ))}
                     </select>
