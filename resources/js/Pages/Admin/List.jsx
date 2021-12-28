@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Button, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, Stack, TextField } from '@mui/material';
 import { Link, useForm, usePage } from '@inertiajs/inertia-react';
+import DateAdapter from '@mui/lab/AdapterMoment';
 
 import { AdminLayout } from '@/Layouts/AdminLayout';
 import { DataGrid } from '@/Components';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 
 const getParam = name => route().params[name] || null;
 
@@ -13,9 +15,11 @@ const List = ({ rows, columns, model, paginate, search = [] }) => {
     search.forEach(item => initForm[item.name] = item.value);
 
     const [page, setPage] = useState(paginate.page);
+    const [date, setDate] = useState();
     const pageChange = (e, value) => setPage(value);
 
     const isSelect = item => item.type === 'select';
+    const isDate = item => item.type === 'date';
 
     const { setData, get, processing } = useForm(initForm);
 
@@ -45,13 +49,25 @@ const List = ({ rows, columns, model, paginate, search = [] }) => {
                                             )}
                                         </Select>
                                     </FormControl>
-                                    :
-                                    <TextField
-                                        label={item.label}
-                                        defaultValue={item.value}
-                                        type={item.type}
-                                        onChange={e => setData(item.name, e.target.value)}
-                                    />
+                                    : isDate(item) ?
+                                        <LocalizationProvider dateAdapter={DateAdapter}>
+                                            <DesktopDatePicker
+                                                label={item.label}
+                                                value={item.value || date}
+                                                onChange={(moment) => {
+                                                    setDate(moment);
+                                                    setData('date', moment.format("YYYY-MM-DD"));
+                                                }}
+                                                renderInput={(params) => <TextField {...params} />}
+                                            />
+                                        </LocalizationProvider>
+                                        :
+                                        <TextField
+                                            label={item.label}
+                                            defaultValue={item.value}
+                                            type={item.type}
+                                            onChange={e => setData(item.name, e.target.value)}
+                                        />
                                 }
                             </React.Fragment>
                         )}
