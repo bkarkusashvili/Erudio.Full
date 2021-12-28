@@ -30,6 +30,7 @@ const menu = [
             { text: 'ინსტრუქტორები', model: 'instructor', canAdd: true },
             { text: 'კურსები', model: 'course', canAdd: true },
             { text: 'Online ტრენინგი', model: 'livecourse', canAdd: true },
+            { text: 'Offline ტრენინგი', model: 'offlinecourse', canAdd: true },
             { text: 'მასტერკლასი', model: 'coursevideo', canAdd: true },
         ]
     },

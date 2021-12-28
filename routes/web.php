@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
-use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
@@ -14,6 +13,7 @@ use App\Http\Controllers\FrontController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\LiveCourseController;
 use App\Http\Controllers\MediaController;
+use App\Http\Controllers\OfflineCourseController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PageController;
@@ -22,9 +22,6 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
-use App\Notifications\RegisterNotification;
-use App\Notifications\ResetPasswordNotification;
-use App\Notifications\ChangeEmailNotification;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -98,6 +95,7 @@ Route::post('/pay', [FrontController::class, 'pay'])->middleware('auth')->name('
 $adminResources = [
     'course' => CourseController::class,
     'livecourse' => LiveCourseController::class,
+    'offlinecourse' => OfflineCourseController::class,
     'coursevideo' => CourseVideoController::class,
     'city' => CityController::class,
     'instructor' => InstructorController::class,

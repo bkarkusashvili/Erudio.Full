@@ -25,7 +25,7 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
     const replacePath = useRoute('course', data);
 
     const submit = () => Inertia.replace(replacePath);
-    const isLive = data.type == 1;
+    const isLive = data.type == 1 || data.type == 2;
 
     const handleClickOutside = (event) => {
         // if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {

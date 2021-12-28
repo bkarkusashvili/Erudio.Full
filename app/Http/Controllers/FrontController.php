@@ -205,6 +205,12 @@ class FrontController extends Controller
             });
         });
 
+        $query->when($type == 2, function ($q) use ($date) {
+            $q->whereHas('offlines', function ($q) use ($date) {
+                $q->whereDate('start', '>=', $date);
+            });
+        });
+
         $query->when($request->has('category'), function ($q) {
             $q->where('category_id', request('category'));
         });
@@ -229,7 +235,7 @@ class FrontController extends Controller
 
     public function courseSingle(string $lang, int $id)
     {
-        $item = Course::with('instructor', 'lives', 'videos')->findOrFail($id);
+        $item = Course::with('instructor', 'lives', 'videos', 'offlines')->findOrFail($id);
         $item->isLive = $item->isLive;
 
         $user = auth()->user();

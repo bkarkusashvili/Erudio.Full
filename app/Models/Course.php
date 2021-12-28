@@ -41,6 +41,11 @@ class Course extends Model
         return $this->hasMany(LiveCourse::class);
     }
 
+    public function offlines()
+    {
+        return $this->hasMany(OfflineCourse::class);
+    }
+
     public function videos()
     {
         return $this->hasMany(CourseVideo::class);
