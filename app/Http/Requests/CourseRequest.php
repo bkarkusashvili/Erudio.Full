@@ -54,7 +54,7 @@ class CourseRequest extends FormRequest
 
             'days' => 'required|integer|min:1',
             'price' => 'required|integer',
-            'type' => 'required|integer|between:0,1',
+            'type' => 'required|integer|between:0,2',
             'phone' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',
             'city_id' => 'required|integer|exists:cities,id',
