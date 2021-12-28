@@ -219,9 +219,11 @@ class AdminController extends Controller
         return Storage::disk('public')->putFile($folder . '/' . $this->route, $file) ?: null;
     }
 
-    private function removeFile(string $url)
+    private function removeFile($url)
     {
-        Storage::disk('public')->delete($url);
+        if ($url) {
+            Storage::disk('public')->delete($url);
+        }
     }
 
     private function getListData()
