@@ -906,6 +906,12 @@
             .tp-register {
                 margin-top: 15px;
                 align-self: center;
+
+                @include lg {
+                    width: 100%;
+                    height: 40px;
+                    font-size: 16px;
+                }
             }
         }
     }
@@ -960,12 +966,12 @@
 
         select,
         input {
+            flex: 1;
             cursor: pointer;
             height: 60px;
             border: 1px solid #888893;
             border-radius: 50px;
             outline: none;
-            width: 230px !important;
             padding: 0 24px;
             color: #888893;
             font-size: 18px;
@@ -974,7 +980,6 @@
 
             @include lg {
                 margin-right: 24px;
-                width: initial !important;
             }
 
             @include md {
@@ -1046,6 +1051,10 @@
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
         grid-gap: 82px;
+
+        @include lg {
+            grid-gap: 40px;
+        }
 
         @include md {
             grid-template-columns: 1fr 1fr;

@@ -192,7 +192,7 @@ class FrontController extends Controller
         $query = Course::query()->with('lives');
 
         $query->when($type == -1, function ($q) {
-            $q->whereHas('lives')->orWhere('type', 0);
+            // $q->whereHas('lives')->orWhere('type', 0);
         });
 
         $query->when($type >= 0, function ($q) use ($type) {
@@ -211,11 +211,11 @@ class FrontController extends Controller
             });
         });
 
-        $query->when($request->has('category'), function ($q) {
+        $query->when($request->has('category') && !!$request->input('category'), function ($q) {
             $q->where('category_id', request('category'));
         });
 
-        $query->when($request->has('city'), function ($q) {
+        $query->when($request->has('city') && !!$request->input('city'), function ($q) {
             $q->where('city_id', request('city'));
         });
 
