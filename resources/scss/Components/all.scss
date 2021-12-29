@@ -868,6 +868,7 @@
                 a {
                     color: #1a1a1a;
                     text-decoration: none;
+                    line-height: 1.1;
                 }
 
                 &::before {
@@ -1008,6 +1009,7 @@
 
         .type-select {
             background-color: #edbd03;
+            border-color: #edbd03;
             color: #ffffff;
 
             option {
