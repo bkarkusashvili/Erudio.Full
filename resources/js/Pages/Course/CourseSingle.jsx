@@ -22,6 +22,7 @@ const CourseSingle = ({ item, lang }) => {
     const [loading, setLoading] = useState(false);
     const [callbackDialog, setCallbackDialog] = useState(false);
     const [formDialog, setFormDialog] = useState(false);
+    const [form, setForm] = useState(false);
     const params = getParams();
 
     const player = useRef();
@@ -37,20 +38,19 @@ const CourseSingle = ({ item, lang }) => {
         setActiveVideo(item.videos[activeIndex]);
     }, []);
 
-    const pay = (e) => {
-        e.preventDefault();
-
-        if (isOffline) {
-            setFormDialog(true);
-
-            return;
-        }
-
+    const pay = () => {
         setLoading(true);
         axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse })
             .then(res => res.data)
             .then(res => window.location.replace(res.data))
             .catch(e => console.log(e));
+    };
+    const checkPay = (e) => {
+        e.preventDefault();
+
+        if (isOffline) return setFormDialog(true);
+
+        pay();
     };
 
     const replaceVideo = (video) => {
@@ -115,13 +115,13 @@ const CourseSingle = ({ item, lang }) => {
                             user ?
                                 <div className="actions">
                                     <Link
-                                        onClick={pay}
+                                        onClick={checkPay}
                                         href="#"
                                         className={getClassName({ loading, 'tp-register': true })}
                                         children={loading ? <CircularProgress /> : translate.buy}
                                     />
                                     <Link
-                                        onClick={pay}
+                                        onClick={checkPay}
                                         href="#"
                                         className={getClassName({ loading, 'tp-register': true })}
                                         children={loading ? <CircularProgress /> : 'განვადება'}
@@ -218,68 +218,75 @@ const CourseSingle = ({ item, lang }) => {
                     <Button onClick={() => setDialog(false)} children={translate.close} />
                 </DialogActions>
             </Dialog>
-            <Dialog open={formDialog}>
-                <DialogTitle>Subscribe</DialogTitle>
+            <Dialog open={formDialog} onClose={() => setForm(false)}>
+                <DialogTitle style={{ textAlign: 'center' }}>კურსის ყიდვა</DialogTitle>
                 <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We
-                        will send updates occasionally.
+                    <DialogContentText textAlign={'center'} marginBottom={2}>
+                        გთხოვთ აირჩიოთ თქვენი სტატუსი
                     </DialogContentText>
-                    <Stack spacing={2}>
-                        <TextField
-                            label="სახელი გვარი"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            label="სახელი გვარი ლათინურად"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            label="ელფოსტა"
-                            type="email"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            label="კომპანიის დასახელება"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            label="კომპანიის საიდანთიფიკაციო ნომერი"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            label="დაკავებული ფოზიცია"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            label="საკონტაქტო ტელეფონის ნომერი"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                        <TextField
-                            label="საიდან შეიტყვეთ პროგამის შესახებ"
-                            type="text"
-                            fullWidth
-                            variant="standard"
-                        />
-                    </Stack>
+                    {form ?
+                        <Stack spacing={2}>
+                            <TextField
+                                label="სახელი გვარი"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                label="სახელი გვარი ლათინურად"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                label="ელფოსტა"
+                                type="email"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                label="კომპანიის დასახელება"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                label="კომპანიის საიდანთიფიკაციო ნომერი"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                label="დაკავებული ფოზიცია"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                label="საკონტაქტო ტელეფონის ნომერი"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                            />
+                            <TextField
+                                label="საიდან შეიტყვეთ პროგამის შესახებ"
+                                type="text"
+                                fullWidth
+                                variant="standard"
+                            />
+                        </Stack> :
+                        <Stack direction={'row'} spacing={2} justifyContent={'center'}>
+                            <Button variant="outlined" onClick={() => pay()}>ფიზკური</Button>
+                            <Button variant="outlined" onClick={() => setForm(true)}>იურიდიული</Button>
+                        </Stack>
+                    }
                 </DialogContent>
-                <DialogActions textAlign={'center'} marginBottom={2}>
-                    <Button onClick={() => setFormDialog(false)}>დახურვა</Button>
-                    <Button>ყიდვა</Button>
-                </DialogActions>
+                {form &&
+                    <DialogActions textAlign={'center'} marginBottom={2}>
+                        <Button onClick={() => setFormDialog(false)}>დახურვა</Button>
+                        <Button>ყიდვა</Button>
+                    </DialogActions>
+                }
             </Dialog>
         </MainLayout>
     );
