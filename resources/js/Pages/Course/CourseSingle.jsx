@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import moment from 'moment';
 import { useRoute } from '@/Components/Route';
 import axios from 'axios';
-import { Button, CircularProgress } from '@mui/material';
+import { Button, CircularProgress, DialogContent, DialogContentText, Stack, TextField } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -20,15 +20,17 @@ const CourseSingle = ({ item, lang }) => {
     const [activeVideo, setActiveVideo] = useState();
     const [liveCourse, setLiveCourse] = useState(null);
     const [loading, setLoading] = useState(false);
-    const [dialog, setDialog] = useState(false);
+    const [callbackDialog, setCallbackDialog] = useState(false);
+    const [formDialog, setFormDialog] = useState(false);
     const params = getParams();
 
     const player = useRef();
     const source = useRef();
     const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
     const live = item.lives && item.lives.length && item.lives[0];
+    const isOffline = item.type === 2;
 
-    useEffect(() => params.status === 'paid' && setDialog(true), []);
+    useEffect(() => params.status === 'paid' && setCallbackDialog(true), []);
     useEffect(() => {
         if (!hasVideos || item.isLive) return;
 
@@ -37,6 +39,13 @@ const CourseSingle = ({ item, lang }) => {
 
     const pay = (e) => {
         e.preventDefault();
+
+        if (isOffline) {
+            setFormDialog(true);
+
+            return;
+        }
+
         setLoading(true);
         axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse })
             .then(res => res.data)
@@ -203,10 +212,73 @@ const CourseSingle = ({ item, lang }) => {
                     </div>
                 </div>
             </div>
-            <Dialog open={dialog}>
+            <Dialog open={callbackDialog}>
                 <DialogTitle children={translate.success_message} />
                 <DialogActions className="dialog-action">
                     <Button onClick={() => setDialog(false)} children={translate.close} />
+                </DialogActions>
+            </Dialog>
+            <Dialog open={formDialog}>
+                <DialogTitle>Subscribe</DialogTitle>
+                <DialogContent>
+                    <DialogContentText>
+                        To subscribe to this website, please enter your email address here. We
+                        will send updates occasionally.
+                    </DialogContentText>
+                    <Stack spacing={2}>
+                        <TextField
+                            label="სახელი გვარი"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            label="სახელი გვარი ლათინურად"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            label="ელფოსტა"
+                            type="email"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            label="კომპანიის დასახელება"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            label="კომპანიის საიდანთიფიკაციო ნომერი"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            label="დაკავებული ფოზიცია"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            label="საკონტაქტო ტელეფონის ნომერი"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                        <TextField
+                            label="საიდან შეიტყვეთ პროგამის შესახებ"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                        />
+                    </Stack>
+                </DialogContent>
+                <DialogActions textAlign={'center'} marginBottom={2}>
+                    <Button onClick={() => setFormDialog(false)}>დახურვა</Button>
+                    <Button>ყიდვა</Button>
                 </DialogActions>
             </Dialog>
         </MainLayout>
