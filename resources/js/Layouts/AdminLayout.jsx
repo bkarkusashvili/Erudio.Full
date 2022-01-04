@@ -23,7 +23,8 @@ const menu = [
     { text: 'გუნდი', model: 'team', canAdd: true },
     { text: 'მედია', model: 'media', canAdd: true },
     { text: 'კატეგორია', model: 'category', canAdd: true },
-    { text: 'შეკვეთები', model: 'order', canAdd: false },
+    { text: 'Offline შეკვეთები', model: 'order', canAdd: false },
+    { text: 'Online შეკვეთები', model: 'invoice', canAdd: false },
     {
         list: [
             { text: 'ქალაქები', model: 'city', canAdd: true },

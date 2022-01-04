@@ -11,6 +11,7 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\CourseVideoController;
 use App\Http\Controllers\FrontController;
 use App\Http\Controllers\InstructorController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LiveCourseController;
 use App\Http\Controllers\MediaController;
 use App\Http\Controllers\OfflineCourseController;
@@ -108,6 +109,7 @@ $adminResources = [
     'option' => OptionController::class,
     'translate' => TranslateController::class,
     'order' => OrderController::class,
+    'invoice' => InvoiceController::class,
     'user' => UserController::class,
     'client' => ClientController::class,
 ];
