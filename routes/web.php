@@ -92,6 +92,7 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
     ->name('password.update');
 
 Route::post('/pay', [FrontController::class, 'pay'])->middleware('auth')->name('pay');
+Route::post('/pay-invoice', [FrontController::class, 'payInvoice'])->middleware('auth')->name('pay.invoice');
 
 $adminResources = [
     'course' => CourseController::class,

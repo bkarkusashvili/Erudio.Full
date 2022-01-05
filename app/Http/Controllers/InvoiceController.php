@@ -29,6 +29,19 @@ class InvoiceController extends AdminController
         [
             'size' => 8,
             'list' => [
+                ['type' => 'text', 'name' => 'fullname', 'label' => 'სახელი'],
+                ['type' => 'text', 'name' => 'fullname_latin', 'label' => 'სახელი ლათინურად'],
+                ['type' => 'text', 'name' => 'company_name', 'label' => 'კომპანიის სახელი'],
+                ['type' => 'text', 'name' => 'company_number', 'label' => 'კომპანიის საიდენთიფიკაციო'],
+                ['type' => 'text', 'name' => 'from', 'label' => 'საიდან'],
+            ]
+        ],
+        [
+            'size' => 4,
+            'list' => [
+                ['type' => 'email', 'name' => 'email', 'label' => 'მეილი'],
+                ['type' => 'text', 'name' => 'position', 'label' => 'პოზიცია'],
+                ['type' => 'text', 'name' => 'phone', 'label' => 'მობილური'],
                 ['type' => 'number', 'name' => 'status', 'label' => 'სტატუსი'],
             ]
         ],

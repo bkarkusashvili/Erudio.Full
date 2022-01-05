@@ -24,7 +24,7 @@ const menu = [
     { text: 'მედია', model: 'media', canAdd: true },
     { text: 'კატეგორია', model: 'category', canAdd: true },
     { text: 'Offline შეკვეთები', model: 'order', canAdd: false },
-    { text: 'Online შეკვეთები', model: 'invoice', canAdd: false },
+    { text: 'Online შეკვეთები', model: 'invoice', canAdd: true },
     {
         list: [
             { text: 'ქალაქები', model: 'city', canAdd: true },

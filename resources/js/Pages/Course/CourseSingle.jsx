@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MainLayout } from '@/Layouts';
-import { Link, usePage } from '@inertiajs/inertia-react';
+import { Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { getClassName, getIdFromUrl, getParams, getVideoType } from '@/Helper';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
@@ -31,6 +31,19 @@ const CourseSingle = ({ item, lang }) => {
     const live = item.lives && item.lives.length && item.lives[0];
     const isOffline = item.type === 2;
 
+    const { data, setData, post } = useForm({
+        courseId: item.id,
+        liveCourseId: liveCourse,
+        fullname: '',
+        fullname_latin: '',
+        email: '',
+        company_name: '',
+        company_number: '',
+        position: '',
+        phone: '',
+        from: '',
+    });
+
     useEffect(() => params.status === 'paid' && setCallbackDialog(true), []);
     useEffect(() => {
         if (!hasVideos || item.isLive) return;
@@ -41,6 +54,14 @@ const CourseSingle = ({ item, lang }) => {
     const pay = () => {
         setLoading(true);
         axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse })
+            .then(res => res.data)
+            .then(res => window.location.replace(res.data))
+            .catch(e => console.log(e));
+    };
+    const payInvoice = () => {
+        setLoading(true);
+        post(route('pay.invoice', { courseId: item.id, liveCourseId: liveCourse }))
+        axios.post(route('pay.invoice'), { courseId: item.id, liveCourseId: liveCourse })
             .then(res => res.data)
             .then(res => window.location.replace(res.data))
             .catch(e => console.log(e));
@@ -218,7 +239,7 @@ const CourseSingle = ({ item, lang }) => {
                     <Button onClick={() => setDialog(false)} children={translate.close} />
                 </DialogActions>
             </Dialog>
-            <Dialog open={formDialog} onClose={() => setForm(false)}>
+            <Dialog open={formDialog} onClose={() => setForm(false)} componentsProps={{ style: { width: 500 } }}>
                 <DialogTitle style={{ textAlign: 'center' }}>კურსის ყიდვა</DialogTitle>
                 <DialogContent>
                     <DialogContentText textAlign={'center'} marginBottom={2}>
@@ -228,51 +249,67 @@ const CourseSingle = ({ item, lang }) => {
                         <Stack spacing={2}>
                             <TextField
                                 label="სახელი გვარი"
+                                name="fullname"
                                 type="text"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('fullname', e.target.value)}
                             />
                             <TextField
                                 label="სახელი გვარი ლათინურად"
                                 type="text"
+                                name="fullname_latin"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('fullname_latin', e.target.value)}
                             />
                             <TextField
                                 label="ელფოსტა"
                                 type="email"
+                                name="email"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('email', e.target.value)}
                             />
                             <TextField
                                 label="კომპანიის დასახელება"
                                 type="text"
+                                name="company_name"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('company_name', e.target.value)}
                             />
                             <TextField
                                 label="კომპანიის საიდანთიფიკაციო ნომერი"
                                 type="text"
+                                name="company_number"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('company_number', e.target.value)}
                             />
                             <TextField
                                 label="დაკავებული ფოზიცია"
                                 type="text"
+                                name="position"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('position', e.target.value)}
                             />
                             <TextField
                                 label="საკონტაქტო ტელეფონის ნომერი"
                                 type="text"
+                                name="phone"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('phone', e.target.value)}
                             />
                             <TextField
                                 label="საიდან შეიტყვეთ პროგამის შესახებ"
                                 type="text"
+                                name="from"
                                 fullWidth
                                 variant="standard"
+                                onChange={(e) => setData('from', e.target.value)}
                             />
                         </Stack> :
                         <Stack direction={'row'} spacing={2} justifyContent={'center'}>
@@ -284,7 +321,7 @@ const CourseSingle = ({ item, lang }) => {
                 {form &&
                     <DialogActions textAlign={'center'} marginBottom={2}>
                         <Button onClick={() => setFormDialog(false)}>დახურვა</Button>
-                        <Button>ყიდვა</Button>
+                        <Button onClick={() => payInvoice()}>ყიდვა</Button>
                     </DialogActions>
                 }
             </Dialog>

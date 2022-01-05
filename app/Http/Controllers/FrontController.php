@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\City;
 use App\Models\Client;
 use App\Models\Course;
+use App\Models\Invoice;
 use App\Models\Media;
 use App\Models\Option;
 use App\Models\Page;
@@ -14,6 +15,7 @@ use App\Models\Subscribe;
 use App\Models\Team;
 use App\Models\Translate;
 use App\Models\User;
+use App\Notifications\OrderNotification;
 use App\Notifications\SubscribeNotification;
 use App\Services\TBCPaymentService;
 use Carbon\Carbon;
@@ -294,6 +296,23 @@ class FrontController extends Controller
                 'success' => true,
             ]);
         }
+    }
+
+    public function payInvoice(Request $request)
+    {
+        $courseId = $request->get('courseId');
+        // $request->input('courseId');
+
+        Course::findOrFail($courseId);
+        Invoice::create($request->except(['courseId', 'liveCourseId']));
+
+        $user = new User(['email' => $request->get('email')]);
+        $user->notify(new OrderNotification);
+
+        return response()->json([
+            'data' => null,
+            'success' => true,
+        ]);
     }
 
     public function payCheck(Request $request)
