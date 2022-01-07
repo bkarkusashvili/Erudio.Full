@@ -16,14 +16,14 @@ import { Metas } from '@/Components/Metas';
 import { Inertia } from '@inertiajs/inertia';
 
 const invoiceForm = [
-    { name: 'fullname', labe: 'სახელი გვარი', type: 'text' },
-    { name: 'fullname_latin', labe: 'სახელი გვარი ლათინურად', type: 'text' },
-    { name: 'email', labe: 'ელფოსტა', type: 'email' },
-    { name: 'company_name', labe: 'კომპანიის დასახელება', type: 'text' },
-    { name: 'company_number', labe: 'კომპანიის საიდანთიფიკაციო ნომერი', type: 'text' },
-    { name: 'position', labe: 'დაკავებული ფოზიცია', type: 'text' },
-    { name: 'phone', labe: 'საკონტაქტო ტელეფონის ნომერი', type: 'text' },
-    { name: 'from', labe: 'საიდან შეიტყვეთ პროგამის შესახებ', type: 'text' },
+    { name: 'fullname', label: 'სახელი გვარი', type: 'text' },
+    { name: 'fullname_latin', label: 'სახელი გვარი ლათინურად', type: 'text' },
+    { name: 'email', label: 'ელფოსტა', type: 'email' },
+    { name: 'company_name', label: 'კომპანიის დასახელება', type: 'text' },
+    { name: 'company_number', label: 'კომპანიის საიდანთიფიკაციო ნომერი', type: 'text' },
+    { name: 'position', label: 'დაკავებული ფოზიცია', type: 'text' },
+    { name: 'phone', label: 'საკონტაქტო ტელეფონის ნომერი', type: 'text' },
+    { name: 'from', label: 'საიდან შეიტყვეთ პროგამის შესახებ', type: 'text' },
 ];
 
 const CourseSingle = ({ item, lang }) => {
@@ -70,6 +70,7 @@ const CourseSingle = ({ item, lang }) => {
             .then(res => res.data)
             .then(res => {
                 if (isFree) {
+                    setFormDialog(false);
                     Inertia.reload();
                 } else {
                     window.history.pushState({}, '', window.location.href);
@@ -78,7 +79,16 @@ const CourseSingle = ({ item, lang }) => {
             })
             .catch(e => console.log(e));
     };
-    const payInvoice = () => post(route('pay.invoice'));
+    const payInvoice = () => post(route('pay.invoice'), {
+        onFinish: (a) => console.log(a),
+        onSuccess: (e) => {
+            console.log(e, isFree);
+            if (isFree) {
+                setFormDialog(false);
+                Inertia.reload();
+            }
+        }
+    });
     const checkPay = (e) => {
         e.preventDefault();
 
@@ -262,8 +272,9 @@ const CourseSingle = ({ item, lang }) => {
                     </DialogContentText>
                     {form ?
                         <Stack spacing={2}>
-                            {invoiceForm.map(item =>
+                            {invoiceForm.map((item, key) =>
                                 <TextField
+                                    key={key}
                                     name={item.name}
                                     label={item.label}
                                     type={item.type}
@@ -283,8 +294,8 @@ const CourseSingle = ({ item, lang }) => {
                 </DialogContent>
                 {form &&
                     <DialogActions textAlign={'center'} marginBottom={2}>
-                        <Button onClick={() => setFormDialog(false)}>დახურვა</Button>
-                        <Button onClick={() => payInvoice()}>ყიდვა</Button>
+                        <Button variant="outlined" onClick={() => setFormDialog(false)}>დახურვა</Button>
+                        <Button variant="outlined" onClick={() => payInvoice()}>ყიდვა</Button>
                     </DialogActions>
                 }
             </Dialog>

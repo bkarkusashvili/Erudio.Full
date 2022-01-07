@@ -320,6 +320,8 @@ class FrontController extends Controller
         $courseId = $request->get('courseId');
         // $request->input('courseId');
 
+        $course = Course::findOrFail($courseId);
+
         $request->validate([
             'courseId' => 'required|exists:courses,id',
             'fullname' => 'required|string',
@@ -333,15 +335,15 @@ class FrontController extends Controller
         ]);
         // liveCourseId: liveCourse,
 
-        Invoice::create($request->except(['courseId', 'liveCourseId']));
+        Invoice::create(array_merge(
+            $request->except(['courseId', 'liveCourseId']),
+            ['status' => $course->isFree]
+        ));
 
         $user = new User(['email' => $request->get('email')]);
         $user->notify(new OrderNotification);
 
-        return response()->json([
-            'data' => null,
-            'success' => true,
-        ]);
+        return redirect()->back();
     }
 
     public function payCheck(Request $request)
