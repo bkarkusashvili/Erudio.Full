@@ -188,15 +188,26 @@
 
     .navigation {
         position: absolute;
-        bottom: 64px;
+        display: flex;
+        bottom: 88px;
         z-index: 3;
+
+        @include md {
+            bottom: 24px;
+        }
 
         a {
             cursor: pointer;
-            color: #ffffff;
-            font-size: 36px;
-            text-decoration: none;
-            margin: 0 31px;
+            display: block;
+            background-color: #ffffff;
+            width: 14px;
+            height: 14px;
+            margin: 0 5px;
+            border-radius: 50%;
+
+            &.active {
+                background-color: #edbd03;
+            }
         }
     }
 }

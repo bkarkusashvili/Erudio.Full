@@ -10,6 +10,7 @@ import { useRoute } from '@/Components/Route';
 import { Video } from '@/Components/Video';
 
 import SwiperCore, { Autoplay } from 'swiper';
+import { getClassName } from '@/Helper';
 
 SwiperCore.use([Autoplay]);
 
@@ -18,6 +19,7 @@ export const Slider = ({ data, list }) => {
     const [sug, setSug] = useState([]);
     const [search, setSearch] = useState();
     const [slider, setSlider] = useState();
+    const [active, setActive] = useState(0);
     const serachPath = useRoute('search', { s: search });
 
     const getSearch = e => setSearch(e.target.value);
@@ -41,6 +43,7 @@ export const Slider = ({ data, list }) => {
             onInit={slider => setSlider(slider)}
             loop={true}
             autoplay={list.length > 1 && { delay: 10000 }}
+            onSlideChange={slider => setActive(slider.realIndex)}
         >
             {list.map(item => (
                 <SwiperSlide key={item.id}>
@@ -75,12 +78,13 @@ export const Slider = ({ data, list }) => {
             </div>
             {list.length > 1 && (
                 <div className="navigation">
-                    <a className="left" onClick={() => slider.slidePrev()}>
-                        <i className="icon icon-slide-arrow"></i>
-                    </a>
-                    <a className="right" onClick={() => slider.slideNext()}>
-                        <i className="icon icon-slide-arrow icon-rotate-180"></i>
-                    </a>
+                    {list.map((_, key) =>
+                        <a
+                            key={key}
+                            className={getClassName({ active: active === key })}
+                            onClick={() => slider.slideToLoop(key)}
+                        />
+                    )}
                 </div>
             )}
         </Swiper>
