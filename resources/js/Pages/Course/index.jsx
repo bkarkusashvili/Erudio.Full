@@ -18,7 +18,6 @@ const initData = {
 };
 
 const Courses = ({ list, lang, categories, cities, translate, types }) => {
-    const [type, setType] = useState(null);
     const [date, setDate] = useState(null);
     const [isDateOpen, setIsDateOpen] = useState(false);
     const { data, setData, transform } = useForm(initData);
@@ -27,18 +26,11 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
     const submit = () => Inertia.replace(replacePath);
     const isLive = data.type == 1 || data.type == 2;
 
-    const handleClickOutside = (event) => {
-        // if (wrapperRef && wrapperRef.current && !wrapperRef.current.contains(event.target)) {
-        //     alert('You clicked outside of me!');
-        // }
+    document.onclick = (event) => {
+        if (!document.querySelector('[role="dialog"]').contains(event.target)) {
+            setIsDateOpen(false);
+        }
     };
-
-    useEffect(() => {
-        document.addEventListener('click', handleClickOutside);
-
-        return document.removeEventListener('click', handleClickOutside);
-    }, []);
-
 
     return (
         <MainLayout>

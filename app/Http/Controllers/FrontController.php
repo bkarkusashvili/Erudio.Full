@@ -303,7 +303,19 @@ class FrontController extends Controller
         $courseId = $request->get('courseId');
         // $request->input('courseId');
 
-        Course::findOrFail($courseId);
+        $request->validate([
+            'courseId' => 'required|exists:courses,id',
+            'fullname' => 'required|string',
+            'fullname_latin' => 'required|string',
+            'email' => 'required|string|email',
+            'company_name' => 'required|string',
+            'company_number' => 'required|integer',
+            'position' => 'required|string',
+            'phone' => 'required|string',
+            'from' => 'required|string',
+        ]);
+        // liveCourseId: liveCourse,
+
         Invoice::create($request->except(['courseId', 'liveCourseId']));
 
         $user = new User(['email' => $request->get('email')]);

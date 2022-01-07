@@ -14,6 +14,17 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import { Metas } from '@/Components/Metas';
 
+const invoiceForm = [
+    { name: 'fullname', labe: 'სახელი გვარი', type: 'text' },
+    { name: 'fullname_latin', labe: 'სახელი გვარი ლათინურად', type: 'text' },
+    { name: 'email', labe: 'ელფოსტა', type: 'email' },
+    { name: 'company_name', labe: 'კომპანიის დასახელება', type: 'text' },
+    { name: 'company_number', labe: 'კომპანიის საიდანთიფიკაციო ნომერი', type: 'text' },
+    { name: 'position', labe: 'დაკავებული ფოზიცია', type: 'text' },
+    { name: 'phone', labe: 'საკონტაქტო ტელეფონის ნომერი', type: 'text' },
+    { name: 'from', labe: 'საიდან შეიტყვეთ პროგამის შესახებ', type: 'text' },
+];
+
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base, translate } = usePage().props;
     const [activeIndex, setActiveIndex] = useState(0);
@@ -31,7 +42,7 @@ const CourseSingle = ({ item, lang }) => {
     const live = item.lives && item.lives.length && item.lives[0];
     const isOffline = item.type === 2;
 
-    const { data, setData, post } = useForm({
+    const { errors, setData, post } = useForm({
         courseId: item.id,
         liveCourseId: liveCourse,
         fullname: '',
@@ -58,14 +69,7 @@ const CourseSingle = ({ item, lang }) => {
             .then(res => window.location.replace(res.data))
             .catch(e => console.log(e));
     };
-    const payInvoice = () => {
-        setLoading(true);
-        post(route('pay.invoice', { courseId: item.id, liveCourseId: liveCourse }))
-        axios.post(route('pay.invoice'), { courseId: item.id, liveCourseId: liveCourse })
-            .then(res => res.data)
-            .then(res => window.location.replace(res.data))
-            .catch(e => console.log(e));
-    };
+    const payInvoice = () => post(route('pay.invoice'));
     const checkPay = (e) => {
         e.preventDefault();
 
@@ -247,70 +251,18 @@ const CourseSingle = ({ item, lang }) => {
                     </DialogContentText>
                     {form ?
                         <Stack spacing={2}>
-                            <TextField
-                                label="სახელი გვარი"
-                                name="fullname"
-                                type="text"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('fullname', e.target.value)}
-                            />
-                            <TextField
-                                label="სახელი გვარი ლათინურად"
-                                type="text"
-                                name="fullname_latin"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('fullname_latin', e.target.value)}
-                            />
-                            <TextField
-                                label="ელფოსტა"
-                                type="email"
-                                name="email"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('email', e.target.value)}
-                            />
-                            <TextField
-                                label="კომპანიის დასახელება"
-                                type="text"
-                                name="company_name"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('company_name', e.target.value)}
-                            />
-                            <TextField
-                                label="კომპანიის საიდანთიფიკაციო ნომერი"
-                                type="text"
-                                name="company_number"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('company_number', e.target.value)}
-                            />
-                            <TextField
-                                label="დაკავებული ფოზიცია"
-                                type="text"
-                                name="position"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('position', e.target.value)}
-                            />
-                            <TextField
-                                label="საკონტაქტო ტელეფონის ნომერი"
-                                type="text"
-                                name="phone"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('phone', e.target.value)}
-                            />
-                            <TextField
-                                label="საიდან შეიტყვეთ პროგამის შესახებ"
-                                type="text"
-                                name="from"
-                                fullWidth
-                                variant="standard"
-                                onChange={(e) => setData('from', e.target.value)}
-                            />
+                            {invoiceForm.map(item =>
+                                <TextField
+                                    name={item.name}
+                                    label={item.label}
+                                    type={item.type}
+                                    error={!!errors[item.name]}
+                                    helperText={errors[item.name]}
+                                    variant="standard"
+                                    fullWidth
+                                    onChange={(e) => setData(item.name, e.target.value)}
+                                />
+                            )}
                         </Stack> :
                         <Stack direction={'row'} spacing={2} justifyContent={'center'}>
                             <Button variant="outlined" onClick={() => pay()}>ფიზკური</Button>
