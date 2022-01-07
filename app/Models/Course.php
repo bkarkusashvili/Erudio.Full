@@ -16,6 +16,11 @@ class Course extends Model
         return $this->type == 1;
     }
 
+    public function getIsFreeAttribute()
+    {
+        return $this->price == 0;
+    }
+
     public function instructor()
     {
         return $this->belongsTo(Instructor::class);

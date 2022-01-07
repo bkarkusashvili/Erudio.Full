@@ -53,7 +53,7 @@ class CourseRequest extends FormRequest
             'text_en' => 'nullable|string',
 
             'days' => 'required|integer|min:1',
-            'price' => 'required|integer',
+            'price' => 'required|integer|min:0',
             'type' => 'required|integer|between:0,2',
             'phone' => 'required|string',
             'category_id' => 'required|integer|exists:categories,id',

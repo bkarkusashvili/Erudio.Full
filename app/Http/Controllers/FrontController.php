@@ -284,17 +284,34 @@ class FrontController extends Controller
         $courseId = $request->get('courseId');
         // $request->input('courseId');
 
-        $payment = app(TBCPaymentService::class);
-        $response = $payment->pay(Course::findOrFail($courseId));
+        $course = Course::findOrFail($courseId);
 
-        if ($response->ok()) {
-            $body = json_decode($response->body());
-            $redirectUrl = $body->links[1]->uri;
+        if ($course->isFree) {
+            $user = auth()->user();
+            $course->orders()->create([
+                'user_id' => $user->id,
+                'userName' => $user->firstname . ' ' . $user->lastname,
+                'amount' => $course->price,
+                'status' => 1
+            ]);
 
             return response()->json([
-                'data' => $redirectUrl,
+                'data' => null,
                 'success' => true,
             ]);
+        } else {
+            $payment = app(TBCPaymentService::class);
+            $response = $payment->pay();
+
+            if ($response->ok()) {
+                $body = json_decode($response->body());
+                $redirectUrl = $body->links[1]->uri;
+
+                return response()->json([
+                    'data' => $redirectUrl,
+                    'success' => true,
+                ]);
+            }
         }
     }
 

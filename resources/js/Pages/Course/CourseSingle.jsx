@@ -13,6 +13,7 @@ import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import { Metas } from '@/Components/Metas';
+import { Inertia } from '@inertiajs/inertia';
 
 const invoiceForm = [
     { name: 'fullname', labe: 'სახელი გვარი', type: 'text' },
@@ -39,6 +40,7 @@ const CourseSingle = ({ item, lang }) => {
     const player = useRef();
     const source = useRef();
     const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
+    const isFree = useMemo(() => item.price === 0, [item.price]);
     const live = item.lives && item.lives.length && item.lives[0];
     const isOffline = item.type === 2;
 
@@ -67,8 +69,12 @@ const CourseSingle = ({ item, lang }) => {
         axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse })
             .then(res => res.data)
             .then(res => {
-                window.history.pushState({}, '', window.location.href);
-                window.location.replace(res.data);
+                if (isFree) {
+                    Inertia.reload();
+                } else {
+                    window.history.pushState({}, '', window.location.href);
+                    window.location.replace(res.data);
+                }
             })
             .catch(e => console.log(e));
     };
@@ -132,7 +138,7 @@ const CourseSingle = ({ item, lang }) => {
                             </div>
                             <div className="item">
                                 <span>{translate.price}:</span>
-                                <span>{item.price} Gel</span>
+                                <span>{isFree ? 'უფასო' : `${item.price} Gel`}</span>
                             </div>
                             <div className="item">
                                 <span>{translate.call}:</span>
@@ -148,12 +154,14 @@ const CourseSingle = ({ item, lang }) => {
                                         className={getClassName({ loading, 'tp-register': true })}
                                         children={loading ? <CircularProgress /> : translate.buy}
                                     />
-                                    <Link
-                                        onClick={checkPay}
-                                        href="#"
-                                        className={getClassName({ loading, 'tp-register': true })}
-                                        children={loading ? <CircularProgress /> : 'განვადება'}
-                                    />
+                                    {!isFree && (
+                                        <Link
+                                            onClick={checkPay}
+                                            href="#"
+                                            className={getClassName({ loading, 'tp-register': true })}
+                                            children={loading ? <CircularProgress /> : 'განვადება'}
+                                        />
+                                    )}
                                 </div>
                                 :
                                 <Link href={useRoute('register')} className="tp-register" children={translate.registration} />
