@@ -151,7 +151,6 @@
         position: absolute;
         z-index: 3;
         display: flex;
-        justify-content: center;
         align-self: flex-end;
         bottom: 80px;
 
@@ -161,7 +160,6 @@
     }
 
     .download {
-        flex: 1;
         display: flex;
         align-items: flex-end;
         align-self: flex-start;
@@ -193,7 +191,7 @@
         z-index: 3;
 
         @include md {
-            bottom: 24px;
+            bottom: 30px;
         }
 
         a {
@@ -204,6 +202,11 @@
             height: 14px;
             margin: 0 5px;
             border-radius: 50%;
+
+            @include md {
+                width: 12px;
+                height: 12px;
+            }
 
             &.active {
                 background-color: #edbd03;
