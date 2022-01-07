@@ -230,9 +230,7 @@ class AdminController extends Controller
     {
         $result = $this->model::query();
 
-        collect(request()->all())->filter(function ($item, $key) {
-            return $key !== 'page';
-        })->each(function ($item, $key) use ($result) {
+        collect(request()->all())->except('page', 'lang')->each(function ($item, $key) use ($result) {
             $result->when($item !=  null, function ($q) use ($item, $key) {
                 $q->where($key, 'like', '%' . $item . '%');
             });

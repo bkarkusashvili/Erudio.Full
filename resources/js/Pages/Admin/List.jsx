@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, FormControl, InputLabel, MenuItem, Pagination, PaginationItem, Select, Stack, TextField } from '@mui/material';
-import { Link, useForm, usePage } from '@inertiajs/inertia-react';
+import { Link, useForm } from '@inertiajs/inertia-react';
 import DateAdapter from '@mui/lab/AdapterMoment';
 
 import { AdminLayout } from '@/Layouts/AdminLayout';
@@ -24,6 +24,14 @@ const List = ({ rows, columns, model, paginate, search = [] }) => {
     const { setData, get, processing } = useForm(initForm);
 
     const submit = () => get(route(`${model}.index`));
+
+    const getParams = (item) => {
+        const params = route().params;
+        delete params.lang;
+        params.page = item.page;
+
+        return params;
+    };
 
     return (
         <AdminLayout>
@@ -113,7 +121,7 @@ const List = ({ rows, columns, model, paginate, search = [] }) => {
                     renderItem={(item) =>
                         <PaginationItem
                             component={Link}
-                            href={route(`${model}.index`, { ...route().params, page: item.page })}
+                            href={route(`${model}.index`, getParams(item))}
                             {...item}
                         />
                     }

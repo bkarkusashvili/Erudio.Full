@@ -79,7 +79,7 @@ export const DataGrid = ({ rows, columns, model }) => {
                                         </Link>
                                     )}
                                     {actions.delete && (
-                                        <Link href={route(`${model}.destroy`, row.id)} method={'delete'}>
+                                        <Link href={route(`${model}.destroy`, row.id)} method={'delete'} as="span">
                                             <IconButton
                                                 // onClick={() => handleOpen(row.id)}
                                                 color={'error'}
