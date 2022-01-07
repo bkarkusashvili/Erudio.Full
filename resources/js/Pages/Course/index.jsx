@@ -5,10 +5,8 @@ import { Inertia } from '@inertiajs/inertia';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import { DesktopDatePicker, LocalizationProvider, MobileDatePicker } from '@mui/lab';
 import { Link, useForm } from '@inertiajs/inertia-react';
-import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
-import { TextField } from '@mui/material';
 
 const initData = {
     category: null,
@@ -20,14 +18,23 @@ const initData = {
 const Courses = ({ list, lang, categories, cities, translate, types }) => {
     const [date, setDate] = useState(null);
     const [isDateOpen, setIsDateOpen] = useState(false);
-    const { data, setData, transform } = useForm(initData);
+    const { data, setData } = useForm(initData);
     const replacePath = useRoute('course', data);
 
     const submit = () => Inertia.replace(replacePath);
     const isLive = data.type == 1 || data.type == 2;
 
     document.onclick = (event) => {
-        if (!document.querySelector('[role="dialog"]').contains(event.target)) {
+        const dateInput = document.querySelector('.date-input');
+
+        if (event.target === dateInput) return;
+
+        const dialog = document.querySelector('[role="dialog"]');
+
+        if (!isDateOpen) return;
+        if (!dialog) return;
+
+        if (!dialog.contains(event.target)) {
             setIsDateOpen(false);
         }
     };
@@ -83,6 +90,7 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                                 renderInput={({ inputRef, inputProps, InputProps }) => <input
                                     ref={inputRef}
                                     {...inputProps}
+                                    className="date-input"
                                     placeholder={translate.date}
                                     onClick={() => setIsDateOpen(!isDateOpen)}
                                     readOnly

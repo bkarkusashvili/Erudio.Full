@@ -66,7 +66,10 @@ const CourseSingle = ({ item, lang }) => {
         setLoading(true);
         axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse })
             .then(res => res.data)
-            .then(res => window.location.replace(res.data))
+            .then(res => {
+                window.history.pushState({}, '', window.location.href);
+                window.location.replace(res.data);
+            })
             .catch(e => console.log(e));
     };
     const payInvoice = () => post(route('pay.invoice'));
