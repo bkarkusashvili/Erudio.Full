@@ -56,10 +56,10 @@ class OfflineCourseController extends AdminController
         parent::__construct();
     }
 
-    public function index($result = null)
+    public function index($query = null)
     {
-        $result = OfflineCourse::with('course')->latest()->paginate(10);
+        $query = OfflineCourse::query()->with('course');
 
-        return parent::index($result);
+        return parent::index($query);
     }
 }

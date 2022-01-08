@@ -15,6 +15,7 @@ class OrderController extends AdminController
     public $request = OrderRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
+        ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'სახელი'],
         ['field' => 'payId', 'headerName' => 'შეკვეთის ნომერი'],
         ['field' => 'userName', 'headerName' => 'მომხმარებლები'],
         ['field' => 'amount', 'headerName' => 'თანხა'],
@@ -38,4 +39,11 @@ class OrderController extends AdminController
             ['value' => 0, 'text' => 'გათიშული']
         ]],
     ];
+
+    public function index($query = null)
+    {
+        $query = Order::query()->with('course');
+
+        return parent::index($query);
+    }
 }

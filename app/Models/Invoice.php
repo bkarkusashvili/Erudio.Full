@@ -10,4 +10,9 @@ class Invoice extends Model
     use HasFactory;
 
     public $guarded = [];
+
+    public function course()
+    {
+        return $this->belongsTo(Course::class)->withDefault();
+    }
 }

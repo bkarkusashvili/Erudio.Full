@@ -79,16 +79,7 @@ const CourseSingle = ({ item, lang }) => {
             })
             .catch(e => console.log(e));
     };
-    const payInvoice = () => post(route('pay.invoice'), {
-        onFinish: (a) => console.log(a),
-        onSuccess: (e) => {
-            console.log(e, isFree);
-            if (isFree) {
-                setFormDialog(false);
-                Inertia.reload();
-            }
-        }
-    });
+    const payInvoice = () => post(route('pay.invoice'));
     const checkPay = (e) => {
         e.preventDefault();
 

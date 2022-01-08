@@ -322,8 +322,7 @@ class FrontController extends Controller
 
         $course = Course::findOrFail($courseId);
 
-        $request->validate([
-            'courseId' => 'required|exists:courses,id',
+        $data = $request->validate([
             'fullname' => 'required|string',
             'fullname_latin' => 'required|string',
             'email' => 'required|string|email',
@@ -336,8 +335,11 @@ class FrontController extends Controller
         // liveCourseId: liveCourse,
 
         Invoice::create(array_merge(
-            $request->except(['courseId', 'liveCourseId']),
-            ['status' => $course->isFree]
+            $data,
+            [
+                'status' => $course->isFree,
+                'course_id' => $course->id
+            ],
         ));
 
         $user = new User(['email' => $request->get('email')]);

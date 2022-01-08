@@ -30,7 +30,7 @@ const Edit = ({ model, data, fields }) => {
     const submit = (close = false) => post(
         route(`${model}.update`, data.id),
         {
-            onSuccess: (e) => close && Inertia.replace(route(`${model}.index`))
+            onSuccess: (e) => close && history.back()
         }
     );
     const deleteFile = file => Inertia.post(

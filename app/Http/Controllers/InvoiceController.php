@@ -15,6 +15,7 @@ class InvoiceController extends AdminController
     public $request = InvoiceRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
+        ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'სახელი'],
         ['field' => 'fullname', 'headerName' => 'სახელი'],
         ['field' => 'fullname_latin', 'headerName' => 'სახელი ლათინურად'],
         ['field' => 'email', 'headerName' => 'მეილი'],
@@ -56,4 +57,11 @@ class InvoiceController extends AdminController
             ['value' => 0, 'text' => 'გათიშული']
         ]],
     ];
+
+    public function index($query = null)
+    {
+        $query = Invoice::query()->with('course');
+
+        return parent::index($query);
+    }
 }

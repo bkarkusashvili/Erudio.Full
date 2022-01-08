@@ -42,18 +42,16 @@ class AdminController extends Controller
         Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 
-    public function index($result = null)
+    public function index($query = null)
     {
-        if ($result == null) {
-            $result = $this->getListData()->paginate(10);
-        }
+        $query = $this->getListData($query)->paginate(10);
         $paginate = [
-            'page' => $result->currentPage(),
-            'count' => $result->lastPage(),
+            'page' => $query->currentPage(),
+            'count' => $query->lastPage(),
         ];
 
         return Inertia::render('Admin/List', [
-            'rows' => $result->items(),
+            'rows' => $query->items(),
             'paginate' => $paginate,
             'columns' => $this->columns,
             'actions' => [
@@ -182,6 +180,8 @@ class AdminController extends Controller
         $this->beforeDestroy($model);
 
         $model->delete();
+
+        return Redirect::back();
     }
 
     public function deleteFile(int $id)
@@ -226,16 +226,18 @@ class AdminController extends Controller
         }
     }
 
-    private function getListData()
+    private function getListData($query = null)
     {
-        $result = $this->model::query();
+        if (!$query) {
+            $query = $this->model::query();
+        }
 
-        collect(request()->all())->except('page', 'lang')->each(function ($item, $key) use ($result) {
-            $result->when($item !=  null, function ($q) use ($item, $key) {
+        collect(request()->all())->except('page', 'lang')->each(function ($item, $key) use ($query) {
+            $query->when($item !=  null, function ($q) use ($item, $key) {
                 $q->where($key, 'like', '%' . $item . '%');
             });
         });
 
-        return $result->latest();
+        return $query->latest();
     }
 }

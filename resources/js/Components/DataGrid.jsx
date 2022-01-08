@@ -10,25 +10,31 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import { IconButton, Dialog, DialogTitle, DialogActions, Button, Checkbox } from '@mui/material';
 import { Delete, Edit } from '@mui/icons-material';
 import { useForm } from '@inertiajs/inertia-react'
+import { Inertia, Method } from '@inertiajs/inertia';
 
 export const DataGrid = ({ rows, columns, model }) => {
     const isCheckbox = column => column.type === 'checkbox';
 
     const getValue = (column, row) => column.relation ? row[column.relation][column.field] : row[column.field];
 
-    // const [open, setOpen] = useState(false);
-    // const [id, setId] = useState();
-    // const { delete: destroy } = useForm();
+    const [open, setOpen] = useState(false);
+    const [id, setId] = useState();
+    const { delete: destroy } = useForm();
 
-    // const handleOpen = id => {
-    //     setOpen(true);
-    //     setId(id);
-    // };
-    // const handleClose = () => setOpen(false);
-    // const handleDelete = () => {
-    //     destroy(route(`${model}.destroy`, id));
-    //     handleClose();
-    // };
+    const handleOpen = id => {
+        setOpen(true);
+        setId(id);
+    };
+    const handleClose = () => setOpen(false);
+    const handleDelete = () => {
+        destroy(route(`${model}.destroy`, id), {
+            onSuccess: () => {
+                console.log('ss');
+                Inertia.reload()
+            },
+        });
+        handleClose();
+    };
     const { actions } = usePage().props;
 
     return (
@@ -79,14 +85,12 @@ export const DataGrid = ({ rows, columns, model }) => {
                                         </Link>
                                     )}
                                     {actions.delete && (
-                                        <Link href={route(`${model}.destroy`, row.id)} method={'delete'} as="span">
-                                            <IconButton
-                                                // onClick={() => handleOpen(row.id)}
-                                                color={'error'}
-                                                edge={'end'}
-                                                children={<Delete />}
-                                            />
-                                        </Link>
+                                        <IconButton
+                                            onClick={() => handleOpen(row.id)}
+                                            color={'error'}
+                                            edge={'end'}
+                                            children={<Delete />}
+                                        />
                                     )}
                                 </TableCell>
                             )}
@@ -94,13 +98,13 @@ export const DataGrid = ({ rows, columns, model }) => {
                     ))}
                 </TableBody>
             </Table>
-            {/* <Dialog open={open} onClose={handleClose}>
+            <Dialog open={open} onClose={handleClose}>
                 <DialogTitle children="მონაცემის წაშლა" />
-                <DialogActions>
+                <DialogActions style={{ justifyContent: 'center' }}>
                     <Button onClick={handleClose} children="გაუქმება" />
                     <Button onClick={handleDelete} children="წაშლა" color={'error'} autoFocus />
                 </DialogActions>
-            </Dialog> */}
+            </Dialog>
         </TableContainer>
     );
 }
