@@ -68,6 +68,7 @@ class CourseController extends AdminController
         [
             'size' => 4,
             'list' => [
+                ['type' => 'toggle', 'name' => 'status', 'label' => 'სტატუსი', 'value' => false],
                 ['type' => 'toggle', 'name' => 'popular_training', 'label' => 'პოპულალური ტრენინგი', 'value' => false],
                 ['type' => 'toggle', 'name' => 'popular_course', 'label' => 'პოპულალური კურსი', 'value' => false],
                 ['type' => 'toggle', 'name' => 'popular_masterclass', 'label' => 'პოპულალური მასტერკლასი', 'value' => false],
@@ -81,6 +82,7 @@ class CourseController extends AdminController
                 ['type' => 'select', 'name' => 'category_id', 'label' => 'კატეგორია'],
                 ['type' => 'select', 'name' => 'city_id', 'label' => 'ქალაქი'],
                 ['type' => 'select', 'name' => 'instructor_id', 'label' => 'ინსტრუქტორი'],
+                ['type' => 'select', 'name' => 'instructor_two_id', 'label' => 'ინსტრუქტორი 2'],
                 ['type' => 'file', 'name' => 'video', 'label' => 'ვიდეო'],
                 ['type' => 'file', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],
                 ['type' => 'image', 'name' => 'image', 'label' => 'სურათი'],
@@ -103,7 +105,7 @@ class CourseController extends AdminController
         //         'value' => $category->id,
         //     ];
         // })->toArray();
-        $start = 9;
+        $start = 10;
         $this->fields[1]['list'][$start++]['options'] = [
             ['text' => 'Online ტრენინგი', 'value' => 1],
             ['text' => 'Offline ტრენინგი', 'value' => 2],
@@ -119,6 +121,12 @@ class CourseController extends AdminController
             return [
                 'text' => $city->name_ka,
                 'value' => $city->id,
+            ];
+        });
+        $this->fields[1]['list'][$start++]['options'] = Instructor::all()->map(function (Instructor $instructor) {
+            return [
+                'text' => $instructor->name_ka,
+                'value' => $instructor->id,
             ];
         });
         $this->fields[1]['list'][$start++]['options'] = Instructor::all()->map(function (Instructor $instructor) {

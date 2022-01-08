@@ -191,7 +191,7 @@ class FrontController extends Controller
         $type = (int) $request->input('type', -1);
         $date = $request->input('date', $today);
         $date = new Carbon($date);
-        $query = Course::query()->with('lives');
+        $query = Course::query()->with('lives')->where('status', 1);
 
         $query->when($type == -1, function ($q) {
             // $q->whereHas('lives')->orWhere('type', 0);
@@ -237,7 +237,7 @@ class FrontController extends Controller
 
     public function courseSingle(string $lang, int $id)
     {
-        $item = Course::with('instructor', 'lives', 'videos', 'offlines')->findOrFail($id);
+        $item = Course::with('instructor', 'instructorTwo', 'lives', 'videos', 'offlines')->findOrFail($id);
         $item->isLive = $item->isLive;
 
         $user = auth()->user();

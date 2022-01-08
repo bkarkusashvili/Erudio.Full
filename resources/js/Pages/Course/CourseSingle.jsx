@@ -247,6 +247,25 @@ const CourseSingle = ({ item, lang }) => {
                         <h3 children={translate.biography} />
                         <div className="tp-text" dangerouslySetInnerHTML={{ __html: item.instructor['bio_' + lang] }} />
                     </div>
+
+                    {item.instructor_two && (
+                        <>
+                            <div className="video-box-wrap">
+                                <div className="media">
+                                    <img src={`${base}/storage/${item.instructor_two.image}`} alt={item.instructor_two['name_' + lang]} />
+                                </div>
+                                <div className="content">
+                                    <h3 className="tp-header">{item.instructor_two['name_' + lang]}</h3>
+                                    <h3 className="tp-header small">{item.instructor_two['area_' + lang]}</h3>
+                                    <h3 className="tp-header small">{item.instructor_two['profession_' + lang]}</h3>
+                                </div>
+                            </div>
+                            <div className="bio">
+                                <h3 children={translate.biography} />
+                                <div className="tp-text" dangerouslySetInnerHTML={{ __html: item.instructor_two['bio_' + lang] }} />
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
             <Dialog open={callbackDialog}>

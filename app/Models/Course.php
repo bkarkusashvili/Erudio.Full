@@ -26,6 +26,11 @@ class Course extends Model
         return $this->belongsTo(Instructor::class);
     }
 
+    public function instructorTwo()
+    {
+        return $this->belongsTo(Instructor::class, 'instructor_two_id');
+    }
+
     public function city()
     {
         return $this->belongsTo(City::class);
