@@ -118,6 +118,7 @@ $adminResources = [
 Route::middleware('admin')->prefix('admin')->group(function () use ($adminResources) {
     collect($adminResources)->each(function ($item, $key) {
         Route::get($key . '/export', [$item, 'export'])->name($key . '.export');
+        Route::post($key . '/column/{id}/{column}/{value}', [$item, 'column'])->name($key . '.column');
     });
 
     Route::resources($adminResources);

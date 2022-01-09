@@ -19,7 +19,7 @@ export const DataGrid = ({ rows, columns, model }) => {
 
     const [open, setOpen] = useState(false);
     const [id, setId] = useState();
-    const { delete: destroy } = useForm();
+    const { delete: destroy, post, setData, data } = useForm();
 
     const handleOpen = id => {
         setOpen(true);
@@ -29,23 +29,25 @@ export const DataGrid = ({ rows, columns, model }) => {
     const handleDelete = () => {
         destroy(route(`${model}.destroy`, id), {
             onSuccess: () => {
-                console.log('ss');
                 Inertia.reload()
             },
         });
         handleClose();
     };
+    const columnUpdate = (id, column, value) => {
+        post(route(`${model}.column`, { id, column, value: value ? 1 : 0 }));
+    };
     const { actions } = usePage().props;
 
     return (
         <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <Table sx={{ minWidth: 650 }}>
                 <TableHead>
                     <TableRow>
                         {columns.map((column, key) => (
                             <TableCell
                                 key={key}
-                                align={key === 0 ? 'left' : 'right'}
+                                align={key === 0 ? 'left' : 'center'}
                                 width={column.width}
                                 style={{ fontWeight: 'bold' }}
                             >
@@ -68,11 +70,15 @@ export const DataGrid = ({ rows, columns, model }) => {
                             {columns.map((column, key) => (
                                 <TableCell
                                     key={key}
-                                    align={key === 0 ? 'left' : 'right'}
+                                    align={key === 0 ? 'left' : 'center'}
                                 >
                                     {
                                         isCheckbox(column) ?
-                                            <Checkbox readOnly checked={!!getValue(column, row)} /> :
+                                            <Checkbox
+                                                readOnly={column.readOnly}
+                                                defaultChecked={!!getValue(column, row)}
+                                                onChange={e => columnUpdate(row.id, column.field, e.target.checked)}
+                                            /> :
                                             getValue(column, row)
                                     }
                                 </TableCell>

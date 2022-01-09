@@ -201,6 +201,15 @@ class AdminController extends Controller
         return Excel::download(new DataExport($this->getListData()), 'data.xlsx');
     }
 
+    public function column(int $id, string $column, string $value)
+    {
+        $model = $this->model::findOrFail($id);
+
+        $model->update([$column => $value]);
+
+        return Redirect::back();
+    }
+
     protected function beforeDestroy(Model $model)
     {
     }
