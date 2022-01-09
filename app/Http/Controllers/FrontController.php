@@ -46,13 +46,13 @@ class FrontController extends Controller
     {
         return Inertia::render('Home', [
             'clients' => Client::all(),
-            'trainings' => Course::where('popular_training', true)->get()->map(function ($course) {
+            'trainings' => Course::where('popular_training', true)->where('status', 1)->get()->map(function ($course) {
                 return $this->limitCourseText($course);
             }),
-            'courses' => Course::where('popular_course', true)->get()->map(function ($course) {
+            'courses' => Course::where('popular_course', true)->where('status', 1)->get()->map(function ($course) {
                 return $this->limitCourseText($course);
             }),
-            'masterclasses' => Course::where('popular_masterclass', true)->get()->map(function ($course) {
+            'masterclasses' => Course::where('popular_masterclass', true)->where('status', 1)->get()->map(function ($course) {
                 return $this->limitCourseText($course);
             }),
             'item' => Page::findOrFail(1),
@@ -68,7 +68,8 @@ class FrontController extends Controller
             return [];
         }
 
-        $categories = Category::where('title_ka', 'like', '%' . $s . '%')
+        $categories = Category::where('status', 1)
+            ->where('title_ka', 'like', '%' . $s . '%')
             ->orWhere('title_en', 'like', '%' . $s . '%')
             ->get();
         $categories = $categories->map(function (Category $item) {
@@ -176,7 +177,7 @@ class FrontController extends Controller
 
         return Inertia::render('Category/CategorySingle', [
             'item' => $item,
-            'courses' => $item->courses->map(function (Course $course) {
+            'courses' => $item->courses()->where('status', 1)->get()->map(function (Course $course) {
                 $course->isLive = $course->isLive;
 
                 return $course;
