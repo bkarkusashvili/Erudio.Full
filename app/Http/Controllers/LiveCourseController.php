@@ -57,10 +57,10 @@ class LiveCourseController extends AdminController
         parent::__construct();
     }
 
-    public function index($result = null)
+    public function index($query = null)
     {
-        $result = LiveCourse::with('course')->latest()->paginate(10);
+        $query = LiveCourse::query()->with('course');
 
-        return parent::index($result);
+        return parent::index($query);
     }
 }
