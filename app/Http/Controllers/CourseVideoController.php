@@ -13,6 +13,7 @@ class CourseVideoController extends AdminController
     public $request = CourseVideoRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
+        ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'კურსი'],
         ['field' => 'name_ka', 'headerName' => 'სახელი'],
     ];
     public $fields = [
@@ -37,6 +38,7 @@ class CourseVideoController extends AdminController
     ];
     public $search = [
         ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
+        ['name' => 'course.name_ka', 'type' => 'text', 'label' => 'კურსი'],
         ['name' => 'name_ka', 'type' => 'text', 'label' => 'სახელი'],
     ];
     public $fileFilds = ['image'];
@@ -52,5 +54,12 @@ class CourseVideoController extends AdminController
         });
 
         parent::__construct();
+    }
+
+    public function index($query = null)
+    {
+        $query = CourseVideo::query()->with('course');
+
+        return parent::index($query);
     }
 }
