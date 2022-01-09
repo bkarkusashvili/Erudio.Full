@@ -55,7 +55,7 @@ export const Header = () => {
                         <Link
                             key={key}
                             href={useRoute(item.name)}
-                            className={getClassName({ active: isActivePage(item.name), isOpen: active === key })}
+                            className={getClassName({ active: isActivePage(item.name, null, item.list), isOpen: active === key })}
                             onClick={(e) => openSubMenu(e, item, key)}
                         >
                             <span>{item.value}</span>

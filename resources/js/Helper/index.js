@@ -1,8 +1,9 @@
-export const isActivePage = (page, id = null) => {
+export const isActivePage = (page, id = null, list = []) => {
     const params = {};
     if (id) { params.id = id; }
 
-    return route().current(page, params);
+    return route().current(page, params) ||
+        list.some((item) => route().current(item.name, params));
 };
 export const getClassName = classes => Object.keys(classes).filter(name => classes[name]).join(' ');
 export const getVideoType = video => {
@@ -23,7 +24,6 @@ export const getParams = () => {
             params[key] = value;
         });
     }
-
 
     return params;
 };
