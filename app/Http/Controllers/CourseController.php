@@ -16,6 +16,10 @@ class CourseController extends AdminController
     public $request = CourseRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
+        ['field' => 'status', 'headerName' => 'სტატუსი', 'type' => 'checkbox'],
+        ['field' => 'popular_training', 'headerName' => 'პოპ. ტრენინგი', 'type' => 'checkbox'],
+        ['field' => 'popular_course', 'headerName' => 'პოპ. კურსი', 'type' => 'checkbox'],
+        ['field' => 'popular_masterclass', 'headerName' => 'პოპ. მასტერკლასი', 'type' => 'checkbox'],
         ['field' => 'name_ka', 'headerName' => 'სახელი'],
         ['field' => 'price', 'headerName' => 'ფასი'],
     ];
@@ -93,6 +97,10 @@ class CourseController extends AdminController
         ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
         ['name' => 'name_ka', 'type' => 'text', 'label' => 'სახელი'],
         ['name' => 'price', 'type' => 'number', 'label' => 'ფასი'],
+        ['name' => 'status', 'type' => 'select', 'label' => 'სტატუსი', 'options' => [
+            ['value' => 1, 'text' => 'აქტიური'],
+            ['value' => 0, 'text' => 'გათიშული']
+        ]],
     ];
     public $fileFilds = ['image', 'file', 'video'];
 

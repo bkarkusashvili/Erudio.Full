@@ -15,15 +15,11 @@ class InvoiceController extends AdminController
     public $request = InvoiceRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
+        ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'კურსი'],
         ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'სახელი'],
         ['field' => 'fullname', 'headerName' => 'სახელი'],
-        ['field' => 'fullname_latin', 'headerName' => 'სახელი ლათინურად'],
-        ['field' => 'email', 'headerName' => 'მეილი'],
         ['field' => 'company_name', 'headerName' => 'კომპანია'],
         ['field' => 'company_number', 'headerName' => 'საიდენთიფიკაციო'],
-        ['field' => 'position', 'headerName' => 'პოზიცია'],
-        ['field' => 'phone', 'headerName' => 'მობილური'],
-        ['field' => 'from', 'headerName' => 'საიდან'],
         ['field' => 'status', 'headerName' => 'სტატუსი', 'type' => 'checkbox'],
     ];
     public $fields = [
