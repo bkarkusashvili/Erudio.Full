@@ -674,11 +674,15 @@
 
             .media {
                 box-sizing: border-box;
-                padding: 30px;
-                height: 330px;
+                padding: 10px;
+                height: 280px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
+                @include lg {
+                    height: 180px;
+                }
 
                 img {
                     width: 100%;

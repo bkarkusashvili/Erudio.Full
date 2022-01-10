@@ -40,6 +40,16 @@ section.course-list {
             display: flex;
             flex-direction: column;
 
+            & > .tp-header {
+                @include lg {
+                    font-size: 27px;
+                }
+
+                @include md {
+                    font-size: 22px;
+                }
+            }
+
             @include md {
                 grid-row: 1;
                 grid-column: span 1;
