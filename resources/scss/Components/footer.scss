@@ -5,18 +5,32 @@ footer {
 
     .footer-nav {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        grid-gap: 20px;
+        grid-template-columns: 4fr 3fr;
         padding-top: 68px;
         padding-bottom: 55px;
 
         @include lg {
+            grid-template-columns: 4fr 4fr;
             padding-top: 48px;
             padding-bottom: 44px;
         }
 
         @include md {
             display: none;
+        }
+
+        .logo {
+            margin-top: 30px;
+
+            img {
+                width: 200px;
+            }
+        }
+
+        .menu-wrap {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            grid-gap: 5px;
         }
 
         .item {
@@ -32,7 +46,7 @@ footer {
             }
 
             a {
-                margin-bottom: 5px;
+                margin-bottom: 2px;
                 text-decoration: none;
                 color: #888893;
                 line-height: 1.35;

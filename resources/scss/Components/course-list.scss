@@ -1,11 +1,7 @@
 section.course-list {
     display: flex;
     justify-content: center;
-    padding: 180px 0;
-
-    @include lg {
-        padding: 100px 0;
-    }
+    padding: 80px 0;
 
     @include md {
         padding: 60px 0;

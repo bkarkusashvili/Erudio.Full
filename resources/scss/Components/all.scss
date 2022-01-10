@@ -2,20 +2,20 @@
     display: flex;
     justify-content: center;
     background-color: rgba(#e7e9f0, 0.5);
-    padding: 123px 0 82px;
-
-    @include lg {
-        padding: 90px 0 70px;
-    }
+    padding: 45px 0;
 
     .client-text {
         display: none;
-        height: 290px;
+        height: 200px;
         overflow: hidden;
 
         &.active {
             display: block;
         }
+    }
+
+    h3.tp-header {
+        margin-bottom: 10px;
     }
 
     .clients-slider {
@@ -98,11 +98,7 @@
     background-size: 100%;
     background-position: top 20px center;
     background-repeat: no-repeat;
-    padding: 123px 0 97px;
-
-    @include lg {
-        padding: 80px 0 70px;
-    }
+    padding: 45px 0;
 }
 
 .subscribe-wrap {
@@ -110,13 +106,8 @@
     justify-content: center;
     text-align: center;
     background-color: #f3f4f8;
-    padding-top: 93px;
-    padding-bottom: 112px;
-
-    @include md {
-        padding-top: 32px;
-        padding-bottom: 52px;
-    }
+    padding-top: 45px;
+    padding-bottom: 45px;
 
     .container {
         display: flex;
@@ -125,7 +116,7 @@
     }
 
     .tp-header {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
     }
 
     .subscribe {
@@ -227,13 +218,27 @@
     }
 }
 
+.about-video-wrap {
+    display: flex;
+    height: auto;
+
+    img {
+        height: auto;
+        object-fit: contain;
+    }
+}
+
 .about-info {
     display: flex;
     justify-content: center;
 
     .wrap {
-        padding-top: 80px;
+        padding-top: 40px;
         padding-bottom: 60px;
+
+        .tp-header {
+            margin-bottom: 5px;
+        }
 
         @include lg {
             padding-top: 60px;
@@ -251,23 +256,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 74px;
+    padding-top: 30px;
     overflow-x: hidden;
 
-    @include lg {
-        padding-top: 57px;
-    }
-
-    @include md {
-        padding-top: 30px;
-    }
-
     .header {
-        margin-bottom: 136px;
-
-        @include lg {
-            margin-bottom: 120px;
-        }
+        margin-bottom: 75px;
 
         @include md {
             margin-bottom: 20px;
@@ -282,11 +275,7 @@
         .item {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 260px;
-
-            @include lg {
-                margin-bottom: 220px;
-            }
+            margin-bottom: 100px;
 
             &:last-of-type {
                 margin-bottom: 0;
@@ -370,12 +359,8 @@
                     z-index: 2;
                 }
 
-                h3 {
-                    margin-bottom: 20px;
-                }
-
                 h4.tp-header {
-                    margin-bottom: 10px;
+                    margin-bottom: 5px;
                 }
             }
 
@@ -385,17 +370,12 @@
                         content: '';
                         position: absolute;
                         z-index: 1;
-                        top: -80px;
+                        top: -40px;
                         left: -335px;
                         display: block;
                         width: 100vw;
-                        height: calc(100% + 80px + 87px);
+                        height: calc(100% + 40px + 40px);
                         background-color: rgba(#e7e9f0, 0.5);
-
-                        @include lg {
-                            top: -40px;
-                            height: calc(100% + 40px + 40px);
-                        }
 
                         @include md {
                             left: initial;
@@ -438,7 +418,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 74px 0 0;
+    padding: 30px 0 0;
 
     @include lg {
         padding-top: 60px;
@@ -449,11 +429,7 @@
     }
 
     .header {
-        margin-bottom: 74px;
-
-        @include md {
-            margin-bottom: 30px;
-        }
+        margin-bottom: 20px;
     }
 
     .info-top {
@@ -465,10 +441,14 @@
         background-size: 100%;
         background-position: top 20px center;
         background-repeat: no-repeat;
-        padding: 123px 0 97px;
+        padding: 50px 0 60px;
 
         @include md {
             padding: 32px 0 53px;
+        }
+
+        h3 {
+            margin-bottom: 10px;
         }
     }
 
@@ -485,17 +465,8 @@
 
     .social-image {
         width: 100%;
-        height: 718px;
-        object-fit: cover;
+        height: auto;
         opacity: 0.7;
-
-        @include md {
-            height: 340px;
-        }
-
-        @include sm {
-            height: 140px;
-        }
     }
 }
 
@@ -503,21 +474,11 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 74px;
-    padding-bottom: 147px;
-
-    @include lg {
-        padding-top: 57px;
-        padding-bottom: 147px;
-    }
-
-    @include md {
-        padding-top: 30px;
-        padding-bottom: 120px;
-    }
+    padding-top: 30px;
+    padding-bottom: 50px;
 
     .header {
-        margin-bottom: 63px;
+        margin-bottom: 30px;
     }
 
     .list {
@@ -531,8 +492,8 @@
 
         .item {
             display: flex;
-            margin-bottom: 84px;
-            padding-bottom: 84px;
+            margin-bottom: 44px;
+            padding-bottom: 44px;
             border-bottom: 2px solid #f3f4f8;
 
             @include md {
@@ -696,8 +657,8 @@
 
     .list {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 108px 114px;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 50px 50px;
 
         @include md {
             grid-template-columns: 1fr;
@@ -714,7 +675,7 @@
             .media {
                 box-sizing: border-box;
                 padding: 30px;
-                height: 450px;
+                height: 330px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -726,14 +687,18 @@
 
             .content {
                 box-sizing: border-box;
-                padding: 24px 30px 47px;
+                padding: 25px;
 
                 .tp-header {
-                    margin-bottom: 18px;
+                    font-size: 22px;
                 }
 
                 .tp-text {
-                    margin-bottom: 36px;
+                    margin-bottom: 20px;
+                }
+
+                .tp-more {
+                    font-size: 16px;
                 }
             }
         }
@@ -744,7 +709,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 283px;
+    padding-bottom: 120px;
 
     @include md {
         padding-bottom: 72px;
@@ -756,22 +721,26 @@
         justify-content: center;
         align-items: center;
         background-color: rgba(#e7e9f0, 0.5);
-        height: 600px;
-        margin-bottom: 74px;
+        margin-bottom: 30px;
 
         img {
             max-width: 100%;
             max-height: 100%;
+            margin: 50px 0;
         }
     }
 
     .info {
-        margin-bottom: 180px;
+        margin-bottom: 50px;
+
+        h1 {
+            margin-bottom: 0;
+        }
     }
 
     .courses {
         & > h3 {
-            margin-bottom: 63px;
+            margin-bottom: 20px;
         }
 
         .list {
@@ -922,15 +891,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 74px 0 130px;
+    padding: 30px 0 120px;
 
     @include md {
-        padding-top: 32px;
         padding-bottom: 80px;
     }
 
     .header {
-        margin-bottom: 45px;
+        margin-bottom: 30px;
 
         @include md {
             margin-bottom: 17px;
@@ -940,13 +908,12 @@
     .bottom-filters {
         display: flex;
         align-items: center;
-        margin-bottom: 60px;
-        padding-bottom: 60px;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
         border-bottom: 2px solid #f3f4f8;
 
         @include md {
             flex-direction: column;
-            padding-bottom: 46px;
         }
 
         .actions-wrap {
@@ -1080,8 +1047,8 @@
     .video-box-wrap {
         position: relative;
         display: flex;
-        margin-top: 127px;
-        margin-bottom: 174px;
+        margin-top: 100px;
+        margin-bottom: 80px;
 
         @include md {
             flex-direction: column;
@@ -1108,7 +1075,7 @@
 
         .media {
             position: relative;
-            margin-right: 100px;
+            margin-right: 50px;
             width: 640px;
             height: 360px;
 
@@ -1201,6 +1168,9 @@
         }
 
         .content {
+            display: flex;
+            flex-direction: column;
+
             @include md {
                 background-color: rgba(#e7e9f0, 0.5);
                 padding: 32px 30px 41px;
@@ -1219,7 +1189,9 @@
                 }
 
                 .tp-register {
-                    width: auto;
+                    width: 120px;
+                    height: 50px;
+                    font-size: 16px;
                     padding-left: 25px;
                     padding-right: 25px;
 
@@ -1256,6 +1228,7 @@
             }
 
             .list {
+                flex: 1;
                 display: flex;
                 flex-direction: column;
                 margin-bottom: 34px;
@@ -1386,18 +1359,10 @@
     }
 
     .info {
-        margin-bottom: 118px;
-
-        @include md {
-            margin-bottom: 62px;
-        }
+        margin-bottom: 50px;
 
         .tp-header {
-            margin-bottom: 45px;
-
-            @include md {
-                margin-bottom: 32px;
-            }
+            margin-bottom: 10px;
         }
     }
 
@@ -1429,16 +1394,16 @@
             }
         }
 
+        .video-box-wrap {
+            margin-top: 80px;
+        }
+
         .content {
             h3 {
-                margin-bottom: 13px;
+                margin-bottom: 0 !important;
 
                 &:first-of-type {
-                    margin-bottom: 36px;
-                }
-
-                &:last-of-type {
-                    margin-bottom: 0;
+                    margin-bottom: 10px;
                 }
             }
         }
@@ -1489,7 +1454,7 @@
                 font-weight: bold;
                 font-size: 22px;
                 color: #888893;
-                margin-bottom: 44px;
+                margin-bottom: 10px;
             }
         }
     }
@@ -1654,11 +1619,12 @@
 
         .item {
             display: grid;
-            grid-template-columns: 2fr 3fr 2fr;
+            justify-content: space-between;
+            grid-template-columns: 200px 1fr auto;
             grid-gap: 30px;
-            font-size: 22px;
+            font-size: 16px;
             color: #888893;
-            margin-bottom: 66px;
+            margin-bottom: 40px;
 
             &:last-of-type {
                 margin-bottom: 0;

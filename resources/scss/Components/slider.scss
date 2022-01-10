@@ -39,6 +39,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             padding-bottom: 80px;
             position: relative;
             z-index: 3;
@@ -48,18 +49,13 @@
                 font-size: 48px;
                 font-weight: bold;
                 font-family: 'Caps';
-                margin-top: 203px;
-                margin-bottom: 105px;
+                margin-bottom: 30px;
 
                 @include lg {
-                    margin-top: 125px;
-                    margin-bottom: 65px;
                     font-size: 36px;
                 }
 
                 @include md {
-                    margin-top: 60px;
-                    margin-bottom: 30px;
                     font-size: 26px;
                 }
 
@@ -152,7 +148,7 @@
         z-index: 3;
         display: flex;
         align-self: flex-end;
-        bottom: 80px;
+        bottom: 40px;
 
         @include md {
             bottom: 24px;
@@ -165,13 +161,12 @@
         align-self: flex-start;
         color: #ffffff;
         text-decoration: none;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         text-shadow: 0 1px 10px #03002c;
 
         @include md {
             flex: initial;
-            font-size: 16px;
         }
 
         @include sm {
@@ -187,26 +182,21 @@
     .navigation {
         position: absolute;
         display: flex;
-        bottom: 88px;
+        bottom: 48px;
         z-index: 3;
 
         @include md {
-            bottom: 30px;
+            display: none;
         }
 
         a {
             cursor: pointer;
             display: block;
             background-color: #ffffff;
-            width: 14px;
-            height: 14px;
+            width: 8px;
+            height: 8px;
             margin: 0 5px;
             border-radius: 50%;
-
-            @include md {
-                width: 12px;
-                height: 12px;
-            }
 
             &.active {
                 background-color: #edbd03;

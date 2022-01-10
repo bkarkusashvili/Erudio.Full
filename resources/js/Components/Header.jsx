@@ -38,7 +38,7 @@ export const Header = () => {
     return (
         <header>
             <div className="container wrap">
-                <a href="/" className="logo">
+                <a href={useRoute('home')} className="logo">
                     <img src="/images/logo.png" alt="Erudio" />
                 </a>
                 <div className="menu-toggle">
@@ -97,7 +97,7 @@ export const Header = () => {
                             <span>{lang === 'en' ? 'ENG' : 'ქარ'}</span>
                             <KeyboardArrowDownIcon />
                         </div>
-                        <div className={getClassName({ active: isLangActive, drop: true })}>
+                        <div className={getClassName({ active: isLangActive, drop: true, 'nav-list': true })}>
                             <Link href={route('home', { lang: lang === 'ka' ? 'en' : 'ka' })}>
                                 <img src={`${base}/images/${lang === 'ka' ? 'eng' : 'geo'}.svg`} />
                                 <span>{lang === 'ka' ? 'ENG' : 'ქარ'}</span>
