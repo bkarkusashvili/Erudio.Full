@@ -96,7 +96,7 @@ const List = ({ rows, columns, model, paginate, search = [] }) => {
                         />
                         <Button
                             disabled={processing}
-                            href={route(`${model}.export`)}
+                            href={route(`${model}.export`, route().params)}
                             variant="contained"
                             children="გადმოწერა"
                         />
