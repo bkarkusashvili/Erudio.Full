@@ -68,8 +68,7 @@ class FrontController extends Controller
             return [];
         }
 
-        $categories = Category::where('status', 1)
-            ->where('title_ka', 'like', '%' . $s . '%')
+        $categories = Category::where('title_ka', 'like', '%' . $s . '%')
             ->orWhere('title_en', 'like', '%' . $s . '%')
             ->get();
         $categories = $categories->map(function (Category $item) {
@@ -81,7 +80,8 @@ class FrontController extends Controller
             ];
         });
 
-        $courses = Course::where('name_ka', 'like', '%' . $s . '%')
+        $courses = Course::where('status', 1)
+            ->where('name_ka', 'like', '%' . $s . '%')
             ->orWhere('name_en', 'like', '%' . $s . '%')
             ->get();
         $courses = $courses->map(function (Course $item) {
