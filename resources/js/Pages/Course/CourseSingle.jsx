@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, useForm, usePage } from '@inertiajs/inertia-react';
-import { getClassName, getIdFromUrl, getParams, getVideoType } from '@/Helper';
+import { getClassName, getParams, getVideoType } from '@/Helper';
 import videojs from "video.js";
 import 'video.js/dist/video-js.css';
 import moment from 'moment';
@@ -92,7 +92,7 @@ const CourseSingle = ({ item, lang }) => {
         player.current.pause();
         setActiveVideo(video);
 
-        source.current.setAttribute('src', `https://drive.google.com/u/0/uc?id=${getIdFromUrl(video.video)}&export=download`);
+        source.current.setAttribute('src', video.video);
     };
     useEffect(() => {
         if (player.current) {
@@ -188,8 +188,7 @@ const CourseSingle = ({ item, lang }) => {
                             <div className="active-video">
                                 <video ref={player} width="1366" height="810" className="video-js" controls preload="auto" poster={`${base}/storage/${activeVideo.image}`}
                                     data-setup="{}">
-                                    {/* <source ref={source} src={`https://drive.google.com/u/0/uc?id=${getIdFromUrl(activeVideo.video)}&export=download`} type="video/mp4" /> */}
-                                    <source ref={source} src="https://erudio.ge/storage/video/course/A4nzjiwo2nkuiVZZmPW1A0xMMDzdnA4VmzWwDgN3.mp4" type="video/mp4" />
+                                    <source ref={source} src={activeVideo.video} type="video/mp4" />
                                 </video>
                             </div>
                             {item.videos.length > 1 && (

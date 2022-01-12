@@ -7,7 +7,7 @@ use App\Models\Translate;
 
 class TranslateController extends AdminController
 {
-    public $create = false;
+    public $create = true;
     public $delete = false;
     public $edit = true;
 

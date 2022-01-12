@@ -17,6 +17,7 @@ SwiperCore.use([Autoplay]);
 export const Slider = ({ data, list }) => {
     const { lang, translate } = usePage().props
     const [sug, setSug] = useState([]);
+    const [isMobile, setIsmobile] = useState(false);
     const [search, setSearch] = useState();
     const [slider, setSlider] = useState();
     const [active, setActive] = useState(0);
@@ -28,6 +29,10 @@ export const Slider = ({ data, list }) => {
 
         Inertia.get(useRoute('course', { s: search }));
     };
+
+    useEffect(() => {
+        setIsmobile(window.innerWidth <= 774);
+    }, [window.innerWidth])
 
     useEffect(() => {
         fetch(serachPath)
@@ -55,7 +60,7 @@ export const Slider = ({ data, list }) => {
                     <h3 children={translate.header_title} />
                     <div className="search-input">
                         <form className="search-wrap" onSubmit={handleSubmit}>
-                            <input type="text" name="search" onChange={getSearch} autoComplete="off" placeholder={translate.Search_text} />
+                            <input type="text" name="search" onChange={getSearch} autoComplete="off" placeholder={isMobile ? translate.Search_text_small : translate.Search_text} />
                             <IconButton type="submit" className="search-icon" children={<SearchSharp />} />
                         </form>
                         {!!sug.length && (

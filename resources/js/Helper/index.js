@@ -27,7 +27,6 @@ export const getParams = () => {
 
     return params;
 };
-export const getIdFromUrl = url => url.match(/[-\w]{25,}/)[0] || null;
 export const baseShareText = {
     ka: 'erudio წარმოადგენს აუდიტორული და საკონსულტაციო კომპანია Loialté-ს საგანმანათლებლო მიმართულებას და გთავაზობთ პროფესიული ტრენინგების მრავალფეროვან ჩამონათვალს.',
     en: 'erudio is the educational direction of the audit and consulting company Loialté and offers a diverse list of professional trainings.',
