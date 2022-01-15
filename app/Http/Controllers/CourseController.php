@@ -10,8 +10,6 @@ use App\Models\Instructor;
 
 class CourseController extends AdminController
 {
-    // public $categories;
-
     public $model = Course::class;
     public $request = CourseRequest::class;
     public $columns = [
@@ -34,34 +32,6 @@ class CourseController extends AdminController
 
                 ['type' => 'textarea', 'name' => 'goal_ka', 'label' => 'მიზანი (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'goal_en', 'label' => 'მიზანი (ინგ.)'],
-
-                // [
-                //     'type' => 'group',
-                //     'title' => 'დღეები',
-                //     'name' => 'day',
-                //     'relation' => 'body',
-                //     'addMore' => true,
-                //     'divider' => 'top',
-                //     'list' => [
-                //         ['type' => 'date', 'name' => 'date', 'label' => 'თარიღი'],
-                //         ['type' => 'text', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
-                //         ['type' => 'text', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
-                //     ]
-                // ],
-
-                // [
-                //     'type' => 'group',
-                //     'title' => 'თემები',
-                //     'name' => 'topic',
-                //     'relation' => 'body',
-                //     'addMore' => true,
-                //     'divider' => 'top',
-                //     'list' => [
-                //         ['type' => 'date', 'name' => 'date', 'label' => 'თარიღი'],
-                //         ['type' => 'text', 'name' => 'text_ka', 'label' => 'ტექსტი (ქარ.)'],
-                //         ['type' => 'text', 'name' => 'text_en', 'label' => 'ტექსტი (ინგ.)'],
-                //     ]
-                // ],
 
                 ['type' => 'textarea', 'name' => 'methodology_ka', 'label' => 'მეთოდოლოგია (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'methodology_en', 'label' => 'მეთოდოლოგია (ინგ.)'],
@@ -107,12 +77,6 @@ class CourseController extends AdminController
 
     public function __construct()
     {
-        // $this->categories = Category::all()->map(function (Category $category) {
-        //     return [
-        //         'text' => $category->title_ka,
-        //         'value' => $category->id,
-        //     ];
-        // })->toArray();
         $start = 10;
         $this->fields[1]['list'][$start++]['options'] = [
             ['text' => 'Online ტრენინგი', 'value' => 1],

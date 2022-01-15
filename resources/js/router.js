@@ -2,7 +2,7 @@ export const MainMenu = (translate) => ([
     { name: 'home', value: translate.home },
     {
         name: 'about', value: translate.about, list: [
-            { name: 'about', value: translate.about },
+            { name: 'about', value: translate.aboutErudio },
             { name: 'team', value: translate.team },
             { name: 'social', value: translate.social },
             { name: 'media', value: translate.media },

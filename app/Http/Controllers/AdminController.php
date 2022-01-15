@@ -198,7 +198,7 @@ class AdminController extends Controller
 
     public function export()
     {
-        return Excel::download(new DataExport($this->getListData()->get()), 'data.xlsx');
+        return Excel::download(new DataExport($this->getListData()), $this->route . '.xlsx');
     }
 
     public function column(int $id, string $column, string $value)

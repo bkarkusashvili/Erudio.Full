@@ -93,13 +93,13 @@ export const Header = () => {
                     </Link>
                     <div className="lang-wrap">
                         <div className="current-lang" onClick={() => setIsLangActive(!isLangActive)}>
-                            <img src={`${base}/images/${lang === 'en' ? 'eng' : 'geo'}.svg`} />
+                            <img src={`${base}/images/${lang === 'en' ? 'eng' : 'geo'}.png`} />
                             <span>{lang === 'en' ? 'ENG' : 'ქარ'}</span>
                             <KeyboardArrowDownIcon />
                         </div>
                         <div className={getClassName({ active: isLangActive, drop: true, 'nav-list': true })}>
                             <Link href={route('home', { lang: lang === 'ka' ? 'en' : 'ka' })}>
-                                <img src={`${base}/images/${lang === 'ka' ? 'eng' : 'geo'}.svg`} />
+                                <img src={`${base}/images/${lang === 'ka' ? 'eng' : 'geo'}.png`} />
                                 <span>{lang === 'ka' ? 'ENG' : 'ქარ'}</span>
                             </Link>
                         </div>

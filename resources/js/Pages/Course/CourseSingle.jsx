@@ -14,6 +14,7 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
 import { Metas } from '@/Components/Metas';
 import { Inertia } from '@inertiajs/inertia';
+import { Swiper, SwiperSlide } from 'swiper/react';
 
 const invoiceForm = [
     { name: 'fullname', label: 'სახელი გვარი', type: 'text' },
@@ -35,6 +36,7 @@ const CourseSingle = ({ item, lang }) => {
     const [callbackDialog, setCallbackDialog] = useState(false);
     const [formDialog, setFormDialog] = useState(false);
     const [form, setForm] = useState(false);
+    const [swiper, setSwiper] = useState();
     const params = getParams();
 
     const player = useRef();
@@ -192,16 +194,35 @@ const CourseSingle = ({ item, lang }) => {
                                 </video>
                             </div>
                             {item.videos.length > 1 && (
-                                <div className="video-list">
-                                    {item.videos.filter(video => video.id !== activeVideo.id).map(video => (
-                                        <div className="item" onClick={() => replaceVideo(video)}>
-                                            <figure>
-                                                <img src={`${base}/storage/${video.image}`} alt="" />
-                                            </figure>
-                                            <h3>{video['name_' + lang]}</h3>
-                                        </div>
-                                    ))}
-                                </div>
+                                <>
+                                    <Swiper
+                                        className="video-list"
+                                        onInit={slider => setSwiper(slider)}
+                                        slidesPerView={3}
+                                        spaceBetween={20}
+                                    >
+                                        {item.videos.map(video => (
+                                            <SwiperSlide
+                                                key={video.id}
+                                                className="item"
+                                                onClick={() => replaceVideo(video)}
+                                            >
+                                                <figure>
+                                                    <img src={`${base}/storage/${video.image}`} alt="" />
+                                                </figure>
+                                                <h3>{video['name_' + lang]}</h3>
+                                            </SwiperSlide>
+                                        ))}
+                                    </Swiper>
+                                    <div className="video-navigation">
+                                        <a className="left" onClick={() => swiper.slidePrev()}>
+                                            <i className="icon icon-slide-arrow"></i>
+                                        </a>
+                                        <a className="right" onClick={() => swiper.slideNext()}>
+                                            <i className="icon icon-slide-arrow icon-rotate-180"></i>
+                                        </a>
+                                    </div>
+                                </>
                             )}
                         </div>
                     )

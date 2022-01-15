@@ -192,14 +192,24 @@ class FrontController extends Controller
         $type = (int) $request->input('type', -1);
         $date = $request->input('date', $today);
         $date = new Carbon($date);
-        $query = Course::query()->with('lives')->where('status', 1);
+        $query = Course::query()->where('status', 1);
 
         $query->when($type == -1, function ($q) {
-            // $q->whereHas('lives')->orWhere('type', 0);
+            $q->where(function ($q) {
+                $q->where('type', 0)->whereHas('videos');
+            })->orWhere(function ($q) {
+                $q->where('type', 1)->whereHas('lives');
+            })->orWhere(function ($q) {
+                $q->where('type', 2)->whereHas('offlines');
+            });
         });
 
         $query->when($type >= 0, function ($q) use ($type) {
             $q->where('type', $type);
+        });
+
+        $query->when($type == 0, function ($q) {
+            $q->whereHas('videos');
         });
 
         $query->when($type == 1, function ($q) use ($date) {
@@ -302,7 +312,7 @@ class FrontController extends Controller
             ]);
         } else {
             $payment = app(TBCPaymentService::class);
-            $response = $payment->pay();
+            $response = $payment->pay($course);
 
             if ($response->ok()) {
                 $body = json_decode($response->body());

@@ -362,6 +362,10 @@
                 h4.tp-header {
                     margin-bottom: 5px;
                 }
+
+                .tp-text {
+                    text-align: justify;
+                }
             }
 
             &:nth-of-type(odd) {
@@ -926,10 +930,6 @@
             align-items: center;
             justify-content: flex-end;
 
-            @include lg {
-                margin-left: 24px;
-            }
-
             @include md {
                 width: 100%;
                 justify-content: space-between;
@@ -938,7 +938,7 @@
 
         select,
         input {
-            flex: 1;
+            flex: 1 0;
             cursor: pointer;
             height: 60px;
             border: 1px solid #888893;
@@ -947,12 +947,9 @@
             padding: 0 24px;
             color: #888893;
             font-size: 18px;
-            margin-right: 32px;
+            margin-right: 24px;
             box-sizing: border-box;
-
-            @include lg {
-                margin-right: 24px;
-            }
+            width: 100%;
 
             @include md {
                 flex: 1 0 60px;
@@ -962,8 +959,6 @@
             }
 
             &:first-of-type {
-                width: 262px;
-
                 @include md {
                     width: 100% !important;
                 }
@@ -987,10 +982,6 @@
                 background-color: #ffffff;
                 color: #888893;
             }
-        }
-
-        input {
-            margin-right: 0 !important;
         }
 
         .search {
@@ -1081,7 +1072,10 @@
             position: relative;
             margin-right: 50px;
             width: 640px;
-            height: 360px;
+
+            img {
+                height: auto;
+            }
 
             .video-js {
                 width: 640px !important;
@@ -1303,29 +1297,62 @@
     }
 
     .ofline-course {
-        margin-bottom: 130px;
+        margin-bottom: 30px;
 
         .active-video {
-            margin: 30px 0 100px;
+            margin: 15px 0 30px;
+
+            @include md {
+                margin-bottom: 20px;
+            }
+
+            & > div {
+                width: 100% !important;
+                height: 700px !important;
+
+                @include lg {
+                    height: 500px !important;
+                }
+
+                @include md {
+                    height: 450px !important;
+                }
+
+                @include sm {
+                    height: 350px !important;
+                }
+            }
 
             .video-js {
                 .vjs-big-play-button {
                     font-size: 200px !important;
+
+                    @include md {
+                        font-size: 100px !important;
+                    }
                 }
             }
         }
 
         .video-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            grid-gap: 40px;
-
             .item {
                 figure {
                     position: relative;
                     width: 100%;
                     height: 240px;
-                    margin-bottom: 32px;
+                    margin-bottom: 5px;
+
+                    @include lg {
+                        height: 200px;
+                    }
+
+                    @include md {
+                        height: 150px;
+                    }
+
+                    @include sm {
+                        height: 110px;
+                    }
 
                     &::after {
                         content: '';
@@ -1351,8 +1378,25 @@
                 h3 {
                     color: #1a1a1a;
                     font-weight: bold;
-                    font-size: 22px;
+                    font-size: 18px;
                 }
+            }
+        }
+
+        .video-navigation {
+            display: flex;
+            margin-top: 15px;
+            justify-content: center;
+
+            @include md {
+                display: none;
+            }
+
+            a {
+                cursor: pointer;
+                text-decoration: none;
+                margin: 0 10px;
+                color: #1a1a1a;
             }
         }
 
@@ -1676,6 +1720,10 @@
 
             span {
                 width: 320px;
+            }
+
+            .input-wrap {
+                width: 500px;
             }
 
             input.form-field {

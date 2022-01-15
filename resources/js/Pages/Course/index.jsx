@@ -8,11 +8,13 @@ import { Link, useForm } from '@inertiajs/inertia-react';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
 
+const params = route().params;
+
 const initData = {
-    category: null,
-    city: null,
-    date: null,
-    type: null,
+    category: params.category || '',
+    city: params.city || '',
+    date: params.date || null,
+    type: params.type || '',
 };
 
 const Courses = ({ list, lang, categories, cities, translate, types }) => {
@@ -47,7 +49,7 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                     <h1 className="tp-header small" children={translate.searchCourses} />
                 </div>
                 <div className="container bottom-filters">
-                    <select className="type-select" onChange={(e) => setData('type', e.target.value)}>
+                    <select className="type-select" onChange={(e) => setData('type', e.target.value)} value={data.type}>
                         <option value="">{translate.course_type}</option>
                         {types.map(item => (
                             <option
@@ -57,7 +59,7 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                             />
                         ))}
                     </select>
-                    <select onChange={(e) => setData('category', e.target.value)}>
+                    <select onChange={(e) => setData('category', e.target.value)} value={data.category}>
                         <option value="">{translate.topic_category}</option>
                         {categories.map(item => (
                             <option
@@ -67,7 +69,7 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                             />
                         ))}
                     </select>
-                    <select onChange={(e) => setData('city', e.target.value)}>
+                    <select onChange={(e) => setData('city', e.target.value)} value={data.city}>
                         <option value="">{translate.city}</option>
                         {cities.map(item => (
                             <option
