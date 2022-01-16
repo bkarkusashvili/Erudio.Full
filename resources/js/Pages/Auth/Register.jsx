@@ -6,6 +6,7 @@ import { Checkmark } from '@/Components/Checkmark';
 import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
+import { SocialAuth } from '@/Components/SocialAuth';
 
 export default function Register() {
     const { translate } = usePage().props;
@@ -111,6 +112,7 @@ export default function Register() {
                             <Link href={useRoute('terms')} children={translate.terms} />
                         </div>
                         <button className="btn register-btn" type="submit" disabled={processing} children={translate.registration} />
+                        <SocialAuth />
                     </div>
                 </form>
             </section>

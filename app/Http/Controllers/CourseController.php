@@ -33,6 +33,9 @@ class CourseController extends AdminController
                 ['type' => 'textarea', 'name' => 'goal_ka', 'label' => 'მიზანი (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'goal_en', 'label' => 'მიზანი (ინგ.)'],
 
+                ['type' => 'textarea', 'name' => 'days_ka', 'label' => 'დღეები (ქარ.)'],
+                ['type' => 'textarea', 'name' => 'days_en', 'label' => 'დღეები (ინგ.)'],
+
                 ['type' => 'textarea', 'name' => 'methodology_ka', 'label' => 'მეთოდოლოგია (ქარ.)'],
                 ['type' => 'textarea', 'name' => 'methodology_en', 'label' => 'მეთოდოლოგია (ინგ.)'],
                 ['type' => 'textarea', 'name' => 'for_ka', 'label' => 'ვისთვისაა საჭირო ეს კურსები (ქარ.)'],

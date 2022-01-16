@@ -5,6 +5,7 @@ import { TextField } from '@mui/material';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
 import { Checkmark } from '@/Components/Checkmark';
+import { SocialAuth } from '@/Components/SocialAuth';
 
 export default function Login({ status, canResetPassword }) {
     const { translate } = usePage().props;
@@ -82,23 +83,8 @@ export default function Login({ status, canResetPassword }) {
                         </div>
                         <button className="btn login-btn" type="submit" disabled={processing} children={translate.login} />
                         <Link href={useRoute('register')} className="btn register-btn" children={translate.registration} />
+                        <SocialAuth />
                     </div>
-
-                    {/*
-                    <div className="flex items-center justify-end mt-4">
-                        {canResetPassword && (
-                            <Link
-                                href={route('password.request')}
-                                className="underline text-sm text-gray-600 hover:text-gray-900"
-                            >
-                                დაგავიწყდა პაროლი?
-                            </Link>
-                        )}
-
-                        <Button className="ml-4" processing={processing}>
-                            Log in
-                        </Button>
-                    </div> */}
                 </form>
             </section>
         </MainLayout>

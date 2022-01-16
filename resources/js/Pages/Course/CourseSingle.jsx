@@ -210,7 +210,7 @@ const CourseSingle = ({ item, lang }) => {
                                                 <figure>
                                                     <img src={`${base}/storage/${video.image}`} alt="" />
                                                 </figure>
-                                                <h3>{video['name_' + lang]}</h3>
+                                                <h3 onClick={() => replaceVideo(video)}>{video['name_' + lang]}</h3>
                                             </SwiperSlide>
                                         ))}
                                     </Swiper>
@@ -231,18 +231,11 @@ const CourseSingle = ({ item, lang }) => {
                     <h3 className="tp-header" children={translate.course_goal} />
                     <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['goal_' + lang] }} />
                 </div>
-                {/* <div className="container info-list days">
-                    <div className="item">
-                        <span className="tp-header small">დღე 1</span>
-                        <p className="tp-text">20.20.2020 - 13:14 სთ.   აღწერამოკლეაღწერამოკლეაღწერამოკლე აღწერამოკლ აღწერამოკლეაღწე ამოკლეაღწე</p>
+                {item['days_' + lang] && (
+                    <div className="container info">
+                        <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['days_' + lang] }} />
                     </div>
-                </div> */}
-                {/* <div className="container info-list topic">
-                    <div className="item">
-                        <span className="tp-header small">თემა 1</span>
-                        <p className="tp-text">სათაური</p>
-                    </div>
-                </div> */}
+                )}
                 <div className="container info">
                     <h3 className="tp-header small" children={translate.course_methodology} />
                     <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['methodology_' + lang] }} />

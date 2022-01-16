@@ -1376,6 +1376,8 @@
                 }
 
                 h3 {
+                    cursor: pointer;
+                    display: inline-block;
                     color: #1a1a1a;
                     font-weight: bold;
                     font-size: 18px;
@@ -2048,6 +2050,68 @@
     div {
         height: 25px;
         background-color: #5952d3;
+    }
+}
+
+.social-auth {
+    display: flex;
+    flex-direction: column;
+
+    .or-social {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 25px;
+        background-image: url(/images/dash.svg);
+        background-repeat: repeat-x;
+        background-position: center left;
+
+        span {
+            background-color: #ffffff;
+            padding: 0 15px;
+            color: #888893;
+            font-size: 18px;
+        }
+    }
+
+    a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #1a1a1a;
+        border-radius: 30px;
+        font-size: 18px;
+        font-weight: bold;
+        text-decoration: none;
+        height: 60px;
+        margin-top: 25px;
+        transition: all 0.3s;
+
+        img {
+            max-width: 20px;
+            max-height: 20px;
+            margin-right: 8px;
+        }
+
+        &.google {
+            color: #606369;
+
+            &:hover {
+                border-color: #606369;
+                background-color: #606369;
+                color: #ffffff;
+            }
+        }
+
+        &.facebook {
+            color: #1877f2;
+
+            &:hover {
+                border-color: #1877f2;
+                background-color: #1877f2;
+                color: #ffffff;
+            }
+        }
     }
 }
 

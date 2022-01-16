@@ -31,14 +31,8 @@ class CourseRequest extends FormRequest
             'goal_ka' => 'required|string',
             'goal_en' => 'nullable|string',
 
-            // 'body.day' => 'required|array|min:1',
-            // 'body.day.*.date' => 'required',
-            // 'body.day.*.text_ka' => 'required|string',
-            // 'body.day.*.text_en' => 'nullable|string',
-            // 'date' => 'required|date',
-            // 'text_ka' => 'required|array',
-            // 'text_ka.*' => 'required|string',
-            // 'text_en' => 'nullable|string',
+            'days_ka' => 'nullable|string',
+            'days_en' => 'nullable|string',
 
             'methodology_ka' => 'required|string',
             'methodology_en' => 'nullable|string',

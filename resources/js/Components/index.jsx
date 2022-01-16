@@ -7,3 +7,4 @@ export * from './Icons';
 export * from './Checkmark';
 export * from './Route';
 export * from './Video';
+export * from './SocialAuth';
