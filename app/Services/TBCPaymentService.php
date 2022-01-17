@@ -9,12 +9,21 @@ use Lang;
 
 class TBCPaymentService
 {
-    private $apiKey = '8cE9WQxV7LMoNhHEG6ySdzWIRRkY7nbd';
-    private $client_id = '7000489';
-    private $client_secret = 'ZJu3kFUia6sOPfeW';
+    private $apiKey;
+    private $client_id;
+    private $client_secret;
+    private $testing;
     private $access_token;
 
     private $baseUrl = 'https://api.tbcbank.ge/v1/tpay/';
+
+    public function __construct()
+    {
+        $this->apiKey = env('TBC_PAYMENT_API_KEY');
+        $this->client_id = env('TBC_PAYMENT_CLIENT_ID');
+        $this->client_secret = env('TBC_PAYMENT_API_SECRET');
+        $this->testing = env('TBC_PAYMENT_TESTING');
+    }
 
     private function getToken()
     {
@@ -54,7 +63,7 @@ class TBCPaymentService
             ->post('payments', [
                 "amount" => [
                     "currency" => "GEL",
-                    "total" => 0.01,
+                    "total" => $this->testing ? 0.01 : $course->price,
                 ],
                 "returnurl" => route('course.single', [
                     $course->id,
