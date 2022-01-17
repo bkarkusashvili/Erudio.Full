@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\FacebookController;
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\VerifyEmailController;
@@ -137,3 +138,6 @@ Route::middleware('admin')->prefix('admin')->group(function () use ($adminResour
 
 Route::get('/auth/facebook/redirect', [FacebookController::class, 'handleRedirect'])->name('auth.facebook');
 Route::get('/auth/facebook/callback', [FacebookController::class, 'handleCallback']);
+
+Route::get('/auth/google/redirect', [GoogleController::class, 'handleRedirect'])->name('auth.google');
+Route::get('/auth/google/callback', [GoogleController::class, 'handleCallback']);

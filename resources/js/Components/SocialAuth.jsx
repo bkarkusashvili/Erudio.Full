@@ -9,7 +9,7 @@ export const SocialAuth = () => {
             <div className="or-social">
                 <span>{{ ka: 'ან', en: 'Or' }[lang]}</span>
             </div>
-            <a href={route('auth.facebook')} className="google">
+            <a href={route('auth.google')} className="google">
                 <img src="/images/google.svg" alt="Google" />
                 <span>Login with Google</span>
             </a>
