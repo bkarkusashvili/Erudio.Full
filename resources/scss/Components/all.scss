@@ -1701,7 +1701,15 @@
     }
 
     .wrap > .tp-text {
-        margin-bottom: 70px;
+        margin-bottom: 40px;
+    }
+
+    .info-success {
+        color: #2e7d32;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 30px;
+        font-size: 18px;
     }
 
     .form {
@@ -1720,7 +1728,7 @@
                 margin-bottom: 0;
             }
 
-            span {
+            & > span {
                 width: 320px;
             }
 
@@ -1766,18 +1774,27 @@
     }
 
     .delete {
+        cursor: pointer;
         display: inline-block;
         font-weight: bold;
         color: #1a1a1a;
         font-size: 22px;
         text-decoration: none;
-        margin-top: 40px;
+        margin-top: 20px;
         font-family: 'Caps';
     }
 
     .delete-wrap {
         display: flex;
         align-items: center;
+
+        &.error {
+            color: #d32f2f;
+
+            .checkmark {
+                border-color: #d32f2f;
+            }
+        }
     }
 }
 

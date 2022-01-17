@@ -66,9 +66,9 @@ const CourseSingle = ({ item, lang }) => {
         setActiveVideo(item.videos[activeIndex]);
     }, []);
 
-    const pay = () => {
+    const pay = (type) => {
         setLoading(true);
-        axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse })
+        axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse, payType: type })
             .then(res => res.data)
             .then(res => {
                 if (isFree) {
@@ -82,12 +82,12 @@ const CourseSingle = ({ item, lang }) => {
             .catch(e => console.log(e));
     };
     const payInvoice = () => post(route('pay.invoice'));
-    const checkPay = (e) => {
+    const checkPay = (e, type) => {
         e.preventDefault();
 
         if (isOffline) return setFormDialog(true);
 
-        pay();
+        pay(type);
     };
 
     const replaceVideo = (video) => {
@@ -152,14 +152,14 @@ const CourseSingle = ({ item, lang }) => {
                             user ?
                                 <div className="actions">
                                     <Link
-                                        onClick={checkPay}
+                                        onClick={(e) => checkPay(e, 'card')}
                                         href="#"
                                         className={getClassName({ loading, 'tp-register': true })}
                                         children={loading ? <CircularProgress /> : translate.buy}
                                     />
                                     {!isFree && (
                                         <Link
-                                            onClick={checkPay}
+                                            onClick={(e) => checkPay(e, 'installment')}
                                             href="#"
                                             className={getClassName({ loading, 'tp-register': true })}
                                             children={loading ? <CircularProgress /> : 'განვადება'}
@@ -310,7 +310,7 @@ const CourseSingle = ({ item, lang }) => {
                             )}
                         </Stack> :
                         <Stack direction={'row'} spacing={2} justifyContent={'center'}>
-                            <Button variant="outlined" onClick={() => pay()}>ფიზკური</Button>
+                            <Button variant="outlined" onClick={() => pay('card')}>ფიზკური</Button>
                             <Button variant="outlined" onClick={() => setForm(true)}>იურიდიული</Button>
                         </Stack>
                     }

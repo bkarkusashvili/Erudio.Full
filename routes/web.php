@@ -96,6 +96,9 @@ Route::post('/reset-password', [NewPasswordController::class, 'store'])
 Route::post('/pay', [FrontController::class, 'pay'])->middleware('auth')->name('pay');
 Route::post('/pay-invoice', [FrontController::class, 'payInvoice'])->middleware('auth')->name('pay.invoice');
 
+Route::post('/update-profile', [FrontController::class, 'updateProfile'])->middleware('auth')->name('update.profile');
+Route::delete('/delete-account', [FrontController::class, 'deleteAccount'])->middleware('auth')->name('deleteAccount');
+
 $adminResources = [
     'course' => CourseController::class,
     'livecourse' => LiveCourseController::class,

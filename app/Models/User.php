@@ -25,6 +25,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'firstname',
         'lastname',
         'personalnumber',
+        'phone',
         'email',
         'password',
         'facebook_id',
@@ -39,6 +40,8 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $hidden = [
         'password',
         'remember_token',
+        'facebook_id',
+        'google_id',
     ];
 
     /**
@@ -50,6 +53,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    public function getHasPasswordAttribute($value)
+    {
+        return !!$this->password;
+    }
 
     public function orders()
     {

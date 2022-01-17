@@ -19,9 +19,12 @@ use App\Notifications\OrderNotification;
 use App\Notifications\SubscribeNotification;
 use App\Services\TBCPaymentService;
 use Carbon\Carbon;
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Str;
 
@@ -275,7 +278,9 @@ class FrontController extends Controller
 
     public function settings()
     {
-        return Inertia::render('Auth/Settings', []);
+        return Inertia::render('Auth/Settings', [
+            'hasPassword' => auth()->user()->hasPassword
+        ]);
     }
 
     public function terms()
@@ -293,6 +298,7 @@ class FrontController extends Controller
     public function pay(Request $request)
     {
         $courseId = $request->get('courseId');
+        $payType = $request->get('payType', 'card');
         // $request->input('courseId');
 
         $course = Course::findOrFail($courseId);
@@ -312,7 +318,7 @@ class FrontController extends Controller
             ]);
         } else {
             $payment = app(TBCPaymentService::class);
-            $response = $payment->pay($course);
+            $response = $payment->pay($course, $payType);
 
             if ($response->ok()) {
                 $body = json_decode($response->body());
@@ -366,6 +372,46 @@ class FrontController extends Controller
         $payment = app(TBCPaymentService::class);
 
         $payment->checkStatus($payId);
+    }
+
+    public function deleteAccount(Request $request)
+    {
+        $request->validate([
+            'terms' => 'required|accepted'
+        ]);
+
+        auth()->user()->delete();
+
+        return redirect()->route('home', ['lang' => Lang::locale()]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = auth()->user();
+        $requiredCurrentPassword = $user->has_password && $request->password ? 'required' : 'nullable';
+
+        $data = $request->validate([
+            'phone' => 'required|string|regex:/^5(?:[0-9][ -]*){8}$/',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => ['nullable', Rules\Password::defaults(), 'min:8', 'confirmed'],
+            'current_password' => [$requiredCurrentPassword, function ($attribute, $value, $fail) use ($user) {
+                if (!\Hash::check($value, $user->password)) {
+                    return $fail(__('პაროლი არასწორია.'));
+                }
+            }],
+        ]);
+
+        $data['phone'] = str_replace([' ', '-'], ['', '',], $request->phone);
+
+        if ($request->password) {
+            $data['password'] = Hash::make($request->password);
+        } else {
+            unset($data['password']);
+        }
+
+        $user->update($data);
+
+        return Redirect::back();
     }
 
     private function limitCourseText(Course $course)

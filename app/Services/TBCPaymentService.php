@@ -49,9 +49,11 @@ class TBCPaymentService
      * @param  Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function pay(Course $course)
+    public function pay(Course $course, $type)
     {
         $this->getToken();
+
+        $methods = $type == 'card' ? [5, 7] : [8];
 
         $response = Http::withHeaders([
             'apiKey' => $this->apiKey,
@@ -65,6 +67,7 @@ class TBCPaymentService
                     "currency" => "GEL",
                     "total" => $this->testing ? 0.01 : $course->price,
                 ],
+                "methods" => $methods,
                 "returnurl" => route('course.single', [
                     $course->id,
                     'lang' => Lang::locale(),
