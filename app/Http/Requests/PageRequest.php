@@ -30,6 +30,10 @@ class PageRequest extends FormRequest
             $rules = [
                 'body.text_ka' => 'required|string',
                 'body.text_en' => 'nullable|string',
+                'body.logo' => [
+                    'file',
+                    request()->isMethod('POST') ? 'required' : 'nullable'
+                ],
                 'body.file' => [
                     'file',
                     request()->isMethod('POST') ? 'required' : 'nullable'

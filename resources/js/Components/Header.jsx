@@ -12,7 +12,7 @@ export const Header = () => {
     const [menuStatus, setMenuStatus] = useState(false);
     const [active, setActive] = useState(-1);
     const [isLangActive, setIsLangActive] = useState();
-    const { categories, lang, auth, base, translate } = usePage().props;
+    const { categories, lang, auth, base, translate, logo } = usePage().props;
 
     const menu = MainMenu(translate).map(item => {
         if (item.name === 'category') {
@@ -35,11 +35,13 @@ export const Header = () => {
         }
     };
 
+    console.log(logo);
+
     return (
         <header>
             <div className="container wrap">
                 <a href={useRoute('home')} className="logo">
-                    <img src="/images/logo.png" alt="Erudio" />
+                    <img src={logo} alt="Erudio" />
                 </a>
                 <div className="menu-toggle">
                     {menuStatus ?

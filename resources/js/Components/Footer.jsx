@@ -3,14 +3,14 @@ import { Link, usePage } from '@inertiajs/inertia-react';
 import { useRoute } from './Route';
 
 export const Footer = ({ hasFooterMenu = false }) => {
-    const { options, lang, translate } = usePage().props;
+    const { options, lang, translate, logo } = usePage().props;
 
     return (
         <footer>
             {hasFooterMenu && (
                 <div className="container footer-nav">
                     <a href={useRoute('home')} className="logo">
-                        <img src="/images/logo.png" alt="Erudio" />
+                        <img src={logo} alt="Erudio" />
                     </a>
                     <div className="menu-wrap">
                         <div className="item">

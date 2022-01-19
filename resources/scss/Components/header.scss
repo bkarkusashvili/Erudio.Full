@@ -42,6 +42,9 @@
 
             .logo {
                 img {
+                    max-width: 100px;
+                    max-height: 36px;
+
                     @include lg {
                         height: 36px;
                     }

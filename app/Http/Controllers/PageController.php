@@ -29,6 +29,7 @@ class PageController extends AdminController
             [
                 'size' => 4,
                 'list' => [
+                    ['type' => 'file', 'relation' => 'body', 'name' => 'logo', 'label' => 'ლოგო'],
                     ['type' => 'file', 'relation' => 'body', 'name' => 'file', 'label' => 'საპრეზენტაციო ფაილი'],
                 ]
             ]
