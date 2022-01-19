@@ -79,7 +79,7 @@ export const Header = () => {
                         </Link>
                     ))}
                     <Link
-                        onClick={(e) => openSubMenu(e, true, 'login')}
+                        onClick={(e) => auth.user ? openSubMenu(e, true, 'login') : null}
                         href={useRoute(auth.user ? 'profile' : 'login')}
                         className={getClassName({ active: isActivePage('login'), isOpen: active === 'login' })}
                     >
