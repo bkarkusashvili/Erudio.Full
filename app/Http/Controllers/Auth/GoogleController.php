@@ -32,7 +32,12 @@ class GoogleController extends Controller
             ]);
 
             if ($validator->fails()) {
-                return redirect()->route('login', ['lang' => Lang::locale()]);
+                $user = User::where('email', $request->email)->first();
+
+                if ($user->hasVerifiedEmail()) {
+                    return redirect()->route('login', ['lang' => Lang::locale()]);
+                }
+                $user->delete();
             }
 
             $fullname = explode(' ', $resUser->name);

@@ -41,6 +41,7 @@ use Inertia\Inertia;
 */
 
 Route::redirect('/', '/ka');
+Route::redirect('/login', '/ka/login');
 
 Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function () {
     $lang = request()->segment(1);

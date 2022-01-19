@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { usePage } from '@inertiajs/inertia-react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { getClassName } from '@/Helper';
@@ -6,7 +6,12 @@ import { getClassName } from '@/Helper';
 export const Clients = ({ list = [] }) => {
     const { lang, base, translate } = usePage().props;
     const [active, setActive] = useState();
+    const [isMobile, setIsmobile] = useState(false);
     const [swiper, setSwiper] = useState();
+
+    useEffect(() => {
+        setIsmobile(window.innerWidth <= 774);
+    }, [window.innerWidth])
 
     return (
         <section className="clients-wrap">
@@ -28,7 +33,7 @@ export const Clients = ({ list = [] }) => {
                         setActive(slider.realIndex);
                     }}
                     onSlideChange={slider => setActive(slider.realIndex)}
-                    slidesPerView={5}
+                    slidesPerView={isMobile ? 3 : 5}
                 >
                     {list.map((item, index) => (
                         <SwiperSlide key={item.id} onClick={() => swiper.slideToLoop(index)}>

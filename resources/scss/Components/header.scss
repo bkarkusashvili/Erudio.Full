@@ -156,6 +156,11 @@
                             max-width: 85vw;
                             z-index: 3;
                             transform: translateX(38px);
+
+                            @include md {
+                                transform: initial;
+                                right: 0;
+                            }
                         }
                     }
 

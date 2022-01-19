@@ -75,6 +75,10 @@ footer {
             align-items: center;
             font-size: 18px;
             color: #888893;
+
+            @include md {
+                font-size: 14px;
+            }
         }
     }
 }

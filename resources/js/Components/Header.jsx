@@ -27,15 +27,13 @@ export const Header = () => {
         }
         return item;
     });
-    const openSubMenu = (e, item, key) => {
-        if (menuStatus && item.list.length) {
+    const openSubMenu = (e, hasChild, key) => {
+        if (menuStatus && hasChild) {
             e.preventDefault();
 
             setActive(key);
         }
     };
-
-    console.log(logo);
 
     return (
         <header>
@@ -58,7 +56,7 @@ export const Header = () => {
                             key={key}
                             href={useRoute(item.name)}
                             className={getClassName({ active: isActivePage(item.name, null, item.list), isOpen: active === key })}
-                            onClick={(e) => openSubMenu(e, item, key)}
+                            onClick={(e) => openSubMenu(e, !!item.list.length, key)}
                         >
                             <span>{item.value}</span>
                             {item.list && item.list.length ? (
@@ -80,7 +78,11 @@ export const Header = () => {
                             ) : null}
                         </Link>
                     ))}
-                    <Link href={useRoute(auth.user ? 'profile' : 'login')} className={isActivePage('login') ? 'active' : ''}>
+                    <Link
+                        onClick={(e) => openSubMenu(e, true, 'login')}
+                        href={useRoute(auth.user ? 'profile' : 'login')}
+                        className={getClassName({ active: isActivePage('login'), isOpen: active === 'login' })}
+                    >
                         <div className="smile-wrap">
                             <Smile />
                             <span>{auth.user?.firstname || translate.login}</span>

@@ -1,8 +1,9 @@
 import React from 'react';
 import Button from '@/Components/Button';
 import { MainLayout } from '@/Layouts';
-import { Head, Link, useForm, usePage } from '@inertiajs/inertia-react';
+import { Link, useForm } from '@inertiajs/inertia-react';
 import { Metas } from '@/Components/Metas';
+import { useRoute } from '@/Components/Route';
 
 export default function VerifyEmail({ status }) {
     const { post, processing } = useForm();
@@ -31,7 +32,7 @@ export default function VerifyEmail({ status }) {
                         <div className="actions-wrap">
                             <Button processing={processing} className="tp-register">ხელახლა გაგზავნა</Button>
                             <Link
-                                href={route('logout')}
+                                href={useRoute('logout')}
                                 method="post"
                                 as="button"
                                 className="logout"
