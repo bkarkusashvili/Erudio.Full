@@ -76,7 +76,7 @@ class OrderNotification extends Notification
         }
 
         if ($this->payType == 'card') {
-            $template->line($data['mail_order_success']);
+            $template->line($data['mail_order_' . $this->type . '_success']);
             $template->action($data['mail_order_action'], route('home'));
         } else {
             if ($this->isAdmin) {

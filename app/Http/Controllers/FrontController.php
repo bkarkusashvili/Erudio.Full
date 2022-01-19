@@ -313,7 +313,7 @@ class FrontController extends Controller
             ]);
 
             $user = new User(['email' => auth()->user()->email]);
-            $user->notify(new OrderNotification('online', 'card'));
+            $user->notify(new OrderNotification(Course::getCourseType($course->type), 'card'));
 
             return response()->json([
                 'data' => null,
@@ -326,9 +326,6 @@ class FrontController extends Controller
             if ($response->ok()) {
                 $body = json_decode($response->body());
                 $redirectUrl = $body->links[1]->uri;
-
-                $user = new User(['email' => auth()->user()->email]);
-                $user->notify(new OrderNotification('online', 'card'));
 
                 return response()->json([
                     'data' => $redirectUrl,

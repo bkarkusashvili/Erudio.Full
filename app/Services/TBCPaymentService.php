@@ -4,6 +4,8 @@ namespace App\Services;
 
 use App\Models\Course;
 use App\Models\Order;
+use App\Models\User;
+use App\Notifications\OrderNotification;
 use Illuminate\Support\Facades\Http;
 use Lang;
 
@@ -111,6 +113,10 @@ class TBCPaymentService
 
                 if ($order) {
                     $order->markAsPaid();
+
+                    $course = Course::find($order->course_id);
+                    $user = User::find($order->user_id);
+                    $user->notify(new OrderNotification(Course::getCourseType($course->type), 'card'));
                 }
             }
         }

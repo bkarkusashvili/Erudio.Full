@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $logo = json_decode(Page::findOrFail(1))->body->logo;
+        $logo = json_decode(Page::find(1))->body->logo;
 
         Inertia::share('logo', $logo ? '/storage/' . $logo : '/images/logo.png');
     }

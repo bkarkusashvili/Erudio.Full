@@ -71,4 +71,13 @@ class Course extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public static function getCourseType(int $type)
+    {
+        return [
+            'online',
+            'offline',
+            'masterclass',
+        ][$type];
+    }
 }
