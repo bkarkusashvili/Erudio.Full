@@ -1691,6 +1691,21 @@
     }
 }
 
+.formDialog {
+    width: 500px;
+
+    @include sm {
+        width: 100%;
+    }
+
+    .info-success {
+        color: #2e7d32;
+        font-weight: bold;
+        text-align: center;
+        font-size: 18px;
+    }
+}
+
 .settings {
     display: flex;
     justify-content: center;

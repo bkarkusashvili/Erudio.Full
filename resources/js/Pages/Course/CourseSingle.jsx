@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import moment from 'moment';
 import { useRoute } from '@/Components/Route';
 import axios from 'axios';
-import { Button, CircularProgress, DialogContent, DialogContentText, Stack, TextField } from '@mui/material';
+import { Button, CircularProgress, DialogContent, DialogContentText, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -24,7 +24,16 @@ const invoiceForm = [
     { name: 'company_number', label: 'კომპანიის საიდანთიფიკაციო ნომერი', type: 'text' },
     { name: 'position', label: 'დაკავებული ფოზიცია', type: 'text' },
     { name: 'phone', label: 'საკონტაქტო ტელეფონის ნომერი', type: 'text' },
-    { name: 'from', label: 'საიდან შეიტყვეთ პროგამის შესახებ', type: 'text' },
+    {
+        name: 'from', label: 'საიდან შეიტყვეთ პროგამის შესახებ', type: 'select', list: [
+            { value: 'სოციალური მედია', text: 'სოციალური მედია' },
+            { value: 'ვებ-გვერდი', text: 'ვებ-გვერდი' },
+            { value: 'ელ-ფოსტა', text: 'ელ-ფოსტა' },
+            { value: 'ერუდიოს გაყიდვების მენეჯერისგან', text: 'ერუდიოს გაყიდვების მენეჯერისგან' },
+            { value: 'მეგობრის რეკომენდაციით', text: 'მეგობრის რეკომენდაციით' },
+            { value: 'სხვა', text: 'სხვა' },
+        ]
+    },
 ];
 
 const CourseSingle = ({ item, lang }) => {
@@ -35,6 +44,7 @@ const CourseSingle = ({ item, lang }) => {
     const [loading, setLoading] = useState(false);
     const [callbackDialog, setCallbackDialog] = useState(false);
     const [formDialog, setFormDialog] = useState(false);
+    const [formStatus, setFormStatus] = useState(false);
     const [form, setForm] = useState(false);
     const [swiper, setSwiper] = useState();
     const params = getParams();
@@ -81,7 +91,12 @@ const CourseSingle = ({ item, lang }) => {
             })
             .catch(e => console.log(e));
     };
-    const payInvoice = () => post(route('pay.invoice'));
+    const payInvoice = () => {
+        setFormStatus(false);
+        post(route('pay.invoice'), {
+            onSuccess: () => setFormStatus(true)
+        })
+    };
     const checkPay = (e, type) => {
         e.preventDefault();
 
@@ -287,28 +302,64 @@ const CourseSingle = ({ item, lang }) => {
                     <Button onClick={() => setDialog(false)} children={translate.close} />
                 </DialogActions>
             </Dialog>
-            <Dialog open={formDialog} onClose={() => setForm(false)} componentsProps={{ style: { width: 500 } }}>
+            <Dialog
+                open={formDialog} onClose={() => {
+                    setForm(false);
+                    setFormStatus(false);
+                }}
+                PaperProps={{ className: 'formDialog' }}
+            >
                 <DialogTitle style={{ textAlign: 'center' }}>კურსის ყიდვა</DialogTitle>
                 <DialogContent>
-                    <DialogContentText textAlign={'center'} marginBottom={2}>
-                        გთხოვთ აირჩიოთ თქვენი სტატუსი
-                    </DialogContentText>
+                    {!formStatus &&
+                        <DialogContentText textAlign={'center'} marginBottom={2}>
+                            გთხოვთ აირჩიოთ თქვენი სტატუსი
+                        </DialogContentText>
+                    }
                     {form ?
-                        <Stack spacing={2}>
-                            {invoiceForm.map((item, key) =>
-                                <TextField
-                                    key={key}
-                                    name={item.name}
-                                    label={item.label}
-                                    type={item.type}
-                                    error={!!errors[item.name]}
-                                    helperText={errors[item.name]}
-                                    variant="standard"
-                                    fullWidth
-                                    onChange={(e) => setData(item.name, e.target.value)}
-                                />
-                            )}
-                        </Stack> :
+                        formStatus ? (
+                            <DialogContentText className="info-success">
+                                თქვენი მოთხოვნა წარმატებით გაიგზავნა, ჩვენი წარმომადგენელი მალე დაგიკავშირდებათ.
+                            </DialogContentText>
+                        ) : (
+                            <Stack spacing={2}>
+                                {invoiceForm.map((item, key) =>
+                                    <React.Fragment key={key}>{
+                                        item.type === 'select' ?
+                                            <FormControl
+                                                fullWidth
+                                                error={!!errors[item.name]}
+                                                variant="standard"
+                                            >
+                                                <InputLabel children={item.label} />
+                                                <Select
+                                                    name={item.name}
+                                                    label={item.label}
+                                                    onChange={(e) => setData(item.name, e.target.value)}
+                                                >
+                                                    {item.list.map((option, key) =>
+                                                        <MenuItem
+                                                            key={key}
+                                                            value={option.value}
+                                                            children={option.text}
+                                                        />
+                                                    )}
+                                                </Select>
+                                            </FormControl> :
+                                            <TextField
+                                                name={item.name}
+                                                label={item.label}
+                                                type={item.type}
+                                                error={!!errors[item.name]}
+                                                helperText={errors[item.name]}
+                                                variant="standard"
+                                                fullWidth
+                                                onChange={(e) => setData(item.name, e.target.value)}
+                                            />
+                                    }</React.Fragment>
+                                )}
+                            </Stack>
+                        ) :
                         <Stack direction={'row'} spacing={2} justifyContent={'center'}>
                             <Button variant="outlined" onClick={() => pay('card')}>ფიზკური</Button>
                             <Button variant="outlined" onClick={() => setForm(true)}>იურიდიული</Button>
@@ -316,9 +367,11 @@ const CourseSingle = ({ item, lang }) => {
                     }
                 </DialogContent>
                 {form &&
-                    <DialogActions textAlign={'center'} marginBottom={2}>
-                        <Button variant="outlined" onClick={() => setFormDialog(false)}>დახურვა</Button>
-                        <Button variant="outlined" onClick={() => payInvoice()}>ყიდვა</Button>
+                    <DialogActions textAlign={'center'} marginBottom={2} marginTop={2} component={'div'}>
+                        <Stack direction={'row'} spacing={2} justifyContent={'center'}>
+                            <Button variant="outlined" onClick={() => setFormDialog(false)}>დახურვა</Button>
+                            {!formStatus && <Button variant="outlined" onClick={() => payInvoice()}>ყიდვა</Button>}
+                        </Stack>
                     </DialogActions>
                 }
             </Dialog>

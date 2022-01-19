@@ -25,6 +25,7 @@ use App\Http\Controllers\SubscribeController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TranslateController;
 use App\Http\Controllers\UserController;
+use App\Notifications\OrderNotification;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -144,3 +145,11 @@ Route::get('/auth/facebook/callback', [FacebookController::class, 'handleCallbac
 
 Route::get('/auth/google/redirect', [GoogleController::class, 'handleRedirect'])->name('auth.google');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleCallback']);
+
+
+Route::get('/demo', function () {
+    $message = (new OrderNotification())->toMail('example@gmail.com');
+    $markdown = new \Illuminate\Mail\Markdown(view(), config('mail.markdown'));
+
+    return $markdown->render('vendor.notifications.email', $message->data());
+});

@@ -312,6 +312,9 @@ class FrontController extends Controller
                 'status' => 1
             ]);
 
+            $user = new User(['email' => auth()->user()->email]);
+            $user->notify(new OrderNotification('online', 'card'));
+
             return response()->json([
                 'data' => null,
                 'success' => true,
@@ -323,6 +326,9 @@ class FrontController extends Controller
             if ($response->ok()) {
                 $body = json_decode($response->body());
                 $redirectUrl = $body->links[1]->uri;
+
+                $user = new User(['email' => auth()->user()->email]);
+                $user->notify(new OrderNotification('online', 'card'));
 
                 return response()->json([
                     'data' => $redirectUrl,
@@ -351,6 +357,9 @@ class FrontController extends Controller
         ]);
         // liveCourseId: liveCourse,
 
+        $email = Option::where('key', 'email')->first();
+        $email = $email ? $email->value : 'info@erudio.ge';
+
         Invoice::create(array_merge(
             $data,
             [
@@ -360,7 +369,13 @@ class FrontController extends Controller
         ));
 
         $user = new User(['email' => $request->get('email')]);
-        $user->notify(new OrderNotification);
+        $user->notify(new OrderNotification('online', 'invoice'));
+
+        $user = new User(['email' => auth()->user()->email]);
+        $user->notify(new OrderNotification('online', 'invoice'));
+
+        $user = new User(['email' => $email]);
+        $user->notify(new OrderNotification('online', 'invoice', true));
 
         return redirect()->back();
     }
@@ -388,7 +403,7 @@ class FrontController extends Controller
     public function updateProfile(Request $request)
     {
         $user = auth()->user();
-        $requiredCurrentPassword = $user->has_password && $request->password ? 'required' : 'nullable';
+        $requiredCurrentPassword = $user->has_password && ($request->password || $request->email != $user->email) ? 'required' : 'nullable';
 
         $data = $request->validate([
             'phone' => 'required|string|regex:/^5(?:[0-9][ -]*){8}$/',

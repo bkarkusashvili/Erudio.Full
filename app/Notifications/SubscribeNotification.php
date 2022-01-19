@@ -2,10 +2,12 @@
 
 namespace App\Notifications;
 
+use App\Models\Translate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Lang;
 
 class SubscribeNotification extends Notification
 {
@@ -40,9 +42,17 @@ class SubscribeNotification extends Notification
      */
     public function toMail($notifiable)
     {
+        $lang = Lang::locale();
+        $data = Translate::whereIn('key', [
+            'mail_subscribe_subject',
+            'mail_subscribe_text',
+        ])->get()->mapWithKeys(function (Translate $item) use ($lang) {
+            return [$item->key => $item->$lang];
+        });
+
         return (new MailMessage)
-            ->subject('გამოწერა')
-            ->line('თქვენი ელ-ფოსტა წარმატებით დაემატა ჩვენს გამომწერთა სიას.');
+            ->subject($data['mail_subscribe_subject'])
+            ->line($data['mail_subscribe_text']);
     }
 
     /**

@@ -2,23 +2,35 @@
 
 namespace App\Notifications;
 
+use App\Models\Invoice;
+use App\Models\Option;
+use App\Models\Translate;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
+use Lang;
 
 class OrderNotification extends Notification
 {
     use Queueable;
+
+    private $type;
+    private $payType;
+    private $isAdmin;
+    private $invoice;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(string $type, string $payType = 'card', bool $isAdmin = false, Invoice $invoice = null)
     {
-        //
+        $this->type = $type;
+        $this->payType = $payType;
+        $this->isAdmin = $isAdmin;
+        $this->invoice = $invoice;
     }
 
     /**
@@ -40,9 +52,51 @@ class OrderNotification extends Notification
      */
     public function toMail($notifiable)
     {
-        return (new MailMessage)
-            ->subject('გამოწერა')
-            ->line('თქვენი ელ-ფოსტა წარმატებით დაემატა ჩვენს გამომწერთა სიას.');
+
+        $lang = Lang::locale();
+        $data = Translate::whereIn('key', [
+            'mail_order_subject',
+            'mail_order_success',
+            'mail_order_action',
+            'mail_order_new',
+            'mail_order_see_order',
+            'mail_order_success_online',
+            'mail_order_question',
+        ])->get()->mapWithKeys(function (Translate $item) use ($lang) {
+            return [$item->key => $item->$lang];
+        });
+        $email = Option::where('key', 'email')->first();
+        $email = $email ? $email->value : 'info@erudio.ge';
+        $template = new MailMessage;
+
+        if ($this->isAdmin) {
+            $template->subject($data['mail_order_subject'] . ' - ' . 'Beqa');
+        } else {
+            $template->subject($data['mail_order_subject']);
+        }
+
+        if ($this->payType == 'card') {
+            $template->line($data['mail_order_success']);
+            $template->action($data['mail_order_action'], route('home'));
+        } else {
+            if ($this->isAdmin) {
+                $template->line($data['mail_order_new']);
+                $template->line('* სახელი: **ბექა**');
+                $template->action($data['mail_order_see_order'], route('home'));
+            } else {
+                $template->line($data['mail_order_success_online']);
+            }
+        }
+
+        if ($this->isAdmin) {
+            $template->line(str_replace(
+                ':email',
+                '<a href="' . $email . '">' . $email . '</a>',
+                $data['mail_order_question']
+            ));
+        }
+
+        return $template;
     }
 
     /**
