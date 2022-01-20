@@ -229,6 +229,8 @@ class AdminController extends Controller
         $new = $request->get('new');
 
         $this->updateSorting('edit', $old, $new);
+
+        return Redirect::back();
     }
 
     protected function beforeDestroy(Model $model)
