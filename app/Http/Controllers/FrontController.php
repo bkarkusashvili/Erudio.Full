@@ -34,7 +34,7 @@ class FrontController extends Controller
     {
         $lang = Lang::locale();
 
-        Inertia::share('categories', Category::all());
+        Inertia::share('categories', $this->sortByDrag(Category::query(), Category::class)->get());
         Inertia::share('options', Option::all()->mapWithKeys(function (Option $option) {
             return [$option->key => $option->value];
         }));
@@ -48,14 +48,14 @@ class FrontController extends Controller
     public function home()
     {
         return Inertia::render('Home', [
-            'clients' => Client::all(),
-            'trainings' => Course::where('popular_training', true)->where('status', 1)->get()->map(function ($course) {
+            'clients' => $this->sortByDrag(Client::query(), Client::class)->get(),
+            'trainings' => $this->sortByDrag(Course::query(), Course::class)->where('popular_training', true)->where('status', 1)->get()->map(function ($course) {
                 return $this->limitCourseText($course);
             }),
-            'courses' => Course::where('popular_course', true)->where('status', 1)->get()->map(function ($course) {
+            'courses' => $this->sortByDrag(Course::query(), Course::class)->where('popular_course', true)->where('status', 1)->get()->map(function ($course) {
                 return $this->limitCourseText($course);
             }),
-            'masterclasses' => Course::where('popular_masterclass', true)->where('status', 1)->get()->map(function ($course) {
+            'masterclasses' => $this->sortByDrag(Course::query(), Course::class)->where('popular_masterclass', true)->where('status', 1)->get()->map(function ($course) {
                 return $this->limitCourseText($course);
             }),
             'item' => Page::findOrFail(1),
@@ -71,7 +71,7 @@ class FrontController extends Controller
             return [];
         }
 
-        $categories = Category::where('title_ka', 'like', '%' . $s . '%')
+        $categories = $this->sortByDrag(Category::query(), Category::class)->where('title_ka', 'like', '%' . $s . '%')
             ->orWhere('title_en', 'like', '%' . $s . '%')
             ->get();
         $categories = $categories->map(function (Category $item) {
@@ -83,7 +83,7 @@ class FrontController extends Controller
             ];
         });
 
-        $courses = Course::where('status', 1)
+        $courses = $this->sortByDrag(Course::query(), Course::class)->where('status', 1)
             ->where('name_ka', 'like', '%' . $s . '%')
             ->orWhere('name_en', 'like', '%' . $s . '%')
             ->get();
@@ -135,7 +135,7 @@ class FrontController extends Controller
     public function team()
     {
         return Inertia::render('About/Team', [
-            'list' => Team::all()
+            'list' => $this->sortByDrag(Team::query(), Team::class)->get()
         ]);
     }
 
@@ -149,7 +149,7 @@ class FrontController extends Controller
     public function media()
     {
         return Inertia::render('About/Media', [
-            'list' => Media::all()->map(function (Media $media) {
+            'list' => $this->sortByDrag(Media::query(), Media::class)->get()->map(function (Media $media) {
                 $media->text_ka = Str::limit(strip_tags($media->text_ka), 220, '...');
                 $media->text_en = Str::limit(strip_tags($media->text_en), 220, '...');
 
@@ -170,7 +170,7 @@ class FrontController extends Controller
     public function category()
     {
         return Inertia::render('Category', [
-            'list' => Category::all()
+            'list' => $this->sortByDrag(Category::query(), Category::class)->get()
         ]);
     }
 
@@ -195,7 +195,7 @@ class FrontController extends Controller
         $type = (int) $request->input('type', -1);
         $date = $request->input('date', $today);
         $date = new Carbon($date);
-        $query = Course::query()->where('status', 1);
+        $query = $this->sortByDrag(Course::query(), Course::class)->where('status', 1);
 
         $query->when($type == -1, function ($q) {
             $q->where(function ($q) {
@@ -239,8 +239,8 @@ class FrontController extends Controller
 
         return Inertia::render('Course', [
             'list' => $list,
-            'categories' => Category::all(),
-            'cities' => City::all(),
+            'categories' => $this->sortByDrag(Category::query(), Category::class)->get(),
+            'cities' => $this->sortByDrag(City::query(), City::class)->get(),
             'types' => [
                 ['title_ka' => 'Online ტრენინგი', 'title_en' => 'Online Training', 'value' => 1],
                 ['title_ka' => 'Offline ტრენინგი', 'title_en' => 'Offline Training', 'value' => 2],
@@ -251,7 +251,7 @@ class FrontController extends Controller
 
     public function courseSingle(string $lang, int $id)
     {
-        $item = Course::with('instructor', 'instructorTwo', 'lives', 'videos', 'offlines')->findOrFail($id);
+        $item = $this->sortByDrag(Course::query(), Course::class)->with('instructor', 'instructorTwo', 'lives', 'videos', 'offlines')->findOrFail($id);
         $item->isLive = $item->isLive;
 
         $user = auth()->user();

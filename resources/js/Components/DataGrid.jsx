@@ -13,7 +13,7 @@ import { useForm } from '@inertiajs/inertia-react'
 import { Inertia, Method } from '@inertiajs/inertia';
 import Sortable from 'sortablejs';
 
-export const DataGrid = ({ rows, columns, model }) => {
+export const DataGrid = ({ rows, columns, model, sorting }) => {
     const isCheckbox = column => column.type === 'checkbox';
 
     const getValue = (column, row) => column.relation ? row[column.relation][column.field] : row[column.field];
@@ -44,6 +44,7 @@ export const DataGrid = ({ rows, columns, model }) => {
     useEffect(() => {
         if (rowsRef) {
             Sortable.create(rowsRef.current, {
+                disabled: !sorting,
                 onEnd: (e) => {
                     const data = { old: e.oldIndex, new: e.newIndex };
 

@@ -18,7 +18,7 @@ class PasswordResetLinkController extends Controller
     {
         $lang = Lang::locale();
 
-        Inertia::share('categories', Category::all());
+        Inertia::share('categories', $this->sortByDrag(Category::query(), Category::class)->get());
         Inertia::share('lang', $lang);
         Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
             return [$option->key => $option->$lang];

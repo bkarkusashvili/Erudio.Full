@@ -9,7 +9,7 @@ import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 
 const getParam = name => route().params[name] || null;
 
-const List = ({ rows, columns, model, paginate, search = [] }) => {
+const List = ({ rows, columns, model, paginate, search = [], sorting }) => {
     const initForm = {};
     search = search.map(item => ({ ...item, value: getParam(item.name) }));
     search.forEach(item => initForm[item.name] = item.value);
@@ -107,6 +107,7 @@ const List = ({ rows, columns, model, paginate, search = [] }) => {
                 model={model}
                 rows={rows}
                 columns={columns}
+                sorting={sorting}
                 pageSize={5}
                 rowsPerPageOptions={[5]}
                 checkboxSelection
