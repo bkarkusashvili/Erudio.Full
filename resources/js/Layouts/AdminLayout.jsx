@@ -12,31 +12,44 @@ import { Link } from '@inertiajs/inertia-react';
 
 const drawerWidth = 240;
 const menu = [
-    {
-        list: [
-            { text: 'გვერდები', model: 'page', canAdd: false },
-            { text: 'სლაიდერი', model: 'slider', canAdd: true },
-        ]
-    },
-    { text: 'მომხმარებლები', model: 'user', canAdd: false },
-    { text: 'შეფასებები', model: 'client', canAdd: true },
-    { text: 'გუნდი', model: 'team', canAdd: true },
-    { text: 'მედია', model: 'media', canAdd: true },
-    { text: 'კატეგორია', model: 'category', canAdd: true },
     { text: 'Online შეკვეთები', model: 'order', canAdd: false },
     { text: 'Offline შეკვეთები', model: 'invoice', canAdd: true },
     {
         list: [
-            { text: 'ქალაქები', model: 'city', canAdd: true },
-            { text: 'ინსტრუქტორები', model: 'instructor', canAdd: true },
             { text: 'კურსები', model: 'course', canAdd: true },
             { text: 'Online ტრენინგი', model: 'livecourse', canAdd: true },
             { text: 'Offline ტრენინგი', model: 'offlinecourse', canAdd: true },
             { text: 'მასტერკლასი', model: 'coursevideo', canAdd: true },
+
         ]
     },
-    { text: 'გამოწერები', model: 'subscribe' },
-    { text: 'პარამეტრები', model: 'option', canAdd: true },
+    {
+        list: [
+            { text: 'მომხმარებლები', model: 'user', canAdd: false },
+            { text: 'შეფასებები', model: 'client', canAdd: true },
+        ]
+    },
+    {
+        list: [
+            { text: 'გამოწერები', model: 'subscribe' },
+            { text: 'გუნდი', model: 'team', canAdd: true },
+            { text: 'მედია', model: 'media', canAdd: true },
+        ]
+    },
+    {
+        list: [
+            { text: 'კატეგორია', model: 'category', canAdd: true },
+            { text: 'ქალაქები', model: 'city', canAdd: true },
+        ]
+    },
+    {
+        list: [
+            { text: 'ტრენერი', model: 'instructor', canAdd: true },
+            { text: 'გვერდები', model: 'page', canAdd: false },
+            { text: 'სლაიდერი', model: 'slider', canAdd: true },
+            { text: 'პარამეტრები', model: 'option', canAdd: true },
+        ]
+    },
     { text: 'თარგმანი', model: 'translate', canAdd: true },
 ];
 
@@ -46,6 +59,8 @@ const LocalListItem = ({ item }) => {
             href={route(`${item.model}.index`)}
             LinkComponent={'li'}
             component={Link}
+            className='admin-menu-item'
+            selected={route().current(item.model) || route().current(item.model + '.*')}
         >
             <ListItemText primary={item.text} />
             {item.canAdd && (

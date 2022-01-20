@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
 import { Inertia } from '@inertiajs/inertia';
 import DateAdapter from '@mui/lab/AdapterMoment';
-import { DesktopDatePicker, LocalizationProvider, MobileDatePicker } from '@mui/lab';
+import { DesktopDatePicker, LocalizationProvider } from '@mui/lab';
 import { Link, useForm } from '@inertiajs/inertia-react';
 import { useRoute } from '@/Components/Route';
 import { Metas } from '@/Components/Metas';
@@ -106,7 +106,7 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                     </div>
                 </div>
                 <div className="container">
-                    <div className="list" children={list.map(item => <CourseCard key={item.id} data={item} />)} />
+                    <div className="list" children={list.map((item, key) => <CourseCard key={key} data={item} />)} />
                 </div>
             </div>
         </MainLayout>

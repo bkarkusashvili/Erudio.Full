@@ -62,7 +62,7 @@ Route::group(['prefix' => '{lang?}', 'where' => ['lang' => 'en|ka']], function (
     Route::get('/category/{id}', [FrontController::class, 'categorySingle'])->name('category.single');
 
     Route::get('/course', [FrontController::class, 'course'])->name('course');
-    Route::get('/course/{id}', [FrontController::class, 'CourseSingle'])->name('course.single');
+    Route::get('/course/{type}/{id}', [FrontController::class, 'CourseSingle'])->name('course.single');
     Route::get('/contact', [FrontController::class, 'contact'])->name('contact');
 
     Route::middleware(['auth', 'verified'])->group(function () {

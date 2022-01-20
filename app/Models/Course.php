@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Casts\CourseTypeCast;
+use App\Casts\CourseTypeIdCast;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,6 +12,10 @@ class Course extends Model
     use HasFactory;
 
     public $guarded = [];
+
+    protected $casts = [
+        'type' => CourseTypeCast::class,
+    ];
 
     public function getIsLiveAttribute()
     {

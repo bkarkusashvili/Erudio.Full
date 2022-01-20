@@ -82,6 +82,11 @@ class OrderNotification extends Notification
             if ($this->isAdmin) {
                 $template->line($data['mail_order_new']);
                 $template->line('* სახელი: **ბექა**');
+                $template->line('* სახელი: **ბექა**');
+                $template->line('* სახელი: **ბექა**');
+                $template->line('* სახელი: **ბექა**');
+                $template->line('* სახელი: **ბექა**');
+                $template->line('* სახელი: **ბექა**');
                 $template->action($data['mail_order_see_order'], route('home'));
             } else {
                 $template->line($data['mail_order_success_online']);

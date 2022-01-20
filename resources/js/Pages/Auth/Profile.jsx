@@ -20,7 +20,7 @@ const Profile = ({ list = [] }) => {
                                 <div key={item.id} className="item">
                                     <span className="date">{translate.date}: {moment(item.created_at).format('DD.MM.YY')}</span>
                                     <span className="title">{item.course && item.course['name_' + lang]}</span>
-                                    <Link href={useRoute('course.single', { id: item.course_id })} children={translate.online_course_link} />
+                                    <Link href={useRoute('course.single', { id: item.course_id, type: 'course' })} children={translate.online_course_link} />
                                 </div>
                             ))
                         ) : (

@@ -7,6 +7,7 @@ use App\Models\City;
 use App\Models\Client;
 use App\Models\Course;
 use App\Models\Invoice;
+use App\Models\LiveCourse;
 use App\Models\Media;
 use App\Models\Option;
 use App\Models\Page;
@@ -19,6 +20,7 @@ use App\Notifications\OrderNotification;
 use App\Notifications\SubscribeNotification;
 use App\Services\TBCPaymentService;
 use Carbon\Carbon;
+use DB;
 use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
@@ -90,7 +92,7 @@ class FrontController extends Controller
         $courses = $courses->map(function (Course $item) {
             return [
                 'id' => $item->id,
-                'url' => route('course.single', [$item->id, 'lang' => app()->getLocale()]),
+                'url' => route('course.single', ['id' => $item->id, 'lang' => app()->getLocale(), 'type' => $item->type]),
                 'text_ka' => $item->name_ka,
                 'text_en' => $item->name_en,
             ];
@@ -192,50 +194,81 @@ class FrontController extends Controller
     {
         $today = now()->setHour(0)->setMinute(0)->setSecond(0)->setMilliseconds(0);
 
-        $type = (int) $request->input('type', -1);
-        $date = $request->input('date', $today);
-        $date = new Carbon($date);
-        $query = $this->sortByDrag(Course::query(), Course::class)->where('status', 1);
+        $type = $request->input('type', -1);
+        $type = $type == '' ? -1 : (int) $type;
+        $date = $request->input('date');
+        if ($date) {
+            $date = new Carbon($date);
+        }
+        $query = Course::query();
 
-        $query->when($type == -1, function ($q) {
-            $q->where(function ($q) {
-                $q->where('type', 0)->whereHas('videos');
-            })->orWhere(function ($q) {
-                $q->where('type', 1)->whereHas('lives');
-            })->orWhere(function ($q) {
-                $q->where('type', 2)->whereHas('offlines');
+        $query->select(
+            'courses.*',
+            DB::raw('null as start_date'),
+            DB::raw('null as end_date'),
+            'courses.id as type_id',
+        )
+            ->whereHas('videos')
+            ->when($request->has('category') && !!$request->input('category'), function ($q) {
+                $q->where('category_id', request('category'));
+            })
+            ->when($request->has('city') && !!$request->input('city'), function ($q) {
+                $q->where('city_id', request('city'));
+            })
+            ->where('status', 1)
+            ->when($type >= 0, function ($q) use ($type) {
+                $q->where('type', $type);
             });
-        });
 
-        $query->when($type >= 0, function ($q) use ($type) {
-            $q->where('type', $type);
-        });
-
-        $query->when($type == 0, function ($q) {
-            $q->whereHas('videos');
-        });
-
-        $query->when($type == 1, function ($q) use ($date) {
-            $q->whereHas('lives', function ($q) use ($date) {
-                $q->whereDate('start', '>=', $date);
+        $offline = Course::select(
+            'courses.*',
+            'offline_courses.start as start_date',
+            'offline_courses.end as end_date',
+            'offline_courses.id as type_id',
+        )
+            ->rightJoin('offline_courses', 'courses.id', '=', 'offline_courses.course_id')
+            ->when($request->has('category') && !!$request->input('category'), function ($q) {
+                $q->where('category_id', request('category'));
+            })
+            ->when($request->has('city') && !!$request->input('city'), function ($q) {
+                $q->where('city_id', request('city'));
+            })
+            ->where('status', 1)
+            ->when($type >= 0, function ($q) use ($type) {
+                $q->where('type', $type);
+            })
+            ->when($type == 1 || $type == 2, function ($q) use ($date) {
+                if ($date) {
+                    $q->whereDate('start_date', '>=', $date);
+                }
             });
-        });
 
-        $query->when($type == 2, function ($q) use ($date) {
-            $q->whereHas('offlines', function ($q) use ($date) {
-                $q->whereDate('start', '>=', $date);
+        $online = Course::select(
+            'courses.*',
+            'live_courses.start as start_date',
+            'live_courses.end as end_date',
+            'live_courses.id as type_id',
+        )
+            ->rightJoin('live_courses', 'courses.id', '=', 'live_courses.course_id')
+            ->when($request->has('category') && !!$request->input('category'), function ($q) {
+                $q->where('category_id', request('category'));
+            })
+            ->when($request->has('city') && !!$request->input('city'), function ($q) {
+                $q->where('city_id', request('city'));
+            })
+            ->where('status', 1)
+            ->when($type >= 0, function ($q) use ($type) {
+                $q->where('type', $type);
+            })
+            ->when($type == 1 || $type == 2, function ($q) use ($date) {
+                if ($date) {
+                    $q->whereDate('start_date', '>=', $date);
+                }
             });
-        });
 
-        $query->when($request->has('category') && !!$request->input('category'), function ($q) {
-            $q->where('category_id', request('category'));
-        });
+        $query->union($offline)->union($online);
 
-        $query->when($request->has('city') && !!$request->input('city'), function ($q) {
-            $q->where('city_id', request('city'));
-        });
-
-        $list = $query->get();
+        $list = $this->sortByDrag($query, Course::class)->get();
 
         return Inertia::render('Course', [
             'list' => $list,
@@ -249,7 +282,7 @@ class FrontController extends Controller
         ]);
     }
 
-    public function courseSingle(string $lang, int $id)
+    public function courseSingle(string $lang, string $type, int $id)
     {
         $item = $this->sortByDrag(Course::query(), Course::class)->with('instructor', 'instructorTwo', 'lives', 'videos', 'offlines')->findOrFail($id);
         $item->isLive = $item->isLive;
