@@ -126,6 +126,7 @@ Route::middleware('admin')->prefix('admin')->group(function () use ($adminResour
     collect($adminResources)->each(function ($item, $key) {
         Route::get($key . '/export', [$item, 'export'])->name($key . '.export');
         Route::post($key . '/column/{id}/{column}/{value}', [$item, 'column'])->name($key . '.column');
+        Route::post($key . '/updateRow', [$item, 'updateRow'])->name($key . '.updateRow');
     });
 
     Route::resources($adminResources);

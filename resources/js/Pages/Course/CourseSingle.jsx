@@ -15,6 +15,7 @@ import { useRef } from 'react';
 import { Metas } from '@/Components/Metas';
 import { Inertia } from '@inertiajs/inertia';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { FacebookShareButton, LinkedinShareButton, FacebookIcon, LinkedinIcon } from "react-share";
 
 const invoiceForm = [
     { name: 'fullname', label: 'სახელი გვარი', type: 'text' },
@@ -52,6 +53,8 @@ const CourseSingle = ({ item, lang }) => {
     const player = useRef();
     const source = useRef();
     const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
+    // const shareUrl = useMemo(() => window.location.origin + window.location.pathname, [window.location]);
+    const shareUrl = useMemo(() => 'https://erudio.ge/ka/course/3', [window.location]);
     const isFree = useMemo(() => item.price === 0, [item.price]);
     const live = item.lives && item.lives.length && item.lives[0];
     const isOffline = item.type === 2;
@@ -132,6 +135,16 @@ const CourseSingle = ({ item, lang }) => {
                         ) : (
                             <img src={`${base}/storage/${item.image}`} alt={item['name_' + lang]} />
                         )}
+                        <div className="share-wrap">
+                            <FacebookShareButton
+                                children={<FacebookIcon size={32} />}
+                                url={shareUrl}
+                            />
+                            <LinkedinShareButton
+                                children={<LinkedinIcon size={32} />}
+                                url={shareUrl}
+                            />
+                        </div>
                         {/* <div className="over">
                             <span className="donwoload">საპრეზენტაციო ფაილის გადმოწერა</span>
                             <span className="time">05:30</span>

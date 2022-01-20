@@ -7,6 +7,7 @@ use App\Models\Media;
 
 class MediaController extends AdminController
 {
+    public $sorting = true;
     public $model = Media::class;
     public $request = MediaRequest::class;
     public $columns = [

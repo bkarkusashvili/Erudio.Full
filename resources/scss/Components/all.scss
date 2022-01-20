@@ -1204,6 +1204,18 @@
                     font-size: 20px;
                 }
             }
+
+            .share-wrap {
+                position: absolute;
+                bottom: -32px;
+                border-radius: 0 0px 10px 10px;
+                overflow: hidden;
+                height: 32px;
+
+                rect {
+                    fill: #5952d2;
+                }
+            }
         }
 
         .content {
@@ -2238,5 +2250,13 @@
 
     .vjs-load-progress {
         background-color: #d6d6d6 !important;
+    }
+}
+
+.data-row {
+    transition: background 0.3s;
+
+    &:hover {
+        background-color: #eee;
     }
 }

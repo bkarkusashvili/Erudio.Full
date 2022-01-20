@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Exports\DataExport;
+use App\Models\Sorting;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
@@ -27,6 +29,7 @@ class AdminController extends Controller
     public $columns = [];
     public $fields;
     public $search = [];
+    public $sorting = false;
     public $edit = true;
     public $create = true;
     public $delete = true;
@@ -39,12 +42,13 @@ class AdminController extends Controller
         Inertia::share('model', $this->route);
         Inertia::share('fields', $this->fields);
         Inertia::share('search', $this->search);
+        Inertia::share('sorting', $this->sorting);
         Inertia::share('base', explode('/', request()->path())[0] == 'erudio' ? '/erudio' : '');
     }
 
     public function index($query = null)
     {
-        $query = $this->getListData($query)->paginate(10);
+        $query = $this->getListData($query)->paginate(50);
         $paginate = [
             'page' => $query->currentPage(),
             'count' => $query->lastPage(),
@@ -91,6 +95,8 @@ class AdminController extends Controller
         });
 
         $model = $this->model::create($data->toArray());
+
+        $this->updateSorting('create', $model->id);
 
         return Redirect::route($this->route . '.edit', [$model->id]);
     }
@@ -181,6 +187,8 @@ class AdminController extends Controller
 
         $model->delete();
 
+        $this->updateSorting('delete', $model->id);
+
         return Redirect::back();
     }
 
@@ -210,8 +218,65 @@ class AdminController extends Controller
         return Redirect::back();
     }
 
+    public function updateRow(Request $request)
+    {
+        $request->validate([
+            'old' => 'required|integer',
+            'new' => 'required|integer',
+        ]);
+
+        $old = $request->get('old');
+        $new = $request->get('new');
+
+        $this->updateSorting('edit', $old, $new);
+    }
+
     protected function beforeDestroy(Model $model)
     {
+    }
+
+    private function updateSorting($type, $id, $new = null)
+    {
+        if (!$this->sorting) {
+            return;
+        }
+
+        $sort = Sorting::where('model', $this->model)->first();
+
+        if (!$sort) {
+            $sort = $this->createSortList();
+        }
+
+        $list = collect(json_decode($sort->list));
+
+        if ($type == 'create') {
+            $list->add($id);
+        }
+
+        if ($type == 'edit') {
+            $moveId = $list->pull($id);
+
+            $newPost = $id < $new ? $new + 1 : $new - 1;
+            $list->splice($newPost, 0, [$moveId]);
+        }
+
+        if ($type == 'delete') {
+            $list->filter(function ($value) use ($id) {
+                return $value != $id;
+            });
+        }
+
+        $sort->update(['list' => $list]);
+    }
+
+    private function createSortList()
+    {
+        $list = $this->model::all()->pluck('id');
+
+        return Sorting::create([
+            'model' => $this->model,
+            'list' => $list,
+        ]);
     }
 
     private function validator(Request $request)
@@ -246,6 +311,16 @@ class AdminController extends Controller
                 $q->where($key, 'like', '%' . $item . '%');
             });
         });
+
+        if ($this->sorting) {
+            $sort = Sorting::where('model', $this->model)->first();
+
+            if ($sort) {
+                $ids =  implode(',', json_decode($sort->list));
+
+                return $query->orderBy(DB::raw('FIELD(`id`, ' . $ids . ')'));
+            }
+        }
 
         return $query->latest();
     }

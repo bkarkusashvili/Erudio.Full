@@ -7,6 +7,7 @@ use App\Models\Client;
 
 class ClientController extends AdminController
 {
+    public $sorting = true;
     public $model = Client::class;
     public $request = ClientRequest::class;
     public $columns = [

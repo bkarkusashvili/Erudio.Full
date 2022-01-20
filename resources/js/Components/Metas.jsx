@@ -10,7 +10,7 @@ export const Metas = ({ title = '', text = '', image = '', isMain = false }) => 
     title = isMain ? 'erudio • ერუდიო - education hub' : title;
     text = text ? text : baseShareText[lang];
 
-    const url = window.location.origin + window.location.pathname
+    const url = window.location.origin + window.location.pathname;
 
     return (
         <Head>

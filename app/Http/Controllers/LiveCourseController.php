@@ -8,7 +8,7 @@ use App\Models\LiveCourse;
 
 class LiveCourseController extends AdminController
 {
-
+    public $sorting = true;
     public $model = LiveCourse::class;
     public $request = LiveCourseRequest::class;
     public $columns = [

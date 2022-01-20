@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -11,6 +11,7 @@ import { IconButton, Dialog, DialogTitle, DialogActions, Button, Checkbox } from
 import { Delete, Edit } from '@mui/icons-material';
 import { useForm } from '@inertiajs/inertia-react'
 import { Inertia, Method } from '@inertiajs/inertia';
+import Sortable from 'sortablejs';
 
 export const DataGrid = ({ rows, columns, model }) => {
     const isCheckbox = column => column.type === 'checkbox';
@@ -18,8 +19,10 @@ export const DataGrid = ({ rows, columns, model }) => {
     const getValue = (column, row) => column.relation ? row[column.relation][column.field] : row[column.field];
 
     const [open, setOpen] = useState(false);
+    const rowsRef = useRef(null);
     const [id, setId] = useState();
-    const { delete: destroy, post, setData, data } = useForm();
+    const { actions } = usePage().props;
+    const { delete: destroy, post, setData, data, get } = useForm();
 
     const handleOpen = id => {
         setOpen(true);
@@ -37,7 +40,18 @@ export const DataGrid = ({ rows, columns, model }) => {
     const columnUpdate = (id, column, value) => {
         post(route(`${model}.column`, { id, column, value: value ? 1 : 0 }));
     };
-    const { actions } = usePage().props;
+
+    useEffect(() => {
+        if (rowsRef) {
+            Sortable.create(rowsRef.current, {
+                onEnd: (e) => {
+                    const data = { old: e.oldIndex, new: e.newIndex };
+
+                    post(route(`${model}.updateRow`, data));
+                }
+            });
+        }
+    }, [rowsRef]);
 
     return (
         <TableContainer component={Paper}>
@@ -61,10 +75,11 @@ export const DataGrid = ({ rows, columns, model }) => {
                         )}
                     </TableRow>
                 </TableHead>
-                <TableBody>
+                <TableBody ref={rowsRef}>
                     {rows.map(row => (
                         <TableRow
                             key={row.id}
+                            className="data-row"
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             {columns.map((column, key) => (

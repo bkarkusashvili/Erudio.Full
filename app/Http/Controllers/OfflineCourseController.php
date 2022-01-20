@@ -8,7 +8,7 @@ use App\Models\OfflineCourse;
 
 class OfflineCourseController extends AdminController
 {
-
+    public $sorting = true;
     public $model = OfflineCourse::class;
     public $request = OfflineCourseRequest::class;
     public $columns = [

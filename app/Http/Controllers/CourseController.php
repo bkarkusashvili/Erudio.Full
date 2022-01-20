@@ -10,6 +10,7 @@ use App\Models\Instructor;
 
 class CourseController extends AdminController
 {
+    public $sorting = true;
     public $model = Course::class;
     public $request = CourseRequest::class;
     public $columns = [

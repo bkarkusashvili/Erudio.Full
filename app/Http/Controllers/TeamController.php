@@ -7,6 +7,7 @@ use App\Models\Team;
 
 class TeamController extends AdminController
 {
+    public $sorting = true;
     public $model = Team::class;
     public $request = TeamRequest::class;
     public $columns = [

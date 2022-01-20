@@ -7,6 +7,7 @@ use App\Models\Category;
 
 class CategoryController extends AdminController
 {
+    public $sorting = true;
     public $model = Category::class;
     public $request = CategoryRequest::class;
     public $columns = [

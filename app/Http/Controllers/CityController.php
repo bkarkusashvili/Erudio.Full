@@ -7,6 +7,7 @@ use App\Models\City;
 
 class CityController extends AdminController
 {
+    public $sorting = true;
     public $model = City::class;
     public $request = CityRequest::class;
     public $columns = [

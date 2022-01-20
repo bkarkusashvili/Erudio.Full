@@ -7,6 +7,7 @@ use App\Models\Slider;
 
 class SliderController extends AdminController
 {
+    public $sorting = true;
     public $model = Slider::class;
     public $request = SliderRequest::class;
     public $columns = [
