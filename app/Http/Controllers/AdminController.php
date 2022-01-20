@@ -258,8 +258,7 @@ class AdminController extends Controller
         if ($type == 'edit') {
             $moveId = $list->pull($id);
 
-            $newPost = $id < $new ? $new + 1 : $new - 1;
-            $list->splice($newPost, 0, [$moveId]);
+            $list->splice($new, 0, [$moveId]);
         }
 
         if ($type == 'delete') {
