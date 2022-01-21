@@ -206,7 +206,7 @@ class FrontController extends Controller
             'courses.*',
             DB::raw('null as start_date'),
             DB::raw('null as end_date'),
-            'courses.id as type_id',
+            // 'courses.id as type_id',
         )
             ->whereHas('videos')
             ->when($request->has('category') && !!$request->input('category'), function ($q) {
@@ -224,7 +224,7 @@ class FrontController extends Controller
             'courses.*',
             'offline_courses.start as start_date',
             'offline_courses.end as end_date',
-            'offline_courses.id as type_id',
+            // 'offline_courses.id as type_id',
         )
             ->rightJoin('offline_courses', 'courses.id', '=', 'offline_courses.course_id')
             ->when($request->has('category') && !!$request->input('category'), function ($q) {
@@ -247,7 +247,7 @@ class FrontController extends Controller
             'courses.*',
             'live_courses.start as start_date',
             'live_courses.end as end_date',
-            'live_courses.id as type_id',
+            // 'live_courses.id as type_id',
         )
             ->rightJoin('live_courses', 'courses.id', '=', 'live_courses.course_id')
             ->when($request->has('category') && !!$request->input('category'), function ($q) {
