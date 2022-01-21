@@ -882,6 +882,7 @@
                 position: relative;
                 padding: 0 12px 10px;
                 width: 80%;
+                font-size: 18px;
 
                 a {
                     color: #1a1a1a;
@@ -992,6 +993,13 @@
             box-sizing: border-box;
             width: 100%;
 
+            @include lg {
+                height: 48px;
+                margin-right: 10px;
+                padding: 0 26px 0 10px;
+                font-size: 16px;
+            }
+
             @include md {
                 flex: 1 0 60px;
                 width: 100% !important;
@@ -1012,6 +1020,11 @@
             -webkit-appearance: none;
             background-position: right 15px center;
             background-color: #fff;
+
+            @include lg {
+                background-position: right 10px center;
+                background-size: 10px;
+            }
         }
 
         .type-select {
@@ -1041,6 +1054,12 @@
             border-radius: 30px;
             border: none;
             outline: none;
+
+            @include lg {
+                height: 48px;
+                font-size: 16px;
+                margin-right: 10px;
+            }
         }
 
         .clear {
@@ -1049,6 +1068,10 @@
             color: #888893;
             font-size: 20px;
             text-decoration: none;
+
+            @include lg {
+                font-size: 16px;
+            }
         }
     }
 

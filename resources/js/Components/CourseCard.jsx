@@ -10,7 +10,9 @@ export const CourseCard = ({ data }) => {
         <div className="course-card">
             <div className="main-wraper">
                 <div className="media">
-                    <img src={`${base}/storage/${data.image}`} alt={data['name_' + lang]} />
+                    <Link href={useRoute('course.single', { id: data.type_id || data.id, type: data.type })}>
+                        <img src={`${base}/storage/${data.image}`} alt={data['name_' + lang]} />
+                    </Link>
                 </div>
                 <div className="wrap">
                     <h3 className="tp-header small">
