@@ -182,7 +182,7 @@ const CourseSingle = ({ item, lang }) => {
                                 </div>
                             )}
                         </div>
-                        {!item.hasCourse && item.can_buy && (
+                        {!item.hasCourse && item.can_buy_course && (
                             user ?
                                 <div className="actions">
                                     <Link

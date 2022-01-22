@@ -347,7 +347,7 @@ class FrontController extends Controller
             })
             ->findOrFail($id);
         $item->type_status = $course_type_status;
-        $item->can_buy = $can_buy;
+        $item->can_buy_course = $can_buy;
         if ($user) {
             $item->hasCourse = $user->hasCourse($type, $type_id);
         }
