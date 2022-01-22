@@ -197,7 +197,7 @@ const CourseSingle = ({ item, lang }) => {
                                         className={getClassName({ loading, 'tp-register': true })}
                                         children={loading ? <CircularProgress /> : translate.buy}
                                     />
-                                    {(!isFree || (!item.hasCourse && item.can_buy_course)) && (
+                                    {!isFree && !item.hasCourse && item.can_buy_course && (
                                         <Link
                                             onClick={(e) => checkPay(e, 'installment')}
                                             href="#"
