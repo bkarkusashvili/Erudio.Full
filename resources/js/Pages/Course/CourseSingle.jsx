@@ -214,7 +214,7 @@ const CourseSingle = ({ item, lang }) => {
                             </h3>
                             <p className="tp-text live-course-days">კურსი შედგება {item.days} ლექციისგან</p>
                             <p className="tp-text">
-                                {translate.live_link}: {moment(item.start_date).format('DD.MM.y')} - {moment(item.end_date).format('DD.MM.y')}
+                                {translate.live_link}:
                             </p>
                             <a href={item.url} target="_blank">{item.url}</a>
                         </div>

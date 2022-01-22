@@ -291,9 +291,11 @@ class FrontController extends Controller
         $type_id = $id;
         $course_type_status = null;
         $can_buy = true;
+        $url = null;
         if ($type == 'online') {
             $course = LiveCourse::findOrFail($id);
             $id = $course->course_id;
+            $url = $course->url;
         } else if ($type == 'offline') {
             $course = OfflineCourse::findOrFail($id);
             $id = $course->course_id;
@@ -350,6 +352,10 @@ class FrontController extends Controller
         $item->can_buy_course = $can_buy;
         if ($user) {
             $item->hasCourse = $user->hasCourse($type, $type_id);
+
+            if ($item->hasCourse) {
+                $item->url = $url;
+            }
         }
 
         return Inertia::render('Course/CourseSingle', [
