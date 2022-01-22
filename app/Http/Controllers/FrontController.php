@@ -9,7 +9,9 @@ use App\Models\Course;
 use App\Models\Invoice;
 use App\Models\LiveCourse;
 use App\Models\Media;
+use App\Models\OfflineCourse;
 use App\Models\Option;
+use App\Models\Order;
 use App\Models\Page;
 use App\Models\Slider;
 use App\Models\Subscribe;
@@ -22,6 +24,8 @@ use App\Services\TBCPaymentService;
 use Carbon\Carbon;
 use DB;
 use Hash;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
@@ -206,7 +210,7 @@ class FrontController extends Controller
             'courses.*',
             DB::raw('null as start_date'),
             DB::raw('null as end_date'),
-            // 'courses.id as type_id',
+            'courses.id as type_id',
         )
             ->whereHas('videos')
             ->when($request->has('category') && !!$request->input('category'), function ($q) {
@@ -224,7 +228,7 @@ class FrontController extends Controller
             'courses.*',
             'offline_courses.start as start_date',
             'offline_courses.end as end_date',
-            // 'offline_courses.id as type_id',
+            'offline_courses.id as type_id',
         )
             ->rightJoin('offline_courses', 'courses.id', '=', 'offline_courses.course_id')
             ->when($request->has('category') && !!$request->input('category'), function ($q) {
@@ -247,7 +251,7 @@ class FrontController extends Controller
             'courses.*',
             'live_courses.start as start_date',
             'live_courses.end as end_date',
-            // 'live_courses.id as type_id',
+            'live_courses.id as type_id',
         )
             ->rightJoin('live_courses', 'courses.id', '=', 'live_courses.course_id')
             ->when($request->has('category') && !!$request->input('category'), function ($q) {
@@ -284,12 +288,68 @@ class FrontController extends Controller
 
     public function courseSingle(string $lang, string $type, int $id)
     {
-        $item = $this->sortByDrag(Course::query(), Course::class)->with('instructor', 'instructorTwo', 'lives', 'videos', 'offlines')->findOrFail($id);
-        $item->isLive = $item->isLive;
+        $type_id = $id;
+        $course_type_status = null;
+        $can_buy = true;
+        if ($type == 'online') {
+            $course = LiveCourse::findOrFail($id);
+            $id = $course->course_id;
+        } else if ($type == 'offline') {
+            $course = OfflineCourse::findOrFail($id);
+            $id = $course->course_id;
+        } else if ($type == 'masterclass') {
+            $course = Course::findOrFail($id);
+            $id = $course->id;
+        } else {
+            return;
+        }
+
+        $course_type_status = $course->status;
+        $can_buy = $course->can_buy;
 
         $user = auth()->user();
+
+        $item = Course::with('instructor', 'instructorTwo')
+            ->when($type == 'online', function (Builder $q) use ($type_id) {
+                $q
+                    ->leftJoin('live_courses', 'courses.id', '=', 'live_courses.course_id')
+                    ->where('live_courses.id', $type_id)
+                    ->select(
+                        'courses.*',
+                        'live_courses.start as start_date',
+                        'live_courses.end as end_date',
+                        'live_courses.id as type_id',
+                    );
+            })
+            ->when($type == 'offline', function (Builder $q) use ($type_id) {
+                $q
+                    ->leftJoin('offline_courses', 'courses.id', '=', 'offline_courses.course_id')
+                    ->where('offline_courses.id', $type_id)
+                    ->select(
+                        'courses.*',
+                        'offline_courses.start as start_date',
+                        'offline_courses.end as end_date',
+                        'offline_courses.id as type_id',
+                    );
+            })
+            ->when($type == 'masterclass', function (Builder $q) use ($type, $type_id) {
+                $q
+                    ->select(
+                        'courses.*',
+                        DB::raw('null as start_date'),
+                        DB::raw('null as end_date'),
+                        'courses.id as type_id',
+                    );
+
+                if (auth()->user()->hasCourse($type, $type_id)) {
+                    $q->with('videos');
+                }
+            })
+            ->findOrFail($id);
+        $item->type_status = $course_type_status;
+        $item->can_buy = $can_buy;
         if ($user) {
-            $item->hasCourse = $user->hasCourse($item);
+            $item->hasCourse = $user->hasCourse($type, $type_id);
         }
 
         return Inertia::render('Course/CourseSingle', [
@@ -331,15 +391,35 @@ class FrontController extends Controller
     public function pay(Request $request)
     {
         $courseId = $request->get('courseId');
+        $coursType = $request->get('courseType');
         $payType = $request->get('payType', 'card');
-        // $request->input('courseId');
 
-        $course = Course::findOrFail($courseId);
+        $course = null;
+
+        if ($coursType == 'online') {
+            $course = LiveCourse::findOrFail($courseId);
+            $course->isFree = $course->course->is_free;
+        } else if ($coursType == 'offline') {
+            $course = OfflineCourse::findOrFail($courseId);
+            $course->isFree = $course->course->is_free;
+        } else if ($coursType == 'masterclass') {
+            $course = Course::findOrFail($courseId);
+            $course->can_buy = true;
+        } else {
+            return;
+        }
+
+        $user = auth()->user();
+
+        if (!$course->can_buy || $user->hasCourse($coursType, $courseId)) {
+            return;
+        }
 
         if ($course->isFree) {
-            $user = auth()->user();
-            $course->orders()->create([
+            Order::create([
                 'user_id' => $user->id,
+                'course_id' => $courseId,
+                'course_type' => $coursType,
                 'userName' => $user->firstname . ' ' . $user->lastname,
                 'amount' => $course->price,
                 'status' => 1
@@ -371,7 +451,6 @@ class FrontController extends Controller
     public function payInvoice(Request $request)
     {
         $courseId = $request->get('courseId');
-        // $request->input('courseId');
 
         $course = Course::findOrFail($courseId);
 
@@ -385,7 +464,6 @@ class FrontController extends Controller
             'phone' => 'required|string',
             'from' => 'required|string',
         ]);
-        // liveCourseId: liveCourse,
 
         $email = Option::where('key', 'email')->first();
         $email = $email ? $email->value : 'info@erudio.ge';

@@ -39,9 +39,7 @@ const invoiceForm = [
 
 const CourseSingle = ({ item, lang }) => {
     const { auth: { user }, base, translate } = usePage().props;
-    const [activeIndex, setActiveIndex] = useState(0);
     const [activeVideo, setActiveVideo] = useState();
-    const [liveCourse, setLiveCourse] = useState(null);
     const [loading, setLoading] = useState(false);
     const [callbackDialog, setCallbackDialog] = useState(false);
     const [formDialog, setFormDialog] = useState(false);
@@ -52,16 +50,18 @@ const CourseSingle = ({ item, lang }) => {
 
     const player = useRef();
     const source = useRef();
-    const hasVideos = useMemo(() => !!item.videos.length, [item.id]);
-    // const shareUrl = useMemo(() => window.location.origin + window.location.pathname, [window.location]);
-    const shareUrl = useMemo(() => 'https://erudio.ge/ka/course/3', [window.location]);
+    const hasVideos = useMemo(() => !!item.videos && !!item.videos.length, [item.id]);
+    const shareUrl = useMemo(() => window.location.origin + window.location.pathname, [window.location]);
     const isFree = useMemo(() => item.price === 0, [item.price]);
-    const live = item.lives && item.lives.length && item.lives[0];
-    const isOffline = item.type === 2;
+    const isOffline = item.type === 'offline';
+    const isLive = item.type === 'online';
+    const isVideos = item.type === 'masterclass';
+
+    console.log(item);
 
     const { errors, setData, post } = useForm({
-        courseId: item.id,
-        liveCourseId: liveCourse,
+        courseId: item.type_id,
+        courseType: item.type,
         fullname: '',
         fullname_latin: '',
         email: '',
@@ -74,14 +74,14 @@ const CourseSingle = ({ item, lang }) => {
 
     useEffect(() => params.status === 'paid' && setCallbackDialog(true), []);
     useEffect(() => {
-        if (!hasVideos || item.isLive) return;
+        if (!hasVideos || !isVideos) return;
 
-        setActiveVideo(item.videos[activeIndex]);
+        setActiveVideo(item.videos[0]);
     }, []);
 
     const pay = (type) => {
         setLoading(true);
-        axios.post(route('pay'), { courseId: item.id, liveCourseId: liveCourse, payType: type })
+        axios.post(route('pay'), { courseId: item.type_id, courseType: item.type, payType: type })
             .then(res => res.data)
             .then(res => {
                 if (isFree) {
@@ -157,10 +157,10 @@ const CourseSingle = ({ item, lang }) => {
                                 <span>{translate.location}:</span>
                                 <span>{item['address_' + lang]}</span>
                             </div>
-                            {item.type === 1 && (
+                            {item.start_date && item.end_date && (
                                 <div className="item">
                                     <span>{translate.date}:</span>
-                                    <span>{moment(live.start).format('DD.MM.y')} - {moment(live.end).format('DD.MM.y')}</span>
+                                    <span>{moment(item.start_date).format('DD.MM.y')} - {moment(item.end_date).format('DD.MM.y')}</span>
                                 </div>
                             )}
                             <div className="item">
@@ -175,8 +175,14 @@ const CourseSingle = ({ item, lang }) => {
                                 <span>{translate.call}:</span>
                                 <span>{item.phone}</span>
                             </div>
+                            {!isVideos && (
+                                <div className="item">
+                                    <span>{translate.course_status}:</span>
+                                    <span>{translate['course_status_' + item.type_status]}</span>
+                                </div>
+                            )}
                         </div>
-                        {!item.hasCourse && (
+                        {!item.hasCourse && item.can_buy && (
                             user ?
                                 <div className="actions">
                                     <Link
@@ -200,20 +206,22 @@ const CourseSingle = ({ item, lang }) => {
                     </div>
                 </div>
                 {item.hasCourse && (
-                    item.isLive ? (
+                    isLive ? (
                         <div className="container live-course">
                             <h3 className="tp-header">
                                 {translate.course_has_live}
                                 <span>LIVE</span>
                             </h3>
                             <p className="tp-text live-course-days">კურსი შედგება {item.days} ლექციისგან</p>
-                            <p className="tp-text">{translate.live_link}: {moment(live.start).format('DD.MM.y')} - {moment(live.end).format('DD.MM.y')}</p>
-                            <a href={live.url} target="_blank">{live.url}</a>
+                            <p className="tp-text">
+                                {translate.live_link}: {moment(item.start_date).format('DD.MM.y')} - {moment(item.end_date).format('DD.MM.y')}
+                            </p>
+                            <a href={item.url} target="_blank">{item.url}</a>
                         </div>
                     ) : hasVideos && activeVideo && (
                         <div className="container ofline-course">
                             <h3 className="tp-header">კურსი მოიცავს ონლაინ ტრეინინგებს</h3>
-                            <p className="tp-text live-course-days">კურსი შედგება 5 ლექციისგან</p>
+                            <p className="tp-text live-course-days">კურსი შედგება {item.videos.length} ლექციისგან</p>
                             <p className="tp-text course-number">{activeVideo['name_' + lang]}</p>
                             <div className="active-video">
                                 <video ref={player} width="1366" height="810" className="video-js" controls preload="auto" poster={`${base}/storage/${activeVideo.image}`}
@@ -221,7 +229,7 @@ const CourseSingle = ({ item, lang }) => {
                                     <source ref={source} src={activeVideo.video} type="video/mp4" />
                                 </video>
                             </div>
-                            {item.videos.length > 1 && (
+                            {!!item.videos.length && (
                                 <>
                                     <Swiper
                                         className="video-list"

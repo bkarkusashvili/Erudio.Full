@@ -17,11 +17,6 @@ class Course extends Model
         'type' => CourseTypeCast::class,
     ];
 
-    public function getIsLiveAttribute()
-    {
-        return $this->type == 1;
-    }
-
     public function getIsFreeAttribute()
     {
         return $this->price == 0;
@@ -78,12 +73,27 @@ class Course extends Model
         return $this->hasMany(Order::class);
     }
 
+    public function getStatusAttribute()
+    {
+        return 'active';
+    }
+
+    public function getIsFullAttribute()
+    {
+        return false;
+    }
+
+    public function getCanBuyAttribute()
+    {
+        return true;
+    }
+
     public static function getCourseType(int $type)
     {
         return [
+            'masterclass',
             'online',
             'offline',
-            'masterclass',
         ][$type];
     }
 }

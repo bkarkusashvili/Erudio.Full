@@ -63,11 +63,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Order::class);
     }
 
-    public function hasCourse(Course $course)
+    public function hasCourse($type, $id)
     {
-        return !!$course->orders()
-            ->where('user_id', $this->id)
-            ->where('status', 1)
+        return !!$this->orders()
+            ->where([
+                'status' => 1,
+                'course_type' => $type,
+                'course_id' => $id,
+            ])
             ->count();
     }
 

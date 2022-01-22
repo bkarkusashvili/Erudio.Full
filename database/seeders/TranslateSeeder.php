@@ -15,14 +15,29 @@ class TranslateSeeder extends Seeder
     public function run()
     {
         Translate::create([
-            'key' => 'mail_order_offline_success',
-            'ka' => 'თქვენ წარმატებით შეიძინეთ ოფლაინ კურსი, კურსის სანახავად გთხოვთ ეწვიოთ თქვენს პროფილს',
-            'en' => 'თქვენ წარმატებით შეიძინეთ ოფლაინ კურსი, კურსის სანახავად გთხოვთ ეწვიოთ თქვენს პროფილს'
+            'key' => 'course_status',
+            'ka' => 'სტატუსი',
+            'en' => 'სტატუსი'
         ]);
         Translate::create([
-            'key' => 'mail_order_masterclass_success',
-            'ka' => 'თქვენ წარმატებით შეიძინეთ მასტერკლასი, კურსის სანახავად გთხოვთ ეწვიოთ თქვენს პროფილს',
-            'en' => 'თქვენ წარმატებით შეიძინეთ მასტერკლასი, კურსის სანახავად გთხოვთ ეწვიოთ თქვენს პროფილს'
+            'key' => 'course_status_active',
+            'ka' => 'აქტიური',
+            'en' => 'აქტიური'
+        ]);
+        Translate::create([
+            'key' => 'course_status_going',
+            'ka' => 'მიმდინარე',
+            'en' => 'მიმდინარე'
+        ]);
+        Translate::create([
+            'key' => 'course_status_end',
+            'ka' => 'დასრულებული',
+            'en' => 'დასრულებული'
+        ]);
+        Translate::create([
+            'key' => 'course_status_full',
+            'ka' => 'ადგილები შევსებულია',
+            'en' => 'ადგილები შევსებულია'
         ]);
     }
 }
