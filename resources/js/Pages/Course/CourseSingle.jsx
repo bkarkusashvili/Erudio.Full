@@ -103,7 +103,13 @@ const CourseSingle = ({ item, lang }) => {
     const checkPay = (e, type) => {
         e.preventDefault();
 
-        if (isOffline && type !== 'installment') return setFormDialog(true);
+        if (isOffline && type !== 'installment') {
+            if (item.hasCourse || !item.can_buy_course) {
+                setForm(true);
+            }
+
+            return setFormDialog(true);
+        };
 
         pay(type);
     };
@@ -182,8 +188,8 @@ const CourseSingle = ({ item, lang }) => {
                                 </div>
                             )}
                         </div>
-                        {!item.hasCourse && item.can_buy_course && (
-                            user ?
+                        {user ?
+                            (!item.hasCourse && item.can_buy_course) || isOffline && (
                                 <div className="actions">
                                     <Link
                                         onClick={(e) => checkPay(e, 'card')}
@@ -191,7 +197,7 @@ const CourseSingle = ({ item, lang }) => {
                                         className={getClassName({ loading, 'tp-register': true })}
                                         children={loading ? <CircularProgress /> : translate.buy}
                                     />
-                                    {!isFree && (
+                                    {(!isFree || (!item.hasCourse && item.can_buy_course)) && (
                                         <Link
                                             onClick={(e) => checkPay(e, 'installment')}
                                             href="#"
@@ -200,9 +206,10 @@ const CourseSingle = ({ item, lang }) => {
                                         />
                                     )}
                                 </div>
-                                :
-                                <Link href={useRoute('register')} className="tp-register" children={translate.registration} />
-                        )}
+                            )
+                            :
+                            <Link href={useRoute('register')} className="tp-register" children={translate.registration} />
+                        }
                     </div>
                 </div>
                 {item.hasCourse && (
