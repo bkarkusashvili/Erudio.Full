@@ -103,7 +103,7 @@ const CourseSingle = ({ item, lang }) => {
     const checkPay = (e, type) => {
         e.preventDefault();
 
-        if (isOffline) return setFormDialog(true);
+        if (isOffline && type !== 'installment') return setFormDialog(true);
 
         pay(type);
     };
