@@ -391,27 +391,31 @@ class FrontController extends Controller
     public function pay(Request $request)
     {
         $courseId = $request->get('courseId');
-        $coursType = $request->get('courseType');
+        $courseType = $request->get('courseType');
         $payType = $request->get('payType', 'card');
 
         $course = null;
+        $baseCourse = null;
 
-        if ($coursType == 'online') {
+        if ($courseType == 'online') {
             $course = LiveCourse::findOrFail($courseId);
             $course->isFree = $course->course->is_free;
-        } else if ($coursType == 'offline') {
+            $baseCourse = $course->course;
+        } else if ($courseType == 'offline') {
             $course = OfflineCourse::findOrFail($courseId);
             $course->isFree = $course->course->is_free;
-        } else if ($coursType == 'masterclass') {
+            $baseCourse = $course->course;
+        } else if ($courseType == 'masterclass') {
             $course = Course::findOrFail($courseId);
             $course->can_buy = true;
+            $baseCourse = $course;
         } else {
             return;
         }
 
         $user = auth()->user();
 
-        if (!$course->can_buy || $user->hasCourse($coursType, $courseId)) {
+        if (!$course->can_buy || $user->hasCourse($courseType, $courseId)) {
             return;
         }
 
@@ -419,7 +423,7 @@ class FrontController extends Controller
             Order::create([
                 'user_id' => $user->id,
                 'course_id' => $courseId,
-                'course_type' => $coursType,
+                'course_type' => $courseType,
                 'userName' => $user->firstname . ' ' . $user->lastname,
                 'amount' => $course->price,
                 'status' => 1
@@ -434,7 +438,7 @@ class FrontController extends Controller
             ]);
         } else {
             $payment = app(TBCPaymentService::class);
-            $response = $payment->pay($course, $payType);
+            $response = $payment->pay($baseCourse, $payType, $courseId, $courseType);
 
             if ($response->ok()) {
                 $body = json_decode($response->body());

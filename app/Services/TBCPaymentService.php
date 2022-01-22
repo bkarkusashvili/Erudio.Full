@@ -51,7 +51,7 @@ class TBCPaymentService
      * @param  Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function pay(Course $course, $type)
+    public function pay(Course $course, $type, $courseId, $couseType)
     {
         $this->getToken();
 
@@ -71,7 +71,8 @@ class TBCPaymentService
                 ],
                 "methods" => $methods,
                 "returnurl" => route('course.single', [
-                    $course->id,
+                    'id' => $courseId,
+                    'type' => $couseType,
                     'lang' => Lang::locale(),
                     'status' => 'paid',
                 ]),
@@ -81,8 +82,10 @@ class TBCPaymentService
             $user = auth()->user();
             $body = json_decode($response->body());
 
-            $course->orders()->create([
+            Order::create([
                 'user_id' => $user->id,
+                'course_id' => $courseId,
+                'course_type' => $couseType,
                 'userName' => $user->firstname . ' ' . $user->lastname,
                 'amount' => $course->price,
                 'payId' => $body->payId,
