@@ -8,6 +8,8 @@ import { Metas } from '@/Components/Metas';
 const Profile = ({ list = [] }) => {
     const { lang, translate } = usePage().props;
 
+    console.log(list);
+
     return (
         <MainLayout>
             <Metas title={translate.myPage} />
@@ -19,8 +21,8 @@ const Profile = ({ list = [] }) => {
                             list.map(item => (
                                 <div key={item.id} className="item">
                                     <span className="date">{translate.date}: {moment(item.created_at).format('DD.MM.YY')}</span>
-                                    <span className="title">{item.course && item.course['name_' + lang]}</span>
-                                    <Link href={useRoute('course.single', { id: item.course_id, type: 'course' })} children={translate.online_course_link} />
+                                    <span className="title">{item.course_name}</span>
+                                    <Link href={useRoute('course.single', { id: item.course_id, type: item.course_type })} children={translate.online_course_link} />
                                 </div>
                             ))
                         ) : (

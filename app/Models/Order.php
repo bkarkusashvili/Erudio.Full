@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Lang;
 
 class Order extends Model
 {
@@ -24,5 +25,22 @@ class Order extends Model
     public function markAsPaid()
     {
         $this->update(['status' => 1]);
+    }
+
+    public function getCourseNameAttribute()
+    {
+        $course = null;
+
+        if ($this->course_type == 'online') {
+            $course = LiveCourse::find($this->course_id)->course;
+        } else if ($this->course_type == 'ofline') {
+            $course = OfflineCourse::find($this->course_id)->course;
+        } else {
+            $course = Course::find($this->course_id);
+        }
+
+        $lang = Lang::locale();
+
+        return $course['name_' . $lang];
     }
 }

@@ -58,6 +58,7 @@ const CourseSingle = ({ item, lang }) => {
     const isVideos = item.type === 'masterclass';
 
     console.log(item);
+    console.log(!item.hasCourse && item.can_buy_course);
 
     const { errors, setData, post } = useForm({
         courseId: item.type_id,
@@ -189,7 +190,7 @@ const CourseSingle = ({ item, lang }) => {
                             )}
                         </div>
                         {user ?
-                            (!item.hasCourse && item.can_buy_course) || isOffline && (
+                            !item.hasCourse && item.can_buy_course && (
                                 <div className="actions">
                                     <Link
                                         onClick={(e) => checkPay(e, 'card')}
@@ -327,7 +328,7 @@ const CourseSingle = ({ item, lang }) => {
             <Dialog open={callbackDialog}>
                 <DialogTitle children={translate.success_message} />
                 <DialogActions className="dialog-action">
-                    <Button onClick={() => setDialog(false)} children={translate.close} />
+                    <Button onClick={() => setCallbackDialog(false)} children={translate.close} />
                 </DialogActions>
             </Dialog>
             <Dialog
@@ -389,7 +390,9 @@ const CourseSingle = ({ item, lang }) => {
                             </Stack>
                         ) :
                         <Stack direction={'row'} spacing={2} justifyContent={'center'}>
-                            <Button variant="outlined" onClick={() => pay('card')}>ფიზკური</Button>
+                            {!item.hasCourse && item.can_buy_course && (
+                                <Button variant="outlined" onClick={() => pay('card')}>ფიზკური</Button>
+                            )}
                             <Button variant="outlined" onClick={() => setForm(true)}>იურიდიული</Button>
                         </Stack>
                     }

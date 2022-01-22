@@ -370,8 +370,14 @@ class FrontController extends Controller
 
     public function profile()
     {
+        $list = auth()->user()->orders()->where('status', 1)->get()->map(function (Order $order) {
+            $order->course_name = $order->course_name;
+
+            return $order;
+        });
+
         return Inertia::render('Auth/Profile', [
-            'list' => auth()->user()->orders()->with('course')->where('status', 1)->get(),
+            'list' => $list,
         ]);
     }
 
@@ -425,13 +431,13 @@ class FrontController extends Controller
             return;
         }
 
-        if ($course->isFree) {
+        if ($course->isFree || env('APP_ENV') == 'local') {
             Order::create([
                 'user_id' => $user->id,
                 'course_id' => $courseId,
                 'course_type' => $courseType,
                 'userName' => $user->firstname . ' ' . $user->lastname,
-                'amount' => $course->price,
+                'amount' => $baseCourse->price,
                 'status' => 1
             ]);
 
