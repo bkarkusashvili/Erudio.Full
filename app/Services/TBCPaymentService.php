@@ -55,7 +55,7 @@ class TBCPaymentService
     {
         $this->getToken();
 
-        $methods = $type == 'card' ? [5, 7] : [8];
+        $methods = $type == 'card' ? [4, 5, 7] : [8];
 
         $response = Http::withHeaders([
             'apiKey' => $this->apiKey,
