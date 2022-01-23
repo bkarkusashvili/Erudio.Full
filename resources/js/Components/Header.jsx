@@ -61,8 +61,8 @@ export const Header = () => {
                             key={key}
                             href={useRoute(item.name)}
                             className={getClassName({ active: isActivePage(item.name, null, item.list), isOpen: active === key, 'parent-link': true })}
-                            onClick={(e) => openSubMenu(e, !!item.list.length, key)}
-                            as={isMobile ? 'div' : 'a'}
+                            onClick={(e) => openSubMenu(e, item.list && !!item.list.length, key)}
+                            as={isMobile && !!item.list && !!item.list.length ? 'div' : 'a'}
                         >
                             <span>{item.value}</span>
                             {item.list && item.list.length ? (
