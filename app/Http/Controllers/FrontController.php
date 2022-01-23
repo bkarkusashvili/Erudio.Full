@@ -52,18 +52,21 @@ class FrontController extends Controller
 
     public function home()
     {
-        $query = Course::query();
-        $query->where('status', 1);
-
-        $query->where(function ($q) {
+        $tQuery = Course::where('status', 1)->where('popular_training', true)->where(function ($q) {
             $q->whereHas('lives');
             $q->orWhereHas('offlines');
             $q->orWhereHas('videos');
         });
-
-        $tQuery = $query->where('popular_training', true)->clone();
-        $cQuery = $query->where('popular_course', true)->clone();
-        $mQuery = $query->where('popular_masterclass', true)->clone();
+        $cQuery = Course::where('status', 1)->where('popular_course', true)->where(function ($q) {
+            $q->whereHas('lives');
+            $q->orWhereHas('offlines');
+            $q->orWhereHas('videos');
+        });
+        $mQuery = Course::where('status', 1)->where('popular_masterclass', true)->where(function ($q) {
+            $q->whereHas('lives');
+            $q->orWhereHas('offlines');
+            $q->orWhereHas('videos');
+        });
 
         $trainings = $this->sortByDrag($tQuery, Course::class)->get();
         $courses = $this->sortByDrag($cQuery, Course::class)->get();
