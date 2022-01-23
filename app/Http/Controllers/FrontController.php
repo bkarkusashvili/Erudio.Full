@@ -484,7 +484,7 @@ class FrontController extends Controller
         $email = Option::where('key', 'email')->first();
         $email = $email ? $email->value : 'info@erudio.ge';
 
-        Invoice::create(array_merge(
+        $invoice = Invoice::create(array_merge(
             $data,
             [
                 'status' => $course->isFree,
@@ -499,7 +499,7 @@ class FrontController extends Controller
         $user->notify(new OrderNotification('online', 'invoice'));
 
         $user = new User(['email' => $email]);
-        $user->notify(new OrderNotification('online', 'invoice', true));
+        $user->notify(new OrderNotification('online', 'invoice', true, $invoice));
 
         return redirect()->back();
     }

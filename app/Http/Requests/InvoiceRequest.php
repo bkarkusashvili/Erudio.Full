@@ -24,7 +24,15 @@ class InvoiceRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|integer',
+            'fullname' => 'required|string',
+            'fullname_latin' => 'required|string',
+            'email' => 'required|string|email',
+            'company_name' => 'required|string',
+            'company_number' => 'required|integer',
+            'position' => 'required|string',
+            'phone' => 'required|string',
+            'from' => 'required|string',
+            'status' => 'required|boolean',
         ];
     }
 }

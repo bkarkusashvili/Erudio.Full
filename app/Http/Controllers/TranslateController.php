@@ -7,7 +7,7 @@ use App\Models\Translate;
 
 class TranslateController extends AdminController
 {
-    public $create = true;
+    public $create = false;
     public $delete = false;
     public $edit = true;
 
@@ -22,7 +22,7 @@ class TranslateController extends AdminController
         [
             'size' => 6,
             'list' => [
-                ['type' => 'text', 'name' => 'key', 'label' => 'Key'],
+                ['type' => 'text', 'name' => 'key', 'label' => 'Key', 'disabled' => true],
                 ['type' => 'text', 'name' => 'ka', 'label' => 'ქართული'],
             ]
         ],

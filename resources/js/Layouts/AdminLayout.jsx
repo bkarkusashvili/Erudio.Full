@@ -13,7 +13,7 @@ import { Link } from '@inertiajs/inertia-react';
 const drawerWidth = 240;
 const menu = [
     { text: 'Online შეკვეთები', model: 'order', canAdd: false },
-    { text: 'Offline შეკვეთები', model: 'invoice', canAdd: true },
+    { text: 'Offline შეკვეთები', model: 'invoice', canAdd: false },
     {
         list: [
             { text: 'კურსები', model: 'course', canAdd: true },
@@ -47,10 +47,10 @@ const menu = [
             { text: 'ტრენერი', model: 'instructor', canAdd: true },
             { text: 'გვერდები', model: 'page', canAdd: false },
             { text: 'სლაიდერი', model: 'slider', canAdd: true },
-            { text: 'პარამეტრები', model: 'option', canAdd: true },
+            { text: 'პარამეტრები', model: 'option', canAdd: false },
         ]
     },
-    { text: 'თარგმანი', model: 'translate', canAdd: true },
+    { text: 'თარგმანი', model: 'translate', canAdd: false },
 ];
 
 const LocalListItem = ({ item }) => {

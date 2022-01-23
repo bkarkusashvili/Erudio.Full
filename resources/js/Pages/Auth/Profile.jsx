@@ -8,8 +8,6 @@ import { Metas } from '@/Components/Metas';
 const Profile = ({ list = [] }) => {
     const { lang, translate } = usePage().props;
 
-    console.log(list);
-
     return (
         <MainLayout>
             <Metas title={translate.myPage} />

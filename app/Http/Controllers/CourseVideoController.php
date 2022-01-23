@@ -38,7 +38,7 @@ class CourseVideoController extends AdminController
     ];
     public $search = [
         ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
-        ['name' => 'course.name_ka', 'type' => 'text', 'label' => 'კურსი'],
+        ['name' => 'course*name_ka', 'type' => 'text', 'label' => 'კურსი'],
         ['name' => 'name_ka', 'type' => 'text', 'label' => 'სახელი'],
     ];
     public $fileFilds = ['image'];

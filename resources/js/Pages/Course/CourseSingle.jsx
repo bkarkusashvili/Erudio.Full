@@ -57,9 +57,6 @@ const CourseSingle = ({ item, lang }) => {
     const isLive = item.type === 'online';
     const isVideos = item.type === 'masterclass';
 
-    console.log(item);
-    console.log(!item.hasCourse && item.can_buy_course);
-
     const { errors, setData, post } = useForm({
         courseId: item.type_id,
         courseType: item.type,

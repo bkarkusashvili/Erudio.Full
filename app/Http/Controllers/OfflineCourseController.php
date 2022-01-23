@@ -39,8 +39,8 @@ class OfflineCourseController extends AdminController
     ];
     public $search = [
         ['name' => 'id', 'type' => 'number', 'label' => 'ID'],
-        ['name' => 'course.name_ka', 'type' => 'text', 'label' => 'სახელი'],
-        ['name' => 'start', 'type' => 'date', 'label' => 'დაწყების თარიღი'],
+        ['name' => 'course*name_ka', 'type' => 'text', 'label' => 'სახელი'],
+        // ['name' => 'start', 'type' => 'date', 'label' => 'დაწყების თარიღი'],
     ];
 
     public function __construct()

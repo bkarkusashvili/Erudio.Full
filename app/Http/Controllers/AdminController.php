@@ -308,9 +308,16 @@ class AdminController extends Controller
         }
 
         collect(request()->all())->except('page', 'lang')->each(function ($item, $key) use ($query) {
-            $query->when($item !=  null, function ($q) use ($item, $key) {
-                $q->where($key, 'like', '%' . $item . '%');
-            });
+            $keyList = explode('*', $key);
+            if (count($keyList) > 1) {
+                $query->whereHas($keyList[0], function ($query) use ($keyList, $item) {
+                    $query->where($keyList[1], 'like', '%' . $item . '%');
+                });
+            } else {
+                $query->when($item !=  null, function ($q) use ($item, $key) {
+                    $q->where($key, 'like', '%' . $item . '%');
+                });
+            }
         });
 
         if ($this->sorting) {

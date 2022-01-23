@@ -8,7 +8,7 @@ use App\Models\Invoice;
 class InvoiceController extends AdminController
 {
     public $edit = true;
-    public $create = true;
+    public $create = false;
     public $delete = true;
 
     public $model = Invoice::class;
@@ -16,7 +16,6 @@ class InvoiceController extends AdminController
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
         ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'კურსი'],
-        ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'სახელი'],
         ['field' => 'fullname', 'headerName' => 'სახელი'],
         ['field' => 'company_name', 'headerName' => 'კომპანია'],
         ['field' => 'company_number', 'headerName' => 'საიდენთიფიკაციო'],
@@ -36,10 +35,10 @@ class InvoiceController extends AdminController
         [
             'size' => 4,
             'list' => [
+                ['type' => 'toggle', 'name' => 'status', 'label' => 'სტატუსი', 'value' => false],
                 ['type' => 'email', 'name' => 'email', 'label' => 'მეილი'],
                 ['type' => 'text', 'name' => 'position', 'label' => 'პოზიცია'],
                 ['type' => 'text', 'name' => 'phone', 'label' => 'მობილური'],
-                ['type' => 'number', 'name' => 'status', 'label' => 'სტატუსი'],
             ]
         ],
     ];

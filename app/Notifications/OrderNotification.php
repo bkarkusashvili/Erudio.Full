@@ -81,12 +81,14 @@ class OrderNotification extends Notification
         } else {
             if ($this->isAdmin) {
                 $template->line($data['mail_order_new']);
-                $template->line('* სახელი: **ბექა**');
-                $template->line('* სახელი: **ბექა**');
-                $template->line('* სახელი: **ბექა**');
-                $template->line('* სახელი: **ბექა**');
-                $template->line('* სახელი: **ბექა**');
-                $template->line('* სახელი: **ბექა**');
+                $template->line('* სახელი: **' . $this->invoice->fullname . '**');
+                $template->line('* სახელი ლათინურად: **' . $this->invoice->fullname_latin . '**');
+                $template->line('* მეილი: **' . $this->invoice->email . '**');
+                $template->line('* კომპანიის სახელი: **' . $this->invoice->company_name . '**');
+                $template->line('* საიდენთფიკაციო ნომერი: **' . $this->invoice->company_number . '**');
+                $template->line('* პოზიცია: **' . $this->invoice->position . '**');
+                $template->line('* ტელეფონი: **' . $this->invoice->phone . '**');
+                $template->line('* საიდან: **' . $this->invoice->from . '**');
                 $template->action($data['mail_order_see_order'], route('home'));
             } else {
                 $template->line($data['mail_order_success_online']);

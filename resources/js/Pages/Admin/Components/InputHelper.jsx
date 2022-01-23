@@ -38,7 +38,5 @@ export const getInitForm = (fields, data = {}) => {
 
     fields.map(field => Object.assign(form, getFieldList(field.list, data)));
 
-    console.log(form);
-
     return form;
 };

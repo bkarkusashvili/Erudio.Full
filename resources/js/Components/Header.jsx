@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import { getClassName, isActivePage } from '@/Helper';
 import { MainMenu } from '@/router';
@@ -12,6 +12,7 @@ export const Header = () => {
     const [menuStatus, setMenuStatus] = useState(false);
     const [active, setActive] = useState(-1);
     const [isLangActive, setIsLangActive] = useState();
+    const [isMobile, setIsmobile] = useState(false);
     const { categories, lang, auth, base, translate, logo } = usePage().props;
 
     const menu = MainMenu(translate).map(item => {
@@ -35,6 +36,10 @@ export const Header = () => {
         }
     };
 
+    useEffect(() => {
+        setIsmobile(window.innerWidth <= 774);
+    }, [window.innerWidth])
+
     return (
         <header>
             <div className="container wrap">
@@ -55,8 +60,9 @@ export const Header = () => {
                         <Link
                             key={key}
                             href={useRoute(item.name)}
-                            className={getClassName({ active: isActivePage(item.name, null, item.list), isOpen: active === key })}
+                            className={getClassName({ active: isActivePage(item.name, null, item.list), isOpen: active === key, 'parent-link': true })}
                             onClick={(e) => openSubMenu(e, !!item.list.length, key)}
+                            as={isMobile ? 'div' : 'a'}
                         >
                             <span>{item.value}</span>
                             {item.list && item.list.length ? (
@@ -64,7 +70,6 @@ export const Header = () => {
                                     {item.list.map((item, key) => (
                                         <Link
                                             key={key}
-                                            as="span"
                                             href={item.id ?
                                                 useRoute(item.name, { id: item.id }) :
                                                 useRoute(item.name)
@@ -81,7 +86,7 @@ export const Header = () => {
                     <Link
                         onClick={(e) => auth.user ? openSubMenu(e, true, 'login') : null}
                         href={useRoute(auth.user ? 'profile' : 'login')}
-                        className={getClassName({ active: isActivePage('login'), isOpen: active === 'login' })}
+                        className={getClassName({ active: isActivePage('login'), isOpen: active === 'login', 'parent-link': true })}
                     >
                         <div className="smile-wrap">
                             <Smile />

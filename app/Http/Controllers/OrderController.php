@@ -25,7 +25,14 @@ class OrderController extends AdminController
         [
             'size' => 8,
             'list' => [
-                ['type' => 'number', 'name' => 'status', 'label' => 'სტატუსი'],
+                ['type' => 'text', 'name' => 'userName', 'label' => 'სახელი'],
+                ['type' => 'number', 'name' => 'amount', 'label' => 'თანხა'],
+            ]
+        ],
+        [
+            'size' => 4,
+            'list' => [
+                ['type' => 'toggle', 'name' => 'status', 'label' => 'სტატუსი', 'value' => false],
             ]
         ],
     ];
