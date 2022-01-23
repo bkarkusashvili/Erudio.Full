@@ -36,7 +36,7 @@ class LiveCourse extends Model
             return 'end';
         }
 
-        return $this;
+        return;
     }
 
     public function getIsFullAttribute()

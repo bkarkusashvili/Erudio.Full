@@ -184,95 +184,29 @@ class FrontController extends Controller
     {
         $item = Category::findOrFail($id);
 
+        $courses = $this->getAllTypeCourse($id, false);
+
         return Inertia::render('Category/CategorySingle', [
             'item' => $item,
-            'courses' => $item->courses()->where('status', 1)->get()->map(function (Course $course) {
-                $course->isLive = $course->isLive;
-
-                return $course;
-            }),
+            'courses' => $courses,
         ]);
     }
 
     public function course(Request $request)
     {
-        $today = now()->setHour(0)->setMinute(0)->setSecond(0)->setMilliseconds(0);
-
         $type = $request->input('type', -1);
         $type = $type == '' ? -1 : (int) $type;
         $date = $request->input('date');
         if ($date) {
             $date = new Carbon($date);
         }
-        $query = Course::query();
 
-        $query->select(
-            'courses.*',
-            DB::raw('null as start_date'),
-            DB::raw('null as end_date'),
-            'courses.id as type_id',
-        )
-            ->whereHas('videos')
-            ->when($request->has('category') && !!$request->input('category'), function ($q) {
-                $q->where('category_id', request('category'));
-            })
-            ->when($request->has('city') && !!$request->input('city'), function ($q) {
-                $q->where('city_id', request('city'));
-            })
-            ->where('status', 1)
-            ->when($type >= 0, function ($q) use ($type) {
-                $q->where('type', $type);
-            });
-
-        $offline = Course::select(
-            'courses.*',
-            'offline_courses.start as start_date',
-            'offline_courses.end as end_date',
-            'offline_courses.id as type_id',
-        )
-            ->rightJoin('offline_courses', 'courses.id', '=', 'offline_courses.course_id')
-            ->when($request->has('category') && !!$request->input('category'), function ($q) {
-                $q->where('category_id', request('category'));
-            })
-            ->when($request->has('city') && !!$request->input('city'), function ($q) {
-                $q->where('city_id', request('city'));
-            })
-            ->where('status', 1)
-            ->when($type >= 0, function ($q) use ($type) {
-                $q->where('type', $type);
-            })
-            ->when($type == 1 || $type == 2, function ($q) use ($date) {
-                if ($date) {
-                    $q->whereDate('start_date', '>=', $date);
-                }
-            });
-
-        $online = Course::select(
-            'courses.*',
-            'live_courses.start as start_date',
-            'live_courses.end as end_date',
-            'live_courses.id as type_id',
-        )
-            ->rightJoin('live_courses', 'courses.id', '=', 'live_courses.course_id')
-            ->when($request->has('category') && !!$request->input('category'), function ($q) {
-                $q->where('category_id', request('category'));
-            })
-            ->when($request->has('city') && !!$request->input('city'), function ($q) {
-                $q->where('city_id', request('city'));
-            })
-            ->where('status', 1)
-            ->when($type >= 0, function ($q) use ($type) {
-                $q->where('type', $type);
-            })
-            ->when($type == 1 || $type == 2, function ($q) use ($date) {
-                if ($date) {
-                    $q->whereDate('start_date', '>=', $date);
-                }
-            });
-
-        $query->union($offline)->union($online);
-
-        $list = $this->sortByDrag($query, Course::class)->get();
+        $list = $this->getAllTypeCourse(
+            $request->has('category') && !!$request->input('category'),
+            $request->has('city') && !!$request->input('city'),
+            $type,
+            $date
+        );
 
         return Inertia::render('Course', [
             'list' => $list,
@@ -559,5 +493,79 @@ class FrontController extends Controller
         $course->text_en = Str::words(strip_tags($course->text_en), 30, '');
 
         return $course;
+    }
+
+    private function getAllTypeCourse($category_id = false, $city_id = false, $type = -1, $date = false)
+    {
+        $query = Course::query();
+
+        $query->select(
+            'courses.*',
+            DB::raw('null as start_date'),
+            DB::raw('null as end_date'),
+            'courses.id as type_id',
+        )
+            ->whereHas('videos')
+            ->when($category_id, function ($q) use ($category_id) {
+                $q->where('category_id', $category_id);
+            })
+            ->when($city_id, function ($q) use ($city_id) {
+                $q->where('city_id', $city_id);
+            })
+            ->where('status', 1)
+            ->when($type >= 0, function ($q) use ($type) {
+                $q->where('type', $type);
+            });
+
+        $offline = Course::select(
+            'courses.*',
+            'offline_courses.start as start_date',
+            'offline_courses.end as end_date',
+            'offline_courses.id as type_id',
+        )
+            ->rightJoin('offline_courses', 'courses.id', '=', 'offline_courses.course_id')
+            ->when($category_id, function ($q) use ($category_id) {
+                $q->where('category_id', $category_id);
+            })
+            ->when($city_id, function ($q) use ($city_id) {
+                $q->where('city_id', $city_id);
+            })
+            ->where('status', 1)
+            ->when($type >= 0, function ($q) use ($type) {
+                $q->where('type', $type);
+            })
+            ->when($type == 1 || $type == 2, function ($q) use ($date) {
+                if ($date) {
+                    $q->whereDate('start_date', '>=', $date);
+                }
+            });
+
+        $online = Course::select(
+            'courses.*',
+            'live_courses.start as start_date',
+            'live_courses.end as end_date',
+            'live_courses.id as type_id',
+        )
+            ->rightJoin('live_courses', 'courses.id', '=', 'live_courses.course_id')
+            ->when($category_id, function ($q) use ($category_id) {
+                $q->where('category_id', $category_id);
+            })
+            ->when($city_id, function ($q) use ($city_id) {
+                $q->where('city_id', $city_id);
+            })
+            ->where('status', 1)
+            ->when($type >= 0, function ($q) use ($type) {
+                $q->where('type', $type);
+            })
+            ->when($type == 1 || $type == 2, function ($q) use ($date) {
+                if ($date) {
+                    $q->whereDate('start_date', '>=', $date);
+                }
+            });
+
+
+        $query->union($offline)->union($online);
+
+        return $this->sortByDrag($query, Course::class)->get();
     }
 }

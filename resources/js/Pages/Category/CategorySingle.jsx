@@ -23,7 +23,7 @@ const CategorySingle = ({ item, courses, lang }) => {
                         <h3 className="tp-header" children={translate.courses} />
                         <div
                             className="list"
-                            children={courses.map(item => <CourseCard key={item.id} data={item} />)}
+                            children={courses.map((item, key) => <CourseCard key={key} data={item} />)}
                         />
                     </div>
                 </div>
