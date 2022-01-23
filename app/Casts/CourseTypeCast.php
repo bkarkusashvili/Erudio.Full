@@ -18,6 +18,10 @@ class CourseTypeCast implements CastsAttributes
      */
     public function get($model, string $key, $value, array $attributes)
     {
+        if (request()->is('admin/*')) {
+            return $value;
+        }
+
         return Course::getCourseType($value);
     }
 
