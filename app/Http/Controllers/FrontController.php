@@ -536,7 +536,7 @@ class FrontController extends Controller
             })
             ->when($type == 1 || $type == 2, function ($q) use ($date) {
                 if ($date) {
-                    $q->whereDate('start_date', '>=', $date);
+                    $q->whereDate('start', '>=', $date);
                 }
             });
 
@@ -559,7 +559,7 @@ class FrontController extends Controller
             })
             ->when($type == 1 || $type == 2, function ($q) use ($date) {
                 if ($date) {
-                    $q->whereDate('start_date', '>=', $date);
+                    $q->whereDate('start', '>=', $date);
                 }
             });
 
