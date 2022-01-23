@@ -73,7 +73,7 @@ class Course extends Model
         return $this->hasMany(Order::class);
     }
 
-    public function getStatusAttribute()
+    public function getCourseStatusAttribute()
     {
         return 'active';
     }

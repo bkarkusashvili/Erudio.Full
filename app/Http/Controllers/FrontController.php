@@ -25,7 +25,6 @@ use Carbon\Carbon;
 use DB;
 use Hash;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\Redirect;
@@ -53,17 +52,28 @@ class FrontController extends Controller
 
     public function home()
     {
+        $query = Course::query();
+        $query->where('status', 1);
+
+        $query->where(function ($q) {
+            $q->whereHas('lives');
+            $q->orWhereHas('offlines');
+            $q->orWhereHas('videos');
+        });
+
+        $tQuery = $query->where('popular_training', true)->clone();
+        $cQuery = $query->where('popular_course', true)->clone();
+        $mQuery = $query->where('popular_masterclass', true)->clone();
+
+        $trainings = $this->sortByDrag($tQuery, Course::class)->get();
+        $courses = $this->sortByDrag($cQuery, Course::class)->get();
+        $masterclasses = $this->sortByDrag($mQuery, Course::class)->get();
+
         return Inertia::render('Home', [
             'clients' => $this->sortByDrag(Client::query(), Client::class)->get(),
-            'trainings' => $this->sortByDrag(Course::query(), Course::class)->where('popular_training', true)->where('status', 1)->get()->map(function ($course) {
-                return $this->limitCourseText($course);
-            }),
-            'courses' => $this->sortByDrag(Course::query(), Course::class)->where('popular_course', true)->where('status', 1)->get()->map(function ($course) {
-                return $this->limitCourseText($course);
-            }),
-            'masterclasses' => $this->sortByDrag(Course::query(), Course::class)->where('popular_masterclass', true)->where('status', 1)->get()->map(function ($course) {
-                return $this->limitCourseText($course);
-            }),
+            'trainings' => $this->mapCourses($trainings),
+            'courses' => $this->mapCourses($courses),
+            'masterclasses' => $this->mapCourses($masterclasses),
             'item' => Page::findOrFail(1),
             'slider' => Slider::where('status', 1)->get()
         ]);
@@ -240,7 +250,7 @@ class FrontController extends Controller
             return;
         }
 
-        $course_type_status = $course->status;
+        $course_type_status = $course->course_status;
         $can_buy = $course->can_buy;
 
         $user = auth()->user();
@@ -567,5 +577,24 @@ class FrontController extends Controller
         $query->union($offline)->union($online);
 
         return $this->sortByDrag($query, Course::class)->get();
+    }
+
+    private function mapCourses($courses)
+    {
+        return $courses->map(function ($course) {
+            if ($course->type == 'masterclass') {
+                $course->type_id = $course->id;
+            } else if ($course->type == 'online') {
+                $active = $course->lives()->where('start', '>', now())->orderBy('start')->first();
+                $prev = $course->lives()->where('start', '<=', now())->orderBy('start')->first();
+                $course->type_id = $active ? $active->id : $prev->id;
+            } else if ($course->type == 'offline') {
+                $active = $course->offlines()->where('start', '>', now())->orderBy('start')->first();
+                $prev = $course->offlines()->where('start', '<=', now())->orderBy('start')->first();
+                $course->type_id = $active ? $active->id : $prev->id;
+            }
+
+            return $this->limitCourseText($course);
+        });
     }
 }

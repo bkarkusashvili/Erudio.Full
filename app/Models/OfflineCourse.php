@@ -16,7 +16,7 @@ class OfflineCourse extends Model
         return $this->belongsTo(Course::class);
     }
 
-    public function getStatusAttribute()
+    public function getCourseStatusAttribute()
     {
 
         if ($this->start > now()) {
@@ -51,6 +51,6 @@ class OfflineCourse extends Model
 
     public function getCanBuyAttribute()
     {
-        return $this->status == 'active';
+        return $this->course_status == 'active';
     }
 }

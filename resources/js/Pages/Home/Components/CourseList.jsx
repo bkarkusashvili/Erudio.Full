@@ -27,7 +27,7 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                                 </figure>
                             </div>
                             <p className="tp-text" dangerouslySetInnerHTML={{ __html: list[active]['text_' + lang] }} />
-                            <Link href={useRoute('course.single', { id: list[active].id, type: list[active].type })} children={translate.more} />
+                            <Link href={useRoute('course.single', { id: list[active].type_id, type: list[active].type })} children={translate.more} />
                         </div>
                         <div className="navigation">
                             <a className="left" onClick={() => prevSlide()}>
