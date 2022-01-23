@@ -102,14 +102,22 @@ class FrontController extends Controller
             ];
         });
 
-        $courses = $this->sortByDrag(Course::query(), Course::class)->where('status', 1)
-            ->where('name_ka', 'like', '%' . $s . '%')
-            ->orWhere('name_en', 'like', '%' . $s . '%')
-            ->get();
+        $query = Course::where('status', 1)
+            ->where(function ($q) {
+                $q->whereHas('lives');
+                $q->orWhereHas('offlines');
+                $q->orWhereHas('videos');
+            })
+            ->where(function ($q) use ($s) {
+                $q->where('name_ka', 'like', '%' . $s . '%');
+                $q->orWhere('name_en', 'like', '%' . $s . '%');
+            });
+
+        $courses = $this->mapCourses($this->sortByDrag($query, Course::class)->get());
         $courses = $courses->map(function (Course $item) {
             return [
                 'id' => $item->id,
-                'url' => route('course.single', ['id' => $item->id, 'lang' => app()->getLocale(), 'type' => $item->type]),
+                'url' => route('course.single', ['id' => $item->type_id, 'lang' => app()->getLocale(), 'type' => $item->type]),
                 'text_ka' => $item->name_ka,
                 'text_en' => $item->name_en,
             ];

@@ -8,8 +8,6 @@ import { Metas } from '@/Components/Metas';
 const Home = ({ clients, trainings, courses, masterclasses, item, slider, translate, lang }) => {
     const data = item.body || {};
 
-    console.log(trainings);
-
     return (
         <MainLayout hasFooterMenu>
             <Metas isMain />
