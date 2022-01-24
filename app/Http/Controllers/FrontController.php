@@ -289,7 +289,7 @@ class FrontController extends Controller
                         'offline_courses.id as type_id',
                     );
             })
-            ->when($type == 'masterclass', function (Builder $q) use ($type, $type_id) {
+            ->when($type == 'masterclass', function (Builder $q) use ($type, $type_id, $user) {
                 $q
                     ->select(
                         'courses.*',
@@ -298,7 +298,7 @@ class FrontController extends Controller
                         'courses.id as type_id',
                     );
 
-                if (auth()->user()->hasCourse($type, $type_id)) {
+                if ($user && $user->hasCourse($type, $type_id)) {
                     $q->with('videos');
                 }
             })
