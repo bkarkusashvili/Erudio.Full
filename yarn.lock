@@ -1147,6 +1147,11 @@
   dependencies:
     nprogress "^0.2.0"
 
+"@inertiajs/server@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@inertiajs/server/-/server-0.1.0.tgz#bc48738b1c1c1f806bee6c9e9ea827cd03521e16"
+  integrity sha512-Ab1DqaRgW53nZq3sPN1AitHPJ1UoHiTRLbdGGgrswO6HhTYu6m7aewY80+YtiL1VEWGJfOumeNPqhnY+3/414w==
+
 "@mui/base@5.0.0-alpha.59":
   version "5.0.0-alpha.59"
   resolved "https://registry.yarnpkg.com/@mui/base/-/base-5.0.0-alpha.59.tgz#ca14f4597b30a342e5ec622a7164304478acd601"

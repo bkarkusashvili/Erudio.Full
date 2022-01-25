@@ -1,7 +1,7 @@
 import React from 'react';
 import { usePage } from "@inertiajs/inertia-react";
-import videojs from "video.js";
-import 'video.js/dist/video-js.css';
+// import videojs from "video.js";
+// import 'video.js/dist/video-js.css';
 import { getVideoType } from "@/Helper";
 
 export const Video = ({ data, width = 1920, height = 788, autoPlay = false, controls = true, loop = false }) => {
