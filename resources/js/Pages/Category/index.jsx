@@ -15,10 +15,16 @@ const Category = ({ list, lang }) => {
                     {list.map(item => (
                         <div key={item.id} className="item">
                             <div className="media">
-                                <img src={`${base}/storage/${item.image}`} alt={item['title_' + lang]} />
+                                <Link href={useRoute('category.single', { id: item.id })}>
+                                    <img src={`${base}/storage/${item.image}`} alt={item['title_' + lang]} />
+                                </Link>
                             </div>
                             <div className="content">
-                                <h3 className="tp-header small">{item['title_' + lang]}</h3>
+                                <h3 className="tp-header small">
+                                    <Link href={useRoute('category.single', { id: item.id })}>
+                                        {item['title_' + lang]}
+                                    </Link>
+                                </h3>
                                 <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['text_' + lang] }} />
                                 <Link href={useRoute('category.single', { id: item.id })} className="tp-more" children={translate.more} />
                             </div>

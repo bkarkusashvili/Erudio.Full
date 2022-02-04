@@ -206,7 +206,7 @@ class AdminController extends Controller
 
     public function export()
     {
-        return Excel::download(new DataExport($this->getListData()), $this->route . '.xlsx');
+        return Excel::download(new DataExport($this->getListData(null, true)), $this->route . '.xlsx');
     }
 
     public function column(int $id, string $column, string $value)
@@ -301,7 +301,7 @@ class AdminController extends Controller
         }
     }
 
-    private function getListData($query = null)
+    private function getListData($query = null, $order = false)
     {
         if (!$query) {
             $query = $this->model::query();
@@ -328,6 +328,10 @@ class AdminController extends Controller
 
                 return $query->orderBy(DB::raw('FIELD(`id`, ' . $ids . ')'));
             }
+        }
+
+        if ($order) {
+            return $query->orderBy('id', 'DESC');
         }
 
         return $query->latest();

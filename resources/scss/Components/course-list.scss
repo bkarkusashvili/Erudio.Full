@@ -96,6 +96,7 @@ section.course-list {
                     font-size: 16px;
                     color: #1a1a1a;
                     text-decoration: none;
+                    text-decoration: underline;
 
                     @include md {
                         align-self: flex-end;

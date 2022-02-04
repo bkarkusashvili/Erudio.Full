@@ -42,11 +42,12 @@
 
             .logo {
                 img {
-                    max-width: 100px;
-                    max-height: 36px;
+                    max-width: 200px;
+                    max-height: 60px;
 
-                    @include lg {
-                        height: 36px;
+                    @include md {
+                        max-width: 100px;
+                        max-height: 36px;
                     }
                 }
             }
