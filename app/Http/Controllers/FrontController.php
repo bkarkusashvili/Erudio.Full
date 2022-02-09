@@ -555,10 +555,8 @@ class FrontController extends Controller
             ->when($type >= 0, function ($q) use ($type) {
                 $q->where('type', $type);
             })
-            ->when($type == 1 || $type == 2, function ($q) use ($date) {
-                if ($date) {
-                    $q->whereDate('start', '>=', $date);
-                }
+            ->when($date, function ($q) use ($date) {
+                $q->whereDate('start', '>=', $date);
             });
 
         $online = Course::select(
@@ -578,10 +576,8 @@ class FrontController extends Controller
             ->when($type >= 0, function ($q) use ($type) {
                 $q->where('type', $type);
             })
-            ->when($type == 1 || $type == 2, function ($q) use ($date) {
-                if ($date) {
-                    $q->whereDate('start', '>=', $date);
-                }
+            ->when($date, function ($q) use ($date) {
+                $q->whereDate('start', '>=', $date);
             });
 
 

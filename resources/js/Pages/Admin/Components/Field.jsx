@@ -154,10 +154,20 @@ export const Field = ({ data, errors, value = null, setChange, group = null, rel
             <Editor
                 initialValue={value}
                 onEditorChange={e => updateData(e)}
+                too
                 init={{
                     height: 300,
                     menubar: false,
-                    // content_style: 'body { font-family:FiraGO,sans-serif; }'
+                    plugins: [
+                        'advlist autolink lists link image charmap print preview anchor',
+                        'searchreplace visualblocks code fullscreen',
+                        'insertdatetime media table paste code help wordcount'
+                    ],
+                    toolbar: 'undo redo | formatselect | ' +
+                        'bold italic backcolor | alignleft aligncenter ' +
+                        'alignright alignjustify | bullist numlist outdent indent | ' +
+                        'removeformat | help',
+                    content_style: 'body { font-family:FiraGO,sans-serif; }'
                 }}
             />
             <FormHelperText error={!!error} children={error} style={{ marginTop: 8 }} />

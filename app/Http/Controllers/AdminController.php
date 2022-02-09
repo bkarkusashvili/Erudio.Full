@@ -331,7 +331,7 @@ class AdminController extends Controller
         }
 
         if ($order) {
-            return $query->orderBy('id', 'DESC');
+            return $query->orderBy('id', 'ASC');
         }
 
         return $query->latest();

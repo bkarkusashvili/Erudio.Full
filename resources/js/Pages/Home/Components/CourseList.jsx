@@ -20,10 +20,16 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                     <div className="info">
                         <h3 className="tp-header">{title}</h3>
                         <div className="content">
-                            <h4 className="tp-header mb-36 small">{list[active]['name_' + lang]}</h4>
+                            <h4 className="tp-header mb-36 small">
+                                <Link href={useRoute('course.single', { id: list[active].type_id, type: list[active].type })}>
+                                    {list[active]['name_' + lang]}
+                                </Link>
+                            </h4>
                             <div className="media media-md">
                                 <figure>
-                                    <img src={`${base}/storage/${list[active].image}`} alt={list[active]['name_' + lang]} />
+                                    <Link href={useRoute('course.single', { id: list[active].type_id, type: list[active].type })}>
+                                        <img src={`${base}/storage/${list[active].image}`} alt={list[active]['name_' + lang]} />
+                                    </Link>
                                 </figure>
                             </div>
                             <p className="tp-text" dangerouslySetInnerHTML={{ __html: list[active]['text_' + lang] }} />
@@ -40,7 +46,9 @@ export const CourseList = ({ title, list = [], isReverce = false }) => {
                     </div>
                     <div className="media media-lg">
                         <figure>
-                            <img src={`${base}/storage/${list[active].image}`} alt={list[active]['name_' + lang]} />
+                            <Link href={useRoute('course.single', { id: list[active].type_id, type: list[active].type })}>
+                                <img src={`${base}/storage/${list[active].image}`} alt={list[active]['name_' + lang]} />
+                            </Link>
                         </figure>
                     </div>
                 </div>

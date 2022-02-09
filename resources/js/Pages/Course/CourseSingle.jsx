@@ -125,6 +125,7 @@ const CourseSingle = ({ item, lang }) => {
         }
     }, [activeVideo]);
 
+
     return (
         <MainLayout>
             <Metas title={item['name_' + lang]} text={item['text_' + lang]} image={`${base}/storage/${item.image}`} />
@@ -149,10 +150,13 @@ const CourseSingle = ({ item, lang }) => {
                                 url={shareUrl}
                             />
                         </div>
-                        {/* <div className="over">
-                            <span className="donwoload">საპრეზენტაციო ფაილის გადმოწერა</span>
-                            <span className="time">05:30</span>
-                        </div> */}
+                        {!!item.file && (
+                            <div className="over">
+                                <a href={`/storage/${item.file}`} target={'_blank'} className="donwoload">
+                                    {translate.Slider_File}
+                                </a>
+                            </div>
+                        )}
                     </div>
                     <div className="content">
                         <h1 className="tp-header small">{item['name_' + lang]}</h1>

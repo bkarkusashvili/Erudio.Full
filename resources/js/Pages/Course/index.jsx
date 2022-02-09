@@ -24,7 +24,6 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
     const replacePath = useRoute('course', data);
 
     const submit = () => Inertia.replace(replacePath);
-    const isLive = data.type == 1 || data.type == 2;
 
     document.onclick = (event) => {
         const dateInput = document.querySelector('.date-input');
@@ -79,27 +78,25 @@ const Courses = ({ list, lang, categories, cities, translate, types }) => {
                             />
                         ))}
                     </select>
-                    {isLive && (
-                        <LocalizationProvider dateAdapter={DateAdapter}>
-                            <DesktopDatePicker
-                                value={date}
-                                open={isDateOpen}
-                                onChange={moment => {
-                                    setDate(moment);
-                                    setIsDateOpen(false);
-                                    setData('date', moment.format("YYYY-MM-DD"));
-                                }}
-                                renderInput={({ inputRef, inputProps, InputProps }) => <input
-                                    ref={inputRef}
-                                    {...inputProps}
-                                    className="date-input"
-                                    placeholder={translate.date}
-                                    onClick={() => setIsDateOpen(!isDateOpen)}
-                                    readOnly
-                                />}
-                            />
-                        </LocalizationProvider>
-                    )}
+                    <LocalizationProvider dateAdapter={DateAdapter}>
+                        <DesktopDatePicker
+                            value={date}
+                            open={isDateOpen}
+                            onChange={moment => {
+                                setDate(moment);
+                                setIsDateOpen(false);
+                                setData('date', moment.format("YYYY-MM-DD"));
+                            }}
+                            renderInput={({ inputRef, inputProps, InputProps }) => <input
+                                ref={inputRef}
+                                {...inputProps}
+                                className="date-input"
+                                placeholder={translate.date}
+                                onClick={() => setIsDateOpen(!isDateOpen)}
+                                readOnly
+                            />}
+                        />
+                    </LocalizationProvider>
                     <div className='actions-wrap'>
                         <button onClick={submit} className="search" children={translate.search} />
                         <Link href={useRoute('course')} className="clear" children={translate.clear} />

@@ -72,6 +72,13 @@ section.course-list {
                     font-size: 18px;
                     line-height: 1.35;
                     margin-bottom: 10px;
+
+                    a {
+                        text-decoration: none;
+                        color: #1a1a1a;
+                        font-size: 18px;
+                        line-height: 1.35;
+                    }
                 }
 
                 .tp-text {
@@ -155,6 +162,11 @@ section.course-list {
                 @include md {
                     margin-top: 30px;
                     width: calc(100% - 30px);
+                }
+
+                a {
+                    width: 100%;
+                    height: 100%;
                 }
 
                 img {
