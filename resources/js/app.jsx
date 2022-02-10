@@ -12,7 +12,6 @@ import 'tinymce/icons/default';
 import 'tinymce/skins/ui/oxide/skin.min.css';
 
 import 'tinymce/plugins/advlist';
-import 'tinymce/plugins/autolink';
 import 'tinymce/plugins/lists';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/help';

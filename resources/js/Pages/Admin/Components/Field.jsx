@@ -159,9 +159,8 @@ export const Field = ({ data, errors, value = null, setChange, group = null, rel
                     height: 300,
                     menubar: false,
                     plugins: [
-                        'advlist autolink lists link image charmap print preview anchor',
-                        'searchreplace visualblocks code fullscreen',
-                        'insertdatetime media table paste code help wordcount'
+                        'advlist lists',
+                        'help'
                     ],
                     toolbar: 'undo redo | formatselect | ' +
                         'bold italic backcolor | alignleft aligncenter ' +

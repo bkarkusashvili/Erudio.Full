@@ -62,8 +62,8 @@ class CourseRequest extends FormRequest
                 'image',
                 request()->isMethod('POST') ? 'required' : 'nullable'
             ],
-            'video' => 'required',
-            'file' => 'required',
+            'video' => 'nullable',
+            'file' => 'nullable',
         ];
     }
 }
