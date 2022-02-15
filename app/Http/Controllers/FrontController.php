@@ -223,8 +223,8 @@ class FrontController extends Controller
         }
 
         $list = $this->getAllTypeCourse(
-            $request->has('category') && !!$request->input('category'),
-            $request->has('city') && !!$request->input('city'),
+            $request->has('category') && !!$request->input('category') ? $request->input('category') : false,
+            $request->has('city') && !!$request->input('city') ? $request->input('city') : false,
             $type,
             $date
         );
