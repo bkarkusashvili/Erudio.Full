@@ -926,11 +926,14 @@
             .tp-register {
                 margin-top: 15px;
                 align-self: center;
+                padding-top: 2px;
+                box-sizing: border-box;
 
                 @include lg {
                     width: 100%;
                     height: 40px;
                     font-size: 16px;
+                    padding-top: 5px;
                 }
             }
         }
@@ -1055,11 +1058,13 @@
             border: none;
             outline: none;
             line-height: initial;
+            padding-top: 5px;
 
             @include lg {
                 height: 48px;
                 font-size: 16px;
                 margin-right: 10px;
+                padding-top: 3px;
             }
         }
 
@@ -1109,6 +1114,7 @@
         display: flex;
         margin-top: 100px;
         margin-bottom: 80px;
+        align-items: center;
 
         @include md {
             flex-direction: column;
@@ -1138,10 +1144,6 @@
             position: relative;
             margin-right: 50px;
             width: 640px;
-
-            img {
-                height: auto;
-            }
 
             .video-js {
                 width: 640px !important;
@@ -1201,8 +1203,6 @@
             img {
                 position: relative;
                 width: 100%;
-                height: 100%;
-                object-fit: cover;
                 z-index: 2;
             }
 
@@ -1538,7 +1538,7 @@
         }
 
         .media {
-            width: 420px;
+            width: 240px;
             height: auto;
 
             @include md {
@@ -1555,8 +1555,8 @@
 
             &::before {
                 background-color: #5952d3;
-                width: 337px;
-                height: 412px;
+                width: 80%;
+                height: 80%;
                 right: -10px;
                 top: -10px;
 
@@ -1567,8 +1567,8 @@
 
             &::after {
                 background-color: #edbd03;
-                width: 252px;
-                height: 307px;
+                width: 80%;
+                height: 80%;
                 bottom: -10px;
                 left: -10px;
             }
@@ -1717,6 +1717,8 @@
 
             .tp-register {
                 width: 300px;
+                padding-top: 3px;
+                box-sizing: border-box;
 
                 @include sm {
                     width: 100%;
