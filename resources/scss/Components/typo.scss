@@ -111,6 +111,12 @@
     p {
         font-family: 'FiraGO' !important;
     }
+
+    ol,
+    ul {
+        list-style: initial;
+        padding-left: 18px;
+    }
 }
 
 .tp-more {
