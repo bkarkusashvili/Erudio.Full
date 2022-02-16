@@ -256,9 +256,14 @@ class AdminController extends Controller
         }
 
         if ($type == 'edit') {
-            $moveId = $list->pull($id);
-
-            $list->splice($new, 0, [$moveId]);
+            $oldIndex = $id;
+            if ($oldIndex < $new) {
+                $list->splice($new + 1, 0, [$list[$oldIndex]]);
+                $list->forget($oldIndex);
+            } else {
+                $moveId = $list->pull($id);
+                $list->splice($new, 0, [$moveId]);
+            }
         }
 
         if ($type == 'delete') {

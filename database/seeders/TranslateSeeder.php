@@ -15,29 +15,9 @@ class TranslateSeeder extends Seeder
     public function run()
     {
         Translate::create([
-            'key' => 'course_status',
-            'ka' => 'სტატუსი',
-            'en' => 'სტატუსი'
-        ]);
-        Translate::create([
-            'key' => 'course_status_active',
-            'ka' => 'აქტიური',
-            'en' => 'აქტიური'
-        ]);
-        Translate::create([
-            'key' => 'course_status_going',
-            'ka' => 'მიმდინარე',
-            'en' => 'მიმდინარე'
-        ]);
-        Translate::create([
-            'key' => 'course_status_end',
-            'ka' => 'დასრულებული',
-            'en' => 'დასრულებული'
-        ]);
-        Translate::create([
-            'key' => 'course_status_full',
-            'ka' => 'ადგილები შევსებულია',
-            'en' => 'ადგილები შევსებულია'
+            'key' => 'days_header',
+            'ka' => 'ორგანიზაციული დეტალები',
+            'en' => 'ორგანიზაციული დეტალები'
         ]);
     }
 }
