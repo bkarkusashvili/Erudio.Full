@@ -28,6 +28,7 @@ section.course-list {
         display: grid;
         grid-template-columns: repeat(12, 1fr);
         grid-gap: 16px;
+        align-items: flex-start;
 
         @include md {
             grid-template-columns: 1fr;
