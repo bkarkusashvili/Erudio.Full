@@ -18,7 +18,7 @@ const Edit = ({ model, data, fields }) => {
                 if (!initForm[item.relation]) {
                     initForm[item.relation] = {}
                 }
-                initForm[item.relation][key] = data[item.relation] ? data[item.relation][item.name] : null;
+                initForm[item.relation][key] = data[item.relation] && !Files.has(item.type) ? data[item.relation][item.name] : null;
             } else {
                 initForm[key] = value;
             }
