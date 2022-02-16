@@ -278,7 +278,7 @@ const CourseSingle = ({ item, lang }) => {
                 </div>
                 {item['days_' + lang] && (
                     <div className="container info">
-                        <h3 className="tp-header" children={translate.days_header} />
+                        <h3 className="tp-header small" children={translate.days_header} />
                         <div className="tp-text" dangerouslySetInnerHTML={{ __html: item['days_' + lang] }} />
                     </div>
                 )}
