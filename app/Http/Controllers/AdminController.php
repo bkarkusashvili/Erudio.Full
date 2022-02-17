@@ -260,6 +260,7 @@ class AdminController extends Controller
             if ($oldIndex < $new) {
                 $list->splice($new + 1, 0, [$list[$oldIndex]]);
                 $list->forget($oldIndex);
+                $list = $list->values();
             } else {
                 $moveId = $list->pull($id);
                 $list->splice($new, 0, [$moveId]);
