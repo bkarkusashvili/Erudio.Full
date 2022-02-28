@@ -3,14 +3,12 @@ import { MainLayout } from '@/Layouts';
 import { Link, usePage } from '@inertiajs/inertia-react';
 import Moment from 'moment';
 import { useRoute } from '@/Components/Route';
-import { Metas } from '@/Components/Metas';
 
 const Media = ({ list, lang }) => {
     const { base, translate } = usePage().props;
 
     return (
         <MainLayout>
-            <Metas title={translate.media} />
             <section className="media-wrap">
                 <div className="container header">
                     <h1 className="tp-header" children={translate.media} />

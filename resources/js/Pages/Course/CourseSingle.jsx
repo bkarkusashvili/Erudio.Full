@@ -12,7 +12,6 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import { useRef } from 'react';
-import { Metas } from '@/Components/Metas';
 import { Inertia } from '@inertiajs/inertia';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FacebookShareButton, LinkedinShareButton, FacebookIcon, LinkedinIcon } from "react-share";
@@ -128,7 +127,6 @@ const CourseSingle = ({ item, lang }) => {
 
     return (
         <MainLayout>
-            <Metas title={item['name_' + lang]} text={item['text_' + lang]} image={`${base}/storage/${item.image}`} />
             <div className="course-single-wrap">
                 <div className="container video-box-wrap">
                     <div className="media">

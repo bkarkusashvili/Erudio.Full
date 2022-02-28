@@ -2,14 +2,12 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import Moment from 'moment';
 import { usePage } from '@inertiajs/inertia-react';
-import { Metas } from '@/Components/Metas';
 
 const MediaSingle = ({ item, lang }) => {
     const { base } = usePage().props;
 
     return (
         <MainLayout>
-            <Metas title={item['title_' + lang]} text={item['text_' + lang]} image={`${base}/storage/${item.image}`} />
             <section className="media-single-wrap">
                 <div className="media-wrap-sl">
                     <div className="container wrap">

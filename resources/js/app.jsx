@@ -16,7 +16,7 @@ import 'tinymce/plugins/lists';
 import 'tinymce/plugins/code';
 import 'tinymce/plugins/help';
 
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = 'Erudio';
 
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,

@@ -3,14 +3,13 @@ import { MainLayout } from '@/Layouts';
 
 import { Slider, CourseList, Clients, Subscribe } from './Components';
 import { Line } from '@/Components';
-import { Metas } from '@/Components/Metas';
 
 const Home = ({ clients, trainings, courses, masterclasses, item, slider, translate, lang }) => {
     const data = item.body || {};
 
     return (
         <MainLayout hasFooterMenu>
-            <Metas isMain />
+            {/* <Metas isMain /> */}
             <Slider data={data} list={slider} />
             <Line style={{ marginTop: '-4px' }} />
             <CourseList title={translate.popular_trainings} list={trainings} />

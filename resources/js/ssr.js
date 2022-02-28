@@ -6,6 +6,6 @@ import createServer from '@inertiajs/server'
 createServer((page) => createInertiaApp({
     page,
     render: ReactDOMServer.renderToString,
-    resolve: name => require(`./Pages/${name}`),
-    setup: ({ App, props }) => <App {...props} />,
+    resolve: name => require(`./Components/Metas`),
+    setup: ({ App, props }) => <App {...props} />
 }))

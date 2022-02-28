@@ -1,8 +1,6 @@
 import React from 'react';
-import Button from '@/Components/Button';
 import { MainLayout } from '@/Layouts';
 import { Link, useForm } from '@inertiajs/inertia-react';
-import { Metas } from '@/Components/Metas';
 import { useRoute } from '@/Components/Route';
 
 export default function VerifyEmail({ status }) {
@@ -16,7 +14,7 @@ export default function VerifyEmail({ status }) {
 
     return (
         <MainLayout>
-            <Metas title={'Verify'} />
+            {/* <Metas title={'Verify'} /> */}
             <section className="verify">
                 <div className="container wrap">
                     <div className="tp-text">

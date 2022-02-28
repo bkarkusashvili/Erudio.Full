@@ -5,7 +5,6 @@ import { InputAdornment, TextField } from '@mui/material';
 import { Checkmark } from '@/Components/Checkmark';
 import { getClassName } from '@/Helper';
 import { useRoute } from '@/Components/Route';
-import { Metas } from '@/Components/Metas';
 import { SocialAuth } from '@/Components/SocialAuth';
 
 export default function Register() {
@@ -40,7 +39,6 @@ export default function Register() {
 
     return (
         <MainLayout>
-            <Metas title={translate.registration} />
             <section className="login">
                 <form onSubmit={submit}>
                     <div className="fileds">

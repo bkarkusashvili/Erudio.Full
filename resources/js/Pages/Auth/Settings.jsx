@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { MainLayout } from '@/Layouts';
 import { Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { Checkmark } from '@/Components/Checkmark';
-import { Metas } from '@/Components/Metas';
 import { TextField } from '@mui/material';
 import { getClassName } from '@/Helper';
 import { useEffect } from 'react';
@@ -55,7 +54,6 @@ const Settings = () => {
 
     return (
         <MainLayout>
-            <Metas title={translate.settings} />
             <section className="settings">
                 <div className="container wrap">
                     <h1 className="tp-header small headline" children={translate.settings} />

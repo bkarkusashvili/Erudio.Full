@@ -1,9 +1,5 @@
 import React from 'react';
-import Button from '@/Components/Button';
-import Input from '@/Components/Input';
-import ValidationErrors from '@/Components/ValidationErrors';
-import { Head, useForm, usePage } from '@inertiajs/inertia-react';
-import { Metas } from '@/Components/Metas';
+import { useForm, usePage } from '@inertiajs/inertia-react';
 import { MainLayout } from '@/Layouts/MainLayout';
 import { TextField } from '@mui/material';
 
@@ -25,7 +21,7 @@ export default function ForgotPassword({ status }) {
 
     return (
         <MainLayout>
-            <Metas title={translate.login} />
+            {/* <Metas title={translate.login} /> */}
             <section className="tp-form">
 
                 <div className="mb-4 tp-text">

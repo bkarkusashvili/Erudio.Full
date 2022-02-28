@@ -1,28 +1,24 @@
 import React from 'react';
-import { Head, usePage } from '@inertiajs/inertia-react'
-import { baseShareText } from '@/Helper';
+import { Head } from '@inertiajs/inertia-react'
 
-export const Metas = ({ title = '', text = '', image = '', isMain = false }) => {
-    const { lang } = usePage().props;
+const Metas = ({ metas } = { title: '', text: '', image: '', url: '/' }) => {
     const baseTitle = 'Erudio';
-    title = title ? `${title} - ${baseTitle}` : baseTitle;
-    image = image ? window.location.origin + image : '';
-    title = isMain ? 'erudio • ერუდიო - education hub' : title;
-    text = text ? text : baseShareText[lang];
 
-    const url = window.location.origin + window.location.pathname;
+    metas.title = metas.title ? `${metas.title} - ${baseTitle}` : baseTitle;
 
     return (
         <Head>
-            <title>{title}</title>
-            <meta name="description" content={text} />
-            <link rel="canonical" href={url} />
+            <title>{metas.title}</title>
+            <meta name="description" content={metas.text} />
+            <link rel="canonical" href={metas.url} />
 
-            <meta property="og:url" content={url} />
+            <meta property="og:url" content={metas.url} />
             <meta property="og:type" content="website" />
-            <meta property="og:title" content={title} />
-            <meta property="og:description" content={text} />
-            <meta property="og:image" content={image} />
+            <meta property="og:title" content={metas.title} />
+            <meta property="og:description" content={metas.text} />
+            <meta property="og:image" content={metas.image} />
         </Head>
     );
 };
+
+export default Metas;

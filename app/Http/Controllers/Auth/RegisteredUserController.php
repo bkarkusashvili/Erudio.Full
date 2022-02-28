@@ -18,15 +18,24 @@ use Inertia\Inertia;
 
 class RegisteredUserController extends Controller
 {
+    private $baseText = [
+        'ka' => 'erudio წარმოადგენს აუდიტორული და საკონსულტაციო კომპანია Loialté-ს საგანმანათლებლო მიმართულებას და გთავაზობთ პროფესიული ტრენინგების მრავალფეროვან ჩამონათვალს.',
+        'en' => 'erudio is the educational direction of the audit and consulting company Loialté and offers a diverse list of professional trainings.',
+    ];
+    private $lang;
+    private $translate;
+
     public function __construct()
     {
         $lang = Lang::locale();
+        $this->lang = $lang;
+        $this->translate = Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
+            return [$option->key => $option->$lang];
+        });
 
         Inertia::share('categories', $this->sortByDrag(Category::query(), Category::class)->get());
         Inertia::share('lang', $lang);
-        Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
-            return [$option->key => $option->$lang];
-        }));
+        Inertia::share('translate', $this->translate);
         Inertia::share('options', Option::all()->mapWithKeys(function (Option $option) {
             return [$option->key => $option->value];
         }));
@@ -40,7 +49,14 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('Auth/Register', [
+            'metas' => [
+                'title' => $this->translate['registration'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('register', ['lang' => $this->lang]),
+            ]
+        ]);
     }
 
     /**

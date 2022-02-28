@@ -35,17 +35,26 @@ use Str;
 
 class FrontController extends Controller
 {
+    private $baseText = [
+        'ka' => 'erudio წარმოადგენს აუდიტორული და საკონსულტაციო კომპანია Loialté-ს საგანმანათლებლო მიმართულებას და გთავაზობთ პროფესიული ტრენინგების მრავალფეროვან ჩამონათვალს.',
+        'en' => 'erudio is the educational direction of the audit and consulting company Loialté and offers a diverse list of professional trainings.',
+    ];
+    private $lang;
+    private $translate;
+
     public function __construct()
     {
         $lang = Lang::locale();
+        $this->lang = $lang;
+        $this->translate = Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
+            return [$option->key => $option->$lang];
+        });
 
         Inertia::share('categories', $this->sortByDrag(Category::query(), Category::class)->get());
         Inertia::share('options', Option::all()->mapWithKeys(function (Option $option) {
             return [$option->key => $option->value];
         }));
-        Inertia::share('translate', Translate::all()->mapWithKeys(function (Translate $option) use ($lang) {
-            return [$option->key => $option->$lang];
-        }));
+        Inertia::share('translate', $this->translate);
         Inertia::share('lang', $lang);
         Inertia::share('base', '');
     }
@@ -78,7 +87,13 @@ class FrontController extends Controller
             'courses' => $this->mapCourses($courses),
             'masterclasses' => $this->mapCourses($masterclasses),
             'item' => Page::findOrFail(1),
-            'slider' => Slider::where('status', 1)->get()
+            'slider' => Slider::where('status', 1)->get(),
+            'metas' => [
+                'title' => 'erudio • ერუდიო - education hub',
+                'text' => $this->baseText[$this->lang],
+                'image' => '/',
+                'url' => route('home', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
@@ -154,22 +169,44 @@ class FrontController extends Controller
 
     public function about()
     {
+        $item = Page::findOrFail(2);
+
         return Inertia::render('About', [
-            'item' => Page::findOrFail(2),
+            'item' => $item,
+            'metas' => [
+                'title' => $item->body->{'title_' . $this->lang},
+                'text' => strip_tags($item->body->{'text_' . $this->lang}),
+                'image' => "/storage/" . $item->body->image,
+                'url' => route('about', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
     public function team()
     {
         return Inertia::render('About/Team', [
-            'list' => $this->sortByDrag(Team::query(), Team::class)->get()
+            'list' => $this->sortByDrag(Team::query(), Team::class)->get(),
+            'metas' => [
+                'title' => $this->translate['team'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('team', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
     public function social()
     {
+        $item = Page::findOrFail(3);
+
         return Inertia::render('About/Social', [
-            'item' => Page::findOrFail(3),
+            'item' => $item,
+            'metas' => [
+                'title' => $this->translate['socialFull'],
+                'text' => strip_tags($item->body->{'text_' . $this->lang}),
+                'image' => "/storage/" . $item->body->image,
+                'url' => route('social', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
@@ -181,7 +218,13 @@ class FrontController extends Controller
                 $media->text_en = Str::limit(strip_tags($media->text_en), 220, '...');
 
                 return $media;
-            })
+            }),
+            'metas' => [
+                'title' => $this->translate['media'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('media', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
@@ -190,14 +233,26 @@ class FrontController extends Controller
         $item = Media::findOrFail($id);
 
         return Inertia::render('About/MediaSingle', [
-            'item' => $item
+            'item' => $item,
+            'metas' => [
+                'title' => $item->{'title_' . $this->lang},
+                'text' => strip_tags($item->{'text_' . $this->lang}),
+                'image' => "/storage/" . $item->image,
+                'url' => route('media.single', ['lang' => $this->lang, 'id' => $id]),
+            ]
         ]);
     }
 
     public function category()
     {
         return Inertia::render('Category', [
-            'list' => $this->sortByDrag(Category::query(), Category::class)->get()
+            'list' => $this->sortByDrag(Category::query(), Category::class)->get(),
+            'metas' => [
+                'title' => $this->translate['categories'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('category', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
@@ -210,6 +265,12 @@ class FrontController extends Controller
         return Inertia::render('Category/CategorySingle', [
             'item' => $item,
             'courses' => $courses,
+            'metas' => [
+                'title' => $item->{'title_' . $this->lang},
+                'text' => strip_tags($item->{'text_' . $this->lang}),
+                'image' => "/storage/" . $item->image,
+                'url' => route('category.single', ['lang' => $this->lang, 'id' => $id]),
+            ]
         ]);
     }
 
@@ -237,6 +298,12 @@ class FrontController extends Controller
                 ['title_ka' => 'Online ტრენინგი', 'title_en' => 'Online Training', 'value' => 1],
                 ['title_ka' => 'Offline ტრენინგი', 'title_en' => 'Offline Training', 'value' => 2],
                 ['title_ka' => 'მასტერკლასი', 'title_en' => 'Masterclass', 'value' => 0],
+            ],
+            'metas' => [
+                'title' => $this->translate['courses'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('course', ['lang' => $this->lang]),
             ]
         ]);
     }
@@ -314,13 +381,26 @@ class FrontController extends Controller
         }
 
         return Inertia::render('Course/CourseSingle', [
-            'item' => $item
+            'item' => $item,
+            'metas' => [
+                'title' => $item->{'name_' . $this->lang},
+                'text' => strip_tags($item->{'text_' . $this->lang}),
+                'image' => "/storage/" . $item->image,
+                'url' => route('course.single', ['lang' => $this->lang, 'id' => $id, 'type' => $type]),
+            ]
         ]);
     }
 
     public function contact()
     {
-        return Inertia::render('Contact', []);
+        return Inertia::render('Contact', [
+            'metas' => [
+                'title' => $this->translate['contact'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('contact', ['lang' => $this->lang]),
+            ]
+        ]);
     }
 
     public function profile()
@@ -333,20 +413,38 @@ class FrontController extends Controller
 
         return Inertia::render('Auth/Profile', [
             'list' => $list,
+            'metas' => [
+                'title' => $this->translate['myPage'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('profile', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
     public function settings()
     {
         return Inertia::render('Auth/Settings', [
-            'hasPassword' => auth()->user()->hasPassword
+            'hasPassword' => auth()->user()->hasPassword,
+            'metas' => [
+                'title' => $this->translate['settings'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('settings', ['lang' => $this->lang]),
+            ]
         ]);
     }
 
     public function terms()
     {
         return Inertia::render('Terms', [
-            'item' => Page::find(4)
+            'item' => Page::find(4),
+            'metas' => [
+                'title' => $this->translate['terms'],
+                'text' => $this->baseText[$this->lang],
+                'image' => "/",
+                'url' => route('terms', ['lang' => $this->lang]),
+            ]
         ]);
     }
 

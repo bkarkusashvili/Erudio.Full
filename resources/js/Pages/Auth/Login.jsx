@@ -3,7 +3,6 @@ import { MainLayout } from '@/Layouts';
 import { Link, useForm, usePage } from '@inertiajs/inertia-react';
 import { TextField } from '@mui/material';
 import { useRoute } from '@/Components/Route';
-import { Metas } from '@/Components/Metas';
 import { Checkmark } from '@/Components/Checkmark';
 import { SocialAuth } from '@/Components/SocialAuth';
 
@@ -34,7 +33,6 @@ export default function Login({ status, canResetPassword }) {
 
     return (
         <MainLayout>
-            <Metas title={translate.login} />
             <section className="login">
                 <h1 children={translate.please_login} />
 

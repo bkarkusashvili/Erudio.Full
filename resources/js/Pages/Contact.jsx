@@ -4,14 +4,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMailBulk, faPhone, faSearchLocation } from '@fortawesome/free-solid-svg-icons';
 import { Subscribe } from './Home/Components';
 import { usePage } from '@inertiajs/inertia-react';
-import { Metas } from '@/Components/Metas';
 
 const Contact = () => {
     const { options, lang, translate } = usePage().props;
 
     return (
         <MainLayout hasFooterMenu>
-            <Metas title={translate.contact} />
             <section className="contact-wrap">
                 <div className="container info">
                     <h3 className="tp-header headline small" children={translate.contact_us} />

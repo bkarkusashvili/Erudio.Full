@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
-import Button from '@/Components/Button';
-import { Head, useForm, usePage } from '@inertiajs/inertia-react';
+import { useForm, usePage } from '@inertiajs/inertia-react';
 import { MainLayout } from '@/Layouts/MainLayout';
-import { Metas } from '@/Components/Metas';
 import { TextField } from '@mui/material';
 
 export default function ResetPassword({ token, email }) {
@@ -32,7 +30,7 @@ export default function ResetPassword({ token, email }) {
 
     return (
         <MainLayout>
-            <Metas title={translate.login} />
+            {/* <Metas title={translate.login} /> */}
             <section className="tp-form">
 
                 <div className="mb-4 tp-text">

@@ -2,14 +2,12 @@ import React from 'react';
 import { MainLayout } from '@/Layouts';
 import { CourseCard } from '@/Components';
 import { usePage } from '@inertiajs/inertia-react';
-import { Metas } from '@/Components/Metas';
 
 const CategorySingle = ({ item, courses, lang }) => {
     const { base, translate } = usePage().props;
 
     return (
         <MainLayout>
-            <Metas title={item['title_' + lang]} text={item['text_' + lang]} image={`${base}/storage/${item.image}`} />
             <section className="category-single-wrap">
                 <div className="category-top">
                     <img src={`${base}/storage/${item.image}`} alt="" />
