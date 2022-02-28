@@ -386,7 +386,7 @@ class FrontController extends Controller
                 'title' => $item->{'name_' . $this->lang},
                 'text' => strip_tags($item->{'text_' . $this->lang}),
                 'image' => "/storage/" . $item->image,
-                'url' => route('course.single', ['lang' => $this->lang, 'id' => $id, 'type' => $type]),
+                'url' => route('course.single', ['lang' => $this->lang, 'id' => $item->type_id, 'type' => $type]),
             ]
         ]);
     }
