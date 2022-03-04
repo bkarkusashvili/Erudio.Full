@@ -335,6 +335,7 @@ const CourseSingle = ({ item, lang }) => {
                 open={formDialog} onClose={() => {
                     setForm(false);
                     setFormStatus(false);
+                    setFormDialog(false);
                 }}
                 PaperProps={{ className: 'formDialog' }}
             >

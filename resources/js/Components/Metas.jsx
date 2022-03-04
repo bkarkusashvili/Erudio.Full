@@ -5,6 +5,7 @@ const Metas = ({ metas } = { title: '', text: '', image: '', url: '/' }) => {
     const baseTitle = 'Erudio';
 
     metas.title = metas.title ? `${metas.title} - ${baseTitle}` : baseTitle;
+    metas.image = metas.image === '/' ? '/images/share_img.jpg' : metas.image;
 
     return (
         <Head>
