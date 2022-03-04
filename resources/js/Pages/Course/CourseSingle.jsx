@@ -7,7 +7,7 @@ import 'video.js/dist/video-js.css';
 import moment from 'moment';
 import { useRoute } from '@/Components/Route';
 import axios from 'axios';
-import { Button, CircularProgress, DialogContent, DialogContentText, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
+import { Button, CircularProgress, DialogContent, DialogContentText, FormControl, IconButton, InputLabel, MenuItem, Select, Stack, TextField } from '@mui/material';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -15,6 +15,7 @@ import { useRef } from 'react';
 import { Inertia } from '@inertiajs/inertia';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FacebookShareButton, LinkedinShareButton, FacebookIcon, LinkedinIcon } from "react-share";
+import { Close } from '@mui/icons-material';
 
 const invoiceForm = [
     { name: 'fullname', label: 'სახელი გვარი', type: 'text' },
@@ -339,6 +340,15 @@ const CourseSingle = ({ item, lang }) => {
                 }}
                 PaperProps={{ className: 'formDialog' }}
             >
+                <IconButton onClick={() => {
+                    setForm(false);
+                    setFormStatus(false);
+                    setFormDialog(false);
+                }} children={<Close />} style={{
+                    position: 'absolute',
+                    right: 6,
+                    top: 6
+                }} />
                 <DialogTitle style={{ textAlign: 'center' }}>კურსის ყიდვა</DialogTitle>
                 <DialogContent>
                     {!formStatus &&
