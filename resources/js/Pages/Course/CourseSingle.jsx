@@ -402,7 +402,7 @@ const CourseSingle = ({ item, lang }) => {
                         ) :
                         <Stack direction={'row'} spacing={2} justifyContent={'center'}>
                             {!item.hasCourse && item.can_buy_course && (
-                                <Button variant="outlined" onClick={() => pay('card')}>ფიზკური</Button>
+                                <Button variant="outlined" onClick={() => pay('card')}>ფიზიკური</Button>
                             )}
                             <Button variant="outlined" onClick={() => setForm(true)}>იურიდიული</Button>
                         </Stack>
