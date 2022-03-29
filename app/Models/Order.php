@@ -43,6 +43,6 @@ class Order extends Model
 
         $lang = Lang::locale();
 
-        return $course['name_' . $lang];
+        return isset($course['name_' . $lang]) ? $course['name_' . $lang] : '';
     }
 }
