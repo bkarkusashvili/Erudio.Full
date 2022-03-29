@@ -12,6 +12,8 @@ class Order extends Model
 
     public $guarded = [];
 
+    public $appends = ['courseName'];
+
     public static $status = [
         0 => 'Pending',
         1 => 'Paid',

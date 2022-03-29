@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\OrderRequest;
+use App\Models\Course;
 use App\Models\Order;
 
 class OrderController extends AdminController
@@ -15,7 +16,7 @@ class OrderController extends AdminController
     public $request = OrderRequest::class;
     public $columns = [
         ['field' => 'id', 'headerName' => 'ID'],
-        ['field' => 'name_ka', 'relation' => 'course', 'headerName' => 'სახელი'],
+        ['field' => 'courseName', 'headerName' => 'სახელი'],
         ['field' => 'payId', 'headerName' => 'შეკვეთის ნომერი'],
         ['field' => 'userName', 'headerName' => 'მომხმარებლები'],
         ['field' => 'amount', 'headerName' => 'თანხა'],
@@ -49,7 +50,7 @@ class OrderController extends AdminController
 
     public function index($query = null)
     {
-        $query = Order::query()->with('course');
+        $query = Order::query();
 
         return parent::index($query);
     }
