@@ -35,7 +35,7 @@ class Order extends Model
 
         if ($this->course_type == 'online') {
             $course = LiveCourse::find($this->course_id)->course;
-        } else if ($this->course_type == 'ofline') {
+        } else if ($this->course_type == 'offline') {
             $course = OfflineCourse::find($this->course_id)->course;
         } else {
             $course = Course::find($this->course_id);
